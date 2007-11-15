@@ -36,6 +36,7 @@ Caption "${CAPTION_TEXT}"
 LicenseText "${CAPTION_TEXT}"
 LicenseData "${LICENSE_FILE}"
 outfile ".\Camelbox_${VERSION}.exe"
+InstallDir "C:\Perl"
 
 Page License
 Page Components
@@ -52,8 +53,8 @@ SectionEnd
 
 SectionGroup /e "Environment Variables"
 	Section "Update system path"
-	StrCpy $R1 "$INSTDIR\${PERL_VERSION}\bin"
-	Push $R1
+	StrCpy $1 "$INSTDIR\${PERL_VERSION}\bin\"
+	Push $1
 	Call AddToPath
 	SectionEnd
 SectionGroupEnd
