@@ -437,3 +437,4 @@ Function Trim ; Added by Pelaca
 	Pop $R2
 	Exch $R1
 FunctionEnd
+; vim: filetype=nsis

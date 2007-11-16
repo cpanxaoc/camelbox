@@ -63,3 +63,4 @@ Section "Examples"
 SetOutPath $INSTDIR
 File /r "${CAMELBOX_SOURCE}\examples"
 SectionEnd
+; vim: filetype=nsis
