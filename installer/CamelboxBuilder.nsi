@@ -15,12 +15,12 @@ SetCompressor /SOLID lzma
 
 !include "AddToPath.nsh"
 
-!define VERSION  "2007.317.1-gutted-beta"
+!define VERSION  "2007.323.1-beta"
 
 !define PERL_VERSION "5.8.8"
 
 !define CAPTION_TEXT "Camelbox ${VERSION}"
-!define CAMELBOX_SOURCE ".\camelbox_src"
+!define CAMELBOX_SOURCE "C:\perl"
 #!define MAIN_ICON ".\Icons\<ADD YOUR ICON HERE OR COMMENT OUT>"
 !define LICENSE_FILE ".\License\License.txt"
 
@@ -43,12 +43,15 @@ Page Components
 page Directory
 Page InstFiles
 
+; TODO
+; - after the installer runs, prompt the user to run a demo?
 
 Section "Camelbox"
 SetOutPath $INSTDIR
+File /r "${CAMELBOX_SOURCE}\.cpan"
 File /r "${CAMELBOX_SOURCE}\${PERL_VERSION}"
 File /r "${CAMELBOX_SOURCE}\site"
-File "${CAMELBOX_SOURCE}\readme-camelbox.txt"
+File "..\builds\Oct2007\readme-camelbox.txt"
 SectionEnd
 
 SectionGroup /e "Environment Variables"
