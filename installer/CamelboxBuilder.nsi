@@ -17,14 +17,15 @@ SetCompressor /SOLID lzma
 
 !define VERSION  "2007.323.1-beta"
 
+; define some variables for use later on
 !define PERL_VERSION "5.8.8"
-
 !define CAPTION_TEXT "Camelbox ${VERSION}"
 !define CAMELBOX_SOURCE "C:\perl"
 #!define MAIN_ICON ".\Icons\<ADD YOUR ICON HERE OR COMMENT OUT>"
 !define LICENSE_FILE ".\License\License.txt"
 
-BrandingText "http://code.google.com/p/camelbox/"
+; set up the installer attributes
+BrandingText "Thanks to Milo for the installer!"
 ShowInstDetails SHOW
 SilentInstall NORMAL
 InstallColors /WINDOWS
@@ -42,6 +43,8 @@ Page License
 Page Components
 page Directory
 Page InstFiles
+;UninstPage Confirm
+;UninstPage InstFiles
 
 ; TODO
 ; - after the installer runs, prompt the user to run a demo?
