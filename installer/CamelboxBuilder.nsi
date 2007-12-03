@@ -4,10 +4,10 @@
 ;
 ; NAME: 	CamelboxBuilder.nsi
 ;
-; AUTHOR: 	
-; DATE: 	14/Nov/2007
+; AUTHOR: 	$LastChangedBy$
+; DATE: 	$LastChangedDate$
 ;
-; COMMENT:	
+; COMMENT:	$Id$
 ;
 ;==========================================================================
 
