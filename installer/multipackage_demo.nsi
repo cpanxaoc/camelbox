@@ -16,7 +16,7 @@
 !define RELEASE_VERSION  "2007.337.1"
 
 ; define some variables for use later on
-!define CAPTION_TEXT "multipackage_demo ${VERSION}"
+!define CAPTION_TEXT "multipackage_demo ${RELEASE_VERSION}"
 !define CAMELBOX_SOURCE "C:\temp\multipackage_demo"
 !define MAIN_ICON ".\Icons\camelbox.ico"
 !define LICENSE_FILE ".\License\License.txt"
