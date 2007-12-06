@@ -1,0 +1,21 @@
+[devilduck][bmanning log]$ snmpget -v2c -c public stinkpad UCD-SNMP-MIB::extOutput.1
+UCD-SNMP-MIB::extOutput.1 = STRING: 9,242,505,216
+
+[devilduck][bmanning log]$ snmpwalk -v2c -c public stinkpad .1.3.6.1.4.1.2021.8
+UCD-SNMP-MIB::extIndex.1 = INTEGER: 1
+UCD-SNMP-MIB::extNames.1 = STRING: diskusage
+UCD-SNMP-MIB::extCommand.1 = STRING: C:/apps/unxutils/bin/sh.exe C:/apps/net-snmp/bin/diskusage.sh
+UCD-SNMP-MIB::extResult.1 = INTEGER: 0
+UCD-SNMP-MIB::extOutput.1 = STRING: 9,242,491,904
+UCD-SNMP-MIB::extErrFix.1 = INTEGER: 0
+UCD-SNMP-MIB::extErrFixCmd.1 = STRING:
+
+snmpwalk -v2c -c public devilduck sysDescr.0
+snmpwalk -v2c -c public devilduck 
+
+[devilduck][bmanning snmp]$ snmpget -v2c -c DEVILDUCK localhost HOST-RESOURCES-MIB::hrSWRunName.1
+HOST-RESOURCES-MIB::hrSWRunName.1 = STRING: "init"
+
+[manzana][brian 510] snmptranslate -On SNMPv2-MIB::sysUpTime
+.1.3.6.1.2.1.1.3
+

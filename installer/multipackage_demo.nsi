@@ -44,7 +44,7 @@ Name "${CAPTION_TEXT}"
 LicenseText "${CAPTION_TEXT}"
 LicenseData "${LICENSE_FILE}"
 OutFile ".\multipackage_demo_${VERSION}.exe"
-InstallDir "C:\Perl"
+InstallDir "C:\temp\multipackage_demo_${VERSION}.exe"
 
 Page License
 Page Components
