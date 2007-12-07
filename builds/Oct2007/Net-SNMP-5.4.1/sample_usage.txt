@@ -16,6 +16,7 @@ snmpwalk -v2c -c public devilduck
 [devilduck][bmanning snmp]$ snmpget -v2c -c DEVILDUCK localhost HOST-RESOURCES-MIB::hrSWRunName.1
 HOST-RESOURCES-MIB::hrSWRunName.1 = STRING: "init"
 
-[manzana][brian 510] snmptranslate -On SNMPv2-MIB::sysUpTime
-.1.3.6.1.2.1.1.3
-
+[devilduck][bmanning perl_scripts]$ snmptranslate -On SNMPv2-MIB::sysUpTime.0
+.1.3.6.1.2.1.1.3.0
+[devilduck][bmanning perl_scripts]$ snmptranslate .1.3.6.1.2.1.1.3.0
+SNMPv2-MIB::sysUpTime.0
