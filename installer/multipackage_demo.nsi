@@ -16,16 +16,20 @@
 # Simple tutorials: http://nsis.sourceforge.net/Simple_tutorials
 #==========================================================================
 
+# external function scripts
 !include "AddToPath.nsh"
 
-#!define RELEASE_VERSION  "2008.065.1"
+# Section 5.4.1 of the NSIS manual describes !define
+# The strftime strings are here:
+# http://msdn2.microsoft.com/en-us/library/fe06s4ak.aspx
 !define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ"
 
-# define some variables for use later on
+# define some macros for use later on
 !define CAPTION_TEXT "multipackage_demo ${RELEASE_VERSION}"
 !define CAMELBOX_SOURCE "C:\temp\multipackage_demo"
 !define LICENSE_FILE ".\License\License.txt"
 !define MAIN_ICON ".\Icons\camelbox-logo.ico"
+
 # compiler flags
 SetCompressor /SOLID lzma 			# 4.8.2.4
 SetDatablockOptimize ON				# 4.8.2.6
