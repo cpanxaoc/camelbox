@@ -1,79 +1,106 @@
-;==========================================================================
-;
-; TYPE:		NSIS Installer Source File
-;
-; NAME: 	multipackage_demo.nsi
-;
-; AUTHOR: 	$LastChangedBy$
-; DATE: 	$LastChangedDate$
-;
-; COMMENT:	$Id$
-;
-;==========================================================================
+#==========================================================================
+#
+# TYPE:		NSIS Installer Source File
+#
+# NAME: 	multipackage_demo.nsi
+#
+# AUTHOR: 	$LastChangedBy$
+# DATE: 	$LastChangedDate$
+#
+# COMMENT:	$Id$
+#
+# The NSIS manual is located at http://nsis.sourceforge.net/Docs.  Parameters
+# used below should have the appropriate section number from the NSIS manual
+# listed somewhere nearby in the comments.
+#
+# Simple tutorials: http://nsis.sourceforge.net/Simple_tutorials
+#==========================================================================
 
 !include "AddToPath.nsh"
 
-!define RELEASE_VERSION  "2007.337.1"
+!define RELEASE_VERSION  "2008.065.1"
 
-; define some variables for use later on
+# define some variables for use later on
 !define CAPTION_TEXT "multipackage_demo ${RELEASE_VERSION}"
 !define CAMELBOX_SOURCE "C:\temp\multipackage_demo"
-!define MAIN_ICON ".\Icons\camelbox.ico"
-!define LICENSE_FILE ".\License\License.txt"
+!define MAIN_ICON "..\Icons\camelbox.ico"
+!define LICENSE_FILE "..\License\License.txt"
 
-; compiler flags
-SetCompressor /SOLID lzma
-SetDatablockOptimize ON
+# compiler flags
+SetCompressor /SOLID lzma 			# (4.8.2.4)
+SetDatablockOptimize ON				# (4.8.2.6)
 
-; set up the installer attributes
-AutoCloseWindow FALSE
-CRCCheck ON
-InstallColors /WINDOWS
-ShowInstDetails SHOW
-SilentInstall NORMAL
+# set up the installer attributes
+AutoCloseWindow FALSE				# (4.8.1.3)
+CRCCheck ON 						# (4.8.1.12)
+InstallColors /WINDOWS				# (4.8.1.20)
+ShowInstDetails SHOW				# (4.8.1.34)
+SilentInstall NORMAL				# (4.8.1.36)
 
-; now set up the installer dialog box, from top top bottom
+# now set up the installer dialog box, from top top bottom (4.8.1.18)
 Icon "${MAIN_ICON}"
-# caption for this dialog, shown in titlebar
+# caption for this dialog, shown in titlebar (4.8.1.7)
 Caption "${CAPTION_TEXT}"
-# shown at the bottom of this dialog
+# shown at the bottom of this dialog (4.8.1.6)
 BrandingText "Thanks to Milo for the installer!"
-# name of this project
+# name of this project (4.8.1.30)
 Name "${CAPTION_TEXT}"
 
-LicenseText "${CAPTION_TEXT}"
-LicenseData "${LICENSE_FILE}"
-OutFile ".\multipackage_demo_${VERSION}.exe"
-InstallDir "C:\temp\multipackage_demo_${VERSION}.exe"
+LicenseText "${CAPTION_TEXT}" 		# (4.8.1.28)
+LicenseData "${LICENSE_FILE}" 		# (4.8.1.26)
+OutFile "C:\temp\multipackage_demo_${VERSION}.exe"	# (4.8.1.31)
+#InstallDir "C:\temp\multipackage_demo_${VERSION}_out" 	# (4.8.1.21)
+InstallDir $DESKTOP
 
 Page License
 Page Components
-page Directory
+Page Directory
 Page InstFiles
-;UninstPage Confirm
-;UninstPage InstFiles
+#UninstPage Confirm
+#UninstPage InstFiles
 
-; TODO
-; - after the installer runs, prompt the user to run a demo?
+# TODO
+# - after the installer runs, prompt the user to run a demo?
 
-Section "Camelbox"
-SetOutPath $INSTDIR
-File /r "${CAMELBOX_SOURCE}\.cpan"
-File /r "${CAMELBOX_SOURCE}\${PERL_VERSION}"
-File /r "${CAMELBOX_SOURCE}\site"
-File "..\builds\Oct2007\readme-camelbox.txt"
+Section "Toplevel"
+	File ${CAMELBOX_SOURCE}\toplevel.txt
+	writeUninstaller $INSTDIR\uninstaller.exe
+SectionEnd
+
+Section "Dir1"
+	SetOutPath $INSTDIR\dir1
+	File ${CAMELBOX_SOURCE}\dir1\file1.txt
+SectionEnd
+
+Section "Dir2"
+	SetOutPath $INSTDIR\dir2
+	File ${CAMELBOX_SOURCE}\dir2\file2.txt
+SectionEnd
+
+Section "Dir3"
+	SetOutPath $INSTDIR\dir3
+	File ${CAMELBOX_SOURCE}\dir2\file3.txt
 SectionEnd
 
 SectionGroup /e "Environment Variables"
+	# FIXME check here first to verify $INSTDIR hasn't already been added to
+	# the path environment variable
 	Section "Update system path"
-	StrCpy $1 "$INSTDIR\${PERL_VERSION}\bin\"
+	StrCpy $1 "$INSTDIR\bin\"
 	Push $1
 	Call AddToPath
 	SectionEnd
 SectionGroupEnd
 
-Section "Examples"
-SetOutPath $INSTDIR
-File /r "${CAMELBOX_SOURCE}\examples"
-SectionEnd
-; vim: filetype=nsis
+Section "Uninstall"
+	# delete the uninstaller first
+	delete $INSTDIR\uninstaller.exe
+	# then delete the other files/directories
+	RMDir /r $INSTDIR\dir1
+	RMDir /r $INSTDIR\dir2
+	RMDir /r $INSTDIR\dir3
+	delete $INSTDIR\toplevel.txt
+	RMDir $INSTDIR
+SectionEnd # Uninstall
+
+# vim: filetype=nsis
