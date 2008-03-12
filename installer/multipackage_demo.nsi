@@ -58,6 +58,9 @@ InstallDir $DESKTOP\demo
 
 Page License
 Page Components
+# FIXME unless you can figure out how to change the Perl paths during the
+# install, you need to not give the user the option on where to install
+# Camelbox; if they put it someplace funky, it will not work
 Page Directory
 Page InstFiles
 #UninstPage Confirm
@@ -88,8 +91,11 @@ Section "Dir3"
 SectionEnd
 
 SectionGroup /e "Environment Variables"
-	# FIXME check here first to verify $INSTDIR hasn't already been added to
+	# FIXME 
+	# - check here first to verify $INSTDIR hasn't already been added to
 	# the path environment variable
+	# - the installer adds the Camelbox distro to the user's path; maybe make
+	# it a choice to add it systemwide instead?
 	Section "Add binaries to PATH variable"
 		#StrCpy $1 "$INSTDIR\bin\"
 		StrCpy $1 "$INSTDIR"
