@@ -1,0 +1,213 @@
+
+7-Zip (A) 4.57  Copyright (c) 1999-2007 Igor Pavlov  2007-12-06
+
+Listing archive: imagelibs-bin-2008.074.1.7z
+
+Method = LZMA BCJ
+Solid = +
+Blocks = 2
+
+   Date      Time    Attr         Size   Compressed  Name
+------------------- ----- ------------ ------------  ------------------------
+2004-12-03 01:14:00 .....         1476       189323  imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\ANNOUNCE
+2005-05-15 00:00:00 ....A         7514               imagelibs-bin\contrib\jpeg\6b\jpeg-6b-src\debian\changelog
+2006-03-23 15:43:00 ....A       124047               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\ChangeLog
+2004-12-03 01:14:00 .....        79441               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\CHANGES
+1999-07-27 23:50:00 ....A         1146               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\COPYRIGHT
+2005-05-15 00:00:00 ....A         4730               imagelibs-bin\contrib\jpeg\6b\jpeg-6b-src\debian\copyright
+1999-07-27 23:50:00 ....A         4600               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\acorn\install
+2004-12-03 01:14:00 .....         7366               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\INSTALL
+2004-12-04 01:02:00 .....         2224               imagelibs-bin\bin\libpng-config
+2004-12-04 01:02:00 .....         2224               imagelibs-bin\bin\libpng13-config
+2004-12-03 01:14:00 .....         1341               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\contrib\gregbook\LICENSE
+2004-12-03 01:14:00 .....         4105               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\LICENSE
+1998-03-27 23:35:00 ....A        20330               imagelibs-bin\contrib\jpeg\6b\jpeg-6b-src\README
+1998-03-27 23:35:00 ....A        20330               imagelibs-bin\contrib\jpeg\6b\jpeg-6b\README
+1999-07-27 23:50:00 ....A          160               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\dbs\README
+1999-07-27 23:50:00 ....A          313               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\dbs\xtiff\README
+1999-07-27 23:50:00 ....A          328               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\ras\README
+1999-07-27 23:50:00 ....A          704               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\mac-mpw\README
+1999-07-27 23:50:00 ....A          721               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\mac-cw\README
+1999-07-27 23:50:00 ....A         1342               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\mfs\README
+1999-07-27 23:50:00 ....A         3670               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\acorn\ReadMe
+1999-07-27 23:50:00 ....A         4619               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\pds\README
+1999-10-16 21:17:00 .....         2784               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\contrib\pngsuite\README
+2000-03-30 23:57:00 ....A         1543               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\stream\README
+2003-05-20 17:33:00 ....A          693               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\ojpeg\README
+2004-05-19 20:12:00 ....A           67               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\README
+2004-09-10 22:20:00 ....A         4854               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\tags\README
+2004-10-05 03:28:00 ....A         1179               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\iptcutil\README
+2004-10-30 15:30:00 ....A         2363               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\README
+2004-12-03 01:14:00 .....         5980               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\contrib\pngminus\README
+2004-12-03 01:14:00 .....         7699               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\contrib\gregbook\README
+2004-12-03 01:14:00 .....        13988               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\README
+2005-12-19 14:52:00 ....A         4563               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\addtiffo\README
+2000-12-23 21:27:00 .....         1182               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\TODO
+2002-10-10 07:28:00 ....A          433               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\TODO
+2006-03-23 15:46:00 ....A            6               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\VERSION
+2006-03-28 11:12:00 ....A         1812               imagelibs-bin\man\cat1\bmp2tiff.1.txt
+2005-05-15 13:45:00 ....A        12455               imagelibs-bin\man\cat1\cjpeg.1.txt
+2005-05-15 13:45:00 ....A         9386               imagelibs-bin\man\cat1\djpeg.1.txt
+2005-05-15 13:45:00 ....A          513               imagelibs-bin\man\cat1\exifautotran.1.txt
+2006-03-28 11:12:00 ....A         4051               imagelibs-bin\man\cat1\fax2png.1.txt
+2006-03-28 11:12:00 ....A         4036               imagelibs-bin\man\cat1\fax2ps.1.txt
+2006-03-28 11:12:00 ....A         8044               imagelibs-bin\man\cat1\fax2tiff.1.txt
+2006-03-28 11:12:00 ....A         1608               imagelibs-bin\man\cat1\gif2tiff.1.txt
+2005-05-15 13:45:00 ....A         2353               imagelibs-bin\man\cat1\jpegexiforient.1.txt
+2005-05-15 13:45:00 ....A        13039               imagelibs-bin\man\cat1\jpegtran.1.txt
+2004-12-04 01:05:00 ....A       190616               imagelibs-bin\man\cat3\libpng.3.txt
+2004-12-04 01:05:00 ....A        15851               imagelibs-bin\man\cat3\libpngpf.3.txt
+2006-03-28 11:12:00 ....A        22372               imagelibs-bin\man\cat3\libtiff.3tiff.txt
+2006-03-28 11:12:00 ....A         2563               imagelibs-bin\man\cat1\pal2rgb.1.txt
+2004-12-04 01:05:00 ....A         2935               imagelibs-bin\man\cat5\png.5.txt
+2006-03-28 11:12:00 ....A         2005               imagelibs-bin\man\cat1\ppm2tiff.1.txt
+2006-03-28 11:12:00 ....A         2032               imagelibs-bin\man\cat1\ras2tiff.1.txt
+2006-03-28 11:12:00 ....A         4972               imagelibs-bin\man\cat1\raw2tiff.1.txt
+2005-05-15 13:45:00 ....A         1892               imagelibs-bin\man\cat1\rdjpgcom.1.txt
+2006-03-28 11:12:00 ....A         2195               imagelibs-bin\man\cat1\rgb2ycbcr.1.txt
+2006-03-28 11:12:00 ....A         1857               imagelibs-bin\man\cat1\sgi2tiff.1.txt
+2006-03-28 11:12:00 ....A         1959               imagelibs-bin\man\cat1\thumbnail.1.txt
+2006-03-28 11:12:00 ....A         1859               imagelibs-bin\man\cat1\tiff2bw.1.txt
+2006-03-28 11:12:00 ....A         6684               imagelibs-bin\man\cat1\tiff2pdf.1.txt
+2006-03-28 11:12:00 ....A         6584               imagelibs-bin\man\cat1\tiff2ps.1.txt
+2006-03-28 11:12:00 ....A         2672               imagelibs-bin\man\cat1\tiff2rgba.1.txt
+2006-03-28 11:12:00 ....A         2281               imagelibs-bin\man\cat3\TIFFbuffer.3tiff.txt
+2006-03-28 11:12:00 ....A          867               imagelibs-bin\man\cat3\TIFFClose.3tiff.txt
+2006-03-28 11:12:00 ....A         1807               imagelibs-bin\man\cat1\tiffcmp.1.txt
+2006-03-28 11:12:00 ....A         2063               imagelibs-bin\man\cat3\TIFFcodec.3tiff.txt
+2006-03-28 11:12:00 ....A         8676               imagelibs-bin\man\cat3\TIFFcolor.3tiff.txt
+2006-03-28 11:12:00 ....A         8320               imagelibs-bin\man\cat1\tiffcp.1.txt
+2006-03-28 11:12:00 ....A          975               imagelibs-bin\man\cat3\TIFFDataWidth.3tiff.txt
+2006-03-28 11:12:00 ....A         3251               imagelibs-bin\man\cat1\tiffdither.1.txt
+2006-03-28 11:12:00 ....A         1925               imagelibs-bin\man\cat1\tiffdump.1.txt
+2006-03-28 11:12:00 ....A         1524               imagelibs-bin\man\cat3\TIFFError.3tiff.txt
+2006-03-28 11:13:00 ....A         1445               imagelibs-bin\man\cat3\TIFFFlush.3tiff.txt
+2006-03-28 11:13:00 ....A         8959               imagelibs-bin\man\cat3\TIFFGetField.3tiff.txt
+2006-03-28 11:12:00 ....A         6513               imagelibs-bin\man\cat1\tiffgt.1.txt
+2006-03-28 11:12:00 ....A         1777               imagelibs-bin\man\cat1\tiffinfo.1.txt
+2006-03-28 11:12:00 ....A         2642               imagelibs-bin\man\cat1\tiffmedian.1.txt
+2006-03-28 11:13:00 ....A         1818               imagelibs-bin\man\cat3\TIFFmemory.3tiff.txt
+2006-03-28 11:13:00 ....A         9852               imagelibs-bin\man\cat3\TIFFOpen.3tiff.txt
+2006-03-28 11:13:00 ....A         1404               imagelibs-bin\man\cat3\TIFFPrintDirectory.3tiff.txt
+2006-03-28 11:13:00 ....A         3411               imagelibs-bin\man\cat3\TIFFquery.3tiff.txt
+2006-03-28 11:13:00 ....A         5676               imagelibs-bin\man\cat3\TIFFReadDirectory.3tiff.txt
+2006-03-28 11:13:00 ....A         2021               imagelibs-bin\man\cat3\TIFFReadEncodedStrip.3tiff.txt
+2006-03-28 11:13:00 ....A         1970               imagelibs-bin\man\cat3\TIFFReadEncodedTile.3tiff.txt
+2006-03-28 11:13:00 ....A         1380               imagelibs-bin\man\cat3\TIFFReadRawStrip.3tiff.txt
+2006-03-28 11:13:00 ....A         1475               imagelibs-bin\man\cat3\TIFFReadRawTile.3tiff.txt
+2006-03-28 11:13:00 ....A         6090               imagelibs-bin\man\cat3\TIFFReadRGBAImage.3tiff.txt
+2006-03-28 11:13:00 ....A         5069               imagelibs-bin\man\cat3\TIFFReadRGBAStrip.3tiff.txt
+2006-03-28 11:13:00 ....A         5112               imagelibs-bin\man\cat3\TIFFReadRGBATile.3tiff.txt
+2006-03-28 11:13:00 ....A         2940               imagelibs-bin\man\cat3\TIFFReadScanline.3tiff.txt
+2006-03-28 11:13:00 ....A         2140               imagelibs-bin\man\cat3\TIFFReadTile.3tiff.txt
+2006-03-28 11:13:00 ....A         9116               imagelibs-bin\man\cat3\TIFFRGBAImage.3tiff.txt
+2006-03-28 11:12:00 ....A         1379               imagelibs-bin\man\cat1\tiffset.1.txt
+2006-03-28 11:13:00 ....A         1811               imagelibs-bin\man\cat3\TIFFSetDirectory.3tiff.txt
+2006-03-28 11:13:00 ....A         7976               imagelibs-bin\man\cat3\TIFFSetField.3tiff.txt
+2006-03-28 11:13:00 ....A         1112               imagelibs-bin\man\cat3\TIFFsize.3tiff.txt
+2006-03-28 11:12:00 ....A         1017               imagelibs-bin\man\cat1\tiffsplit.1.txt
+2006-03-28 11:13:00 ....A         2651               imagelibs-bin\man\cat3\TIFFstrip.3tiff.txt
+2006-03-28 11:12:00 ....A         3511               imagelibs-bin\man\cat1\tiffsv.1.txt
+2006-03-28 11:13:00 ....A         1855               imagelibs-bin\man\cat3\TIFFswab.3tiff.txt
+2006-03-28 11:13:00 ....A         3189               imagelibs-bin\man\cat3\TIFFtile.3tiff.txt
+2006-03-28 11:13:00 ....A         1632               imagelibs-bin\man\cat3\TIFFWarning.3tiff.txt
+2006-03-28 11:13:00 ....A         4662               imagelibs-bin\man\cat3\TIFFWriteDirectory.3tiff.txt
+2006-03-28 11:13:00 ....A         2646               imagelibs-bin\man\cat3\TIFFWriteEncodedStrip.3tiff.txt
+2006-03-28 11:13:00 ....A         2455               imagelibs-bin\man\cat3\TIFFWriteEncodedTile.3tiff.txt
+2006-03-28 11:13:00 ....A         2214               imagelibs-bin\man\cat3\TIFFWriteRawStrip.3tiff.txt
+2006-03-28 11:13:00 ....A         1944               imagelibs-bin\man\cat3\TIFFWriteRawTile.3tiff.txt
+2006-03-28 11:13:00 ....A         5003               imagelibs-bin\man\cat3\TIFFWriteScanline.3tiff.txt
+2006-03-28 11:13:00 ....A         1681               imagelibs-bin\man\cat3\TIFFWriteTile.3tiff.txt
+2005-05-15 13:45:00 ....A         3070               imagelibs-bin\man\cat1\wrjpgcom.1.txt
+1998-03-27 23:35:00 ....A         9501               imagelibs-bin\contrib\jpeg\6b\jpeg-6b-src\change.log
+1998-03-27 23:35:00 ....A         9501               imagelibs-bin\contrib\jpeg\6b\jpeg-6b\change.log
+2005-05-14 18:25:00 ....A          574               imagelibs-bin\contrib\jpeg\6b\jpeg-6b\check.log
+2006-03-23 22:57:00 ....A         6717               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2\check.log
+2004-12-04 02:25:00 .....          151               imagelibs-bin\contrib\libpng\1.2.8\depends-GnuWin32.lst
+2005-05-15 14:08:00 ....A           73               imagelibs-bin\contrib\jpeg\6b\depends-GnuWin32.lst
+2004-12-04 02:21:00 .....          987               imagelibs-bin\manifest\libpng-1.2.8-bin.mft
+2006-03-28 11:44:00 ....A         4782               imagelibs-bin\manifest\tiff-3.8.2-1-bin.mft
+2004-12-04 01:02:00 .....          287               imagelibs-bin\lib\pkgconfig\libpng.pc
+2004-12-04 01:02:00 .....          287               imagelibs-bin\lib\pkgconfig\libpng13.pc
+2005-05-15 10:48:00 ....A         2668               imagelibs-bin\contrib\jpeg\6b\jpeg-6b-4-GnuWin32.README
+2004-12-04 02:26:00 .....         2705               imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-GnuWin32.README
+2006-03-28 11:42:00 ....A         3257               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-1-GnuWin32.README
+2005-05-15 00:00:00 ....A          761               imagelibs-bin\contrib\jpeg\6b\jpeg-6b-src\debian\README.sources
+2002-06-12 05:30:00 ....A         1567               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\win_dib\README.tiff2dib
+2002-06-12 05:30:00 ....A         1237               imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\win_dib\README.Tiffile
+2005-05-14 18:26:00 ....A           58               imagelibs-bin\manifest\jpeg-6b-4-bin.ver
+2004-12-04 01:13:00 .....           61               imagelibs-bin\manifest\libpng-1.2.8-bin.ver
+2006-03-28 11:11:00 ....A           22               imagelibs-bin\manifest\tiff-3.8.2-1-bin.ver
+2006-03-28 10:50:00 ....A        19968       340908  imagelibs-bin\bin\pal2rgb.exe
+2006-03-28 10:50:00 ....A        18944               imagelibs-bin\bin\ppm2tiff.exe
+2006-03-28 10:50:00 ....A        18432               imagelibs-bin\bin\ras2tiff.exe
+2006-03-28 10:51:00 ....A        59392               imagelibs-bin\bin\raw2tiff.exe
+2006-03-28 10:51:00 ....A        19456               imagelibs-bin\bin\rgb2ycbcr.exe
+2006-03-28 10:52:00 ....A        18944               imagelibs-bin\bin\sgi2tiff.exe
+2006-03-28 10:51:00 ....A        22016               imagelibs-bin\bin\thumbnail.exe
+2006-03-28 10:53:00 ....A        10752               imagelibs-bin\bin\tiff-bi.exe
+2006-03-28 10:53:00 ....A        11776               imagelibs-bin\bin\tiff-grayscale.exe
+2006-03-28 10:53:00 ....A        12288               imagelibs-bin\bin\tiff-palette.exe
+2006-03-28 10:53:00 ....A        15872               imagelibs-bin\bin\tiff-rgb.exe
+2006-03-28 10:51:00 ....A        20992               imagelibs-bin\bin\tiff2bw.exe
+2006-03-28 10:51:00 ....A       111616               imagelibs-bin\bin\tiff2pdf.exe
+2006-03-28 10:51:00 ....A        47104               imagelibs-bin\bin\tiff2ps.exe
+2006-03-28 10:51:00 ....A        19456               imagelibs-bin\bin\tiff2rgba.exe
+2006-03-28 10:51:00 ....A        24064               imagelibs-bin\bin\tiffcmp.exe
+2006-03-28 10:51:00 ....A        36352               imagelibs-bin\bin\tiffcp.exe
+2006-03-28 10:52:00 ....A        18944               imagelibs-bin\bin\tiffdither.exe
+2006-03-28 10:52:00 ....A        24064               imagelibs-bin\bin\tiffdump.exe
+2006-03-28 10:52:00 ....A        20992               imagelibs-bin\bin\tiffgt.exe
+2006-03-28 10:52:00 ....A        21504               imagelibs-bin\bin\tiffinfo.exe
+2006-03-28 10:52:00 ....A        24576               imagelibs-bin\bin\tiffmedian.exe
+2006-03-28 10:52:00 ....A        13312               imagelibs-bin\bin\tiffset.exe
+2006-03-28 10:52:00 ....A        15360               imagelibs-bin\bin\tiffsplit.exe
+2006-03-28 10:52:00 ....A        13312               imagelibs-bin\bin\ycbcr.exe
+2005-05-15 14:08:00 ....A       127488               imagelibs-bin\bin\jpeg62.dll
+2004-12-04 01:09:00 ....A       203264               imagelibs-bin\bin\libpng13.dll
+2006-03-28 10:50:00 ....A       376832               imagelibs-bin\bin\libtiff3.dll
+2005-05-15 14:11:00 ....A            0            0  imagelibs-bin\manifest\jpeg-6b-4-bin.mft
+2008-03-14 13:37:29 D....            0            0  imagelibs-bin\manifest
+2008-03-14 13:36:28 D....            0            0  imagelibs-bin\man\cat5
+2008-03-14 13:37:36 D....            0            0  imagelibs-bin\man\cat3
+2008-03-14 13:37:35 D....            0            0  imagelibs-bin\man\cat1
+2008-03-14 13:36:28 D....            0            0  imagelibs-bin\man
+2008-03-14 13:36:28 D....            0            0  imagelibs-bin\lib\pkgconfig
+2008-03-14 13:36:28 D....            0            0  imagelibs-bin\lib
+2008-03-14 13:33:13 D....            0            0  imagelibs-bin\include
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\win_dib
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\tags
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\stream
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\ras
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\pds
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\ojpeg
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\mfs
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\mac-mpw
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\mac-cw
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\iptcutil
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\dbs\xtiff
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\dbs
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\addtiffo
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib\acorn
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src\contrib
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2-src
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2\tiff-3.8.2
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff\3.8.2
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib\tiff
+2008-03-14 13:36:27 D....            0            0  imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\contrib\pngsuite
+2008-03-14 13:36:27 D....            0            0  imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\contrib\pngminus
+2008-03-14 13:36:27 D....            0            0  imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\contrib\gregbook
+2008-03-14 13:36:27 D....            0            0  imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src\contrib
+2008-03-14 13:36:28 D....            0            0  imagelibs-bin\contrib\libpng\1.2.8\libpng-1.2.8-src
+2008-03-14 13:36:27 D....            0            0  imagelibs-bin\contrib\libpng\1.2.8
+2008-03-14 13:36:27 D....            0            0  imagelibs-bin\contrib\libpng
+2008-03-14 13:33:13 D....            0            0  imagelibs-bin\contrib\jpeg\6b\jpeg-6b-src\debian
+2008-03-14 13:33:13 D....            0            0  imagelibs-bin\contrib\jpeg\6b\jpeg-6b-src
+2008-03-14 13:33:13 D....            0            0  imagelibs-bin\contrib\jpeg\6b\jpeg-6b
+2008-03-14 13:33:13 D....            0            0  imagelibs-bin\contrib\jpeg\6b
+2008-03-14 13:33:13 D....            0            0  imagelibs-bin\contrib\jpeg
+2008-03-14 13:37:33 D....            0            0  imagelibs-bin\contrib
+2008-03-14 13:42:21 D....            0            0  imagelibs-bin\bin
+2008-03-14 13:33:13 D....            0            0  imagelibs-bin
+------------------- ----- ------------ ------------  ------------------------
+                               2220985       530231  158 files, 42 folders

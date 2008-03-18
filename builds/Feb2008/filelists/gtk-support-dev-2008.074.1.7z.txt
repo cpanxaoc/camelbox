@@ -1,0 +1,39 @@
+
+7-Zip (A) 4.57  Copyright (c) 1999-2007 Igor Pavlov  2007-12-06
+
+Listing archive: gtk-support-dev-2008.074.1.7z
+
+Method = LZMA BCJ
+Solid = +
+Blocks = 2
+
+   Date      Time    Attr         Size   Compressed  Name
+------------------- ----- ------------ ------------  ------------------------
+2008-01-25 00:54:00 ....A        14312        35632  gtk-support-dev\include\libintl.h
+2005-05-28 08:40:00 ....A         9876               gtk-support-dev\include\zconf.h
+2005-07-18 04:26:00 ....A        67545               gtk-support-dev\include\zlib.h
+2008-01-25 01:12:00 ....A          525               gtk-support-dev\lib\intl.def
+2003-11-08 21:47:00 ....A          981               gtk-support-dev\lib\zlib.def
+2008-01-25 00:42:00 ....A         6968               gtk-support-dev\make\gettext-0.17-1.sh
+2004-10-11 04:15:00 ....A        18325               gtk-support-dev\share\zlib-docs\DLL_FAQ.txt
+2005-07-19 06:00:00 ....A         1528               gtk-support-dev\share\zlib-docs\README.txt
+2004-10-05 02:00:00 ....A         3114               gtk-support-dev\share\zlib-docs\USAGE.txt
+2008-01-25 01:12:00 ....A         7438               gtk-support-dev\lib\intl.lib
+2005-07-18 17:25:00 ....A        10590               gtk-support-dev\lib\zdll.lib
+2008-01-25 00:54:00 ....A        18002               gtk-support-dev\lib\libintl.dll.a
+2005-07-18 17:25:00 ....A         6109               gtk-support-dev\lib\zdll.exp
+2008-01-25 01:12:00 ....A          125               gtk-support-dev\manifest\gettext-runtime-dev-0.17-1.mft
+2005-07-18 17:37:00 ....A         8704         8109  gtk-support-dev\test\example_d.exe
+2005-07-18 17:37:00 ....A         4608               gtk-support-dev\test\minigzip_d.exe
+2005-07-18 17:37:00 ....A         5120               gtk-support-dev\test\testzlib_d.exe
+2005-07-18 17:37:00 ....A         7168               gtk-support-dev\test\untgz_d.exe
+2008-03-14 13:24:51 D....            0            0  gtk-support-dev\test
+2008-03-14 13:25:17 D....            0            0  gtk-support-dev\share\zlib-docs
+2008-03-14 13:25:17 D....            0            0  gtk-support-dev\share
+2008-03-14 13:24:28 D....            0            0  gtk-support-dev\manifest
+2008-03-14 13:24:29 D....            0            0  gtk-support-dev\make
+2008-03-14 13:24:51 D....            0            0  gtk-support-dev\lib
+2008-03-14 13:24:50 D....            0            0  gtk-support-dev\include
+2008-03-14 13:25:06 D....            0            0  gtk-support-dev
+------------------- ----- ------------ ------------  ------------------------
+                                191038        43741  18 files, 8 folders

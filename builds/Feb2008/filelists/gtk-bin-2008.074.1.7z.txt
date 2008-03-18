@@ -1,0 +1,835 @@
+
+7-Zip (A) 4.57  Copyright (c) 1999-2007 Igor Pavlov  2007-12-06
+
+Listing archive: gtk-bin-2008.074.1.7z
+
+Method = LZMA BCJ
+Solid = +
+Blocks = 2
+
+   Date      Time    Attr         Size   Compressed  Name
+------------------- ----- ------------ ------------  ------------------------
+2007-04-27 20:02:00 ....A         1539      2310600  gtk-bin\share\doc\cairo-1.4.14\COPYING
+2007-10-15 23:14:00 ....A        25292               gtk-bin\share\doc\pango-1.18.4\COPYING
+2008-02-07 07:25:00 ....A        25292               gtk-bin\share\doc\glib-2.14.6\COPYING
+2008-02-12 19:57:00 ....A        25292               gtk-bin\share\doc\gtk+-2.12.8\COPYING
+2008-02-13 12:38:00 ....A           69               gtk-bin\share\themes\Raleigh\gtk-2.0\gtkrc
+2008-02-13 12:38:00 ....A           82               gtk-bin\share\themes\Default\gtk-2.0-key\gtkrc
+2008-02-13 12:38:00 ....A         3818               gtk-bin\share\themes\Emacs\gtk-2.0-key\gtkrc
+2008-02-13 12:40:00 ....A         1605               gtk-bin\share\themes\MS-Windows\gtk-2.0\gtkrc
+2006-02-16 01:35:00 ....A        26528               gtk-bin\share\doc\cairo-1.4.14\COPYING-LGPL-2.1
+2006-02-16 01:35:00 ....A        25755               gtk-bin\share\doc\cairo-1.4.14\COPYING-MPL-1.1
+2008-01-11 00:05:00 ....A          510               gtk-bin\etc\pango\pango.aliases
+2008-02-13 12:43:00 ....A         2168               gtk-bin\etc\gtk-2.0\gtk.immodules
+2008-02-13 12:43:00 ....A         3264               gtk-bin\etc\gtk-2.0\gdk-pixbuf.loaders
+2007-09-23 16:13:00 ....A         3091               gtk-bin\manifest\atk-1.20.0.mft
+2008-01-15 13:15:00 ....A          155               gtk-bin\manifest\cairo-1.4.14.mft
+2008-02-14 00:38:00 ....A         3406               gtk-bin\manifest\glib-2.14.6.mft
+2008-02-13 12:43:00 ....A         9944               gtk-bin\manifest\gtk+-2.12.8.mft
+2008-01-11 00:05:00 ....A          237               gtk-bin\manifest\pango-1.18.4.mft
+2007-09-23 16:12:00 ....A         1260               gtk-bin\lib\locale\ga\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         1375               gtk-bin\lib\locale\am\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         1482               gtk-bin\lib\locale\eo\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         1499               gtk-bin\lib\locale\is\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7076               gtk-bin\lib\locale\af\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7586               gtk-bin\lib\locale\bs\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7683               gtk-bin\lib\locale\hr\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7686               gtk-bin\lib\locale\id\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7759               gtk-bin\lib\locale\en_CA\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7761               gtk-bin\lib\locale\en_GB\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7799               gtk-bin\lib\locale\he\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7856               gtk-bin\lib\locale\et\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7945               gtk-bin\lib\locale\da\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         7986               gtk-bin\lib\locale\cy\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8068               gtk-bin\lib\locale\fi\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8153               gtk-bin\lib\locale\az\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8298               gtk-bin\lib\locale\cs\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8324               gtk-bin\lib\locale\eu\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8325               gtk-bin\lib\locale\hu\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8346               gtk-bin\lib\locale\gl\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8352               gtk-bin\lib\locale\de\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8438               gtk-bin\lib\locale\ca\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8464               gtk-bin\lib\locale\es\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8511               gtk-bin\lib\locale\fr\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8525               gtk-bin\lib\locale\be@latin\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8540               gtk-bin\lib\locale\it\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         8750               gtk-bin\lib\locale\fa\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A         9162               gtk-bin\lib\locale\ar\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        10623               gtk-bin\lib\locale\be\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        10766               gtk-bin\lib\locale\el\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        10780               gtk-bin\lib\locale\bg\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        11423               gtk-bin\lib\locale\as\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        11810               gtk-bin\lib\locale\hi\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        11878               gtk-bin\lib\locale\bn\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        12384               gtk-bin\lib\locale\bn_IN\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        12545               gtk-bin\lib\locale\gu\LC_MESSAGES\atk10.mo
+2007-09-23 16:12:00 ....A        15564               gtk-bin\lib\locale\dz\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A          589               gtk-bin\lib\locale\rw\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         1396               gtk-bin\lib\locale\kn\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         1449               gtk-bin\lib\locale\li\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         1701               gtk-bin\lib\locale\yi\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         1851               gtk-bin\lib\locale\oc\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         1883               gtk-bin\lib\locale\mr\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         2035               gtk-bin\lib\locale\si\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         3575               gtk-bin\lib\locale\ms\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         3790               gtk-bin\lib\locale\wa\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7452               gtk-bin\lib\locale\zh_CN\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7502               gtk-bin\lib\locale\tk\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7610               gtk-bin\lib\locale\zh_HK\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7610               gtk-bin\lib\locale\zh_TW\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7919               gtk-bin\lib\locale\sv\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7930               gtk-bin\lib\locale\tt\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7934               gtk-bin\lib\locale\ku\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7938               gtk-bin\lib\locale\nb\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7973               gtk-bin\lib\locale\nl\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         7997               gtk-bin\lib\locale\nn\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8030               gtk-bin\lib\locale\sr@Latn\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8055               gtk-bin\lib\locale\sk\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8088               gtk-bin\lib\locale\ro\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8088               gtk-bin\lib\locale\sl\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8155               gtk-bin\lib\locale\ko\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8200               gtk-bin\lib\locale\tr\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8207               gtk-bin\lib\locale\lv\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8342               gtk-bin\lib\locale\pt_BR\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8365               gtk-bin\lib\locale\xh\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8392               gtk-bin\lib\locale\lt\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8404               gtk-bin\lib\locale\pl\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8447               gtk-bin\lib\locale\pt\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8600               gtk-bin\lib\locale\ug\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8639               gtk-bin\lib\locale\sq\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         8682               gtk-bin\lib\locale\vi\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         9070               gtk-bin\lib\locale\ja\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         9522               gtk-bin\lib\locale\mn\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         9602               gtk-bin\lib\locale\sr@ije\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A         9985               gtk-bin\lib\locale\sr\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        10547               gtk-bin\lib\locale\uk\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        10680               gtk-bin\lib\locale\mk\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        10858               gtk-bin\lib\locale\pa\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        10879               gtk-bin\lib\locale\ru\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        11345               gtk-bin\lib\locale\or\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        11444               gtk-bin\lib\locale\te\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        11919               gtk-bin\lib\locale\ne\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        12143               gtk-bin\lib\locale\th\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        12522               gtk-bin\lib\locale\ta\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        12610               gtk-bin\lib\locale\ka\LC_MESSAGES\atk10.mo
+2007-09-23 16:13:00 ....A        13655               gtk-bin\lib\locale\ml\LC_MESSAGES\atk10.mo
+2008-02-14 00:38:00 ....A          443               gtk-bin\share\locale\rw\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A          653               gtk-bin\share\locale\am\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A         1188               gtk-bin\share\locale\ku\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A         1273               gtk-bin\share\locale\oc\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A         3000               gtk-bin\share\locale\hy\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A         4548               gtk-bin\share\locale\ga\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A         5192               gtk-bin\share\locale\wa\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A         5337               gtk-bin\share\locale\tt\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        10953               gtk-bin\share\locale\eo\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        11157               gtk-bin\share\locale\is\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        11340               gtk-bin\share\locale\ms\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        11442               gtk-bin\share\locale\lv\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        11573               gtk-bin\share\locale\hr\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        11705               gtk-bin\share\locale\bs\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        11915               gtk-bin\share\locale\as\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        12102               gtk-bin\share\locale\az\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        15154               gtk-bin\share\locale\sr@ije\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        15389               gtk-bin\share\locale\xh\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        15410               gtk-bin\share\locale\yi\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        16365               gtk-bin\share\locale\sk\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        16788               gtk-bin\share\locale\id\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        17225               gtk-bin\share\locale\tl\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        17728               gtk-bin\share\locale\zh_TW\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        17731               gtk-bin\share\locale\zh_HK\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        17837               gtk-bin\share\locale\cy\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        18381               gtk-bin\share\locale\nn\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        18735               gtk-bin\share\locale\mn\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        19026               gtk-bin\share\locale\mg\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        19840               gtk-bin\share\locale\zh_CN\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        20597               gtk-bin\share\locale\en_GB\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        20641               gtk-bin\share\locale\en_CA\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        20678               gtk-bin\share\locale\he\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        20918               gtk-bin\share\locale\et\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        21323               gtk-bin\share\locale\nb\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        21440               gtk-bin\share\locale\be\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        21512               gtk-bin\share\locale\tr\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        21514               gtk-bin\share\locale\sl\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        21530               gtk-bin\share\locale\da\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        21812               gtk-bin\share\locale\gl\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        21822               gtk-bin\share\locale\sr@Latn\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        21917               gtk-bin\share\locale\fi\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22042               gtk-bin\share\locale\eu\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22113               gtk-bin\share\locale\lt\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22334               gtk-bin\share\locale\nl\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22464               gtk-bin\share\locale\sq\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22491               gtk-bin\share\locale\el\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22515               gtk-bin\share\locale\te\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22629               gtk-bin\share\locale\be@latin\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22640               gtk-bin\share\locale\it\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22809               gtk-bin\share\locale\pl\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        22868               gtk-bin\share\locale\ro\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        23004               gtk-bin\share\locale\de\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        23092               gtk-bin\share\locale\fa\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        23304               gtk-bin\share\locale\ca\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        23320               gtk-bin\share\locale\hu\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        23684               gtk-bin\share\locale\ko\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        24548               gtk-bin\share\locale\vi\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        25486               gtk-bin\share\locale\ne\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        25799               gtk-bin\share\locale\sv\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        25861               gtk-bin\share\locale\cs\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        26341               gtk-bin\share\locale\pt_BR\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        26527               gtk-bin\share\locale\pt\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        27298               gtk-bin\share\locale\bn\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        27412               gtk-bin\share\locale\es\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        27901               gtk-bin\share\locale\sr\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        27981               gtk-bin\share\locale\hi\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        28529               gtk-bin\share\locale\uk\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        28793               gtk-bin\share\locale\fr\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        29091               gtk-bin\share\locale\mk\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        29276               gtk-bin\share\locale\ar\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        29511               gtk-bin\share\locale\ja\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        29635               gtk-bin\share\locale\bg\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        29647               gtk-bin\share\locale\ru\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        30936               gtk-bin\share\locale\pa\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        31859               gtk-bin\share\locale\gu\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        33118               gtk-bin\share\locale\th\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        33801               gtk-bin\share\locale\bn_IN\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        33895               gtk-bin\share\locale\or\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        34153               gtk-bin\share\locale\ta\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        34495               gtk-bin\share\locale\dz\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        34558               gtk-bin\share\locale\kn\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        34589               gtk-bin\share\locale\ka\LC_MESSAGES\glib20.mo
+2008-02-14 00:38:00 ....A        38495               gtk-bin\share\locale\ml\LC_MESSAGES\glib20.mo
+2008-02-13 12:33:00 ....A          396               gtk-bin\share\locale\ia\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          424               gtk-bin\share\locale\io\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          450               gtk-bin\share\locale\mi\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          452               gtk-bin\share\locale\eo\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          453               gtk-bin\share\locale\uz@cyrillic\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          463               gtk-bin\share\locale\az_IR\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          512               gtk-bin\share\locale\uz\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          590               gtk-bin\share\locale\ur\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          615               gtk-bin\share\locale\tk\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         1389               gtk-bin\share\locale\hy\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         1589               gtk-bin\share\locale\th\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         2138               gtk-bin\share\locale\ang\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         3475               gtk-bin\share\locale\ku\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         4104               gtk-bin\share\locale\rw\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         4144               gtk-bin\share\locale\ga\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         5326               gtk-bin\share\locale\am\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         5680               gtk-bin\share\locale\oc\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         6165               gtk-bin\share\locale\br\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A         6321               gtk-bin\share\locale\is\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        12523               gtk-bin\share\locale\tt\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        22310               gtk-bin\share\locale\si\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        23471               gtk-bin\share\locale\fa\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        35373               gtk-bin\share\locale\wa\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        43624               gtk-bin\share\locale\kn\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        55220               gtk-bin\share\locale\te\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        60169               gtk-bin\share\locale\et\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        67564               gtk-bin\share\locale\or\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        68511               gtk-bin\share\locale\lv\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        68595               gtk-bin\share\locale\li\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        72247               gtk-bin\share\locale\mr\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        80529               gtk-bin\share\locale\ms\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        82042               gtk-bin\share\locale\nn\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        89304               gtk-bin\share\locale\af\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        90372               gtk-bin\share\locale\hr\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        90375               gtk-bin\share\locale\bs\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        91036               gtk-bin\share\locale\be\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        92699               gtk-bin\share\locale\yi\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        93383               gtk-bin\share\locale\az\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        99824               gtk-bin\share\locale\zh_HK\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A        99824               gtk-bin\share\locale\zh_TW\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       102241               gtk-bin\share\locale\nso\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       103750               gtk-bin\share\locale\id\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       104518               gtk-bin\share\locale\ta\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       104663               gtk-bin\share\locale\sr@Latn\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       105922               gtk-bin\share\locale\cs\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       106072               gtk-bin\share\locale\sl\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       110485               gtk-bin\share\locale\xh\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       113869               gtk-bin\share\locale\mn\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       116140               gtk-bin\share\locale\nb\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       116881               gtk-bin\share\locale\sr@ije\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       128114               gtk-bin\share\locale\zh_CN\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       133703               gtk-bin\share\locale\en_GB\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       135145               gtk-bin\share\locale\he\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       135247               gtk-bin\share\locale\en_CA\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       135308               gtk-bin\share\locale\sr\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       135778               gtk-bin\share\locale\cy\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       136718               gtk-bin\share\locale\ca\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       137201               gtk-bin\share\locale\fi\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       137594               gtk-bin\share\locale\gl\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       138508               gtk-bin\share\locale\sk\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       139222               gtk-bin\share\locale\da\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       139578               gtk-bin\share\locale\sv\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       139793               gtk-bin\share\locale\tr\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       140583               gtk-bin\share\locale\lt\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       141874               gtk-bin\share\locale\nl\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       142109               gtk-bin\share\locale\ko\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       143097               gtk-bin\share\locale\pt_BR\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       144281               gtk-bin\share\locale\eu\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       144770               gtk-bin\share\locale\de\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       145021               gtk-bin\share\locale\pt\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       145061               gtk-bin\share\locale\ro\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       145141               gtk-bin\share\locale\sq\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       145423               gtk-bin\share\locale\hu\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       146939               gtk-bin\share\locale\be@latin\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       146975               gtk-bin\share\locale\pl\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       147374               gtk-bin\share\locale\it\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       148096               gtk-bin\share\locale\es\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       149794               gtk-bin\share\locale\fr\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       154169               gtk-bin\share\locale\mk\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       155625               gtk-bin\share\locale\vi\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       157633               gtk-bin\share\locale\ja\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       159500               gtk-bin\share\locale\ne\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       160040               gtk-bin\share\locale\ar\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       165882               gtk-bin\share\locale\ml\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       168997               gtk-bin\share\locale\bn_IN\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       169288               gtk-bin\share\locale\el\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       170123               gtk-bin\share\locale\ka\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       170923               gtk-bin\share\locale\bn\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       186580               gtk-bin\share\locale\uk\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       188503               gtk-bin\share\locale\pa\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       190633               gtk-bin\share\locale\ru\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       192179               gtk-bin\share\locale\as\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       192492               gtk-bin\share\locale\bg\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       194285               gtk-bin\share\locale\hi\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       213853               gtk-bin\share\locale\gu\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A       251608               gtk-bin\share\locale\dz\LC_MESSAGES\gtk20-properties.mo
+2008-02-13 12:33:00 ....A          676               gtk-bin\share\locale\az_IR\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A          997               gtk-bin\share\locale\ur\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A         1930               gtk-bin\share\locale\rw\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A         2057               gtk-bin\share\locale\ia\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A         2501               gtk-bin\share\locale\uz\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A         3470               gtk-bin\share\locale\uz@cyrillic\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A         5127               gtk-bin\share\locale\am\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A         6876               gtk-bin\share\locale\ang\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A         7371               gtk-bin\share\locale\tk\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        12418               gtk-bin\share\locale\br\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        18247               gtk-bin\share\locale\tt\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        19709               gtk-bin\share\locale\mi\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        20633               gtk-bin\share\locale\is\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        22014               gtk-bin\share\locale\li\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        24231               gtk-bin\share\locale\ms\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        26278               gtk-bin\share\locale\af\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        26677               gtk-bin\share\locale\hr\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        26802               gtk-bin\share\locale\nn\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        27377               gtk-bin\share\locale\bs\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        27949               gtk-bin\share\locale\az\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        28273               gtk-bin\share\locale\yi\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        29360               gtk-bin\share\locale\oc\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        30232               gtk-bin\share\locale\nso\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        33927               gtk-bin\share\locale\mn\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        34636               gtk-bin\share\locale\sr@ije\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        35900               gtk-bin\share\locale\xh\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        38319               gtk-bin\share\locale\io\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        40400               gtk-bin\share\locale\hy\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        40751               gtk-bin\share\locale\fa\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        47632               gtk-bin\share\locale\te\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        48554               gtk-bin\share\locale\ga\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        48569               gtk-bin\share\locale\be\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        49240               gtk-bin\share\locale\wa\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        53011               gtk-bin\share\locale\eo\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        56897               gtk-bin\share\locale\ne\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        59076               gtk-bin\share\locale\zh_TW\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        59082               gtk-bin\share\locale\zh_HK\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        60168               gtk-bin\share\locale\id\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        60521               gtk-bin\share\locale\en_GB\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        61216               gtk-bin\share\locale\zh_CN\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        61504               gtk-bin\share\locale\en_CA\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        61774               gtk-bin\share\locale\lv\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        61801               gtk-bin\share\locale\tr\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        62062               gtk-bin\share\locale\et\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        62071               gtk-bin\share\locale\ku\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        62761               gtk-bin\share\locale\nb\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        62896               gtk-bin\share\locale\cy\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        62941               gtk-bin\share\locale\he\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        63469               gtk-bin\share\locale\da\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        63494               gtk-bin\share\locale\sv\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        63917               gtk-bin\share\locale\sr@Latn\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        64031               gtk-bin\share\locale\fi\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        64098               gtk-bin\share\locale\sl\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        64413               gtk-bin\share\locale\cs\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        64895               gtk-bin\share\locale\sk\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        64944               gtk-bin\share\locale\nl\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        64991               gtk-bin\share\locale\pt\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65074               gtk-bin\share\locale\eu\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65138               gtk-bin\share\locale\pl\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65284               gtk-bin\share\locale\gl\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65310               gtk-bin\share\locale\lt\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65582               gtk-bin\share\locale\be@latin\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65621               gtk-bin\share\locale\pt_BR\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65623               gtk-bin\share\locale\it\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65848               gtk-bin\share\locale\ro\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        65988               gtk-bin\share\locale\hu\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        66000               gtk-bin\share\locale\sq\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        66122               gtk-bin\share\locale\de\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        66526               gtk-bin\share\locale\ca\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        66599               gtk-bin\share\locale\es\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        67928               gtk-bin\share\locale\fr\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        68153               gtk-bin\share\locale\ko\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        68645               gtk-bin\share\locale\vi\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        71341               gtk-bin\share\locale\ar\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        71618               gtk-bin\share\locale\ja\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        75189               gtk-bin\share\locale\si\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        77045               gtk-bin\share\locale\mr\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        78053               gtk-bin\share\locale\sr\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        80301               gtk-bin\share\locale\uk\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        80525               gtk-bin\share\locale\mk\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        80915               gtk-bin\share\locale\el\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        82376               gtk-bin\share\locale\hi\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        82460               gtk-bin\share\locale\ru\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        83819               gtk-bin\share\locale\bn\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        84256               gtk-bin\share\locale\bg\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        85846               gtk-bin\share\locale\pa\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        85848               gtk-bin\share\locale\ml\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        86947               gtk-bin\share\locale\as\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        87396               gtk-bin\share\locale\th\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        88772               gtk-bin\share\locale\gu\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        89054               gtk-bin\share\locale\ta\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        89311               gtk-bin\share\locale\or\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        92481               gtk-bin\share\locale\ka\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        95160               gtk-bin\share\locale\bn_IN\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A        96974               gtk-bin\share\locale\kn\LC_MESSAGES\gtk20.mo
+2008-02-13 12:33:00 ....A       112376               gtk-bin\share\locale\dz\LC_MESSAGES\gtk20.mo
+2008-01-11 00:04:00 ....A          163               gtk-bin\etc\pango\pango.modules
+2008-02-13 12:35:00 ....A        23726      2329247  gtk-bin\bin\gdk-pixbuf-query-loaders.exe
+2008-02-14 00:37:00 ....A        22827               gtk-bin\bin\gspawn-win32-helper-console.exe
+2008-02-14 00:37:00 ....A        22819               gtk-bin\bin\gspawn-win32-helper.exe
+2008-02-13 12:39:00 ....A        24837               gtk-bin\bin\gtk-query-immodules-2.0.exe
+2008-01-11 00:04:00 ....A        26452               gtk-bin\bin\pango-querymodules.exe
+2008-02-13 12:40:00 ....A        28333               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-am-et.dll
+2008-02-13 12:40:00 ....A        15022               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-cedilla.dll
+2008-02-13 12:40:00 ....A        16621               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-cyrillic-translit.dll
+2008-02-13 12:40:00 ....A        41221               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-ime.dll
+2008-02-13 12:40:00 ....A        17089               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-inuktitut.dll
+2008-02-13 12:40:00 ....A        15514               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-ipa.dll
+2008-02-13 12:40:00 ....A        28327               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-multipress.dll
+2008-02-13 12:40:00 ....A        23706               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-thai.dll
+2008-02-13 12:40:00 ....A        28333               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-ti-er.dll
+2008-02-13 12:40:00 ....A        28333               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-ti-et.dll
+2008-02-13 12:40:00 ....A        16552               gtk-bin\lib\gtk-2.0\2.10.0\immodules\im-viqr.dll
+2007-09-23 16:13:00 ....A       103653               gtk-bin\bin\libatk-1.0-0.dll
+2008-01-15 13:15:00 ....A       540580               gtk-bin\bin\libcairo-2.dll
+2008-02-13 12:36:00 ....A       801654               gtk-bin\bin\libgdk-win32-2.0-0.dll
+2008-02-13 12:35:00 ....A       133230               gtk-bin\bin\libgdk_pixbuf-2.0-0.dll
+2008-02-14 00:37:00 ....A       936859               gtk-bin\bin\libglib-2.0-0.dll
+2008-02-14 00:37:00 ....A        30563               gtk-bin\bin\libgmodule-2.0-0.dll
+2008-02-14 00:37:00 ....A       290486               gtk-bin\bin\libgobject-2.0-0.dll
+2008-02-14 00:37:00 ....A        38851               gtk-bin\bin\libgthread-2.0-0.dll
+2008-02-13 12:38:00 ....A      4527031               gtk-bin\bin\libgtk-win32-2.0-0.dll
+2008-01-11 00:05:00 ....A       230700               gtk-bin\bin\libpango-1.0-0.dll
+2008-01-11 00:05:00 ....A        39875               gtk-bin\bin\libpangocairo-1.0-0.dll
+2008-01-11 00:05:00 ....A       232519               gtk-bin\bin\libpangoft2-1.0-0.dll
+2008-01-11 00:05:00 ....A        59102               gtk-bin\bin\libpangowin32-1.0-0.dll
+2008-02-13 12:35:00 ....A        28685               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-ani.dll
+2008-02-13 12:35:00 ....A        27443               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-bmp.dll
+2008-02-13 12:35:00 ....A        41794               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-gif.dll
+2008-02-13 12:35:00 ....A        26797               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-ico.dll
+2008-02-13 12:35:00 ....A        33859               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-jpeg.dll
+2008-02-13 12:35:00 ....A        21312               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-pcx.dll
+2008-02-13 12:35:00 ....A        35801               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-png.dll
+2008-02-13 12:35:00 ....A        23669               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-pnm.dll
+2008-02-13 12:35:00 ....A        18495               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-ras.dll
+2008-02-13 12:35:00 ....A        23999               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-tga.dll
+2008-02-13 12:35:00 ....A        27801               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-tiff.dll
+2008-02-13 12:35:00 ....A        18036               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-wbmp.dll
+2008-02-13 12:35:00 ....A        23992               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-xbm.dll
+2008-02-13 12:35:00 ....A        41707               gtk-bin\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-xpm.dll
+2008-02-13 12:41:00 ....A        54012               gtk-bin\lib\gtk-2.0\2.10.0\engines\libpixmap.dll
+2008-02-13 12:41:00 ....A        89098               gtk-bin\lib\gtk-2.0\2.10.0\engines\libwimp.dll
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes\Raleigh\gtk-2.0
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes\Raleigh
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes\MS-Windows\gtk-2.0
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes\MS-Windows
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes\Emacs\gtk-2.0-key
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes\Emacs
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes\Default\gtk-2.0-key
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes\Default
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\themes
+2008-03-14 13:43:59 D....            0            0  gtk-bin\share\locale\zh_TW\LC_MESSAGES
+2008-03-14 13:43:42 D....            0            0  gtk-bin\share\locale\zh_TW
+2008-03-14 13:43:59 D....            0            0  gtk-bin\share\locale\zh_HK\LC_MESSAGES
+2008-03-14 13:43:42 D....            0            0  gtk-bin\share\locale\zh_HK
+2008-03-14 13:43:59 D....            0            0  gtk-bin\share\locale\zh_CN\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\zh_CN
+2008-03-14 13:43:59 D....            0            0  gtk-bin\share\locale\yi\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\yi
+2008-03-14 13:43:59 D....            0            0  gtk-bin\share\locale\xh\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\xh
+2008-03-14 13:43:59 D....            0            0  gtk-bin\share\locale\wa\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\wa
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\vi\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\vi
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\uz@cyrillic\LC_MESSAGES
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\uz@cyrillic
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\uz\LC_MESSAGES
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\uz
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\ur\LC_MESSAGES
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\ur
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\uk\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\uk
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\tt\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\tt
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\tr\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\tr
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\tl\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\tl
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\tk\LC_MESSAGES
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\tk
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\th\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\th
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\te\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\te
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\ta\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\ta
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\sv\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\sv
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\sr@Latn\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\sr@Latn
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\sr@ije\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\sr@ije
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\sr\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\sr
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\sq\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\sq
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\sl\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\sl
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\sk\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\sk
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\si\LC_MESSAGES
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\si
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\rw\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\rw
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\ru\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\ru
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\ro\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\ro
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\pt_BR\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\pt_BR
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\pt\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\pt
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\pl\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\pl
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\pa\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\pa
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\or\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\or
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\oc\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\oc
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale\nso\LC_MESSAGES
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\nso
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\nn\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\nn
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\nl\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\nl
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\ne\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\ne
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\nb\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\nb
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\ms\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\ms
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\mr\LC_MESSAGES
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\mr
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\mn\LC_MESSAGES
+2008-03-14 13:43:41 D....            0            0  gtk-bin\share\locale\mn
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\ml\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\ml
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\mk\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\mk
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\mi\LC_MESSAGES
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\mi
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\mg\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\mg
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\lv\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\lv
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\lt\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\lt
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\li\LC_MESSAGES
+2008-03-14 13:43:57 D....            0            0  gtk-bin\share\locale\li
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\ku\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\ku
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\ko\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\ko
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\kn\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\kn
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\ka\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\ka
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\ja\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\ja
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\it\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\it
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\is\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\is
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\io\LC_MESSAGES
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\io
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\id\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\id
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\ia\LC_MESSAGES
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\ia
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\hy\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\hy
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\hu\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\hu
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\hr\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\hr
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\hi\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\hi
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\he\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\he
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\gu\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\gu
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\gl\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\gl
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\ga\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\ga
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\fr\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\fr
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\fi\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\fi
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\fa\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\fa
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\eu\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\eu
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\et\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\et
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\es\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\es
+2008-03-14 13:43:56 D....            0            0  gtk-bin\share\locale\eo\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\eo
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\en_GB\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\en_GB
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\en_CA\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\en_CA
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\el\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\el
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\dz\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\dz
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\de\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\de
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\da\LC_MESSAGES
+2008-03-14 13:43:40 D....            0            0  gtk-bin\share\locale\da
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\cy\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\cy
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\cs\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\cs
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\ca\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\ca
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\bs\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\bs
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\br\LC_MESSAGES
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\br
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\bn_IN\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\bn_IN
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\bn\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\bn
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\bg\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\bg
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\be@latin\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\be@latin
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\be\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\be
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\az_IR\LC_MESSAGES
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\az_IR
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\az\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\az
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\as\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\as
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\ar\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\ar
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\ang\LC_MESSAGES
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\ang
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\am\LC_MESSAGES
+2008-03-14 13:43:39 D....            0            0  gtk-bin\share\locale\am
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\af\LC_MESSAGES
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share\locale\af
+2008-03-14 13:43:58 D....            0            0  gtk-bin\share\locale
+2008-03-14 13:44:23 D....            0            0  gtk-bin\share\doc\pango-1.18.4
+2008-03-14 13:44:04 D....            0            0  gtk-bin\share\doc\gtk+-2.12.8
+2008-03-14 13:43:42 D....            0            0  gtk-bin\share\doc\glib-2.14.6
+2008-03-14 13:43:27 D....            0            0  gtk-bin\share\doc\cairo-1.4.14
+2008-03-14 13:44:04 D....            0            0  gtk-bin\share\doc
+2008-03-14 13:43:55 D....            0            0  gtk-bin\share
+2008-03-14 13:44:24 D....            0            0  gtk-bin\manifest
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\zh_TW\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\zh_TW
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\zh_HK\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\zh_HK
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\zh_CN\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\zh_CN
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\yi\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\yi
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\xh\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\xh
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\wa\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\wa
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\vi\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\vi
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\uk\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\uk
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\ug\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\ug
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\tt\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\tt
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\tr\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\tr
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\tk\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\tk
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\th\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\th
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\te\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\te
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\ta\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\ta
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sv\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sv
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sr@Latn\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sr@Latn
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sr@ije\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sr@ije
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sr\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sr
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sq\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sq
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sl\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sl
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sk\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\sk
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\si\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\si
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\rw\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\rw
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\ru\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\ru
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\ro\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\ro
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\pt_BR\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\pt_BR
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\pt\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\pt
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\pl\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\pl
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\pa\LC_MESSAGES
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale\pa
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\or\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\or
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\oc\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\oc
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\nn\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\nn
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\nl\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\nl
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ne\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ne
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\nb\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\nb
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ms\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ms
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\mr\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\mr
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\mn\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\mn
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ml\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ml
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\mk\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\mk
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\lv\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\lv
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\lt\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\lt
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\li\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\li
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ku\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ku
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ko\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ko
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\kn\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\kn
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ka\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ka
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ja\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ja
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\it\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\it
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\is\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\is
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\id\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\id
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\hu\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\hu
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\hr\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\hr
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\hi\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\hi
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\he\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\he
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\gu\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\gu
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\gl\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\gl
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ga\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\ga
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\fr\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\fr
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\fi\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\fi
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\fa\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\fa
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\eu\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\eu
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\et\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\et
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\es\LC_MESSAGES
+2008-03-14 13:43:15 D....            0            0  gtk-bin\lib\locale\es
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\eo\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\eo
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\en_GB\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\en_GB
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\en_CA\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\en_CA
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\el\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\el
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\dz\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\dz
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\de\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\de
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\da\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\da
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\cy\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\cy
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\cs\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\cs
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\ca\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\ca
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\bs\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\bs
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\bn_IN\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\bn_IN
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\bn\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\bn
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\bg\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\bg
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\be@latin\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\be@latin
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\be\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\be
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\az\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\az
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\as\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\as
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\ar\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\ar
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\am\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\am
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\af\LC_MESSAGES
+2008-03-14 13:43:14 D....            0            0  gtk-bin\lib\locale\af
+2008-03-14 13:43:16 D....            0            0  gtk-bin\lib\locale
+2008-03-14 13:44:10 D....            0            0  gtk-bin\lib\gtk-2.0\2.10.0\loaders
+2008-03-14 13:44:10 D....            0            0  gtk-bin\lib\gtk-2.0\2.10.0\immodules
+2008-03-14 13:44:11 D....            0            0  gtk-bin\lib\gtk-2.0\2.10.0\engines
+2008-03-14 13:44:10 D....            0            0  gtk-bin\lib\gtk-2.0\2.10.0
+2008-03-14 13:44:07 D....            0            0  gtk-bin\lib\gtk-2.0
+2008-03-14 13:44:07 D....            0            0  gtk-bin\lib
+2008-03-14 13:44:24 D....            0            0  gtk-bin\etc\pango
+2008-03-14 13:44:07 D....            0            0  gtk-bin\etc\gtk-2.0
+2008-03-14 13:44:24 D....            0            0  gtk-bin\etc
+2008-03-14 13:44:23 D....            0            0  gtk-bin\bin
+2008-03-14 13:44:06 D....            0            0  gtk-bin
+------------------- ----- ------------ ------------  ------------------------
+                              26533546      4639847  425 files, 397 folders

@@ -1,0 +1,371 @@
+
+7-Zip (A) 4.57  Copyright (c) 1999-2007 Igor Pavlov  2007-12-06
+
+Listing archive: unxutils-7zip-dmake-2008.074.2.7z
+
+Method = LZMA BCJ
+Solid = +
+Blocks = 2
+
+   Date      Time    Attr         Size   Compressed  Name
+------------------- ----- ------------ ------------  ------------------------
+2007-10-13 19:45:00 ....A       105448       308755  usr\share\ChangeLog
+2004-10-22 04:01:00 ....A         1330               usr\share\COPYING
+2003-04-13 13:30:00 ....A         5480               usr\share\md5sum
+2007-10-13 18:34:00 ....A        12365               usr\share\NEWS
+2004-09-08 12:08:00 ....A          496               man\readme
+2000-09-22 11:33:00 ....A          185               bin\startup\summary
+2007-12-06 13:33:00 ....A        85664               usr\share\7-zip.chm
+1997-07-27 05:41:00 ....A         5749               usr\local\include\FlexLexer.h
+2001-12-21 14:51:00 ....A         1037               usr\share\StdDisclaimer.html
+2003-04-15 12:47:00 ....A        26170               usr\share\UnxUtilsDist.html
+2007-12-06 13:33:00 ....A         1301               usr\share\7zip-readme.txt
+2001-08-30 01:19:00 ....A        26948               usr\share\copying.txt
+2008-01-07 09:42:00 ....A         2288               usr\share\dmake-README.TXT
+2000-09-22 11:33:00 ....A         7319               usr\share\dmake\public\install.txt
+2006-06-29 07:25:00 ....A         1334               usr\share\dmake\intro.txt
+2000-09-22 11:33:00 ....A        12487               usr\share\dmake\license.txt
+2007-05-25 11:51:00 ....A         2458               usr\share\license.txt
+2000-09-22 11:33:00 ....A         1628               usr\share\dmake\public\mac.txt
+2000-09-22 11:33:00 ....A         5345               usr\share\dmake\public\msdos.txt
+2000-09-22 11:33:00 ....A         3169               usr\share\dmake\public\os2.txt
+2008-01-07 09:58:00 ....A         2632               usr\share\PATCH.TXT
+2000-09-22 11:33:00 ....A          309               usr\share\dmake\public\qssl-qnx.txt
+2007-07-05 11:58:00 ....A         2559               usr\share\dmake\read1st.txt
+2006-04-20 08:10:00 ....A         7112               usr\share\dmake\release.txt
+2000-09-22 11:33:00 ....A         3438               usr\share\dmake\public\srcorg.txt
+2000-09-22 11:33:00 ....A         1238               usr\share\dmake\public\tos.txt
+2000-09-22 11:33:00 ....A         6490               usr\share\dmake\public\unix.txt
+2003-04-14 00:00:00 ....A       131187               usr\local\bin\wget.hlp
+2001-11-13 01:11:00 ....A         1174               usr\local\lib\libfl.lib
+2003-04-14 00:00:00 ....A         1174               usr\local\bin\libfl.lib
+2001-11-13 01:11:00 ....A         4014               usr\local\lib\libfl.a
+2003-04-14 00:00:00 ....A         4014               usr\local\bin\libfl.a
+2001-04-20 10:25:00 ....A           73               bin\startup\unix\linux\Makefile.am
+2001-06-13 09:13:00 ....A           75               bin\startup\unix\solaris\Makefile.am
+2002-07-11 04:53:00 ....A           74               bin\startup\unix\macosx\Makefile.am
+2002-10-04 10:01:00 ....A           74               bin\startup\unix\sysvr4\Makefile.am
+2002-10-07 09:40:00 ....A           74               bin\startup\unix\cygwin\Makefile.am
+2003-03-25 10:02:00 ....A           74               bin\startup\winnt\mingw\Makefile.am
+2003-03-25 10:02:00 ....A           74               bin\startup\winnt\msvc6\Makefile.am
+2006-04-20 08:10:00 ....A          118               bin\startup\Makefile.am
+2006-04-20 08:11:00 ....A          150               bin\startup\unix\Makefile.am
+2006-04-20 08:13:00 ....A          128               bin\startup\winnt\Makefile.am
+2007-09-14 17:16:00 ....A           71               bin\startup\unix\os2\Makefile.am
+1999-10-04 20:16:00 ....A         6477               usr\share\bison.hairy
+2006-04-20 08:10:00 ....A          152               bin\startup\config.mk.in
+2007-10-13 19:43:00 ....A         9614               bin\startup\unix\os2\Makefile.in
+2007-10-13 19:43:00 ....A         9622               bin\startup\unix\linux\Makefile.in
+2007-10-13 19:43:00 ....A         9626               bin\startup\unix\cygwin\Makefile.in
+2007-10-13 19:43:00 ....A         9626               bin\startup\unix\macosx\Makefile.in
+2007-10-13 19:43:00 ....A         9626               bin\startup\unix\sysvr4\Makefile.in
+2007-10-13 19:43:00 ....A         9626               bin\startup\winnt\mingw\Makefile.in
+2007-10-13 19:43:00 ....A         9626               bin\startup\winnt\msvc6\Makefile.in
+2007-10-13 19:43:00 ....A         9630               bin\startup\unix\solaris\Makefile.in
+2007-10-13 19:43:00 ....A        15057               bin\startup\winnt\Makefile.in
+2007-10-13 19:43:00 ....A        15076               bin\startup\unix\Makefile.in
+2007-10-13 19:43:00 ....A        15188               bin\startup\Makefile.in
+2000-09-22 11:33:00 ....A          240               bin\startup\config.mk
+2000-09-22 11:33:00 ....A          114               bin\startup\msdos\borland\tcc20\macros.mk
+2000-09-22 11:33:00 ....A          116               bin\startup\msdos\borland\bcc30\macros.mk
+2000-09-22 11:33:00 ....A          116               bin\startup\msdos\borland\bcc40\macros.mk
+2000-09-22 11:33:00 ....A          116               bin\startup\msdos\borland\bcc45\macros.mk
+2000-09-22 11:33:00 ....A          116               bin\startup\msdos\borland\bcc50.32\macros.mk
+2000-09-22 11:33:00 ....A          116               bin\startup\msdos\borland\bcc50\macros.mk
+2000-09-22 11:33:00 ....A          161               bin\startup\unix\macros.mk
+2000-09-22 11:33:00 ....A          193               bin\startup\unix\coherent\macros.mk
+2000-09-22 11:33:00 ....A          197               bin\startup\unix\386ix\macros.mk
+2000-09-22 11:33:00 ....A          197               bin\startup\unix\solaris\macros.mk
+2000-09-22 11:33:00 ....A          197               bin\startup\unix\sysvr1\macros.mk
+2000-09-22 11:33:00 ....A          197               bin\startup\unix\sysvr3\gnu\macros.mk
+2000-09-22 11:33:00 ....A          197               bin\startup\unix\sysvr4\macros.mk
+2000-09-22 11:33:00 ....A          197               bin\startup\unix\xenix\macros.mk
+2000-09-22 11:33:00 ....A          200               bin\startup\unix\sysvr3\macros.mk
+2000-09-22 11:33:00 ....A          205               bin\startup\unix\linux\gnu\macros.mk
+2000-09-22 11:33:00 ....A          205               bin\startup\unix\macosx\gnu\macros.mk
+2000-09-22 11:33:00 ....A          229               bin\startup\qssl\macros.mk
+2000-09-22 11:33:00 ....A          229               bin\startup\qssl\qnx\macros.mk
+2000-09-22 11:33:00 ....A          252               bin\startup\unix\linux\macros.mk
+2000-09-22 11:33:00 ....A          255               bin\startup\unix\macosx\macros.mk
+2000-09-22 11:33:00 ....A          278               bin\startup\unix\bsd43\macros.mk
+2000-09-22 11:33:00 ....A          478               bin\startup\tos\macros.mk
+2000-09-22 11:33:00 ....A          822               bin\startup\os2\ibm\macros.mk
+2000-09-22 11:33:00 ....A          823               bin\startup\msdos\zortech\macros.mk
+2000-09-22 11:33:00 ....A          891               bin\startup\msdos\borland\macros.mk
+2000-09-22 11:33:00 ....A          914               bin\startup\win95\borland\macros.mk
+2000-09-22 11:33:00 ....A          914               bin\startup\winnt\borland\macros.mk
+2000-09-22 11:33:00 ....A          926               bin\startup\msdos\microsft\macros.mk
+2000-09-22 11:33:00 ....A          978               bin\startup\win95\microsft\macros.mk
+2000-09-22 11:33:00 ....A          978               bin\startup\winnt\microsft\macros.mk
+2000-09-22 11:33:00 ....A         1089               bin\startup\mac\macros.mk
+2002-10-07 09:40:00 ....A          254               bin\startup\unix\cygwin\macros.mk
+2003-03-25 10:02:00 ....A          253               bin\startup\winnt\mingw\macros.mk
+2003-03-25 10:02:00 ....A          978               bin\startup\winnt\msvc6\macros.mk
+2006-04-20 08:11:00 ....A         1692               bin\startup\os2\macros.mk
+2006-04-20 08:11:00 ....A         1724               bin\startup\msdos\macros.mk
+2006-04-20 14:11:00 ....A         1692               bin\startup\unix\os2\macros.mk
+2007-09-18 20:31:00 ....A         2109               bin\startup\win95\macros.mk
+2007-09-18 20:31:00 ....A         2109               bin\startup\winnt\macros.mk
+2000-09-22 11:33:00 ....A          182               bin\startup\unix\coherent\recipes.mk
+2000-09-22 11:33:00 ....A          189               bin\startup\qssl\qnx\recipes.mk
+2000-09-22 11:33:00 ....A          189               bin\startup\qssl\recipes.mk
+2000-09-22 11:33:00 ....A          290               bin\startup\msdos\recipes.mk
+2000-09-22 11:33:00 ....A          290               bin\startup\win95\recipes.mk
+2000-09-22 11:33:00 ....A          290               bin\startup\winnt\recipes.mk
+2000-09-22 11:33:00 ....A          332               bin\startup\unix\bsd43\recipes.mk
+2000-09-22 11:33:00 ....A          499               bin\startup\unix\recipes.mk
+2008-01-07 09:57:00 ....A         6234               bin\startup\startup.mk
+2000-09-22 11:33:00 ....A          225               bin\startup\templates\mac\template.mk
+2000-09-22 11:33:00 ....A          225               bin\startup\templates\tos\template.mk
+2000-09-22 11:33:00 ....A          226               bin\startup\templates\qssl\template.mk
+2000-09-22 11:33:00 ....A          231               bin\startup\templates\os2\ibm\icc\template.mk
+2000-09-22 11:33:00 ....A          231               bin\startup\templates\unix\386ix\template.mk
+2000-09-22 11:33:00 ....A          231               bin\startup\templates\unix\bsd43\template.mk
+2000-09-22 11:33:00 ....A          231               bin\startup\templates\unix\xenix\template.mk
+2000-09-22 11:33:00 ....A          232               bin\startup\templates\unix\sysvr1\template.mk
+2000-09-22 11:33:00 ....A          232               bin\startup\templates\unix\sysvr3\template.mk
+2000-09-22 11:33:00 ....A          232               bin\startup\templates\unix\sysvr4\template.mk
+2000-09-22 11:33:00 ....A          233               bin\startup\templates\unix\bsd43\uw\template.mk
+2000-09-22 11:33:00 ....A          233               bin\startup\templates\unix\bsd43\vf\template.mk
+2000-09-22 11:33:00 ....A          233               bin\startup\templates\unix\solaris\template.mk
+2000-09-22 11:33:00 ....A          234               bin\startup\templates\unix\linux\gnu\template.mk
+2000-09-22 11:33:00 ....A          234               bin\startup\templates\unix\xenix\pwd\template.mk
+2000-09-22 11:33:00 ....A          235               bin\startup\templates\unix\sysvr3\pwd\template.mk
+2000-09-22 11:33:00 ....A          236               bin\startup\templates\unix\solaris\gnu\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\msdos\borland\bcc30\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\msdos\borland\bcc40\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\msdos\borland\bcc45\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\msdos\borland\bcc50\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\msdos\borland\tcc20\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\unix\coherent\ver40\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\unix\coherent\ver42\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\win95\borland\bcc50\template.mk
+2000-09-22 11:33:00 ....A          239               bin\startup\templates\winnt\borland\bcc50\template.mk
+2000-09-22 11:33:00 ....A          240               bin\startup\templates\msdos\microsft\msc51\template.mk
+2000-09-22 11:33:00 ....A          240               bin\startup\templates\msdos\microsft\msc60\template.mk
+2000-09-22 11:33:00 ....A          240               bin\startup\templates\win95\microsft\vpp40\template.mk
+2000-09-22 11:33:00 ....A          240               bin\startup\templates\winnt\microsft\vpp40\template.mk
+2000-09-22 11:33:00 ....A          258               bin\startup\template.mk
+2007-10-13 19:41:00 ....A       161066               man\dmake.nc
+1999-10-04 20:16:00 ....A        19223               usr\share\bison.simple
+2007-10-13 18:35:00 ....A       129377               man\dmake.tf
+2008-01-07 09:36:00 ....A           53               usr\share\META.yml
+2007-12-06 13:33:00 ....A       517632      2199430  bin\7za.exe
+2003-04-14 00:00:00 ....A       147456               usr\local\bin\agrep.exe
+1999-11-11 00:00:00 ....A         5632               usr\local\bin\ansi2knr.exe
+1999-11-11 00:00:00 ....A         7680               usr\local\bin\basename.exe
+1999-11-11 00:00:00 ....A        52736               usr\local\bin\bc.exe
+1999-11-11 00:00:00 ....A        82432               usr\local\bin\bison.exe
+2003-04-14 00:00:00 ....A        75776               usr\local\bin\bunzip2.exe
+2003-04-14 00:00:00 ....A        77312               usr\local\bin\bzip2.exe
+2003-04-14 00:00:00 ....A         8192               usr\local\bin\bzip2recover.exe
+1999-11-11 00:00:00 ....A        22016               usr\local\bin\cat.exe
+1999-11-11 00:00:00 ....A        24064               usr\local\bin\chgrp.exe
+1999-11-11 00:00:00 ....A        22528               usr\local\bin\chmod.exe
+1999-11-11 00:00:00 ....A        23040               usr\local\bin\chown.exe
+1999-11-11 00:00:00 ....A        19968               usr\local\bin\cksum.exe
+2001-11-11 00:00:00 ....A        11264               usr\local\bin\cmp.exe
+1999-11-11 00:00:00 ....A        20992               usr\local\bin\comm.exe
+1999-11-11 00:00:00 ....A        25597               usr\local\bin\compress.exe
+2000-10-10 00:00:00 ....A        73728               usr\local\bin\cp.exe
+1999-11-11 00:00:00 ....A        65024               usr\local\bin\csplit.exe
+1999-11-11 00:00:00 ....A        24064               usr\local\bin\cut.exe
+2000-10-10 00:00:00 ....A        39424               usr\local\bin\date.exe
+1999-11-11 00:00:00 ....A        25600               usr\local\bin\dc.exe
+2003-04-14 00:00:00 ....A        40960               usr\local\bin\dd.exe
+1999-11-11 00:00:00 ....A        26112               usr\local\bin\df.exe
+2001-11-11 00:00:00 ....A        68096               usr\local\bin\diff.exe
+2001-11-11 00:00:00 ....A        17920               usr\local\bin\diff3.exe
+1999-11-11 00:00:00 ....A        28160               usr\local\bin\dircolors.exe
+2001-11-11 00:00:00 ....A        16896               usr\local\bin\dirname.exe
+2008-01-07 10:01:00 ....A       155648               bin\dmake.exe
+1999-11-11 00:00:00 ....A        26112               usr\local\bin\du.exe
+1999-11-11 00:00:00 ....A         7680               usr\local\bin\echo.exe
+2003-04-14 00:00:00 ....A        80412               usr\local\bin\egrep.exe
+2000-10-10 00:00:00 ....A         8192               usr\local\bin\env.exe
+1999-11-11 00:00:00 ....A        20992               usr\local\bin\expand.exe
+1999-11-11 00:00:00 ....A        13824               usr\local\bin\expr.exe
+1999-11-11 00:00:00 ....A        18432               usr\local\bin\factor.exe
+2003-04-14 00:00:00 ....A        80412               usr\local\bin\fgrep.exe
+2001-11-11 00:00:00 ....A        65536               usr\local\bin\find.exe
+1999-11-11 00:00:00 ....A       146432               usr\local\bin\flex.exe
+1999-11-11 00:00:00 ....A        24064               usr\local\bin\fmt.exe
+1999-11-11 00:00:00 ....A        21504               usr\local\bin\fold.exe
+1999-11-11 00:00:00 ....A         6144               usr\local\bin\fsplit.exe
+2003-04-14 00:00:00 ....A       195584               usr\local\bin\gawk.exe
+2001-11-11 00:00:00 ....A         8192               usr\local\bin\gclip.exe
+2001-11-11 00:00:00 ....A         4608               usr\local\bin\gplay.exe
+2003-04-14 00:00:00 ....A        80412               usr\local\bin\grep.exe
+1999-11-11 00:00:00 ....A        15360               usr\local\bin\gsar.exe
+1999-11-11 00:00:00 ....A        49152               usr\local\bin\gunzip.exe
+1999-11-11 00:00:00 ....A        49152               usr\local\bin\gzip.exe
+1999-11-11 00:00:00 ....A        24064               usr\local\bin\head.exe
+1999-11-11 00:00:00 ....A        10240               usr\local\bin\id.exe
+2003-04-14 00:00:00 ....A        58880               usr\local\bin\indent.exe
+2001-11-11 00:00:00 ....A        40960               usr\local\bin\install.exe
+1999-11-11 00:00:00 ....A        27136               usr\local\bin\join.exe
+2000-10-10 00:00:00 ....A        49152               usr\local\bin\jwhois.exe
+1999-11-11 00:00:00 ....A        77312               usr\local\bin\less.exe
+2003-04-14 00:00:00 ....A         8192               usr\local\bin\lesskey.exe
+2003-04-14 00:00:00 ....A        69632               usr\local\bin\ln.exe
+1999-11-11 00:00:00 ....A         7680               usr\local\bin\logname.exe
+1999-11-11 00:00:00 ....A        57856               usr\local\bin\ls.exe
+1999-11-11 00:00:00 ....A        83456               usr\local\bin\m4.exe
+2000-10-10 00:00:00 ....A       126976               usr\local\bin\make.exe
+2003-04-14 00:00:00 ....A        32768               usr\local\bin\makedepend.exe
+1999-11-11 00:00:00 ....A         6144               usr\local\bin\makemsg.exe
+1999-11-11 00:00:00 ....A        38912               usr\local\bin\man.exe
+1999-11-11 00:00:00 ....A        28160               usr\local\bin\md5sum.exe
+2000-10-10 00:00:00 ....A        32768               usr\local\bin\mkdir.exe
+1999-11-11 00:00:00 ....A        14336               usr\local\bin\mkfifo.exe
+1999-11-11 00:00:00 ....A        21504               usr\local\bin\mknod.exe
+2001-11-11 00:00:00 ....A        69632               usr\local\bin\mv.exe
+1999-11-11 00:00:00 ....A        20480               usr\local\bin\mvdir.exe
+1999-11-11 00:00:00 ....A        51712               usr\local\bin\nl.exe
+1999-11-11 00:00:00 ....A        35328               usr\local\bin\od.exe
+1999-11-11 00:00:00 ....A        20992               usr\local\bin\paste.exe
+1999-11-11 00:00:00 ....A        59904               usr\local\bin\patch.exe
+1999-11-11 00:00:00 ....A        10752               usr\local\bin\pathchk.exe
+2001-11-11 00:00:00 ....A         8192               usr\local\bin\pclip.exe
+1999-11-11 00:00:00 ....A        37376               usr\local\bin\pr.exe
+1999-11-11 00:00:00 ....A         7680               usr\local\bin\printenv.exe
+1999-11-11 00:00:00 ....A        13312               usr\local\bin\printf.exe
+1999-11-11 00:00:00 ....A         2560               usr\local\bin\pwd.exe
+2001-11-11 00:00:00 ....A      1083392               usr\local\bin\recode.exe
+2000-10-10 00:00:00 ....A        65536               usr\local\bin\rm.exe
+1999-11-11 00:00:00 ....A       137216               usr\local\bin\rman.exe
+2000-10-10 00:00:00 ....A        28672               usr\local\bin\rmdir.exe
+2001-11-11 00:00:00 ....A        19968               usr\local\bin\sdiff.exe
+2003-04-14 00:00:00 ....A        49152               usr\local\bin\sed.exe
+1999-11-11 00:00:00 ....A        18432               usr\local\bin\seq.exe
+2000-10-10 00:00:00 ....A       426256               bin\sh.exe
+1999-11-11 00:00:00 ....A        35328               usr\local\bin\shar.exe
+1999-11-11 00:00:00 ....A        16384               usr\local\bin\sleep.exe
+1999-11-11 00:00:00 ....A        38400               usr\local\bin\sort.exe
+1999-11-11 00:00:00 ....A        23552               usr\local\bin\split.exe
+2001-11-11 00:00:00 ....A        12800               usr\local\bin\stego.exe
+1999-11-11 00:00:00 ....A        13312               usr\local\bin\su.exe
+1999-11-11 00:00:00 ....A        19456               usr\local\bin\sum.exe
+1999-11-11 00:00:00 ....A        19456               usr\local\bin\sync.exe
+1999-11-11 00:00:00 ....A        49664               usr\local\bin\tac.exe
+1999-11-11 00:00:00 ....A        35328               usr\local\bin\tail.exe
+2001-11-11 00:00:00 ....A       114688               usr\local\bin\tar.exe
+1999-11-11 00:00:00 ....A        16896               usr\local\bin\tee.exe
+1999-11-11 00:00:00 ....A        17920               usr\local\bin\test.exe
+1999-11-11 00:00:00 ....A        35840               usr\local\bin\touch.exe
+1999-11-11 00:00:00 ....A        33280               usr\local\bin\tr.exe
+1999-11-11 00:00:00 ....A         3584               usr\local\bin\type.exe
+1999-11-11 00:00:00 ....A        16896               usr\local\bin\uname.exe
+1999-11-11 00:00:00 ....A        20992               usr\local\bin\unexpand.exe
+1999-11-11 00:00:00 ....A        23552               usr\local\bin\uniq.exe
+2003-04-14 00:00:00 ....A       161792               usr\local\bin\unrar.exe
+1999-11-11 00:00:00 ....A        11264               usr\local\bin\unshar.exe
+2003-04-14 00:00:00 ....A       102400               usr\local\bin\unzip.exe
+1999-11-11 00:00:00 ....A        10240               usr\local\bin\uudecode.exe
+1999-11-11 00:00:00 ....A         9728               usr\local\bin\uuencode.exe
+1999-11-11 00:00:00 ....A        29696               usr\local\bin\wc.exe
+2003-04-14 00:00:00 ....A       252416               usr\local\bin\wget.exe
+1999-11-11 00:00:00 ....A        12288               usr\local\bin\which.exe
+1999-11-11 00:00:00 ....A         7680               usr\local\bin\whoami.exe
+2000-10-10 00:00:00 ....A        45124               usr\local\bin\xargs.exe
+1999-11-11 00:00:00 ....A         7168               usr\local\bin\yes.exe
+2003-04-14 00:00:00 ....A        49152               usr\local\bin\zcat.exe
+2003-04-14 00:00:00 ....A        68096               usr\local\bin\zip.exe
+2008-03-14 14:28:28 D....            0            0  usr\share\dmake\public
+2008-03-14 14:28:28 D....            0            0  usr\share\dmake
+2008-03-14 14:28:33 D....            0            0  usr\share
+2008-03-14 13:50:17 D....            0            0  usr\local\lib
+2008-03-14 13:50:17 D....            0            0  usr\local\include
+2008-03-14 13:50:33 D....            0            0  usr\local\bin
+2008-03-14 14:27:04 D....            0            0  usr\local
+2008-03-14 14:27:04 D....            0            0  usr
+2008-03-14 14:28:56 D....            0            0  man
+2008-03-14 14:26:46 D....            0            0  bin\startup\winnt\msvc6
+2008-03-14 14:26:46 D....            0            0  bin\startup\winnt\mingw
+2008-03-14 14:26:46 D....            0            0  bin\startup\winnt\microsft
+2008-03-14 14:26:46 D....            0            0  bin\startup\winnt\borland
+2008-03-14 14:26:46 D....            0            0  bin\startup\winnt
+2008-03-14 14:26:46 D....            0            0  bin\startup\win95\microsft
+2008-03-14 14:26:46 D....            0            0  bin\startup\win95\borland
+2008-03-14 14:26:46 D....            0            0  bin\startup\win95
+2008-03-14 14:26:46 D....            0            0  bin\startup\unix\xenix
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\sysvr4
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\sysvr3\gnu
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\sysvr3
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\sysvr1
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\solaris
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\os2
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\macosx\gnu
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\macosx
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\linux\gnu
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\linux
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\cygwin
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\coherent
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\bsd43
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix\386ix
+2008-03-14 14:26:45 D....            0            0  bin\startup\unix
+2008-03-14 14:26:45 D....            0            0  bin\startup\tos
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\winnt\microsft\vpp40
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\winnt\microsft
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\winnt\borland\bcc50
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\winnt\borland
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\winnt
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\win95\microsft\vpp40
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\win95\microsft
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\win95\borland\bcc50
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\win95\borland
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\win95
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix\xenix\pwd
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix\xenix
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix\sysvr4
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix\sysvr3\pwd
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix\sysvr3
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix\sysvr1
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix\solaris\gnu
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix\solaris
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\linux\gnu
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\linux
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\coherent\ver42
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\coherent\ver40
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\coherent
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\bsd43\vf
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\bsd43\uw
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\bsd43
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\unix\386ix
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates\unix
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\tos
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\qssl
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\os2\ibm\icc
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\os2\ibm
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\os2
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\microsft\msc60
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\microsft\msc51
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\microsft
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\borland\tcc20
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\borland\bcc50
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\borland\bcc45
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\borland\bcc40
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\borland\bcc30
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos\borland
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\msdos
+2008-03-14 14:26:44 D....            0            0  bin\startup\templates\mac
+2008-03-14 14:26:45 D....            0            0  bin\startup\templates
+2008-03-14 14:26:44 D....            0            0  bin\startup\qssl\qnx
+2008-03-14 14:26:44 D....            0            0  bin\startup\qssl
+2008-03-14 14:26:44 D....            0            0  bin\startup\os2\ibm
+2008-03-14 14:26:44 D....            0            0  bin\startup\os2
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\zortech
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\microsft
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\borland\tcc20
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\borland\bcc50.32
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\borland\bcc50
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\borland\bcc45
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\borland\bcc40
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\borland\bcc30
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos\borland
+2008-03-14 14:26:44 D....            0            0  bin\startup\msdos
+2008-03-14 14:26:44 D....            0            0  bin\startup\mac
+2008-03-14 14:26:46 D....            0            0  bin\startup
+2008-03-14 14:26:44 D....            0            0  bin
+------------------- ----- ------------ ------------  ------------------------
+                               7898126      2508185  262 files, 96 folders
