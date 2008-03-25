@@ -29,6 +29,7 @@
 !define CAMELBOX_SOURCE "C:\temp\multipackage_demo"
 !define LICENSE_FILE ".\License\License.txt"
 !define MAIN_ICON ".\Icons\camelbox-logo.ico"
+!define BASE_URL "http://files.antlinux.com/win/apps/Gtk2-Perl/multipackage_demo"
 
 # compiler flags
 SetCompressor /SOLID lzma 			# 4.8.2.4
@@ -61,35 +62,44 @@ Page Components
 # FIXME unless you can figure out how to change the Perl paths during the
 # install, you need to not give the user the option on where to install
 # Camelbox; if they put it someplace funky, it will not work
-Page Directory
+#Page Directory
 Page InstFiles
 #UninstPage Confirm
 #UninstPage InstFiles
 
-# TODO
-# - after the installer runs, prompt the user to run a demo?
+# what file we're going to download
+Var downloadFile
+
+# FIXME 
+# - abstract the whole 'download and unpack' thingy into a function
+# - add the other directories back for the demo
 
 Section "Toplevel"
 	SetOutPath $INSTDIR
-	File ${CAMELBOX_SOURCE}\toplevel.txt
+	StrCpy $downloadFile "toplevel.tar.bz2"
+    DetailPrint "Downloading: ${BASE_URL}/$downloadFile"
+	inetc::get /POPUP "Toplevel archive" "${BASE_URL}/$downloadFile" "$INSTDIR\$downloadFile"
+	Pop $0 # return value = exit code, "OK" if OK
+    DetailPrint "Download Status: $0"
+	untgz::extract -zbz2 "$INSTDIR\$downloadFile"
+	DetailPrint "Unzip status: $R0"
+	delete "$INSTDIR\$downloadFile"
 	writeUninstaller uninstaller.exe
 SectionEnd
 
 Section "Dir1"
-	SetOutPath $INSTDIR\dir1
-	File ${CAMELBOX_SOURCE}\dir1\file1.txt
+	;SetOutPath $INSTDIR\dir1
+	StrCpy $downloadFile "dir1.tar.bz2"
+    DetailPrint "Downloading: ${BASE_URL}/$downloadFile"
+	inetc::get /POPUP "Directory 1 archive" "${BASE_URL}/$downloadFile" "$INSTDIR\$downloadFile"
+	Pop $0 # return value = exit code, "OK" if OK
+    DetailPrint "Download Status: $0"
+	untgz::extract -zbz2 "$INSTDIR\$downloadFile"
+	DetailPrint "Unzip status: $R0"
+	delete "$INSTDIR\$downloadFile"
 SectionEnd
 
-Section "Dir2"
-	SetOutPath $INSTDIR\dir2
-	File ${CAMELBOX_SOURCE}\dir2\file2.txt
-SectionEnd
-
-Section "Dir3"
-	SetOutPath $INSTDIR\dir3
-	File ${CAMELBOX_SOURCE}\dir3\file3.txt
-SectionEnd
-
+; /e means "expanded by default"
 SectionGroup /e "Environment Variables"
 	# FIXME 
 	# - check here first to verify $INSTDIR hasn't already been added to
@@ -100,12 +110,39 @@ SectionGroup /e "Environment Variables"
 		#StrCpy $1 "$INSTDIR\bin\"
 		StrCpy $1 "$INSTDIR"
 		Push $1
+    	DetailPrint "Adding to %PATH%: $1"
+		Call AddToPath
+		StrCpy $1 "$INSTDIR\someotherpath"
+		Push $1
+    	DetailPrint "Adding to %PATH%: $1"
 		Call AddToPath
 	SectionEnd
-SectionGroupEnd
+SectionGroupEnd ; "Environment Variables"
+
+SectionGroup /e "Demonstration Scripts"
+	Section "Run Demos after installation"
+	SectionEnd
+	Section "perl_swiss_army_knife.pl"
+	SectionEnd
+	Section "gyroscope.pl"
+	SectionEnd
+	Section "Gtk2"
+	SectionEnd
+	Section "Gnome2::Canvas"
+	SectionEnd
+SectionGroupEnd ; "Demonstration Scripts"
 
 Section "Uninstall"
-	# FIXME remove the environment variables set above as well
+	# remove the environment variables set above
+	StrCpy $1 "$INSTDIR"
+	Push $1
+	DetailPrint "Removing from %PATH%: $1"
+	Call un.RemoveFromPath
+	StrCpy $1 "$INSTDIR\someotherpath"
+	Push $1
+	DetailPrint "Removing from %PATH%: $1"
+	Call un.RemoveFromPath
+
 	# delete the uninstaller first
 	delete $INSTDIR\uninstaller.exe
 	# then delete the other files/directories
@@ -116,4 +153,4 @@ Section "Uninstall"
 	RMDir $INSTDIR
 SectionEnd # Uninstall
 
-# vim: filetype=nsis
+# vim: filetype=nsis paste
