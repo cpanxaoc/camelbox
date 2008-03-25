@@ -1,0 +1,11 @@
+7zip
+====
+- create 7zip/bin, 7-zip/usr, 7-zip/usr/share/7zip
+- move 7za.exe to 7zip/bin
+- move 7zip.chm, license.txt, readme.txt, copying.txt to 7-zip/usr/share/7zip
+
+dmake
+=====
+- create dmake/bin, dmake/usr, dmake/usr/share/dmake
+- move dmake.exe and support/ to dmake/bin
+- move all of the other files to dmake/usr/share/dmake
