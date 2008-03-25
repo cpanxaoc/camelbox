@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: archive_diff.pl,v 1.14 2008/03/25 01:18:31 brian Exp $
+# $Id: archive_diff.pl,v 1.15 2008/03/25 02:12:03 brian Exp $
 # Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
 #
 # compare the contents of two archive files side-by-side or in list format
@@ -31,7 +31,7 @@ B<archive_diff.pl> - compare files listed in two archives
 
 =head1 VERSION
 
-The CVS version of this file is $Revision: 1.14 $. See the top of this file for
+The CVS version of this file is $Revision: 1.15 $. See the top of this file for
 the author's version number.
 
 =head1 SYNOPSIS
