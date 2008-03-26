@@ -162,6 +162,7 @@ file would most likely be generated using the C<find> command.
 
 sub process_text_list { 
 	my $self = shift;
+    my $logger = get_logger();
 
     my $total_lines;
 
@@ -208,6 +209,7 @@ Parse the output of the C<7za l> command, which should list the contents of a
 
 sub process_7zip_list { 
 	my $self = shift;
+    my $logger = get_logger();
 
     my $total_lines;
 
