@@ -134,14 +134,89 @@ object attributes.
 
 sub parse { 
     my $self = shift;
-    my $total_lines;
+
     my $logger = get_logger();
+
+
+	if ( $self->archfilename() =~ /\.7z\.txt$/ ) {
+		# try to process the list as a 7zip filelist
+		$self->process_7zip_list();
+	} else {
+		# fall back to a regular text file list instead
+		$self->process_text_list();
+	} # if ( $self->archfilename() =~ /\.7z\.txt$/ )
+} # sub parse
+
+=pod
+
+=head3 process_text_list()
+
+Parse a text file containing a list of files, one file per line.  The text
+file would most likely be generated using the C<find> command.
+
+=cut
+
+# FIXME 
+# - add something to this method that parses the archive attributes, and then
+# populates the object with those archive attributes
+
+sub process_text_list { 
+	my $self = shift;
+
+    my $total_lines;
+
+    # turn off line buffering on STDOUT; this makes the throbber work
+    $| = 1;
+    my $throbber = Throbber->new( count_pulse => $self->count_pulse() );
 
     # open the file and read it's contents
     open(FH, q(<) . $self->archfilename);
-    my $throbber = Throbber->new( count_pulse => $self->count_pulse() );
-    # turn off line buffering on STDOUT
+    while (<FH>) {
+        my $line = $_;
+        # skip blank lines
+        next if ( $line =~ /^$/ );
+		chomp($line);
+		#$line =~ s/\r$//g;
+		# create the archive file object
+        my $archive_file = Archive::File->new( name => $line );
+		$logger->debug(q(Adding ) . $archive_file->name 
+       		. q( to filelist object));
+		$self->filelist->add(   key => $archive_file->name(),
+        						object => $archive_file );
+		$logger->debug(q(there are now ) . $self->filelist->get_count()
+        	. q( records in self->filelist));
+		$total_lines++;
+        $throbber->throb(total_lines => $total_lines);
+    } # while (<FH>)
+	$logger->info(qq(Total files in archive: ) . $total_lines);
+    # turn line buffering back on on STDOUT
+    $| = 0;
+} # sub process_text_list
+
+=pod
+
+=head3 process_7zip_list()
+
+Parse the output of the C<7za l> command, which should list the contents of a
+7-zip archive.
+
+=cut
+
+# FIXME 
+# - add something to this method that parses the archive attributes, and then
+# populates the object with those archive attributes
+
+sub process_7zip_list { 
+	my $self = shift;
+
+    my $total_lines;
+
+    # turn off line buffering on STDOUT; this makes the throbber work
     $| = 1;
+    my $throbber = Throbber->new( count_pulse => $self->count_pulse() );
+
+    # open the file and read it's contents
+    open(FH, q(<) . $self->archfilename);
     while (<FH>) {
         my $line = $_;
         # skip blank lines
@@ -173,7 +248,8 @@ sub parse {
                 $archive_file->{comp_size} = $splitline[4];
                 $archive_file->{name} = $splitline[5];
             } else {
-                $logger->fatal(q(Too many arguments in archive file output));
+				$logger->fatal(q(Problem with parsing LZMA archive file:));
+            	$logger->fatal(q(archive file list unrecognized));
                 exit 1;
             } # if ( scalar(@splitline) == 5 )
             $logger->debug(q(Adding ) . $archive_file->name 
@@ -186,11 +262,10 @@ sub parse {
             $throbber->throb(total_lines => $total_lines);
         } # if ( $line =~ /^\d\d\d\d-\d\d-\d\d/ )
     } # while (<FH>)
-    $logger->info(qq(Total files in archive: ) . $total_lines);
+	$logger->info(qq(Total files in archive: ) . $total_lines);
     # turn line buffering back on on STDOUT
     $| = 0;
-
-} # sub parse
+} # sub process_7zip_list
 
 #### end Package 'Archive' ####
 
