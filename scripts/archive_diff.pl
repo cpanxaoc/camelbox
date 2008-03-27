@@ -40,12 +40,16 @@ the author's version number.
 
 =head2 Script Options
 
- --verbose|-v           Verbose script output
  --help|-h              Show this help message
+ --verbose|-v           Verbose script output
  --first-file|-1st      Filename of the First filelist
  --second-file|-2nd     Filename of the second filelist
- --nocolorlog           Disable colorized log output
  --write|-w             Write diff output to file (diff.YYYY.JJJ.XX.txt)
+ --noscreen-out         Disable output to the screen (-w recommended)
+ --nocommon-list        Don't write/display the list of common files    
+ --nofirst-list         Don't write/display the unique first list files    
+ --nosecond-list        Don't write/display the unique second list files 
+ --nocolorlog           Disable colorized log output
 
 =head1 DESCRIPTION
 
@@ -765,13 +769,18 @@ use Log::Log4perl::Level;
 
 use Pod::Usage;
 
-my ($VERBOSE, $first_file, $second_file, $first_obj, $second_obj, 
-        $write_diffs, $colorlog, $diff_list);
+my ( $colorlog, $screen_out, $common_list, $first_list, $second_list );
 # colorize Log4perl output by default 
 $colorlog = 1;
 # show the diff report output by default
-$diff_list = 1;
+$screen_out = 1;
+# show the common, first and second lists of files by default
+$common_list = 1;
+$first_list = 1;
+$second_list = 1;
 
+my ($VERBOSE, $first_file, $second_file, 
+        $first_obj, $second_obj, $write_diffs );
 my $goparse = Getopt::Long::Parser->new();
 $goparse->getoptions(   q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
@@ -779,7 +788,10 @@ $goparse->getoptions(   q(verbose|v)                    => \$VERBOSE,
                         q(second-file|second|2nd|2=s)   => \$second_file,
                         q(colorlog!)                    => \$colorlog,
                         q(write|w)                      => \$write_diffs,
-                        q(difflist|dl!)                 => \$diff_list,
+                        q(screen-out|sc!)               => \$screen_out,
+                        q(common-list|common|cl!)       => \$common_list,
+                        q(first-list|fl|1l!)            => \$first_list,
+                        q(second-list|sl|2l!)           => \$second_list,
                     ); # $goparse->getoptions
 
 # always turn off color logs under Windows, the terms don't do ANSI
@@ -826,14 +838,19 @@ if ( defined $second_file ) {
     &HelpDie;
 } # if ( defined $first_file ) 
 
-$logger->info(qq(=-=-=-=-=-= Begin $0 =-=-=-=-=-=));
+# bad hack; makes the split() into an array, then accesses the last element of
+# that array
+my $program_name = (split(/\//,$0))[-1];
+
+$logger->info(qq(=-=-=-=-=-= Begin $program_name =-=-=-=-=-=));
 $logger->info(qq(Parsing first archive file));
 $first_obj->parse();
 $logger->info(qq(Parsing second archive file));
 $second_obj->parse();
-$logger->info(qq(=-=-=-=-=-= Archive Diff Report =-=-=-=-=-=));
 
+# create the diff object prior to entering the below closure blocks
 my $diff = Archive::Diff->new( first => $first_obj, second => $second_obj );
+$logger->info(qq(=-=-=-=-=-= Archive Diff Report =-=-=-=-=-=));
 $logger->info(qq(=-=-=-=-=-= 'Before' Report =-=-=-=-=-=));
 $diff->simple_stats();
 $diff->simple_diff();
@@ -841,14 +858,20 @@ $logger->info(qq(=-=-=-=-=-= 'After' Report =-=-=-=-=-=));
 $diff->simple_stats();
 
 # print to the screen first
-if ( $diff_list ) {
-    $logger->info(qq(=-=-=-=-=-= Common File List =-=-=-=-=-=));
-    foreach ( $diff->common->get_keys() ) { $logger->info($_); }
-    $logger->info(qq(=-=-=-=-=-= 'First' File List =-=-=-=-=-=));
-    foreach ( $diff->first->filelist->get_keys() ) { $logger->info($_); }
-    $logger->info(qq(=-=-=-=-=-= 'Second' File List =-=-=-=-=-=));
-    foreach ( $diff->second->filelist->get_keys() ) { $logger->info($_); }
-} # if ( $diff_list )
+if ( $screen_out ) {
+    if ( $common_list ) {
+        $logger->info(qq(=-=-=-=-=-= Common File List =-=-=-=-=-=));
+        foreach ( $diff->common->get_keys() ) { $logger->info($_); }
+    } # if ( $common_list )
+    if ( $first_list ) {
+        $logger->info(qq(=-=-=-=-=-= 'First' File List =-=-=-=-=-=));
+        foreach ( $diff->first->filelist->get_keys() ) { $logger->info($_); }
+    } # if ( $first_list )
+    if ( $second_list ) {
+        $logger->info(qq(=-=-=-=-=-= 'Second' File List =-=-=-=-=-=));
+        foreach ( $diff->second->filelist->get_keys() ) { $logger->info($_); }
+    } # if ( $second_list )
+} # if ( $screen_out )
 
 if ( $write_diffs ) {
     # get the date for creating an output file 
@@ -865,24 +888,31 @@ if ( $write_diffs ) {
     open(DIFF_FH, q(>) . $outfile);
 
     # files common between both objects
-    print DIFF_FH qq(=-=-=-=-=-= Common File List =-=-=-=-=-=\n);
-    foreach ( $diff->common->get_keys() ) { print DIFF_FH $_ . qq(\n); }
+    if ( $common_list ) {
+        print DIFF_FH qq(=-=-=-=-=-= Common File List =-=-=-=-=-=\n);
+        foreach ( $diff->common->get_keys() ) { print DIFF_FH $_ . qq(\n); }
+    } # if ( $common_list )
     
     # files that are only in the first object
-    print DIFF_FH qq(=-=-=-=-=-= 'First' File List =-=-=-=-=-=\n);
-    print DIFF_FH qq(First file name:\n);
-    print DIFF_FH $diff->first->archfilename() . qq(\n);
-    foreach ( $diff->first->filelist->get_keys() ) { 
-        print DIFF_FH $_ . qq(\n); 
-    } # foreach ( $diff->first->filelist->get_keys() )
+    if ( $first_list ) {
+        print DIFF_FH qq(=-=-=-=-=-= 'First' File List =-=-=-=-=-=\n);
+        print DIFF_FH qq(First file name:\n);
+        print DIFF_FH $diff->first->archfilename() . qq(\n);
+        foreach ( $diff->first->filelist->get_keys() ) { 
+            print DIFF_FH $_ . qq(\n); 
+        } # foreach ( $diff->first->filelist->get_keys() )
+    } # if ( $first_list )
 
     # files that are only in the second object
-    print DIFF_FH qq(=-=-=-=-=-= 'Second' File List =-=-=-=-=-=\n);
-    print DIFF_FH qq(Second file name:\n);
-    print DIFF_FH $diff->second->archfilename() . qq(\n);
-    foreach ( $diff->second->filelist->get_keys() ) { 
-        print DIFF_FH $_ . qq(\n); 
-    } # foreach ( $diff->second->filelist->get_keys() )
+    if ( $second_list ) {
+        print DIFF_FH qq(=-=-=-=-=-= 'Second' File List =-=-=-=-=-=\n);
+        print DIFF_FH qq(Second file name:\n);
+        print DIFF_FH $diff->second->archfilename() . qq(\n);
+        foreach ( $diff->second->filelist->get_keys() ) { 
+            print DIFF_FH $_ . qq(\n); 
+        } # foreach ( $diff->second->filelist->get_keys() )
+    } # if ( $second_list ) 
+
     # we're done, close the filehandle
     close(DIFF_FH);
 } # if ( $write_diffs )
