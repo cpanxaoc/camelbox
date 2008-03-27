@@ -1,15 +1,43 @@
 Instructions on where to put which files from each project's distribution
-archives.
+archives.  These sections appear roughly in the order you should install them
+in.
+
+Directory structure:
+- build - directory for building perl
+- gtk-archives - 7zipped files
+- gtk-binaries - directories containing unpacked binaries from the Gnome
+  website
+  - gtk-core-bin
+  - gtk-core-dev
+  - gtk-core-doc
+  - gtk-support-bin
+  - gtk-support-dev
+  - imagelibs-bin
+  - imagelibs-dev
+  - imagelibs-utils
+  - 7zip
+  - dmake
+  - dmake-extra (unneeded files from dmake)
+  - unxutils
+- gtk-tarballs - downloaded archives and support software
+
+gtk-binaries preparation
+========================
+- extract all of the non-dev archives to gtk-core-bin
+- extract all of the -dev archives to gtk-core-dev
+  - move the make files in gtk-support-dev\make to
+	gtk-support-dev\share\doc\<package name> and delete the make folder
+- move the contents of gtk-core-dev\share\gtk-doc\html from to
+  gtk-core-doc\share\html 
+- delete gtk-core-dev\share\gtk-doc
 
 UnxUtils
 ========
 - move everything in unxutils\usr\local to unxutils\usr
 - create unxutils\usr\share\doc\unxutils\
-- move StdDisclaimer.html and UnxUtilsDist.html to
-  unxutils\usr\share\doc\unxutils\
-- move the contents of unxutils\usr\local\share\ to
-  unxutils\usr\share\doc\unxutils\
-- move unxutils\usr\md5sum to unxutils\usr\share\doc\unxutils\
+- move StdDisclaimer.html and UnxUtilsDist.html to unxutils\share\doc\unxutils\
+- move the contents of unxutils\usr\local\share to unxutils\share\doc\unxutils\
+- move unxutils\usr\md5sum to unxutils\share\doc\unxutils\
 - move the contents of unxutils\usr\wbin to unxutils\bin
 - delete unxutils\usr\wbin
 - move unxutils\bin\libfl.[a|lib] to unxutils\usr\lib, overwrite existing
@@ -21,51 +49,51 @@ UnxUtils
 ===============
 - create 7zip\bin, 7zip\usr\share\doc\7zip
 - move 7za.exe to 7zip\bin
-- move 7zip.chm, license.txt, readme.txt, copying.txt to 7zip\usr\share\doc\7zip
+- move 7zip.chm, license.txt, readme.txt, copying.txt to 7zip\share\doc\7zip
 
 dmake
 =====
 - create dmake\bin, dmake\usr\share\doc\dmake
 - move dmake.exe and support\ to dmake\bin
-- move all of the other files/directories to dmake\usr\share\dmake
+- move all of the other files/directories to dmake\share\doc\dmake
+- (Optional) move all of the unneeded files/directories in dmake\bin\support
+  to a dmake-extra package.
 
 MinGW
 =====
 - Make sure you select g++
 - Install to C:\camelbox
 - move camelbox\COPYING* and camelbox\MinGW shortcut to camelbox\doc
-- move installed.ini, MinGW-5.1.3.exe and uninst.exe to camelbox\mingw
+- move installed.ini, MinGW-5.1.3.exe and uninst.exe to camelbox\mingw32
 - move camelbox\man to camelbox\usr\man
-- move camelbox\info to camelbox\usr\share\info
-- move the contents of camelbox\doc to camelbox\usr\share\doc\mingw
+- move camelbox\info to camelbox\usr\info
+- move camelbox\doc to camelbox\share\
+- move all of the MinGW files into the camelbox\share\doc\mingw-runtime
+  directory 
 
-gtk+
+Perl
 ====
-Create the following directories
-- gtk-core-bin
-- gtk-core-dev
-- gtk-core-doc
-- gtk-support-bin
-- gtk-support-dev
-- imagelibs-bin
-- imagelibs-dev
-- imagelibs-utils
+You now have enough software installed to build Perl.  Unpack the source, and
+use dmake to build.
 
-- extract all of the normal archives to gtk-core-bin
-- extract all of the -dev archives to gtk-core-dev
-  - move the make files in gtk-support-dev\make to
-	gtk-support-dev\usr\share\doc\<package name> and delete the make folder
-- move the contents of gtk-core-dev\share\gtk-doc\html from to
-  gtk-core-doc\usr\share\html 
-- delete gtk-core-dev\share\gtk-doc
+- html directory can be packaged/deleted?
 
 gtk-support programs
-================
+====================
 gettext
 - extract normal archive to gtk-support-bin
 - extract -dev archive to gtk-support-dev
   - move gtk-support-dev\make to gtk-support-dev\usr\share\doc\gettext
-- extract tools archive to gettext-utils and create a separate package for it
+- extract gettext-tools archive to gettext-utils package
+
+libiconv
+- required by pkg-config to run
+- move libiconv\bin and libiconv\share\locale to gtk-support-bin\
+- move contents of libiconv\share\doc\libiconv to
+  gtk-support-dev\usr\share\doc\libiconv
+- move libiconv\share\man to gtk-suport-dev\usr\man
+- move libiconv\README.libiconv to gtk-support-dev\usr\share\doc\libiconv
+- move libiconv\lib and libiconv\share to gtk-support-dev\
 
 pkg-config
 - extract to gtk-support-bin
@@ -83,9 +111,9 @@ jpeg*-bin
 - extract all of the rest of the *.exe files in the bin\ directory to
   imagelibs-utils
 - extract the man pages to imagelibs-utils\usr\
-- extract the rest of the archive (contrib) to imagelibs-dev\usr\share\doc,
-  and move the contrib\jpeg subdirectory into \usr\share\doc and delete the
-  unneeded directories
+- extract the rest of the archive (contrib) to imagelibs-dev\share\doc,
+  and move the contrib\jpeg subdirectory into imagelibs-dev\share\doc and
+  delete the unneeded directories
 
 jpeg*-lib
 - extract all files to imagelibs-dev
@@ -96,9 +124,9 @@ libpng*-bin
   imagelibs-utils
 - extract the lib\ directory to imagelibs-dev\
 - extract the man\ directory to imagelibs-dev\usr
-- extract the rest of the archive (contrib) to imagelibs-dev\usr\share\doc,
-  and move the contrib\libpng subdirectory into \usr\share\doc and delete the
-  unneeded directories
+- extract the rest of the archive (contrib) to imagelibs-dev\share\doc,
+  and move the contrib\libpng subdirectory into imagelibs-dev\share\doc and
+  delete the unneeded directories
 
 libpng*-lib
 - extract all files to imagelibs-dev
@@ -109,10 +137,18 @@ libtiff*-bin
   imagelibs-utils
 - extract the lib\ directory to imagelibs-dev\
 - extract the man\ directory to imagelibs-utils\usr
-- extract the rest of the archive (contrib) to imagelibs-dev\usr\share\doc,
-  and move the contrib\tiff subdirectory into \usr\share\doc and delete the
-  unneeded directories
+- extract the rest of the archive (contrib) to imagelibs-dev\share\doc,
+  and move the contrib\tiff subdirectory into imagelibs-dev\share\doc and
+  delete the unneeded directories
 
 libtiff*-lib
 - extract all files to imagelibs-dev
+
+Gtk2-Perl Modules
+=================
+requires 
+- gtk-core-bin and gtk-core-dev (obviously)
+- gtk-support-bin
+- imagelibs-bin and imagelibs-dev package (contains pkg-config .pc files)
+- build hints in Antlinux wiki
 
