@@ -68,8 +68,8 @@ MinGW
 - move camelbox\man to camelbox\usr\man
 - move camelbox\info to camelbox\usr\info
 - move camelbox\doc to camelbox\share\
-- move all of the MinGW files into the camelbox\share\doc\mingw-runtime
-  directory 
+- move all of the MinGW files in the camelbox\share\doc directory into the
+  camelbox\share\doc\mingw-runtime directory 
 
 Perl
 ====
@@ -151,5 +151,5 @@ requires
 - gtk-core-bin and gtk-core-dev (obviously)
 - gtk-support-bin
 - imagelibs-bin and imagelibs-dev package (contains pkg-config .pc files)
-- build hints in Antlinux wiki
-
+- build hints in Antlinux wiki, including setting the PKG_CONFIG_PATH variable
+  to the directory containing all of the pkg-config *.pc files
