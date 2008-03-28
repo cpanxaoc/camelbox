@@ -101,40 +101,95 @@ Section "-WriteUninstaller"
 	writeUninstaller uninstaller.exe	
 SectionEnd # WriteUninstaller
 
-SectionGroup /e "Perl 5.10.0"
-	Section "Perl 5.10.0 Base Package" perlbase_id
-		push "perl-5-10.0.2008.086.1.7z"
-		# TODO this may not work, it may need to be below/outside of this
-		# section
-		SectionGetText ${perlbase_id} $0
-		push $0
-		AddSize 7800 # kilobytes
-	SectionEnd
-SectionGroupEnd # "Perl 5.10.0"
+; /e in any SectionGroup header means "expanded by default"
+Section "Perl 5.10.0 Base Package" perlbase_id
+	push "perl-5-10.0.2008.087.1.tar.lzma"
+	# TODO this may not work, it may need to be below/outside of this
+	# section
+	SectionGetText ${perlbase_id} $0
+	push $0
+	AddSize 8000 # kilobytes
+SectionEnd # "Perl 5.10.0 Base Package"
 
-; /e means "expanded by default"
+SectionGroup "Core Gtk2-Perl Packages"
+	Section "Core GTK Binaries"
+		push "gtk-core-bin.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "imagelibs-bin (JPG/PNG/TIFF libraries)"
+		push "imagelibs-bin.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "gtk-support-bin (gettext/libintl/etc.)"
+		push "gtk-support-bin.2008.087.1.tar.lzma"
+	SectionEnd
+SectionGroupEnd # "Core Gtk2-Perl Packages"
+
+SectionGroup "Development Packages"
+	Section "Core GTK Development Files"
+		push "gtk-core-dev.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "dmake Makefile Processor"
+		push "dmake.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "dmake Makefile Processor (extra files)"
+		push "dmake-extra.2008.087.1.tar.lzma"
+	SectionEnd
+SectionGroupEnd # "Development Packages"
+
+SectionGroup "Extra Tools Packages"
+	Section "UnxUtilities for Windows"
+		push "unxutils.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "7zip Archiver (command line version)"
+		push "7zip.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "imagelibs Utilities"
+		push "imagelibs-utils.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "gettext Utilities"
+		push "gettext-utils.2008.087.1.tar.lzma"
+	SectionEnd
+SectionGroupEnd # "Extra Tools Packages"
+
+SectionGroup "Perl Modules"
+	Section "Perl Gtk2-Perl Core Modules"
+		push "perl-Gtk2-core.2008.088.1.tar.lzma"
+	SectionEnd
+	Section "Perl YAML Module"
+		push "perl-YAML.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "Perl LWP libwww-perl Module"
+		push "perl-LWP.2008.087.1.tar.lzma"
+	SectionEnd
+SectionGroupEnd # "Perl Modules"
+
+SectionGroup "Documentation and Examples"
+	Section "Perl 5.10.0 HTML Documentation"
+		push "perl-5-10.0-html_docs.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "GTK C API HTML/SGML Documentation"
+		push "gtk-core-doc.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "Gtk2-Perl Examples"
+		push "gtk2-perl_examples.2008.088.1.tar.lzma"
+	SectionEnd
+SectionGroupEnd ; "Demonstration Scripts"
+
 SectionGroup /e "Environment Variables"
 	# FIXME 
 	# - check here first to verify $INSTDIR hasn't already been added to
 	# the path environment variable
 	# - the installer adds the Camelbox distro to the user's path; maybe make
 	# it a choice to add it systemwide instead?
-	Section "Add binaries to PATH variable"
+	Section "Add Camelbox to PATH variable"
 		#StrCpy $1 "$INSTDIR\bin\"
 		StrCpy $1 "$INSTDIR"
-		Push $1
-    	DetailPrint "Adding to %PATH%: $1"
-		Call AddToPath
-		StrCpy $1 "$INSTDIR\someotherpath"
 		Push $1
     	DetailPrint "Adding to %PATH%: $1"
 		Call AddToPath
 	SectionEnd
 SectionGroupEnd ; "Environment Variables"
 
-SectionGroup /e "Demonstration Scripts"
-	Section "Run Demos after installation"
-	SectionEnd
+SectionGroup /e "Run Demonstration Scripts"
 	Section "perl_swiss_army_knife.pl"
 	SectionEnd
 	Section "gyroscope.pl"
