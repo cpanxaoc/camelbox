@@ -44,7 +44,8 @@
 !define LICENSE_FILE "${INSTALLER_BASE}\License\License.txt"
 !define MAIN_ICON "${INSTALLER_BASE}\Icons\camelbox-logo.ico"
 #!define BASE_URL "http://camelbox.googlecode.com/files"
-!define BASE_URL "http://devilduck.qualcomm.com/camelbox"
+#!define BASE_URL "http://devilduck.qualcomm.com/camelbox"
+!define BASE_URL "http://files.antlinux.com/win/apps/gtk-archives"
 !define INSTALL_PATH "C:\camelbox"
 
 #### NSIS OPTIONS ####
@@ -107,8 +108,8 @@ Function SnarfUnpack
 	# check for an OK download; continues on success, bails on error
 	StrCmp $0 "OK" 0 FailBail
 	DetailPrint "Extracting $archivefile"
-	#untgz::extract -zlzma "$INSTDIR\$archivefile"
-	untgz::extract -zbz2 "$INSTDIR\$archivefile"
+	untgz::extract -zlzma "$INSTDIR\$archivefile"
+	#untgz::extract -zbz2 "$INSTDIR\$archivefile"
 	DetailPrint "Unzip status: $R0"
 	StrCmp $0 "OK" 0 FailBail
 	delete "$INSTDIR\$archivefile"
