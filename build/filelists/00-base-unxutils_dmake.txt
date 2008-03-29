@@ -1,5 +1,4 @@
 bin
-bin\7za.exe
 bin\agrep.exe
 bin\ansi2knr.exe
 bin\basename.exe
@@ -316,11 +315,6 @@ bin\zcat.exe
 bin\zip.exe
 share
 share\doc
-share\doc\7zip
-share\doc\7zip\7-zip.chm
-share\doc\7zip\copying.txt
-share\doc\7zip\license.txt
-share\doc\7zip\readme.txt
 share\doc\dmake
 share\doc\dmake\ChangeLog
 share\doc\dmake\COPYING
