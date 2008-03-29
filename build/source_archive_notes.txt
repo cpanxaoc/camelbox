@@ -2,7 +2,7 @@ Instructions on where to put which files from each project's distribution
 archives.  These sections appear roughly in the order you should install them
 in.
 
-Directory structure:
+Camelbox Directory structure:
 - build - directory for building perl
 - gtk-archives - 7zipped files
 - gtk-binaries - directories containing unpacked binaries from the Gnome
