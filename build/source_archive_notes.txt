@@ -76,8 +76,8 @@ Perl
 You now have enough software installed to build Perl.  Unpack the source, and
 use dmake to build.
 
-- html directory should be moved to camelbox\share\doc\perl-html and packaged
-  in a separate file
+- html directory should be packaged in a separate file from the Perl binary
+  modules, support files and POD documentation
 
 gtk-support programs
 ====================
