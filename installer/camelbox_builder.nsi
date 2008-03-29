@@ -43,9 +43,11 @@
 !define INSTALLER_BASE "C:\temp\camelbox-svn\installer"
 !define LICENSE_FILE "${INSTALLER_BASE}\License\License.txt"
 !define MAIN_ICON "${INSTALLER_BASE}\Icons\camelbox-logo.ico"
+!define ARCHIVE_HOST "manzana"
+!define BASE_URL "http://manzana/Windows_Software/gtk-archives/"
 #!define BASE_URL "http://camelbox.googlecode.com/files"
 #!define BASE_URL "http://devilduck.qualcomm.com/camelbox"
-!define BASE_URL "http://files.antlinux.com/win/apps/gtk-archives"
+#!define BASE_URL "http://files.antlinux.com/win/apps/gtk-archives"
 !define INSTALL_PATH "C:\camelbox"
 
 #### NSIS OPTIONS ####
@@ -71,7 +73,7 @@ Name "${CAPTION_TEXT}"
 
 LicenseText "${CAPTION_TEXT}" 		# 4.8.1.28
 LicenseData "${LICENSE_FILE}" 		# 4.8.1.26
-OutFile "C:\temp\camelbox_${RELEASE_VERSION}-way_fucking_alpha.exe"	# 4.8.1.31
+OutFile "C:\temp\camelbox_${RELEASE_VERSION}-${ARCHIVE_HOST}-way_fucking_alpha.exe"	# 4.8.1.31
 #InstallDir "C:\temp\multipackage_demo_${RELEASE_VERSION}_out" 	# 4.8.1.21
 #InstallDir $DESKTOP\demo
 InstallDir "${INSTALL_PATH}"
@@ -136,17 +138,13 @@ Section "-WriteUninstaller"
 SectionEnd # WriteUninstaller
 
 ; /e in any SectionGroup header means "expanded by default"
-/*
 Section "Perl 5.10.0 Base Package" perlbase_id
 	AddSize 8000 # kilobytes
-	#push "perl-5.10.0.2008.087.1.tar.lzma"
-	#push "perl-5.10.0.2008.087.1.tar.lzma"
-	push "perl-5.10.0.2008.087.1.tar.bz2"
+	push "perl-5.10.0.2008.089.1.tar.lzma"
 	SectionGetText ${perlbase_id} $0
 	push $0
 	Call SnarfUnpack
 SectionEnd # "Perl 5.10.0 Base Package"
-*/
 Section "dmake Makefile Processor" dmake_id
 	AddSize 70 # kilobytes
 	push "dmake.2008.089.1.tar.lzma"
@@ -164,7 +162,6 @@ Section "dmake Makefile Processor (extra files)" dmake-extra_id
 	Call SnarfUnpack
 SectionEnd
 
-/*
 SectionGroup "Core Gtk2-Perl Packages"
 	Section "Core GTK Binaries"
 		push "gtk-core-bin.2008.087.1.tar.lzma"
@@ -230,7 +227,6 @@ SectionGroup "Documentation and Examples"
 		push "gtk2-perl_examples.2008.088.1.tar.lzma"
 	SectionEnd
 SectionGroupEnd ; "Demonstration Scripts"
-*/
 
 SectionGroup /e "Environment Variables"
 	Section "Add Camelbox to PATH variable"
