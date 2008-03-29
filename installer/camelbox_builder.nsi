@@ -148,7 +148,7 @@ SectionEnd # "Perl 5.10.0 Base Package"
 */
 Section "dmake Makefile Processor" dmake_id
 	AddSize 70 # kilobytes
-	push "dmake.2008.087.1.tar.lzma"
+	push "dmake.2008.089.1.tar.lzma"
 	#push "dmake.2008.087.1.tar.bz2"
 	SectionGetText ${dmake_id} $0
 	push $0
@@ -156,16 +156,8 @@ Section "dmake Makefile Processor" dmake_id
 SectionEnd
 Section "dmake Makefile Processor (extra files)" dmake-extra_id
 	AddSize 103 # kilobytes
-	push "dmake-extra.2008.087.1.tar.lzma"
+	push "dmake-extra.2008.089.1.tar.lzma"
 	#push "dmake-extra.2008.087.1.tar.bz2"
-	SectionGetText ${dmake-extra_id} $0
-	push $0
-	Call SnarfUnpack
-SectionEnd
-Section "7zip Archiver (command line version)"
-	AddSize 317 # kilobytes
-	push "7zip.2008.087.1.tar.lzma"
-	#push "dmake-extra.2008.087.1.tar.lzma"
 	SectionGetText ${dmake-extra_id} $0
 	push $0
 	Call SnarfUnpack
@@ -185,6 +177,9 @@ SectionGroup "Core Gtk2-Perl Packages"
 SectionGroupEnd # "Core Gtk2-Perl Packages"
 
 SectionGroup "Development Packages"
+	Section "Minimal GNU for Windows (MinGW) Toolkit"
+		push "mingw.2008.087.1.tar.lzma"
+	SectionEnd
 	Section "Core GTK Development Files"
 		push "gtk-core-dev.2008.087.1.tar.lzma"
 	SectionEnd
