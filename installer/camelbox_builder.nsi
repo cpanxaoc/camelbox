@@ -28,6 +28,14 @@
 # the path that needs to be removed
 # - find some way to store a filelist externally, a list of files and variable
 # names, which can be plugged into the script at the right times (below)
+# - unless you can figure out how to change the Perl paths during the
+# install, you need to not give the user the option on where to install
+# Camelbox; if they put it someplace funky, it will not work
+# - add a checkbox in the download URL page that lets the user keep the archive
+# files after the installation is complete
+# - add windows shortcuts to important apps and demos
+# - start menu/desktop shortcuts?
+# - a copy of perl shell for shits and giggles?
 
 #### EXTERNAL FUNCTION SCRIPTS ####
 !include "AddToPath.nsh"
@@ -73,35 +81,35 @@ Name "${CAPTION_TEXT}"
 
 LicenseText "${CAPTION_TEXT}" 		# 4.8.1.28
 LicenseData "${LICENSE_FILE}" 		# 4.8.1.26
-OutFile "C:\temp\camelbox_${RELEASE_VERSION}-way_fucking_alpha.exe"	# 4.8.1.31
+#OutFile "C:\temp\camelbox_${RELEASE_VERSION}-way_fucking_alpha.exe" # 4.8.1.31
+OutFile "C:\temp\camelbox_${RELEASE_VERSION}-alpha.exe"	# 4.8.1.31
 #InstallDir "C:\temp\multipackage_demo_${RELEASE_VERSION}_out" 	# 4.8.1.21
 #InstallDir $DESKTOP\demo
 InstallDir "${INSTALL_PATH}"
 
 #### PAGES ####
 Page License
+Page custom ChooseHTTPServer ChooseHTTPServerLeave
 Page Components
-# TODO unless you can figure out how to change the Perl paths during the
-# install, you need to not give the user the option on where to install
-# Camelbox; if they put it someplace funky, it will not work
 #Page Directory
-Page custom ChooseHTTPServer
 Page InstFiles
-#UninstPage Confirm
-#UninstPage InstFiles
+UninstPage uninstConfirm
+UninstPage InstFiles
 
 #### GLOBAL VARIABLES ####
 # what file we're going to download
 var archivefile
 # what the name of the section is, for use with the downloader/unpacker
 var sectionname
-# the return value from the custom dialog
-var dialogHWND
 # dialog label and name
 var dialogURL
+# the download URL
+var DL_URL
+
 #### FUNCTIONS ####
 
-Function ChooseHTTPServer #Function name defined with Page command
+Function ChooseHTTPServer 
+# custom page for entering in a download URL
 	nsDialogs::Create /NOUNLOAD 1018
 	Pop $0
 	StrCmp $0 "error" FailBail 0
@@ -117,6 +125,10 @@ Function ChooseHTTPServer #Function name defined with Page command
 		"(Default URL is ${BASE_URL})"
 	pop $0
 
+	${NSD_CreateLabel} 0 45u 100% 13u \
+		"You can specify a local/alternate mirror for the Camelbox files here."
+	pop $0
+
 	# this always comes last
 	nsDialogs::Show
 	FailBail:
@@ -125,18 +137,23 @@ Function ChooseHTTPServer #Function name defined with Page command
 		abort "$0; Aborting..."
 FunctionEnd
 
+Function ChooseHTTPServerLeave
+# scrape the user's answer out of the text box
+	${NSD_GetText} $dialogURL $0
+	StrCpy $DL_URL $0
+FunctionEnd
+
 # 'download and unpack' function thingy
 Function SnarfUnpack
 	# pop arguments off of the stack
 	pop $sectionname
 	pop $archivefile
-    #DetailPrint "Downloading: ${BASE_URL}/$archivefile"
-    DetailPrint "Downloading: $R0/$archivefile"
+	# verify the download directory exists
+    DetailPrint "Downloading: $DL_URL/$archivefile"
 	# do the download;
 	# return value = exit code, "OK" if OK
 	inetc::get /POPUP "$sectionname" \
-		"$R0/$archivefile" "$INSTDIR\$archivefile"
-	#	"${BASE_URL}/$archivefile" "$INSTDIR\$archivefile"
+		"$DL_URL/$archivefile" "$INSTDIR\$archivefile"
 	Pop $0 
 	# check for an OK download; continues on success, bails on error
 	StrCmp $0 "OK" 0 FailBail
@@ -151,7 +168,7 @@ Function SnarfUnpack
 	FailBail:
 		# $0 should have already been set by the caller
 		DetailPrint "Installer encountered the following fatal error:"
-		abort "$0; Aborting..."
+		abort "'$0'; Aborting..."
 FunctionEnd # SnarfUnpack
 
 Function DebugPause
@@ -161,42 +178,76 @@ FunctionEnd
 #### SECTIONS ####
 
 Section "-WriteUninstaller"
+
 	SetOutPath "$INSTDIR"
 	CreateDirectory "$INSTDIR\bin"
 	writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
-	writeUninstaller "$INSTDIR\bin\uninstaller.exe"
+	writeUninstaller "$INSTDIR\bin\camelbox_uninstaller.exe"
+	DetailPrint "a little snooze...."
+	sleep 500
 SectionEnd # WriteUninstaller
 
 ; /e in any SectionGroup header means "expanded by default"
-Section "Perl 5.10.0 Base Package" perlbase_id
-	AddSize 8000 # kilobytes
+Section "Perl 5.10.0 Base Package" perl-core_id
+	AddSize 7700 # kilobytes
 	push "perl-5.10.0.2008.089.1.tar.lzma"
-	SectionGetText ${perlbase_id} $0
+	SectionGetText ${perl-core_id} $0
 	push $0
 	Call SnarfUnpack
 SectionEnd # "Perl 5.10.0 Base Package"
 
 SectionGroup "Core Gtk2-Perl Packages"
-	Section "Core GTK Binaries"
-		push "gtk-core-bin.2008.087.1.tar.lzma"
+	Section "Core GTK Binaries" gtk-core-bin_id
+		AddSize 4500 # kilobytes
+		push "gtk-core-bin.2008.089.1.tar.lzma"
+		SectionGetText ${gtk-core-bin_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "imagelibs-bin (JPG/PNG/TIFF libraries)"
-		push "imagelibs-bin.2008.087.1.tar.lzma"
+	Section "imagelibs-bin (JPG/PNG/TIFF libraries)" imagelibs-bin_id
+		AddSize 240 # kilobytes
+		push "imagelibs-bin.2008.089.1.tar.lzma"
+		SectionGetText ${imagelibs-bin_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "gtk-support-bin (gettext/libintl/etc.)"
-		push "gtk-support-bin.2008.087.1.tar.lzma"
+	Section "gtk-support-bin (gettext/libintl/etc.)" gtk-support-bin_id
+		AddSize 556 # kilobytes
+		push "gtk-support-bin.2008.089.1.tar.lzma"
+		SectionGetText ${gtk-support-bin_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
+	Section "Perl Gtk2-Perl Core Modules" perl-gtk2_id
+		AddSize 768 # kilobytes
+		push "perl-gtk2.2008.092.1.tar.lzma"
+		SectionGetText ${perl-gtk2_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
 SectionGroupEnd # "Core Gtk2-Perl Packages"
 
 SectionGroup "Development Packages"
-	Section "Minimal GNU for Windows (MinGW) Toolkit"
-		push "mingw.2008.087.1.tar.lzma"
+	Section "Minimal GNU for Windows (MinGW) Toolkit" mingw_id
+		AddSize 7500 # kilobytes
+		push "mingw.2008.089.1.tar.lzma"
+		SectionGetText ${mingw_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "Core GTK Development Files"
-		push "gtk-core-dev.2008.087.1.tar.lzma"
+	Section "Core GTK Development Files" gtk-core-dev_id 
+		AddSize 784 # kilobytes
+		push "gtk-core-dev.2008.089.1.tar.lzma"
+		SectionGetText ${gtk-core-dev_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "Imagelibs Development Files"
-		push "imagelibs-dev.2008.087.1.tar.lzma"
+	Section "Imagelibs Development Files" imagelibs-dev_id 
+		AddSize 316 # kilobytes
+		push "imagelibs-dev.2008.089.1.tar.lzma"
+		SectionGetText ${imagelibs-dev_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
 	Section "dmake Makefile Processor" dmake_id
 		AddSize 70 # kilobytes
@@ -206,7 +257,7 @@ SectionGroup "Development Packages"
 		Call SnarfUnpack
 	SectionEnd
 	Section "dmake Makefile Processor (extra files)" dmake-extra_id
-		AddSize 103 # kilobytes
+		AddSize 104 # kilobytes
 		push "dmake-extra.2008.089.1.tar.lzma"
 		SectionGetText ${dmake-extra_id} $0
 		push $0
@@ -215,49 +266,90 @@ SectionGroup "Development Packages"
 SectionGroupEnd # "Development Packages"
 
 SectionGroup "Extra Tools Packages"
-	Section "UnxUtilities for Windows"
-		push "unxutils.2008.087.1.tar.lzma"
+	Section "UnxUtilities for Windows" unxutils_id
+		AddSize 2000 # kilobytes
+		push "unxutils.2008.089.1.tar.lzma"
+		SectionGetText ${unxutils_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "7zip Archiver (command line version)"
-		push "7zip.2008.087.1.tar.lzma"
+	Section "7zip Archiver (command line version)" 7zip_id
+		AddSize 312 # kilobytes
+		push "7zip.2008.089.1.tar.lzma"
+		SectionGetText ${7zip_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "LZMA Archiver (command line version)"
-		push "lzma.2008.087.1.tar.lzma"
+	Section "LZMA Archiver (command line version)" lzma_id
+		AddSize 44 # kilobytes
+		push "lzma.2008.089.1.tar.lzma"
+		SectionGetText ${lzma_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "imagelibs Utilities"
-		push "imagelibs-utils.2008.087.1.tar.lzma"
+	Section "imagelibs Utilities" imagelibs-utils_id
+		AddSize 276 # kilobytes
+		push "imagelibs-utils.2008.089.1.tar.lzma"
+		SectionGetText ${imagelibs-utils_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "gettext Utilities"
-		push "gettext-utils.2008.087.1.tar.lzma"
+	Section "gettext Utilities" gettext-utils_id
+		AddSize 1300 # kilobytes
+		push "gettext-utils.2008.089.1.tar.lzma"
+		SectionGetText ${gettext-utils_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
 SectionGroupEnd # "Extra Tools Packages"
 
-SectionGroup "Perl Modules"
-	Section "Perl Gtk2-Perl Core Modules"
-		push "perl-Gtk2-core.2008.088.1.tar.lzma"
+SectionGroup "Extra Perl Modules"
+	Section "Perl YAML Module" perl-YAML_id
+		AddSize 32 # kilobytes
+		push "perl-YAML.2008.089.1.tar.lzma"
+		SectionGetText ${perl-YAML_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "Perl YAML Module"
-		push "perl-YAML.2008.087.1.tar.lzma"
-	SectionEnd
-	Section "Perl LWP libwww-perl Module"
-		push "perl-LWP.2008.087.1.tar.lzma"
+	Section "Perl LWP libwww-perl Module" perl-LWP_id
+		AddSize 204 # kilobytes
+		push "perl-LWP.2008.089.1.tar.lzma"
+		SectionGetText ${perl-LWP_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
 /*
-	Section "Moose Post-Modern Object Framework"
-		push "perl-moose.2008.087.1.tar.lzma"
+	Section "Moose Post-Modern Object Framework" perl-moose_id
+		AddSize  # kilobytes
+		push "perl-moose.2008.089.1.tar.lzma"
+		SectionGetText ${perl-moose_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
 */
 SectionGroupEnd # "Perl Modules"
 
 SectionGroup "Documentation and Examples"
-	Section "Perl 5.10.0 HTML Documentation"
-		push "perl-5-10.0-html_docs.2008.087.1.tar.lzma"
+	Section "Perl 5.10.0 HTML Documentation" perl-html_docs_id
+		AddSize 2300 # kilobytes
+		push "perl-5.10.0-html_docs.2008.089.1.tar.lzma"
+		SectionGetText ${perl-html_docs_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "GTK C API HTML/SGML Documentation"
-		push "gtk-core-doc.2008.087.1.tar.lzma"
+	Section "GTK C API HTML/SGML Documentation" gtk-core-doc_id
+		AddSize 2200 # kilobytes
+		push "gtk-core-doc.2008.089.1.tar.lzma"
+		SectionGetText ${gtk-core-doc_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
-	Section "Gtk2-Perl Examples"
-		push "gtk2-perl_examples.2008.088.1.tar.lzma"
+	Section "Gtk2-Perl Examples" gtk2-perl-examples_id
+		AddSize 184 # kilobytes
+		push "gtk2-perl-examples.2008.089.1.tar.lzma"
+		SectionGetText ${gtk2-perl-examples_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
 SectionGroupEnd # "Documentation and Examples"
 
@@ -284,18 +376,27 @@ SectionGroupEnd ; "Demonstration Scripts"
 */
 
 Section "Uninstall"
-	StrCpy $1 "$INSTDIR\bin"
+	# delete the uninstaller first
+	DetailPrint "Removing installer files"
+	delete "${INSTALL_PATH}\bin\camelbox_uninstaller.exe"
+	delete "${INSTALL_PATH}\camelbox_uninstaller.exe"
+	# remove the binpath
+	StrCpy $1 "${INSTALL_PATH}\bin"
 	Push $1
 	DetailPrint "Removing from %PATH%: $1"
 	Call un.RemoveFromPath
-
+	# then delete the other files/directories
 	DetailPrint "Removing ${INSTALL_PATH}"
 	RMDir /r ${INSTALL_PATH}
-	# delete the uninstaller first
-	#DetailPrint "Removing installer files"
-	#delete "$INSTDIR\bin\camelbox_uninstaller.exe"
-	#delete "$INSTDIR\bin\uninstaller.exe"
-	# then delete the other files/directories
 SectionEnd # Uninstall
+
+# blank subsection
+#	Section "some-package (extra notes, etc.)"
+#		AddSize  # kilobytes
+#		push "package-name.YYYY.JJJ.V.tar.lzma"
+#		SectionGetText ${some-package_id} $0
+#		push $0
+#		Call SnarfUnpack
+#	SectionEnd
 
 # vim: filetype=nsis paste
