@@ -31,6 +31,7 @@
 
 #### EXTERNAL FUNCTION SCRIPTS ####
 !include "AddToPath.nsh"
+!include "nsDialogs.nsh"
 
 #### DEFINES ####
 # Section 5.4.1 of the NSIS manual describes !define
@@ -43,9 +44,8 @@
 !define INSTALLER_BASE "C:\temp\camelbox-svn\installer"
 !define LICENSE_FILE "${INSTALLER_BASE}\License\License.txt"
 !define MAIN_ICON "${INSTALLER_BASE}\Icons\camelbox-logo.ico"
-!define ARCHIVE_HOST "manzana"
-!define BASE_URL "http://manzana/Windows_Software/gtk-archives/"
-#!define BASE_URL "http://camelbox.googlecode.com/files"
+#!define BASE_URL "http://manzana/Windows_Software/gtk-archives/"
+!define BASE_URL "http://camelbox.googlecode.com/files"
 #!define BASE_URL "http://devilduck.qualcomm.com/camelbox"
 #!define BASE_URL "http://files.antlinux.com/win/apps/gtk-archives"
 !define INSTALL_PATH "C:\camelbox"
@@ -73,7 +73,7 @@ Name "${CAPTION_TEXT}"
 
 LicenseText "${CAPTION_TEXT}" 		# 4.8.1.28
 LicenseData "${LICENSE_FILE}" 		# 4.8.1.26
-OutFile "C:\temp\camelbox_${RELEASE_VERSION}-${ARCHIVE_HOST}-way_fucking_alpha.exe"	# 4.8.1.31
+OutFile "C:\temp\camelbox_${RELEASE_VERSION}-way_fucking_alpha.exe"	# 4.8.1.31
 #InstallDir "C:\temp\multipackage_demo_${RELEASE_VERSION}_out" 	# 4.8.1.21
 #InstallDir $DESKTOP\demo
 InstallDir "${INSTALL_PATH}"
@@ -85,6 +85,7 @@ Page Components
 # install, you need to not give the user the option on where to install
 # Camelbox; if they put it someplace funky, it will not work
 #Page Directory
+Page custom ChooseHTTPServer
 Page InstFiles
 #UninstPage Confirm
 #UninstPage InstFiles
@@ -94,24 +95,53 @@ Page InstFiles
 var archivefile
 # what the name of the section is, for use with the downloader/unpacker
 var sectionname
-
+# the return value from the custom dialog
+var dialogHWND
+# dialog label and name
+var dialogURL
 #### FUNCTIONS ####
+
+Function ChooseHTTPServer #Function name defined with Page command
+	nsDialogs::Create /NOUNLOAD 1018
+	Pop $0
+	StrCmp $0 "error" FailBail 0
+
+	${NSD_CreateLabel} 0 0 100% 13u \
+		"Please enter the base URL to download files from:"
+	pop $0
+
+	${NSD_CreateText} 0 13u 100% 13u ${BASE_URL}
+	pop $dialogURL
+
+	${NSD_CreateLabel} 0 30u 100% 13u \
+		"(Default URL is ${BASE_URL})"
+	pop $0
+
+	# this always comes last
+	nsDialogs::Show
+	FailBail:
+		# $0 should have already been set by the caller
+		DetailPrint "Installer encountered the following fatal error:"
+		abort "$0; Aborting..."
+FunctionEnd
+
 # 'download and unpack' function thingy
 Function SnarfUnpack
 	# pop arguments off of the stack
 	pop $sectionname
 	pop $archivefile
-    DetailPrint "Downloading: ${BASE_URL}/$archivefile"
+    #DetailPrint "Downloading: ${BASE_URL}/$archivefile"
+    DetailPrint "Downloading: $R0/$archivefile"
 	# do the download;
 	# return value = exit code, "OK" if OK
 	inetc::get /POPUP "$sectionname" \
-		"${BASE_URL}/$archivefile" "$INSTDIR\$archivefile"
+		"$R0/$archivefile" "$INSTDIR\$archivefile"
+	#	"${BASE_URL}/$archivefile" "$INSTDIR\$archivefile"
 	Pop $0 
 	# check for an OK download; continues on success, bails on error
 	StrCmp $0 "OK" 0 FailBail
 	DetailPrint "Extracting $archivefile"
 	untgz::extract -zlzma "$INSTDIR\$archivefile"
-	#untgz::extract -zbz2 "$INSTDIR\$archivefile"
 	DetailPrint "Unzip status: $R0"
 	StrCmp $0 "OK" 0 FailBail
 	delete "$INSTDIR\$archivefile"
@@ -145,22 +175,6 @@ Section "Perl 5.10.0 Base Package" perlbase_id
 	push $0
 	Call SnarfUnpack
 SectionEnd # "Perl 5.10.0 Base Package"
-Section "dmake Makefile Processor" dmake_id
-	AddSize 70 # kilobytes
-	push "dmake.2008.089.1.tar.lzma"
-	#push "dmake.2008.087.1.tar.bz2"
-	SectionGetText ${dmake_id} $0
-	push $0
-	Call SnarfUnpack
-SectionEnd
-Section "dmake Makefile Processor (extra files)" dmake-extra_id
-	AddSize 103 # kilobytes
-	push "dmake-extra.2008.089.1.tar.lzma"
-	#push "dmake-extra.2008.087.1.tar.bz2"
-	SectionGetText ${dmake-extra_id} $0
-	push $0
-	Call SnarfUnpack
-SectionEnd
 
 SectionGroup "Core Gtk2-Perl Packages"
 	Section "Core GTK Binaries"
@@ -181,11 +195,22 @@ SectionGroup "Development Packages"
 	Section "Core GTK Development Files"
 		push "gtk-core-dev.2008.087.1.tar.lzma"
 	SectionEnd
-	Section "dmake Makefile Processor"
-		push "dmake.2008.087.1.tar.lzma"
+	Section "Imagelibs Development Files"
+		push "imagelibs-dev.2008.087.1.tar.lzma"
 	SectionEnd
-	Section "dmake Makefile Processor (extra files)"
-		push "dmake-extra.2008.087.1.tar.lzma"
+	Section "dmake Makefile Processor" dmake_id
+		AddSize 70 # kilobytes
+		push "dmake.2008.089.1.tar.lzma"
+		SectionGetText ${dmake_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
+	Section "dmake Makefile Processor (extra files)" dmake-extra_id
+		AddSize 103 # kilobytes
+		push "dmake-extra.2008.089.1.tar.lzma"
+		SectionGetText ${dmake-extra_id} $0
+		push $0
+		Call SnarfUnpack
 	SectionEnd
 SectionGroupEnd # "Development Packages"
 
@@ -195,6 +220,9 @@ SectionGroup "Extra Tools Packages"
 	SectionEnd
 	Section "7zip Archiver (command line version)"
 		push "7zip.2008.087.1.tar.lzma"
+	SectionEnd
+	Section "LZMA Archiver (command line version)"
+		push "lzma.2008.087.1.tar.lzma"
 	SectionEnd
 	Section "imagelibs Utilities"
 		push "imagelibs-utils.2008.087.1.tar.lzma"
@@ -214,6 +242,11 @@ SectionGroup "Perl Modules"
 	Section "Perl LWP libwww-perl Module"
 		push "perl-LWP.2008.087.1.tar.lzma"
 	SectionEnd
+/*
+	Section "Moose Post-Modern Object Framework"
+		push "perl-moose.2008.087.1.tar.lzma"
+	SectionEnd
+*/
 SectionGroupEnd # "Perl Modules"
 
 SectionGroup "Documentation and Examples"
@@ -226,7 +259,7 @@ SectionGroup "Documentation and Examples"
 	Section "Gtk2-Perl Examples"
 		push "gtk2-perl_examples.2008.088.1.tar.lzma"
 	SectionEnd
-SectionGroupEnd ; "Demonstration Scripts"
+SectionGroupEnd # "Documentation and Examples"
 
 SectionGroup /e "Environment Variables"
 	Section "Add Camelbox to PATH variable"
