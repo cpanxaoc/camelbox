@@ -7,6 +7,11 @@ Camelbox Directory structure:
 - gtk-archives - 7zipped files
 - gtk-binaries - directories containing unpacked binaries from the Gnome
   website
+  - 7zip
+  - dmake
+  - dmake-extra (unneeded files from dmake)
+  - gettext-utils
+  - glade-win32
   - gtk-core-bin
   - gtk-core-dev
   - gtk-core-doc
@@ -15,9 +20,11 @@ Camelbox Directory structure:
   - imagelibs-bin
   - imagelibs-dev
   - imagelibs-utils
-  - 7zip
-  - dmake
-  - dmake-extra (unneeded files from dmake)
+  - libglade-bin
+  - libglade-dev
+  - libgnomecanvas-bin
+  - libgnomecanvas-dev
+  - lzma
   - unxutils
 - gtk-tarballs - downloaded archives and support software
 
@@ -47,9 +54,15 @@ UnxUtils
 
 7zip (Optional)
 ===============
-- create 7zip\bin, 7zip\usr\share\doc\7zip
+- create 7zip\bin, 7zip\share\doc\7zip
 - move 7za.exe to 7zip\bin
 - move 7zip.chm, license.txt, readme.txt, copying.txt to 7zip\share\doc\7zip
+
+lzma (Optional)
+===============
+- create lzma\bin, lzma\share\doc\lzma
+- move lzma.exe to lzma\bin
+- move lzma.txt, history.txt to lzma\share\doc\lzma
 
 dmake
 =====
@@ -91,13 +104,14 @@ libiconv
 - required by pkg-config to run
 - move libiconv\bin and libiconv\share\locale to gtk-support-bin\
 - move contents of libiconv\share\doc\libiconv to
-  gtk-support-dev\usr\share\doc\libiconv
-- move libiconv\share\man to gtk-suport-dev\usr\man
-- move libiconv\README.libiconv to gtk-support-dev\usr\share\doc\libiconv
+  gtk-support-dev\share\doc\libiconv
 - move libiconv\lib and libiconv\share to gtk-support-dev\
+- move libiconv\README.libiconv to gtk-support-dev\share\doc\libiconv
+
 
 pkg-config
-- extract to gtk-support-bin
+- extract pkg-config.exe and manifest\ directory to gtk-support-bin
+- extract the rest to gtk-support-dev
   - move gtk-support-bin\make to gtk-support-bin\usr\share\doc\pkg-config
 
 zlib
