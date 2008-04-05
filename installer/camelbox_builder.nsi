@@ -31,8 +31,6 @@
 # - once you are able to get the distro to install in the directory chosen by
 # the user, you'll have to find some way to save the uninstall path, meaning 
 # the path that needs to be removed
-# - add a checkbox in the download URL page that lets the user keep the archive
-# files after the installation is complete
 # - at the end of the install, offer the user the option of viewing the
 # UsageInstructions wiki page on the web?
 # - add a Camelbox folder to the Start menu, with Windows shortcuts to the zsh
@@ -94,7 +92,7 @@ Page custom ChooseHTTPServer ChooseHTTPServerLeave
 Page Components
 #Page Directory
 Page InstFiles
-#Page custom DocsShortcuts
+#Page custom ShortcutsAndReadme
 UninstPage uninstConfirm
 UninstPage InstFiles
 
@@ -368,6 +366,9 @@ SectionGroup "Documentation and Examples"
 		SectionGetText ${gtk2-perl-examples_id} $0
 		push $0
 		Call SnarfUnpack
+		# set the flag that tells the installer to show 
+		# the demos installer page
+		StrCpy $demosInstalled "true"
 	SectionEnd
 SectionGroupEnd # "Documentation and Examples"
 
