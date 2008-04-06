@@ -116,7 +116,8 @@ Section "-WriteUninstaller"
 	SetOutPath "$INSTDIR"
 	CreateDirectory "$INSTDIR\bin"
 	writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
-	writeUninstaller "$INSTDIR\bin\camelbox_uninstaller.exe"
+	#writeUninstaller "$INSTDIR\bin\camelbox_uninstaller.exe"
+	# for some reason, this sleep here helps out with downloading files
 	DetailPrint "a little snooze...."
 	sleep 500
 SectionEnd # WriteUninstaller
@@ -399,7 +400,7 @@ Section "Uninstall"
 	SectionIn RO
 	# delete the uninstaller first
 	DetailPrint "Removing installer files"
-	delete "${INSTALL_PATH}\bin\camelbox_uninstaller.exe"
+	#delete "${INSTALL_PATH}\bin\camelbox_uninstaller.exe"
 	delete "${INSTALL_PATH}\camelbox_uninstaller.exe"
 	# remove the binpath
 	StrCpy $1 "${INSTALL_PATH}\bin"
