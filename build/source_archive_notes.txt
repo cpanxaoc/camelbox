@@ -89,6 +89,8 @@ Perl
 You now have enough software installed to build Perl.  Unpack the source, and
 use dmake to build.
 
+- make sure the Camelbox logo has been substituted for the perlexe.ico file in
+  Perl's win32 directory
 - html directory should be packaged in a separate file from the Perl binary
   modules, support files and POD documentation
 
