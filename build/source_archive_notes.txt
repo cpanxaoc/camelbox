@@ -89,10 +89,11 @@ Perl
 You now have enough software installed to build Perl.  Unpack the source, and
 use dmake to build.
 
-- make sure the Camelbox logo has been substituted for the perlexe.ico file in
-  Perl's win32 directory
+- make sure the Camelbox logo has been substituted for the perlexe.ico.packd
+  file in Perl's win32 directory
 - html directory should be packaged in a separate file from the Perl binary
-  modules, support files and POD documentation
+  modules, support files and POD documentation.  Create a separate file list
+  using the contents of the Perl filelist as a base
 
 gtk-support programs
 ====================
@@ -169,3 +170,15 @@ requires
 - imagelibs-bin and imagelibs-dev package (contains pkg-config .pc files)
 - build hints in Antlinux wiki, including setting the PKG_CONFIG_PATH variable
   to the directory containing all of the pkg-config *.pc files
+
+Gtk2-GladeXML Module
+====================
+requires
+- libglade-bin and libglade-dev
+optional
+- glade-win32
+
+Gnome2::Canvas
+==============
+requires
+- libgnomecanvas-bin and libgnomecanvas-dev
