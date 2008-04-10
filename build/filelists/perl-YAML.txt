@@ -1,10 +1,8 @@
 bin/ysh
 bin/ysh.bat
 lib/perllocal.pod
-site/lib/auto
 site/lib/auto/YAML
 site/lib/auto/YAML/.packlist
-site/lib/Test
 site/lib/Test/YAML.pm
 site/lib/YAML
 site/lib/YAML/Base.pm
