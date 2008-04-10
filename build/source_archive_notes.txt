@@ -182,3 +182,5 @@ Gnome2::Canvas
 ==============
 requires
 - libgnomecanvas-bin and libgnomecanvas-dev
+- freetype-dev and fontconfig-dev, which should have already been unpacked
+  into the libgnomecanvas directories
