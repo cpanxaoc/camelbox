@@ -77,7 +77,7 @@ Name "${CAPTION_TEXT}"
 
 LicenseText "${CAPTION_TEXT}" 		# 4.8.1.28
 LicenseData "${LICENSE_FILE}" 		# 4.8.1.26
-OutFile "C:\temp\camelbox_${RELEASE_VERSION}-alpha.exe"	# 4.8.1.31
+OutFile "C:\temp\camelbox_${RELEASE_VERSION}.exe"	# 4.8.1.31
 InstallDir "${INSTALL_PATH}"
 
 #### EXTERNAL FUNCTION SCRIPTS ####
@@ -92,7 +92,7 @@ Page custom ChooseHTTPServer ChooseHTTPServerLeave
 Page Components
 #Page Directory
 Page InstFiles
-#Page custom ShortcutsAndReadme
+Page custom ShortcutsAndReadme
 UninstPage uninstConfirm
 UninstPage InstFiles
 
@@ -107,7 +107,7 @@ InstType "Perl with Core GTK2 and Glade"				# 6
 InstType "UnxUtils Only"								# 7
 InstType "Extra Tools Only"								# 8
 InstType "Perl with All Non-GTK Modules"				# 9
-InstType "Vapourware"									# 10
+#InstType "Vapourware"									# 10
 
 #### SECTIONS ####
 
@@ -117,16 +117,13 @@ Section "-WriteUninstaller"
 	CreateDirectory "$INSTDIR\bin"
 	writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
 	#writeUninstaller "$INSTDIR\bin\camelbox_uninstaller.exe"
-	# for some reason, this sleep here helps out with downloading files
-	DetailPrint "a little snooze...."
-	sleep 500
 SectionEnd # WriteUninstaller
 
 ; /e in any SectionGroup header means "expanded by default"
 Section "Perl 5.10.0 Base Package" perl-core_id
 	SectionIn 1 2 3 4 5 6 9
-	AddSize 7700 # kilobytes
-	push "perl-5.10.0.2008.089.1.tar.lzma"
+	AddSize 8300 # kilobytes
+	push "perl-5.10.0.2008.101.1.tar.lzma"
 	SectionGetText ${perl-core_id} $0
 	push $0
 	Call SnarfUnpack
@@ -159,8 +156,8 @@ SectionGroup "Core Gtk2-Perl Packages"
 	SectionEnd
 	Section "Gtk2-Perl Core Modules (Cairo/Glib/Gtk2)" perl-gtk2_id
 		SectionIn 1 3 4 5 6
-		AddSize 768 # kilobytes
-		push "perl-gtk2.2008.XXX.1.tar.lzma"
+		AddSize 772 # kilobytes
+		push "perl-gtk2.2008.101.1.tar.lzma"
 		SectionGetText ${perl-gtk2_id} $0
 		push $0
 		Call SnarfUnpack
@@ -177,10 +174,9 @@ SectionGroup "Extra Gtk2-Perl Packages"
 		Call SnarfUnpack
 	SectionEnd
 	Section "Gtk2::GladeXML (Perl Glade/XML libraries)" perl-gtk2-gladexml_id
-		AddSize 404 # kilobytes
-		#SectionIn 1 4 5 6
-		SectionIn 10
-		push "perl-gtk2-gladexml.2008.094.1.tar.lzma"
+		AddSize 11 # kilobytes
+		SectionIn 1 4 5 6
+		push "perl-gtk2-gladexml.2008.101.1.tar.lzma"
 		SectionGetText ${perl-gtk2-gladexml_id} $0
 		push $0
 		Call SnarfUnpack
@@ -194,15 +190,41 @@ SectionGroup "Extra Gtk2-Perl Packages"
 		Call SnarfUnpack
 	SectionEnd
 	Section "Gnome2::Canvas (Perl Gnome Canvas libs.)" perl-gnome2-canvas_id
-		AddSize 642 # kilobytes
-		#SectionIn 1 4 5
-		SectionIn 10
-		push "perl-gnome2-canvas.2008.094.1.tar.lzma"
+		AddSize 25 # kilobytes
+		SectionIn 1 4 5
+		push "perl-gnome2-canvas.2008.101.1.tar.lzma"
 		SectionGetText ${perl-gnome2-canvas_id} $0
 		push $0
 		Call SnarfUnpack
 	SectionEnd
 SectionGroupEnd # "Extra Gtk2-Perl Packages"
+
+SectionGroup "Extra Perl Modules"
+	Section "YAML - Yet Another Markup Language" perl-YAML_id
+		SectionIn 1 9
+		AddSize 29 # kilobytes
+		push "perl-YAML.2008.101.1.tar.lzma"
+		SectionGetText ${perl-YAML_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
+	Section "LWP/libwww-perl" perl-LWP_id
+		SectionIn 1 9
+		AddSize 205 # kilobytes
+		push "perl-LWP.2008.101.1.tar.lzma"
+		SectionGetText ${perl-LWP_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
+	Section "Moose: a Post-Modern Object Framework" perl-moose_id
+		SectionIn 1 9
+		AddSize 179 # kilobytes
+		push "perl-moose.2008.101.1.tar.lzma"
+		SectionGetText ${perl-moose_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
+SectionGroupEnd # "Extra Perl Modules"
 
 SectionGroup "Development Packages"
 	Section "Minimal GNU for Windows (MinGW) Toolkit" mingw_id
@@ -213,9 +235,17 @@ SectionGroup "Development Packages"
 		push $0
 		Call SnarfUnpack
 	SectionEnd
+	Section "dmake Makefile Processor" dmake_id
+		SectionIn 1 5
+		AddSize 70 # kilobytes
+		push "dmake.2008.101.1.tar.lzma"
+		SectionGetText ${dmake_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd	
 	Section "Core GTK Development Files" gtk-core-dev_id 
 		SectionIn 1 5
-		AddSize 784 # kilobytes
+		AddSize 830 # kilobytes
 		push "gtk-core-dev.2008.094.1.tar.lzma"
 		SectionGetText ${gtk-core-dev_id} $0
 		push $0
@@ -223,17 +253,9 @@ SectionGroup "Development Packages"
 	SectionEnd
 	Section "imagelibs-dev (JPG/PNG/TIFF Headers)" imagelibs-dev_id 
 		SectionIn 1 5
-		AddSize 316 # kilobytes
+		AddSize 315 # kilobytes
 		push "imagelibs-dev.2008.089.1.tar.lzma"
 		SectionGetText ${imagelibs-dev_id} $0
-		push $0
-		Call SnarfUnpack
-	SectionEnd
-	Section "dmake Makefile Processor" dmake_id
-		SectionIn 1 5
-		AddSize 70 # kilobytes
-		push "dmake.2008.089.1.tar.lzma"
-		SectionGetText ${dmake_id} $0
 		push $0
 		Call SnarfUnpack
 	SectionEnd
@@ -246,7 +268,7 @@ SectionGroup "Development Packages"
 		Call SnarfUnpack
 	SectionEnd
 	Section "libgnomecanvas-dev (Gnome Canvas headers)" libgnomecanvas-dev_id
-		AddSize 64 # kilobytes
+		AddSize 540 # kilobytes
 		SectionIn 1 5
 		push "libgnomecanvas-dev.2008.094.1.tar.lzma"
 		SectionGetText ${libgnomecanvas-dev_id} $0
@@ -306,48 +328,19 @@ SectionGroup "Extra Tools Packages"
 	SectionEnd
 	Section "dmake Makefile Processor (extra files)" dmake-extra_id
 		SectionIn 1 8
-		AddSize 104 # kilobytes
-		push "dmake-extra.2008.089.1.tar.lzma"
+		AddSize 102 # kilobytes
+		push "dmake-extra.2008.101.1.tar.lzma"
 		SectionGetText ${dmake-extra_id} $0
 		push $0
 		Call SnarfUnpack
 	SectionEnd
 SectionGroupEnd # "Extra Tools Packages"
 
-SectionGroup "Perl Modules"
-	Section "YAML - Yet Another Markup Language" perl-YAML_id
-		SectionIn 1 9
-		AddSize 32 # kilobytes
-		push "perl-YAML.2008.089.1.tar.lzma"
-		SectionGetText ${perl-YAML_id} $0
-		push $0
-		Call SnarfUnpack
-	SectionEnd
-	Section "LWP/libwww-perl" perl-LWP_id
-		SectionIn 1 9
-		AddSize 204 # kilobytes
-		push "perl-LWP.2008.089.1.tar.lzma"
-		SectionGetText ${perl-LWP_id} $0
-		push $0
-		Call SnarfUnpack
-	SectionEnd
-/*
-	Section "Moose: a Post-Modern Object Framework" perl-moose_id
-		SectionIn 1 9
-		AddSize  # kilobytes
-		push "perl-moose.2008.089.1.tar.lzma"
-		SectionGetText ${perl-moose_id} $0
-		push $0
-		Call SnarfUnpack
-	SectionEnd
-*/
-SectionGroupEnd # "Perl Modules"
-
 SectionGroup "Documentation and Examples"
 	Section "Perl 5.10.0 HTML Documentation" perl-html_docs_id
 		SectionIn 1
-		AddSize 2300 # kilobytes
-		push "perl-5.10.0-html_docs.2008.089.1.tar.lzma"
+		AddSize 6700 # kilobytes
+		push "perl-5.10.0-html_docs.2008.101.1.tar.lzma"
 		SectionGetText ${perl-html_docs_id} $0
 		push $0
 		Call SnarfUnpack
@@ -382,19 +375,6 @@ SectionGroup /e "Environment Variables"
 		Call AddToPath
 	SectionEnd
 SectionGroupEnd ; "Environment Variables"
-
-/*
-SectionGroup /e "Run Demonstration Scripts"
-	Section "perl_swiss_army_knife.pl"
-	SectionEnd
-	Section "gyroscope.pl"
-	SectionEnd
-	Section "Gtk2"
-	SectionEnd
-	Section "Gnome2::Canvas"
-	SectionEnd
-SectionGroupEnd ; "Demonstration Scripts"
-*/
 
 Section "Uninstall"
 	SectionIn RO

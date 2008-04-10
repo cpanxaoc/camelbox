@@ -104,6 +104,10 @@ Function ShortcutsAndReadme
 	StrCmp $0 "error" FailBail 0
 
 	${NSD_CreateCheckBox} 0 0 100% 13u \
+		"Create a Camelbox Program Group in the Start Menu?"
+	pop $openUsingCamelboxWebpage
+
+	${NSD_CreateCheckBox} 0 0 100% 13u \
 		"Open the 'Using Camelbox' page using a web browser?"
 	pop $openUsingCamelboxWebpage
 
@@ -113,8 +117,13 @@ Function ShortcutsAndReadme
 	${NSD_CreateCheckBox} 0 15u 100% 13u \
 		"Run the Camelbox Demo Launcher?"
 	pop $runDemoLauncher
+
+	${NSD_CreateCheckBox} 0 15u 100% 13u \
+		"Create a shortcut on the Desktop for the Demo Launcher?"
+	pop $runDemoLauncher
 	# example of creating shortcuts for things
 	# http://nsis.sourceforge.net/Many_Icons_Many_shortcuts
+
 	#Goto ShowDialog
 	ShowDialog:
 		# this always comes last
@@ -123,7 +132,23 @@ Function ShortcutsAndReadme
 	FailBail:
 		push $0
 		Call ErrorExit
-FunctionEnd
+FunctionEnd # ShortcutsAndReadme
+
+/*
+# scrape the user's answer out of the text box
+Function ShortcutsAndReadmeLeave
+	${NSD_GetText} $dialogURL $0
+	StrCpy $DL_URL $0
+	
+	# get the state of the control
+	${NSD_GetState} $dialogKeepDownloadedArchives \
+		$dialogKeepDownloadedArchivesState
+	# compare it against the 'checked' macro
+	StrCmp 	$dialogKeepDownloadedArchivesState ${BST_CHECKED} 0 +2
+		# yep, it was checked, change it
+		StrCpy $keepDownloadedArchives "true"
+FunctionEnd # ShortcutsAndReadmeLeave
+*/
 
 # 'download and unpack' function thingy
 Function SnarfUnpack
@@ -142,6 +167,7 @@ Function SnarfUnpack
 	DetailPrint "Extracting $archivefile"
 	untgz::extract -zlzma "$INSTDIR\$archivefile"
 	DetailPrint "Unzip status: $R0"
+	#StrCmp $0 "OK" 0 FailBail
 	StrCmp $0 "OK" 0 FailBail
 	# don't delete archive files if the user asked to keep them
 	StrCmp $keepDownloadedArchives +3 0
