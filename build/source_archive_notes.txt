@@ -93,7 +93,9 @@ use dmake to build.
   file in Perl's win32 directory
 - html directory should be packaged in a separate file from the Perl binary
   modules, support files and POD documentation.  Create a separate file list
-  using the contents of the Perl filelist as a base
+  using the contents of the Perl filelist as a base.  
+- *MAKE SURE* to change the text file type to UNIX in vim for the html_docs
+  filelist, GNU tar doesn't like Windows text file line endings
 
 gtk-support programs
 ====================
