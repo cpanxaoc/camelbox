@@ -2,6 +2,21 @@ Instructions on where to put which files from each project's distribution
 archives.  These sections appear roughly in the order you should install them
 in.
 
+FIXME 
+- move this to the wiki
+- create a release checklist
+  - package the files
+  - post the newly packaged files
+  - build the installer
+  - test the installer
+  - post the installer
+  - email release info
+    - antlinux.com
+	- camelbox mailing list
+	- gtk2-perl mailing list
+	- sandiego.pm list
+
+(move to BuildSetup)
 Camelbox Directory structure:
 - build - directory for building perl
 - gtk-archives - 7zipped files
@@ -28,6 +43,7 @@ Camelbox Directory structure:
   - unxutils
 - gtk-tarballs - downloaded archives and support software
 
+(move to BuildCorePackages)
 gtk-binaries preparation
 ========================
 - extract all of the non-dev archives to gtk-core-bin
@@ -52,25 +68,13 @@ UnxUtils
 - copy unxutils\bin\find.exe to unxutils\bin\ufind.exe
 - copy unxutils\bin\sort.exe to unxutils\bin\usort.exe
 
-7zip (Optional)
-===============
-- create 7zip\bin, 7zip\share\doc\7zip
-- move 7za.exe to 7zip\bin
-- move 7zip.chm, license.txt, readme.txt, copying.txt to 7zip\share\doc\7zip
-
-lzma (Optional)
-===============
-- create lzma\bin, lzma\share\doc\lzma
-- move lzma.exe to lzma\bin
-- move lzma.txt, history.txt to lzma\share\doc\lzma
-
 dmake
 =====
 - create dmake\bin, dmake\usr\share\doc\dmake
 - move dmake.exe and support\ to dmake\bin
 - move all of the other files/directories to dmake\share\doc\dmake
 - (Optional) move all of the unneeded files/directories in dmake\bin\support
-  to a dmake-extra package.
+  to a dmake-extra package (only the win95 directory is needed on Windows XP).
 
 MinGW
 =====
@@ -97,7 +101,7 @@ use dmake to build.
 - *MAKE SURE* to change the text file type to UNIX in vim for the html_docs
   filelist, GNU tar doesn't like Windows text file line endings
 
-gtk-support programs
+gtk-support packages
 ====================
 gettext
 - extract normal archive to gtk-support-bin
@@ -113,7 +117,6 @@ libiconv
 - move libiconv\lib and libiconv\share to gtk-support-dev\
 - move libiconv\README.libiconv to gtk-support-dev\share\doc\libiconv
 
-
 pkg-config
 - extract pkg-config.exe and manifest\ directory to gtk-support-bin
 - extract the rest to gtk-support-dev
@@ -124,8 +127,8 @@ zlib
 - extract files in the lib\ and include\ directories to gtk-support-dev
 - extract the rest of the files to gtk-support-dev\usr\share\doc\zlib
 
-imagelibs
-=========
+imagelibs packages
+==================
 jpeg*-bin
 - extract jpeg*.dll and manifest\ to imagelibs-bin
 - extract all of the rest of the *.exe files in the bin\ directory to
@@ -163,6 +166,18 @@ libtiff*-bin
 
 libtiff*-lib
 - extract all files to imagelibs-dev
+
+Optional Packages
+=================
+7zip (deprecated)
+- create 7zip\bin, 7zip\share\doc\7zip
+- move 7za.exe to 7zip\bin
+- move 7zip.chm, license.txt, readme.txt, copying.txt to 7zip\share\doc\7zip
+
+lzma 
+- create lzma\bin, lzma\share\doc\lzma
+- move lzma.exe to lzma\bin
+- move lzma.txt, history.txt to lzma\share\doc\lzma
 
 Gtk2-Perl Modules
 =================
