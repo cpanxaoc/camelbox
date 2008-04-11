@@ -148,8 +148,8 @@ SectionGroup "Core Gtk2-Perl Packages"
 	SectionEnd
 	Section "gtk-support-bin (gettext/libintl/etc.)" gtk-support-bin_id
 		SectionIn 1 3 4 5 6
-		AddSize 551 # kilobytes
-		push "gtk-support-bin.2008.094.1.tar.lzma"
+		AddSize 558 # kilobytes
+		push "gtk-support-bin.2008.102.1.tar.lzma"
 		SectionGetText ${gtk-support-bin_id} $0
 		push $0
 		Call SnarfUnpack
@@ -267,6 +267,14 @@ SectionGroup "Development Packages"
 		push $0
 		Call SnarfUnpack
 	SectionEnd
+	Section "gtk-support-dev (gettext/libintl/etc.)" gtk-support-dev_id
+		SectionIn 1 5
+		AddSize 59 # kilobytes
+		push "gtk-support-dev.2008.094.1.tar.lzma"
+		SectionGetText ${gtk-support-dev_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
 	Section "imagelibs-dev (JPG/PNG/TIFF Headers)" imagelibs-dev_id 
 		SectionIn 1 5
 		AddSize 315 # kilobytes
@@ -286,7 +294,7 @@ SectionGroup "Development Packages"
 	Section "libgnomecanvas-dev (Gnome Canvas headers)" libgnomecanvas-dev_id
 		AddSize 540 # kilobytes
 		SectionIn 1 5
-		push "libgnomecanvas-dev.2008.094.1.tar.lzma"
+		push "libgnomecanvas-dev.2008.101.1.tar.lzma"
 		SectionGetText ${libgnomecanvas-dev_id} $0
 		push $0
 		Call SnarfUnpack

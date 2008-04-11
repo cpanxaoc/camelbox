@@ -30,6 +30,7 @@ function usage () {
 	echo "  -f filelist to write output to"
 	echo "  -n NSI script to read archive files from"
 	echo "  -o overwrite existing files"
+	echo "  -r release timestamp"
 	echo "  -h this help output"
 	exit 1
 } # function usage ()

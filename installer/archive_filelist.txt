@@ -1,7 +1,7 @@
 # This a list of archive files that make up a camelbox install
 # This list is published to make mirroring easier
 # This list is valid for the release labeled: 
-# 2008.101.2332Z 
+# 2008.102.0140Z 
 #
 # To download files for use with the Camelbox
 # installer, you would use this URL:
@@ -22,7 +22,8 @@ glade-win32.2008.094.1.tar.lzma
 gtk-core-bin.2008.094.1.tar.lzma
 gtk-core-dev.2008.094.1.tar.lzma
 gtk-core-doc.2008.094.1.tar.lzma
-gtk-support-bin.2008.094.1.tar.lzma
+gtk-support-bin.2008.102.1.tar.lzma
+gtk-support-dev.2008.094.1.tar.lzma
 gtk2-perl-examples.2008.089.1.tar.lzma
 imagelibs-bin.2008.089.1.tar.lzma
 imagelibs-dev.2008.089.1.tar.lzma
@@ -30,7 +31,7 @@ imagelibs-utils.2008.089.1.tar.lzma
 libglade-bin.2008.094.1.tar.lzma
 libglade-dev.2008.094.1.tar.lzma
 libgnomecanvas-bin.2008.094.1.tar.lzma
-libgnomecanvas-dev.2008.094.1.tar.lzma
+libgnomecanvas-dev.2008.101.1.tar.lzma
 lzma.2008.089.1.tar.lzma
 mingw.2008.089.1.tar.lzma
 perl-5.10.0-html_docs.2008.101.1.tar.lzma
