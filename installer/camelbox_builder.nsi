@@ -224,6 +224,22 @@ SectionGroup "Extra Perl Modules"
 		push $0
 		Call SnarfUnpack
 	SectionEnd
+	Section "PAR: Perl Archive Toolkit" perl-par_id
+		SectionIn 1 9
+		AddSize 845 # kilobytes
+		push "perl-PAR.2008.101.1.tar.lzma"
+		SectionGetText ${perl-par_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
+	Section "PAR::Packer: The PAR Packer (creator) Toolkit" perl-par-packer_id
+		SectionIn 1 9
+		AddSize 2000 # kilobytes
+		push "perl-PAR-Packer.2008.101.1.tar.lzma"
+		SectionGetText ${perl-par-packer_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
 SectionGroupEnd # "Extra Perl Modules"
 
 SectionGroup "Development Packages"

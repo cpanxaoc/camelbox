@@ -1,12 +1,20 @@
-# a list of archive files that make up a camelbox install
-# this list is published to make mirroring easier
-# this list is valid for:
-# :RELEASE:
-# so to download the installer, you would use this URL:
+# This a list of archive files that make up a camelbox install
+# This list is published to make mirroring easier
+# This list is valid for the release labeled: 
+# 2008.101.2332Z 
+#
+# To download files for use with the Camelbox
+# installer, you would use this URL:
 # http://camelbox.googlecode.com/files/
-# with any one of the files below
-# This file is commented using the pound '#' symbol; if you start a line with
-# a pound symbol, the entire line will be ignored
+# with the list of files below.  Here's an example:
+#
+# for FILE in $(grep -v "#" filelist.txt); do
+# 	wget http://camelbox.googlecode.com/files/$FILE
+# done
+#
+# This file is commented using the pound '#' symbol;
+# if you start a line with a pound symbol, 
+# the entire line will be ignored
 dmake-extra.2008.101.1.tar.lzma
 dmake.2008.101.1.tar.lzma
 gettext-utils.2008.089.1.tar.lzma
@@ -15,7 +23,6 @@ gtk-core-bin.2008.094.1.tar.lzma
 gtk-core-dev.2008.094.1.tar.lzma
 gtk-core-doc.2008.094.1.tar.lzma
 gtk-support-bin.2008.094.1.tar.lzma
-gtk-support-dev.2008.094.1.tar.lzma
 gtk2-perl-examples.2008.089.1.tar.lzma
 imagelibs-bin.2008.089.1.tar.lzma
 imagelibs-dev.2008.089.1.tar.lzma
@@ -28,10 +35,12 @@ lzma.2008.089.1.tar.lzma
 mingw.2008.089.1.tar.lzma
 perl-5.10.0-html_docs.2008.101.1.tar.lzma
 perl-5.10.0.2008.101.1.tar.lzma
-perl-LWP.2008.089.1.tar.lzma
-perl-YAML.2008.089.1.tar.lzma
-perl-gnome2-canvas.2008.094.1.tar.lzma
-perl-gtk2-gladexml.2008.094.1.tar.lzma
+perl-gnome2-canvas.2008.101.1.tar.lzma
+perl-gtk2-gladexml.2008.101.1.tar.lzma
 perl-gtk2.2008.101.1.tar.lzma
+perl-LWP.2008.101.1.tar.lzma
 perl-moose.2008.101.1.tar.lzma
+perl-PAR-Packer.2008.101.1.tar.lzma
+perl-PAR.2008.101.1.tar.lzma
+perl-YAML.2008.101.1.tar.lzma
 unxutils.2008.089.1.tar.lzma
