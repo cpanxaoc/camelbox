@@ -107,8 +107,17 @@ Function ShortcutsAndReadme
 		"Create a Camelbox Program Group in the Start Menu?"
 	pop $openUsingCamelboxWebpage
 
+	# indent these and make them dependent on the above checkbox being checked
 	${NSD_CreateCheckBox} 0 0 100% 13u \
-		"Open the 'Using Camelbox' page using a web browser?"
+		"Create icons to Camelbox binaries and Demo Launcher?"
+	pop $openUsingCamelboxWebpage
+
+	${NSD_CreateCheckBox} 0 0 100% 13u \
+		"Create icons to recommended tutorials on the Web?"
+	pop $openUsingCamelboxWebpage
+
+	${NSD_CreateCheckBox} 0 0 100% 13u \
+	"Open the 'Using Camelbox' page in a web browser after install is complete?"
 	pop $openUsingCamelboxWebpage
 
 	# check to see if the demos were installed, exit if not
