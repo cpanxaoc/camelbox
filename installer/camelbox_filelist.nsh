@@ -2,15 +2,30 @@
 #
 # TYPE:		NSIS header/include file
 #
-# NAME: 	camelbox_filelist.nsh
+# NAME: 	$URL$
 #
-# AUTHOR: 	$LastChangedBy: elspicyjack $
-# DATE: 	$LastChangedDate: 2008-03-25 01:38:28 -0700 (Tue, 25 Mar 2008) $
+# AUTHOR: 	$LastChangedBy$
+# DATE: 	$LastChangedDate$
 #
-# COMMENT:	$Id: multipackage_demo.nsi 47 2008-03-25 08:38:28Z elspicyjack $
-#
-#==========================================================================
+# COMMENT:	$Id$
 
+#==========================================================================
+# Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 1, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+#==========================================================================
 
 #### SECTIONS ####
 
