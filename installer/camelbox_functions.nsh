@@ -14,6 +14,8 @@
 #### GLOBAL VARIABLES ####
 # what file we're going to download
 var archivefile
+# it's MD5 checksum
+var archivemd5sum
 # what the name of the section is, for use with the downloader/unpacker
 var sectionname
 # dialog label and name
@@ -37,6 +39,26 @@ Function .onInit
 	StrCpy $demosInstalled "false"
 	StrCpy $openUsingCamelboxWebpage "false"
 	StrCpy $runDemoLauncher "false"
+ 
+	# added from http://nsis.sourceforge.net/Allow_only_one_installer_instance
+  	BringToFront
+	; Check if already running
+	; If so don't open another but bring to front
+	System::Call "kernel32::CreateMutexA(i 0, i 0, t '$(^Name)') i .r0 ?e"
+  	Pop $0
+  	StrCmp $0 0 launch
+  	StrLen $0 "$(^Name)"
+  	IntOp $0 $0 + 1
+  	loop:
+  		FindWindow $1 '#32770' '' 0 $1
+    	IntCmp $1 0 +4
+    	System::Call "user32::GetWindowText(i r1, t .r2, i r0) i."
+    	StrCmp $2 "$(^Name)" 0 loop
+    	System::Call "user32::ShowWindow(i r1,i 9) i."
+        ; If minimized then maximize
+    	System::Call "user32::SetForegroundWindow(i r1) i."  ; Bring to front
+	    Abort
+  	launch:
 FunctionEnd
 
 Function ErrorExit
@@ -163,16 +185,28 @@ FunctionEnd # ShortcutsAndReadmeLeave
 Function SnarfUnpack
 	# pop arguments off of the stack
 	pop $sectionname
+	pop $archivemd5sum
 	pop $archivefile
 	# verify the download directory exists
     DetailPrint "Downloading: $DL_URL/$archivefile"
-	# do the download;
-	# return value = exit code, "OK" if OK
-	inetc::get /POPUP "$sectionname" \
-		"$DL_URL/$archivefile" "$INSTDIR\$archivefile"
+	### download
+	#inetc::get /POPUP "$sectionname" \
+	#	"$DL_URL/$archivefile" "$INSTDIR\$archivefile"
+	NSISdl::download "$DL_URL/$archivefile" "$INSTDIR\$archivefile"
 	Pop $0 
 	# check for an OK download; continues on success, bails on error
-	StrCmp $0 "OK" 0 FailBail
+	# return value = exit code, "OK" if OK
+	#StrCmp $0 "OK" 0 FailBail # inetc::get
+	# return code for NSISdl should be 'success'
+	StrCmp $0 "success" 0 FailBail
+	### checksum
+	DetailPrint "Verifying $archivefile"
+	md5dll::GetMD5File "$INSTDIR\$archivefile"
+	Pop $0
+	StrCmp $0 $archivemd5sum 0 FailBail
+	DetailPrint "MD5 sum verified!"
+	DetailPrint "$archivefile : $0"
+	### extract files
 	DetailPrint "Extracting $archivefile"
 	untgz::extract -zlzma "$INSTDIR\$archivefile"
 	DetailPrint "Unzip status: $R0"
