@@ -11,7 +11,7 @@
 # A script to generate the camelbox_filelist.nsh NSIS script
 
 #==========================================================================
-# Copyright (C) 2008
+# Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
