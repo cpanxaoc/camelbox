@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# $Id: perl_swiss_army_knife.pl,v 1.7 2007/11/16 06:42:47 brian Exp $
+# $Id$
 
 # A script to print out a bunch of info about the current Perl environment
 # by Brian Manning (elspicyjack {at} gmail &sdot; com)

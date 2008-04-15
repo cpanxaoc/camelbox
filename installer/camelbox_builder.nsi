@@ -4,10 +4,10 @@
 #
 # NAME: 	camelbox.nsi
 #
-# AUTHOR: 	$LastChangedBy: elspicyjack $
-# DATE: 	$LastChangedDate: 2008-03-25 01:38:28 -0700 (Tue, 25 Mar 2008) $
+# AUTHOR: 	$LastChangedBy$
+# DATE: 	$LastChangedDate$
 #
-# COMMENT:	$Id: multipackage_demo.nsi 47 2008-03-25 08:38:28Z elspicyjack $
+# COMMENT:	$Id$
 #
 # The NSIS manual is located at http://nsis.sourceforge.net/Docs.  Parameters 
 # used below should have the appropriate section number from the NSIS manual 

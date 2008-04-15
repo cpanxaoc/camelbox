@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: archive_diff.pl,v 1.15 2008/03/25 02:12:03 brian Exp $
+# $Id$
 # Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
 #
 # compare the contents of two archive files side-by-side or in list format
