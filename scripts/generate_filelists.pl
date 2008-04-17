@@ -6,7 +6,7 @@
 # For support with this software, visit the Camelbox Google Groups Page at:
 # http://groups.google.com/group/camelbox
 
-# A script to generate different types of filelists, a plaintext filelist, a
+# A script to generate different types of filelists; a plaintext filelist, a
 # filelist and MD5sums, and the camelbox_filelist.nsh NSIS script
 
 #==========================================================================
