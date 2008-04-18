@@ -1,0 +1,106 @@
+// $Id$
+// Copyright (c) 2008 by Brian Manning <elspicyjack at gmail dot com>
+// - these comments will be stripped out of the parsed file
+// - valid JavaScript syntax is what we're looking for here
+// - don't get sloppy with punctionation like you can in perl; no extra commas
+//   after closing brackets/braces for example
+// { 
+//      "archive_files": {
+//          "package1_name": {
+//              "package_group": "test_group_1", 
+//              "filename_pattern": "archive_filename",
+//              "section_name": "Human Readble Package Description",
+//              "section_id": "archive_filename_id",
+//              "section_in": "1 2 3 4 5 6 7 8 9"
+//          },
+//          "package2_name": [
+//              "program1",
+//              "program2"
+//          ]
+//      },
+//      "package_groups": {
+//          "group1": {
+//              "short_name": "group_name1",
+//              "display_name": "This is what's shown in the installer",
+//          }
+//      }
+// }
+
+// begin mapping of example files to platform
+{
+    "MSWin32": {
+        "C:/perl/5.8.8/examples/Gnome2-Canvas": [ "canvas.pl" ],
+        "C:/perl/5.8.8/examples/Gtk2": [  "calendar.pl", "colorlist.pl",
+            "layout.pl", "simplelist.pl" ],
+        "C:/perl/5.8.8/examples/Gtk2-Demo": [ "program1.pl" ],
+        "C:/perl/5.8.8/examples/Gtk2-GladeXML": [ "hello-world.pl", 
+            "scribble.pl" ],
+        "C:/perl/5.8.8/examples": [ 
+            "gyroscope.pl",
+            "perl_swiss_army_knife.pl" 
+         ]
+        "C:/apps/cygwin/home/demo/src/perl_scripts/UI_Presentation/examples":
+            [ "demo.pl" , "log4perl.pl", "examples.json"],
+
+    },
+    "cygwin": {
+        //"/bin": [ "win32-gui-demos.pl" ],
+        "/usr/bin": [ "widget" ],
+        "/lib/perl5/vendor_perl/5.8/cygwin/Win32/GUI/demos": [ 
+            "Notepad.pl", "Draw.pl", "MonthCal.pl"
+        ],
+        "/home/demo/src/perl_scripts/UI_Presentation/examples":
+            [ "demo.pl" , "log4perl.pl", "examples.json"],
+        "/home/demo/src/helloworld":
+            [ "helloworld_tk.pl", "helloworld_win32.pl" ]
+    },
+    "linux": {
+        "/usr/bin": [ "widget" ],
+        "/home/demo/examples": [ 
+            "gyroscope.pl", 
+            "perl_swiss_army_knife.pl"
+        ],
+        "/home/demo/examples/Gnome2-Canvas": [ "canvas.pl" ],
+        "/home/demo/examples/Gtk2": [ "calendar.pl", "colorlist.pl",
+            "layout.pl", "simplelist.pl"],
+        "/home/demo/examples/Gtk2-Demo": [ "program1.pl" ],
+        "/home/demo/examples/Gtk2-GladeXML": [ "hello-world.pl", 
+            "scribble.pl" ],
+        "/usr/share/doc/libsdl-perl/test": [ "testmenu.pl" ],
+        "/usr/share/doc/libqt-perl/examples/dclock": [ "dclock.pl" ],
+        "/usr/share/doc/libqt-perl/examples/buttongroups": [ 
+            "buttongroups.pl"
+        ],
+        "/home/demo/examples/UI-Dialog": [ "ascii.pl", "console.pl",
+            "gdialog.pl", "whiptail.pl", "xdialog.pl", "zenity.pl" ],
+        "/home/demo/src/perl_scripts/UI_Presentation/examples":
+            [ "demo.pl" , "log4perl.pl", "examples.json"],
+        "/home/demo/src/helloworld":
+            [ "helloworld_gtk2.pl" , "helloworld_tk.pl", 
+            "helloworld_qt.pl", "helloworld_ui-dialog.pl" ]
+    },
+    "darwin": {
+        "/usr/X11R6/bin": [ "xeyes" ],
+        "/opt/local/bin": [ "widget" ],
+        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples": [
+            "gyroscope.pl",
+            "perl_swiss_army_knife.pl"
+        ],
+        "/Users/Shared/Files/UI_Presentation/examples":
+            [ "demo.pl" , "log4perl.pl", "examples.json"],
+        "/Users/Shared/Files/helloworld":
+            [ "helloworld_gtk2.pl" , "helloworld_tk.pl", 
+             "helloworld_ui-dialog.pl" ],
+        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples/Gnome2-Canvas":
+            [ "canvas.pl" ],
+        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples/Gtk2": 
+            [  "calendar.pl", "colorlist.pl", "layout.pl", "simplelist.pl" ],
+        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples/Gtk2-Demo": 
+            [ "program1.pl" ],
+        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples/Gtk2-GladeXML":
+            [ "hello-world.pl", "scribble.pl" ],
+        "/Users/Shared/Files/Windows_Software/Gtk2Perl/UI-Dialog": 
+            [ "ascii.pl", "console.pl",
+            "gdialog.pl", "xdialog.pl", "zenity.pl" ]
+    }
+} // fin vim: filetype=javascript
