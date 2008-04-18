@@ -51,23 +51,28 @@ B<generate_filelists.pl> - Generate filelists of one or more types
 
 =head1 VERSION
 
-The SVN version of this file is $Revision: 1.15 $. See the top of this file for
+The SVN version of this file is $Revision$. See the top of this file for
 the author's version number.
 
 =head1 SYNOPSIS
 
- perl generate_filelists.pl -1 first_filelist.txt -2 second_filelist.txt 
+ perl generate_filelists.pl [options]
 
 =head2 Script Options
 
  --help|-h              Show this help message
  --verbose|-v           Verbose script output
- --first-file|-1st      Filename of the First filelist
+ --plaintext|-p         Generate a plain list of files (with header)
+                        Output file will be saved as filelist.DATETIME.txt
+ --md5list|-m           Generate an MD5 checksummed list of files 
+                        Output file will be saved as filelist.DATETIME.md5.txt
+ --nsilist|-n           Generate an NSIS script listing of files
+                        Output file will be saved as filelist.DATETIME.nsh
 
 =cut
 
-#### Package 'Archive' ####
-package Archive;
+#### Package 'ArchiveFile' ####
+package ArchiveFile;
 use Date::Parse;
 use Log::Log4perl qw(get_logger);
 use Moose; # comes with 'strict' and 'warnings'
@@ -146,6 +151,11 @@ object attributes.
 
 sub parse { 
 } 
+
+#### Package 'PackageGroup' ####
+package PackageGroup;
+use Moose; # comes with 'strict' and 'warnings'
+use Moose::Util::TypeConstraints;
 
 package main;
 
