@@ -16,59 +16,111 @@
 # - diff the two finds
 # - (optional) filter out .cpan entries 
 
+
+function file_exists () {
+#echo "overwrite is $OVERWRITE"
+	if [ "x$OVERWRITE" != "xtrue" ]; then
+		if [ -e $1 ]; then
+			echo "ERROR: file $1 exists" 
+			echo "Cowardly refusing to overwrite existing files"
+			echo "Use the '-o' overwrite switch to ignore existing files"
+			exit 1
+		fi # if [ -e $1 ]
+	fi # if [ "x$OVERWRITE" != "xtrue" ]
+} # function file_exists ()
+
+function show_examples () {
+	echo "Examples:"
+	echo "# create a list of files"
+	echo "sh hump.sh -n filelist.txt"
+	echo
+	echo "# create a list of files with 'prev' and 'next' ufinds"
+	echo "sh hump.sh -p prev.txt -n next.txt -f filelist.txt"
+	echo
+	echo "# install a CPAN module, with 'prev'/'after' ufinds and filelist"
+	echo "sh hump.sh -i JSON -p before.txt -n after.txt -f filelist.txt"
+	echo
+} # function show_examples
+
 function usage () {
 	echo "Usage:"
 	echo "hump.sh -p previous.txt -n next.txt -f filelist.txt"
+	echo "  -h show this help text"
+	echo "  -e show usage examples"
+	echo
+	echo "  -a create the archive file based on filelist.txt"
 	echo "  -c show the .cpan directory in filelist output"
 	echo "  -f filelist to write output to"
-	echo "  -h show this help text"
+	echo "  -i install this Perl module from CPAN"
 	echo "  -n next file"
 	echo "  -p previous file"
 	echo "  -o overwrite existing files"
-	echo "When creating the first filelist, all arguments need to be present,"
-	echo "but only the '-n next.txt' filelist is used"
+	echo "  -u run the ufind only, then exit; builds initial filelist"
+	
 	exit 1
 } # function usage ()
 
-while getopts cf:hn:op:u VARLIST
+function empty_var () {
+	if [ -z $2 ]; then
+		echo "ERROR: switch '$1' empty/not used"
+		usage
+	fi
+} # function empty_var ()
+
+# call getopts with all of the supported options
+while getopts acdf:hi:n:op:u VARLIST
 do
 	case $VARLIST in
+		a) 	AFTERLIST=$OPTARG;;
+		b) 	BEFORELIST=$OPTARG;;
 		c)  CPAN="true";;
+		d)  DIFF="true";;
 		f)  FILELIST=$OPTARG;;	
 		h)  HELP="true";;
-		n) 	NEXT=$OPTARG;;
+		i)	CPAN_INSTALL=$OPTARG;;
 		o)  OVERWRITE="true";;
-		p) 	PREV=$OPTARG;;
 		u)	UFIND="true";;
+		z)  ARCHIVE="true";;
 	esac
 done
 shift $(expr $OPTIND - 1)
 
-#echo "$PREV:$NEXT:$FILELIST:$HELP"
+#echo "$BEFORELIST:$AFTERLIST:$FILELIST:$HELP"
 #sleep 5s
 
-if [ -z $PREV -o -z $NEXT -o -z $FILELIST ]; then usage; fi
 if [ "x$HELP" = "xtrue" ]; then usage; fi
 
-#echo "overwrite is $OVERWRITE"
-if [ "x$OVERWRITE" != "xtrue" ]; then
-	if [ -f $NEXT -o -f $FILELIST ]; then
-		echo "ERROR:"
-		if [ -f	$NEXT ]; then echo "exists: $NEXT"; fi
-		if [ -f	$FILELIST ]; then echo "exists: $FILELIST"; fi
-		echo "Cowardly refusing to overwrite existing files"
-		echo "Use the '-o' overwrite switch to ignore existing files"
+empty_var "-n (next file)" $AFTERLIST
+file_exists $AFTERLIST
+
+# install a module from CPAN?
+if [ -n $CPAN_INSTALL ]; then
+	perl -MCPAN -e "install $CPAN_INSTALL"
+	if [ $? -ne 0 ]; then 
+		echo "Install of $CPAN_INSTALL failed; exiting..."
 		exit 1
-	fi # if [ -e $NEXT -o -e $FILELIST ]
-fi # if [ "x$OVERWRITE" != "xtrue" ]
+	fi # if [ $? -ne 0 ]
+fi # if [ -n $CPAN_INSTALL ]
 
 # do the find
-ufind /camelbox | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' | tee $NEXT
+# FIXME abstract this; we can run find as many times as we want/need depending
+# on what we're trying to do;
+# - if there's no filelists, run it once
+# - if there are no filelists, and we're installing a CPAN module, run it
+# twice
+# - if there are filelists and we're installing a CPAN module, run it once?
+ufind /camelbox | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
+	| tee $AFTERLIST
 
 # check to see if we just want the ufind only
 if [ "x$UFIND" = "xtrue" ]; then
 	exit 0
 fi
+
+empty_var "-p (previous file)" $BEFORELIST
+file_exists $BEFORELIST
+empty_var "-f (output filelist)" $FILELIST
+file_exists $FILELIST
 
 # TODO - the below grep -v "\.cpan" may be redundant, the previous grep in the
 # pipe may already snag that match; verify!
@@ -76,11 +128,11 @@ fi
 # the file list needs to have forward slashes to keep tar happy
 if [ "x$CPAN" = "xtrue" ]; then
 	echo "Including .cpan directory in filelist output"
-	diff -u $PREV $NEXT | grep "^+[.a-zA-Z]" | sed '{s/^+//; s/\\/\//g;}' \
-		| tee $FILELIST
+	diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
+		| sed '{s/^+//; s/\\/\//g;}' | tee $FILELIST
 else
 	# get rid of the .cpan directories
 	echo "Stripping .cpan directory from filelist output"
-	diff -u $PREV $NEXT | grep "^+[a-zA-Z]" | grep -v "\.cpan" \
+	diff -u $BEFORELIST $AFTERLIST | grep "^+[a-zA-Z]" | grep -v "\.cpan" \
 		| sed '{s/^+//; s/\\/\//g;}' | tee $FILELIST
 fi # if [ "x$NOCPAN" = "xtrue" ]
