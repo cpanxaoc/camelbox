@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: archive_diff.pl 191 2008-04-15 07:18:00Z elspicyjack $
+# $Id$
 # Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
 #
 # compare the contents of two archive files side-by-side or in list format
@@ -22,16 +22,16 @@
 
 =head1 NAME
 
-B<slash_test.pl> - Demo of how slashes are handled on Windows
+B<win32_filename_test.pl> - Demo of how slashes are handled on Windows
 
 =head1 VERSION
 
-The CVS version of this file is $Revision: 1.15 $. See the top of this file for
+The SVN version of this file is $Revision$. See the top of this file for
 the author's version number.
 
 =head1 SYNOPSIS
 
- perl slash_demo.pl
+ perl win32_filename_test.pl
 
 =head2 Script Options
 
@@ -76,6 +76,7 @@ foreach my $file ( @filenames ) {
 } # foreach my $file ( @filenames )
 
 exit 0;
+
 =pod
 
 =head1 AUTHOR
