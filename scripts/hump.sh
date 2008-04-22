@@ -34,11 +34,11 @@ function show_examples () {
 	echo "# create a list of files"
 	echo "sh hump.sh -n filelist.txt"
 	echo
-	echo "# create a list of files with 'prev' and 'next' ufinds"
+	echo "# create a filelist, next file from 'prev' file"
 	echo "sh hump.sh -p prev.txt -n next.txt -f filelist.txt"
 	echo
-	echo "# install a CPAN module, with 'prev'/'after' ufinds and filelist"
-	echo "sh hump.sh -i JSON -p before.txt -n after.txt -f filelist.txt"
+	echo "# install a CPAN module, creating 'prev'/'next' files and filelist"
+	echo "sh hump.sh -i JSON -p next.txt -n next.txt -f filelist.txt"
 	echo
 } # function show_examples
 
