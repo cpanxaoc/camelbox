@@ -1,4 +1,4 @@
-<map version="0.9.0_Beta_8">
+<map version="0.8.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1195234086569" ID="Freemind_Link_1614576885" MODIFIED="1195234097601" TEXT="Camelbox Packages">
 <node CREATED="1195234946723" ID="Freemind_Link_1419940786" MODIFIED="1204791050742" POSITION="right" TEXT="SectionGroup Perl">
@@ -28,7 +28,7 @@
 <node CREATED="1204790898135" ID="Freemind_Link_1016917860" MODIFIED="1204790899243" TEXT="dev"/>
 <node CREATED="1204790900743" ID="Freemind_Link_1944787626" MODIFIED="1204790923539" TEXT="doc"/>
 </node>
-<node CREATED="1204791327383" FOLDED="true" ID="Freemind_Link_429075677" MODIFIED="1204791333755" TEXT="Support Libs">
+<node CREATED="1204791327383" ID="Freemind_Link_429075677" MODIFIED="1204791333755" TEXT="Support Libs">
 <node CREATED="1204791359776" ID="Freemind_Link_1828313979" MODIFIED="1204791361867" TEXT="bin"/>
 <node CREATED="1204791363896" ID="Freemind_Link_155656352" MODIFIED="1204791367315" TEXT="dev"/>
 <node CREATED="1204791372023" ID="Freemind_Link_724619459" MODIFIED="1204791373403" TEXT="doc"/>
