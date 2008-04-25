@@ -101,7 +101,7 @@ InstallDir "${INSTALL_PATH}"
 !include "AddToPath.nsh"
 !include "nsDialogs.nsh"
 !include "camelbox_functions.nsh"	# functions used by all scripts
-!include "camelbox_filelist.nsh"  	# the list of package archives
+!include "camelbox_packages.nsh"  	# the list of package archives
 
 #### PAGES ####
 Page License
