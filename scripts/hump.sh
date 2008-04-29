@@ -35,10 +35,10 @@ function show_examples () {
 	echo "sh hump.sh -n filelist.txt"
 	echo
 	echo "# create a filelist, next file from 'prev' file"
-	echo "sh hump.sh -p prev.txt -n next.txt -f filelist.txt"
+	echo "sh hump.sh -b prev.txt -a next.txt -f filelist.txt"
 	echo
 	echo "# install a CPAN module, creating 'prev'/'next' files and filelist"
-	echo "sh hump.sh -i JSON -p next.txt -n next.txt -f filelist.txt"
+	echo "sh hump.sh -i JSON -b next.txt -a next.txt -f filelist.txt"
 	echo
 } # function show_examples
 
@@ -48,12 +48,12 @@ function usage () {
 	echo "  -h show this help text"
 	echo "  -e show usage examples"
 	echo
-	echo "  -a create the archive file based on filelist.txt"
+	echo "  -z create the archive file based on filelist.txt"
 	echo "  -c show the .cpan directory in filelist output"
 	echo "  -f filelist to write output to"
 	echo "  -i install this Perl module from CPAN"
-	echo "  -n next file"
-	echo "  -p previous file"
+	echo "  -a next file"
+	echo "  -b previous file"
 	echo "  -o overwrite existing files"
 	echo "  -u run the ufind only, then exit; builds initial filelist"
 	
@@ -68,7 +68,7 @@ function empty_var () {
 } # function empty_var ()
 
 # call getopts with all of the supported options
-while getopts acdf:hi:n:op:u VARLIST
+while getopts a:b:cdf:hi:ouz VARLIST
 do
 	case $VARLIST in
 		a) 	AFTERLIST=$OPTARG;;
@@ -85,13 +85,14 @@ do
 done
 shift $(expr $OPTIND - 1)
 
+# for debugging
 #echo "$BEFORELIST:$AFTERLIST:$FILELIST:$HELP"
 #sleep 5s
 
 if [ "x$HELP" = "xtrue" ]; then usage; fi
 
-empty_var "-n (next file)" $AFTERLIST
-file_exists $AFTERLIST
+empty_var "-a (after list)" $AFTERLIST
+#file_exists $AFTERLIST
 
 # install a module from CPAN?
 if [ -n $CPAN_INSTALL ]; then
@@ -117,8 +118,8 @@ if [ "x$UFIND" = "xtrue" ]; then
 	exit 0
 fi
 
-empty_var "-p (previous file)" $BEFORELIST
-file_exists $BEFORELIST
+empty_var "-b (before list)" $BEFORELIST
+#file_exists $BEFORELIST
 empty_var "-f (output filelist)" $FILELIST
 file_exists $FILELIST
 
