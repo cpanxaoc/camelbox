@@ -9,6 +9,8 @@ Camelbox: A complete build of Perl for 32-bit Windows that includes:
 
 all neatly packaged and ready to install! 
 
+Many thanks to Milo for the original NSI installer script!
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 The files in this archive are licensed under one or more of the following
@@ -29,6 +31,10 @@ GPLv2.
 
 For support with this software, please post to the Camelbox Google Group:
 http://groups.google.com/group/camelbox
+
+The Camelbox homepage is located at:
+
+http://code.google.com/p/camelbox/
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
