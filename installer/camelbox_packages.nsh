@@ -40,9 +40,10 @@ SectionEnd # WriteUninstaller
 ; /e in any SectionGroup header means "expanded by default"
 Section "Perl 5.10.0 Base Package" perl-core_id
 	SectionIn 1 2 3 4 5 6 9
+	# FIXME this is the archive file size, not the unpacked size :/
 	AddSize 8300 # kilobytes
 	push "perl-5.10.0.2008.101.1.tar.lzma"
-	push "md5sum"
+	#push "md5sum"
 	SectionGetText ${perl-core_id} $0
 	push $0
 	Call SnarfUnpack
@@ -117,6 +118,17 @@ SectionGroup "Extra Gtk2-Perl Packages"
 		Call SnarfUnpack
 	SectionEnd
 SectionGroupEnd # "Extra Gtk2-Perl Packages"
+
+SectionGroup /e "Gtk2-Perl Applications"
+	Section "Asciio v0.95_01 - ASCII Art Editor" perl-asciio_id
+		AddSize 795 # kilobytes
+		SectionIn 1 3 4 5 6
+		push "perl-asciio-0.95_01.2008.119.1.tar.lzma"
+		SectionGetText ${perl-asciio_id} $0
+		push $0
+		Call SnarfUnpack
+	SectionEnd
+SectionGroupEnd # "Gtk2-Perl Applications"
 
 SectionGroup "Extra Perl Modules"
 	Section "YAML - Yet Another Markup Language" perl-YAML_id
@@ -318,6 +330,7 @@ SectionGroup /e "Environment Variables"
 		Call AddToPath
 	SectionEnd
 SectionGroupEnd ; "Environment Variables"
+
 
 Section "Uninstall"
 	SectionIn RO

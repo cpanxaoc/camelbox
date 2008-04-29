@@ -201,7 +201,7 @@ FunctionEnd # ShortcutsAndReadmeLeave
 Function SnarfUnpack
 	# pop arguments off of the stack
 	pop $sectionname
-	pop $archivemd5sum
+	#pop $archivemd5sum
 	pop $archivefile
 	# verify the download directory exists
     DetailPrint "Downloading: $DL_URL/$archivefile"
@@ -216,20 +216,20 @@ Function SnarfUnpack
 	# return code for NSISdl should be 'success'
 	StrCmp $0 "success" 0 FailBail
 	### checksum
-	DetailPrint "Verifying $archivefile"
-	md5dll::GetMD5File "$INSTDIR\$archivefile"
-	Pop $0
-	StrCmp $0 $archivemd5sum 0 FailBail
-	DetailPrint "MD5 sum verified!"
-	DetailPrint "$archivefile : $0"
+	#DetailPrint "Verifying $archivefile"
+	#md5dll::GetMD5File "$INSTDIR\$archivefile"
+	#Pop $0
+	#StrCmp $0 $archivemd5sum 0 FailBail
+	#DetailPrint "MD5 sum verified!"
+	#DetailPrint "$archivefile : $0"
 	### extract files
 	DetailPrint "Extracting $archivefile"
 	untgz::extract -zlzma "$INSTDIR\$archivefile"
 	DetailPrint "Unzip status: $R0"
 	#StrCmp $0 "OK" 0 FailBail
-	StrCmp $0 "OK" 0 FailBail
+	StrCmp $R0 "success" 0 FailBail
 	# don't delete archive files if the user asked to keep them
-	StrCmp $keepDownloadedArchives +3 0
+	StrCmp $keepDownloadedArchives "true" +3 0
 	DetailPrint "Deleting: $INSTDIR\$archivefile"
 	delete "$INSTDIR\$archivefile"
 	# if we've been successful, exit now

@@ -56,6 +56,8 @@
 # - maybe add a shortcut to zsh on the desktop/quicklaunch bar, if zsh is
 # installed
 # - a copy of perl shell for shits and giggles?
+# - the byte sizes shown in AddSize are the archive file sizes, not the
+# unpacked archive sizes; this is really what should be shown
 
 #### DEFINES ####
 # Section 5.4.1 of the NSIS manual describes !define
@@ -88,7 +90,8 @@ Icon "${MAIN_ICON}"
 # caption for this dialog, shown in titlebar 4.8.1.7
 Caption "${CAPTION_TEXT}"
 # shown at the bottom of this dialog 4.8.1.6
-BrandingText "Thanks to Milo for the installer!"
+#BrandingText "Thanks to Milo for the installer!"
+BrandingText "http://code.google.com/p/camelbox/"
 # name of this project 4.8.1.30
 Name "${CAPTION_TEXT}"
 
@@ -109,7 +112,7 @@ Page custom ChooseHTTPServer ChooseHTTPServerLeave
 Page Components
 #Page Directory
 Page InstFiles
-Page custom ShortcutsAndReadme
+#Page custom ShortcutsAndReadme
 UninstPage uninstConfirm
 UninstPage InstFiles
 
