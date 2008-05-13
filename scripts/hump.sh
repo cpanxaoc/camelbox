@@ -11,11 +11,12 @@
 
 # psuedocode
 # - run the find on the camelbox tree
-# - the user does their install bits
+#   - save checksums of files
+# - install some software from CPAN, or the user installs software
 # - run find on the camelbox tree again
-# - diff the two finds
+#   - get new checksums
+# - diff the two finds, or diff the two checksum lists
 # - (optional) filter out .cpan entries 
-
 
 function file_exists () {
 #echo "overwrite is $OVERWRITE"

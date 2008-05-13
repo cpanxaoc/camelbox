@@ -7,7 +7,9 @@
 # http://groups.google.com/group/camelbox
 
 # A script to generate different types of filelists; a plaintext filelist, a
-# filelist and MD5sums, and the camelbox_filelist.nsh NSIS script
+# filelist with MD5sums, and the camelbox_filelist.nsh NSIS script with the
+# checksums in the right place for SnarfUnpack to use when downloading
+# packages
 
 #==========================================================================
 # Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
@@ -27,7 +29,7 @@
 # Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #==========================================================================
 
-# things to keep track of:
+# things to keep track of for the NSIS package list:
 #
 # for each file:
 # - Which package group the file belongs to (toplevel, core, dev, "Core
@@ -56,17 +58,18 @@ the author's version number.
 
 =head1 SYNOPSIS
 
- perl generate_filelists.pl [options]
+ perl hump.pl [options]
 
 =head2 Script Options
 
  --help|-h              Show this help message
  --verbose|-v           Verbose script output
+ --timestamp|-t         Timestamp to use with output filenames
  --plaintext|-p         Generate a plain list of files (with header)
                         Output file will be saved as filelist.DATETIME.txt
  --md5list|-m           Generate an MD5 checksummed list of files 
                         Output file will be saved as filelist.DATETIME.md5.txt
- --nsilist|-n           Generate an NSIS script listing of files
+ --nshlist|-n           Generate an NSIS script listing of files
                         Output file will be saved as filelist.DATETIME.nsh
 
 =cut
