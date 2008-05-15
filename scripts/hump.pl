@@ -62,22 +62,28 @@ the author's version number.
 
 =head2 Script Options
 
- --help|-h              Show this help message
- --verbose|-v           Verbose script output
- --timestamp|-t         Timestamp to use with output filenames
- --plaintext|-p         Generate a plain list of files (with header)
-                        Output file will be saved as filelist.DATETIME.txt
-                        Use for creating packages
- --md5list|-m           Generate an MD5 checksummed list of files 
-                        Output file will be saved as filelist.DATETIME.md5.txt
-                        Use for creating md5sum files for releases
- --nshlist|-n           Generate an NSIS script listing of files
-                        Output file will be saved as filelist.DATETIME.nsh
-                        Use for creating a NSIS filelist file
- --install|-i           Install this module from CPAN; run a plaintext
-                        filelist both before and after the CPAN module is
-                        installed, and output the list of files that have been
-                        added or changed
+ --help|-h          Show this help message
+ --verbose|-v       Verbose script output
+ --startdir|-s      Start searching for files in this directory
+ --timestamp|-t     Timestamp to use with output filenames
+
+ --plaintext|-p <filename>
+                    Generate a plain list of files, output file will be saved as
+                    filelist.<filename>.txt, or filelist.TIMESTAMP.txt.  Use for
+                    creating packages
+ --md5list|-m <filename> 
+                    Generate an MD5 checksummed list of files.  Output file
+                    will be saved as filelist.<filename>.md5.txt, or
+                    filelist.DATETIME.md5.txt.  Use for creating md5sum files
+                    for releases
+ --nshlist|-n <filename>       
+                    Generate an NSIS script listing of files.  Output file
+                    will be saved as filelist.<filename>.nsh, or
+                    filelist.DATETIME.nsh.  Use for creating the NSIS filelist
+                    file
+ --install|-i       Install this module from CPAN; run a plaintext filelist
+                    both before and after the CPAN module is installed, and
+                    output the list of files that have been added or changed
 
 =cut
 
@@ -89,15 +95,14 @@ use Moose::Util::TypeConstraints;
 
 =pod
 
-=head2 Module Hump::File
+=head2 Module Hump::File::Stat
 
-A wrapper around the Perl C<stat()> function.  Has the following attributes:
-
-=over 4
-
-=item
-
-
+A wrapper around the Perl C<stat()> function.  Has the same attributes as
+what's returned from the C<stat()> function, but with a little nicer naming
+convention.  The following attributes are defined:  C<device>, C<inode>,
+C<mode>, C<num_hardlinks>,  C<uid>, C<gid>, C<rdev> (for block/character
+devices), C<size>, C<atime>, C<mtime>, C<ctime>, C<blocksize>, C<blocks>
+(actual number of blocks allocated).
 
 =cut
 
@@ -129,7 +134,7 @@ readable when an object is created from this class.
 
 The MD5 checksum for the file.  Not available for directories.
 
-=item crc32sum
+=item crcsum
 
 The CRC32 checksum for the file.  Not available for directories.
 
@@ -157,12 +162,14 @@ use warnings;
 use Getopt::Long;
 use Pod::Usage;
 
-my ($VERBOSE, $o_timestamp, $o_plaintext, $o_md5list, $o_nshlist);
-my ($o_install, $o_colorlog);
+my $o_colorlog = 1;
+my ($VERBOSE, $o_timestamp, $o_startdir);
+my ($o_plaintext, $o_md5list, $o_nshlist, $o_install);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
                         q(timestamp|t=s)                => \$o_timestamp,
+                        q(startdir|s=s)                => \$o_startdir,
                         q(plaintext|p:s)                => \$o_plaintext,
                         q(md5list|m:s)                  => \$o_md5list,
                         q(nshlist|n:s)                  => \$o_nshlist,
@@ -170,11 +177,12 @@ $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(colorlog!)                    => \$o_colorlog,
                     ); # $go_parse->getoptions
 
-# always turn off color logs under Windows, the terms don't do ANSI
-if ( $^O =~ /MSWin32/ ) { $colorlog = 0; }
+# always turn off color logs under Windows; terms in Windows don't do ANSI
+if ( $^O =~ /MSWin32/ ) { $o_colorlog = 0; }
+
 # set up the logger
 my $logger_conf = qq(log4perl.rootLogger = INFO, Screen\n);
-if ( $colorlog ) {
+if ( $o_colorlog ) {
     $logger_conf .= qq(log4perl.appender.Screen = )
         . qq(Log::Log4perl::Appender::ScreenColoredLevels\n);
 } else {
