@@ -49,9 +49,9 @@ function show_usage () {
 	echo "  -h show this help text"
 	echo "  -e show usage examples"
 	echo
-	echo "  -a next file"
-	echo "  -b previous file"
-   	echo "  -l filelist to write output to" 
+	echo "  -a after filelist"
+	echo "  -b before filelist"
+   	echo "  -p package filelist, a list of files for a package" 
 	echo "  -i install this Perl module from CPAN"
     echo
     echo "  -d start in this directory instead of 'C:\\camelbox'"
@@ -83,7 +83,7 @@ START_DIR="/camelbox"
 
 #### begin main script ####
 # call getopts with all of the supported options
-while getopts a:b:cd:ehi:l:ouz VARLIST
+while getopts a:b:cd:ehi:p:ouz VARLIST
 do
 	case $VARLIST in
 		a) 	AFTERLIST=$OPTARG;;
@@ -93,7 +93,7 @@ do
 		e)  SHOW_EXAMPLES="true";;
 		h)  SHOW_HELP="true";;
 		i)	CPAN_INSTALL=$OPTARG;;
-		l)  FILELIST=$OPTARG;;	
+		l)  PKG_LIST=$OPTARG;;	
 		o)  OVERWRITE="true";;
 		u)	UFIND="true";;
 		z)  ARCHIVE="true";;
@@ -102,7 +102,7 @@ done
 shift $(expr $OPTIND - 1)
 
 # for debugging
-#echo "$BEFORELIST:$AFTERLIST:$FILELIST:$HELP"
+#echo "$BEFORELIST:$AFTERLIST:$PKG_LIST:$HELP"
 #sleep 5s
 
 if [ "x$SHOW_HELP" = "xtrue" ]; then show_usage; fi
@@ -110,6 +110,24 @@ if [ "x$SHOW_EXAMPLES" = "xtrue" ]; then show_examples; fi
 
 empty_var "-a (after list)" $AFTERLIST
 #file_exists $AFTERLIST
+ufind $AFTERLIST
+
+# check to see if we just want the ufind only
+if [ "x$UFIND" = "xtrue" ]; then
+	exit 0
+fi
+
+# do the find
+# FIXME abstract this; we can run find as many times as we want/need depending
+# on what we're trying to do;
+# - if there's no filelists, run it once
+# - if there are no filelists, and we're installing a CPAN module, run it
+# twice
+# - if there are filelists and we're installing a CPAN module, run it once?
+empty_var "-b (before list)" $BEFORELIST
+#file_exists $BEFORELIST
+empty_var "-p (package filelist)" $PKG_LIST
+file_exists $PKG_LIST
 
 # install a module from CPAN?
 if [ -n $CPAN_INSTALL ]; then
@@ -120,36 +138,17 @@ if [ -n $CPAN_INSTALL ]; then
 	fi # if [ $? -ne 0 ]
 fi # if [ -n $CPAN_INSTALL ]
 
-# do the find
-# FIXME abstract this; we can run find as many times as we want/need depending
-# on what we're trying to do;
-# - if there's no filelists, run it once
-# - if there are no filelists, and we're installing a CPAN module, run it
-# twice
-# - if there are filelists and we're installing a CPAN module, run it once?
-empty_var "-l (output filelist)" $FILELIST
-file_exists $FILELIST
-ufind $FILELIST
-
-# check to see if we just want the ufind only
-if [ "x$UFIND" = "xtrue" ]; then
-	exit 0
-fi
-
-empty_var "-b (before list)" $BEFORELIST
-#file_exists $BEFORELIST
-
 # TODO - the below grep -v "\.cpan" may be redundant, the previous grep in the
 # pipe may already snag that match; verify!
 # don't strip the .cpan directories
 # the file list needs to have forward slashes to keep tar happy
 if [ "x$CPAN" = "xtrue" ]; then
-	echo "Including .cpan directory in filelist output"
+	echo "Including .cpan directory in package filelist output"
 	diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
-		| sed '{s/^+//; s/\\/\//g;}' | tee $FILELIST
+		| sed '{s/^+//; s/\\/\//g;}' | tee $PKG_LIST
 else
 	# get rid of the .cpan directories
-	echo "Stripping .cpan directory from filelist output"
+	echo "Stripping .cpan directory from package filelist output"
 	diff -u $BEFORELIST $AFTERLIST | grep "^+[a-zA-Z]" | grep -v "\.cpan" \
-		| sed '{s/^+//; s/\\/\//g;}' | tee $FILELIST
+		| sed '{s/^+//; s/\\/\//g;}' | tee $PKG_LIST
 fi # if [ "x$NOCPAN" = "xtrue" ]
