@@ -33,52 +33,67 @@ function file_exists () {
 function show_examples () {
 	echo "Examples:"
 	echo "# create a list of files"
-	echo "sh hump.sh -n filelist.txt"
+	echo "sh hump.sh -l filelist.txt"
 	echo
-	echo "# create a filelist, next file from 'prev' file"
-	echo "sh hump.sh -b prev.txt -a next.txt -f filelist.txt"
+	echo "# create a filelist and 'after' file from 'before' file"
+	echo "sh hump.sh -b before.txt -a after.txt -l filelist.txt"
 	echo
-	echo "# install a CPAN module, creating 'prev'/'next' files and filelist"
-	echo "sh hump.sh -i JSON -b next.txt -a next.txt -f filelist.txt"
+	echo "# install a CPAN module, creating 'before/after' files and filelist"
+	echo "sh hump.sh -i JSON -b before.txt -a after.txt -l filelist.txt"
 	echo
+    exit 1
 } # function show_examples
 
-function usage () {
+function show_usage () {
 	echo "Usage:"
-	echo "hump.sh -p previous.txt -n next.txt -f filelist.txt"
 	echo "  -h show this help text"
 	echo "  -e show usage examples"
 	echo
-	echo "  -z create the archive file based on filelist.txt"
-	echo "  -c show the .cpan directory in filelist output"
-	echo "  -f filelist to write output to"
-	echo "  -i install this Perl module from CPAN"
 	echo "  -a next file"
 	echo "  -b previous file"
+   	echo "  -l filelist to write output to" 
+	echo "  -i install this Perl module from CPAN"
+    echo
+    echo "  -d start in this directory instead of 'C:\\camelbox'"
+	echo "  -z create the archive file based on filelist.txt"
+	echo "  -c show the .cpan directory in filelist output"
 	echo "  -o overwrite existing files"
 	echo "  -u run the ufind only, then exit; builds initial filelist"
-	
+    echo	
 	exit 1
-} # function usage ()
+} # function show_usage ()
 
 function empty_var () {
 	if [ -z $2 ]; then
 		echo "ERROR: switch '$1' empty/not used"
-		usage
+		show_usage
 	fi
 } # function empty_var ()
 
+function ufind () {
+    local OUTPUT_FILE=$1
+    # sed removes the 'camelbox/' prefix from all files
+    # and the 'camelbox/' directory itself
+    ufind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
+	    | tee $OUTPUT_FILE
+} # function ufind
+
+# a starting directory, if the user doesn't pass one in
+START_DIR="/camelbox"
+
+#### begin main script ####
 # call getopts with all of the supported options
-while getopts a:b:cdf:hi:ouz VARLIST
+while getopts a:b:cd:ehi:l:ouz VARLIST
 do
 	case $VARLIST in
 		a) 	AFTERLIST=$OPTARG;;
 		b) 	BEFORELIST=$OPTARG;;
 		c)  CPAN="true";;
-		d)  DIFF="true";;
-		f)  FILELIST=$OPTARG;;	
-		h)  HELP="true";;
+        d)  START_DIR=$OPTARG;;
+		e)  SHOW_EXAMPLES="true";;
+		h)  SHOW_HELP="true";;
 		i)	CPAN_INSTALL=$OPTARG;;
+		l)  FILELIST=$OPTARG;;	
 		o)  OVERWRITE="true";;
 		u)	UFIND="true";;
 		z)  ARCHIVE="true";;
@@ -90,7 +105,8 @@ shift $(expr $OPTIND - 1)
 #echo "$BEFORELIST:$AFTERLIST:$FILELIST:$HELP"
 #sleep 5s
 
-if [ "x$HELP" = "xtrue" ]; then usage; fi
+if [ "x$SHOW_HELP" = "xtrue" ]; then show_usage; fi
+if [ "x$SHOW_EXAMPLES" = "xtrue" ]; then show_examples; fi
 
 empty_var "-a (after list)" $AFTERLIST
 #file_exists $AFTERLIST
@@ -111,8 +127,9 @@ fi # if [ -n $CPAN_INSTALL ]
 # - if there are no filelists, and we're installing a CPAN module, run it
 # twice
 # - if there are filelists and we're installing a CPAN module, run it once?
-ufind /camelbox | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
-	| tee $AFTERLIST
+empty_var "-l (output filelist)" $FILELIST
+file_exists $FILELIST
+ufind $FILELIST
 
 # check to see if we just want the ufind only
 if [ "x$UFIND" = "xtrue" ]; then
@@ -121,8 +138,6 @@ fi
 
 empty_var "-b (before list)" $BEFORELIST
 #file_exists $BEFORELIST
-empty_var "-f (output filelist)" $FILELIST
-file_exists $FILELIST
 
 # TODO - the below grep -v "\.cpan" may be redundant, the previous grep in the
 # pipe may already snag that match; verify!
