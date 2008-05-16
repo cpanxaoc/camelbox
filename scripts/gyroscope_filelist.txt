@@ -3,12 +3,12 @@
 --compile 
 --gui 
 --verbose 
---icon C:\camelbox\bin\wperl.exe 
+--icon C:/camelbox/bin/wperl.exe 
 # Gtk2-Perl C libraries
--l C:\camelbox\site\lib\auto\Cairo\Cairo.dll 
--l C:\camelbox\site\lib\auto\Glib\Glib.dll 
--l C:\camelbox\site\lib\auto\Gtk2\Gtk2.dll 
--l C:\camelbox\lib\ligCarioPerl.dll.a 
+-l C:/camelbox/site/lib/auto/Cairo/Cairo.dll 
+-l C:/camelbox/site/lib/auto/Glib/Glib.dll 
+-l C:/camelbox/site/lib/auto/Gtk2/Gtk2.dll 
+-l C:/camelbox/lib/ligCarioPerl.dll.a 
 # GTK+ C libraries
 -l libatk-1.0-0.dll
 -l libcairo-2.dll
@@ -36,4 +36,4 @@
 -M Gtk2::CodeGen 
 -M Glib::Object::Subclass 
 # output file
---output C:\temp\gyroscope.par 
+--output C:/temp/gyroscope.par 
