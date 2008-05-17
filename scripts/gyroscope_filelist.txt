@@ -8,7 +8,9 @@
 -l C:/camelbox/site/lib/auto/Cairo/Cairo.dll 
 -l C:/camelbox/site/lib/auto/Glib/Glib.dll 
 -l C:/camelbox/site/lib/auto/Gtk2/Gtk2.dll 
--l C:/camelbox/lib/ligCarioPerl.dll.a 
+-l C:/camelbox/lib/libCairoPerl.dll.a 
+-l C:/camelbox/lib/libGlibPerl.dll.a 
+-l C:/camelbox/lib/libGtk2Perl.dll.a 
 # GTK+ C libraries
 -l libatk-1.0-0.dll
 -l libcairo-2.dll
@@ -35,5 +37,9 @@
 -M Glib::CodeGen 
 -M Gtk2::CodeGen 
 -M Glib::Object::Subclass 
+# extra files needed by gtk2-perl
+-a C:/camelbox/site/lib/Cairo/Install;lib/Cairo/Install
+-a C:/camelbox/site/lib/Glib/Install;lib/Glib/Install
+-a C:/camelbox/site/lib/Gtk2/Install;lib/Gtk2/Install
 # output file
 --output C:/temp/gyroscope.par 
