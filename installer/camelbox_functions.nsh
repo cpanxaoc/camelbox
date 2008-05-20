@@ -203,42 +203,49 @@ Function SnarfUnpack
 	pop $sectionname
 	#pop $archivemd5sum
 	pop $archivefile
-	# verify the download directory exists
-    DetailPrint "Downloading: $DL_URL/$archivefile"
-	### download
-	#inetc::get /POPUP "$sectionname" \
-	#	"$DL_URL/$archivefile" "$INSTDIR\$archivefile"
-	NSISdl::download "$DL_URL/$archivefile" "$INSTDIR\$archivefile"
-	Pop $0 
-	# check for an OK download; continues on success, bails on error
-	# return value = exit code, "OK" if OK
-	#StrCmp $0 "OK" 0 FailBail # inetc::get
-	# return code for NSISdl should be 'success'
-	StrCmp $0 "success" 0 FailBail
-	### checksum
-	#DetailPrint "Verifying $archivefile"
-	#md5dll::GetMD5File "$INSTDIR\$archivefile"
-	#Pop $0
-	#StrCmp $0 $archivemd5sum 0 FailBail
-	#DetailPrint "MD5 sum verified!"
-	#DetailPrint "$archivefile : $0"
-	### extract files
-	DetailPrint "Extracting $archivefile"
-	untgz::extract -zlzma "$INSTDIR\$archivefile"
-	DetailPrint "Unzip status: $R0"
-	#StrCmp $0 "OK" 0 FailBail
-	StrCmp $R0 "success" 0 FailBail
-	# don't delete archive files if the user asked to keep them
-	StrCmp $keepDownloadedArchives "true" +3 0
-	DetailPrint "Deleting: $INSTDIR\$archivefile"
-	delete "$INSTDIR\$archivefile"
-	# if we've been successful, exit now
-	return
-	# we should only hit this if called
+    Snarf:
+        DetailPrint "Downloading: $DL_URL/$archivefile"
+    	### download
+    	#inetc::get /POPUP "$sectionname" \
+    	#	"$DL_URL/$archivefile" "$INSTDIR\$archivefile"
+    	NSISdl::download "$DL_URL/$archivefile" "$INSTDIR\$archivefile"
+    	Pop $0 
+    	# check for an OK download; continues on success, bails on error
+    	# return value = exit code, "OK" if OK
+    	#StrCmp $0 "OK" 0 FailBail # inetc::get
+    	# return code for NSISdl should be 'success'
+    	StrCmp $0 "success" 0 FailBail
+    Checksum:
+    	#DetailPrint "Verifying $archivefile"
+    	#md5dll::GetMD5File "$INSTDIR\$archivefile"
+    	#Pop $0
+        # compare the two MD5 checksums
+    	#StrCmp $0 $archivemd5sum 0 SnarfRetry
+    	#DetailPrint "MD5 sum verified!"
+    	#DetailPrint "$archivefile : $0"
+    Extract:
+    	DetailPrint "Extracting $archivefile"
+    	untgz::extract -zlzma "$INSTDIR\$archivefile"
+    	DetailPrint "Unzip status: $R0"
+    	#StrCmp $0 "OK" 0 FailBail
+    	StrCmp $R0 "success" 0 FailBail
+    	# don't delete archive files if the user asked to keep them
+    	StrCmp $keepDownloadedArchives "true" +3 0
+    	DetailPrint "Deleting: $INSTDIR\$archivefile"
+    	delete "$INSTDIR\$archivefile"
+    	# if we've been successful, exit now
+    	return
+	# we should only hit these if called
+    # all of the below labels either need to abort or call another label
 	FailBail:
 		# $0 should have already been set by the caller
 		DetailPrint "Installer encountered the following fatal error:"
 		abort "'$0'; Aborting..."
+    SnarfRetry:
+        # messageBox is section 4.9.4.15 of the docs
+        messageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION|MB_TOPMOST \
+            "Download of $archivefile failed" IDRETRY Snarf
+        abort
 FunctionEnd # SnarfUnpack
 
 Function DebugPause

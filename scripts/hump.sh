@@ -49,26 +49,28 @@ function show_usage () {
 	echo "  -h show this help text"
 	echo "  -e show usage examples"
 	echo
-	echo "  -a after filelist"
-	echo "  -b before filelist"
-   	echo "  -p package filelist, a list of files for a package" 
-	echo "  -i install this Perl module from CPAN"
+    echo "To get a simple list of files:"
+	echo "  -o output list - Generate a simple list of files"
     echo
+    echo "To get a list of files that are installed for an application:"
+	echo "  -b before filelist - Generate a 'before install' list"
+	echo "  -a after filelist - Generate an 'after install' list"
+	echo "  -i install this Perl module from CPAN (optional)"
+    echo
+    echo "Miscellaneous Options"
     echo "  -d start in this directory instead of 'C:\\camelbox'"
 	echo "  -z create the archive file based on filelist.txt"
 	echo "  -c show the .cpan directory in filelist output"
-	echo "  -o overwrite existing files"
-	echo "  -u run the ufind only, then exit; builds initial filelist"
     echo	
 	exit 1
 } # function show_usage ()
 
-function empty_var () {
+function check_empty_var () {
 	if [ -z $2 ]; then
 		echo "ERROR: switch '$1' empty/not used"
 		show_usage
 	fi
-} # function empty_var ()
+} # function check_empty_var ()
 
 function ufind () {
     local OUTPUT_FILE=$1
@@ -83,7 +85,7 @@ START_DIR="/camelbox"
 
 #### begin main script ####
 # call getopts with all of the supported options
-while getopts a:b:cd:ehi:p:ouz VARLIST
+while getopts a:b:cd:ehi:o:wuz VARLIST
 do
 	case $VARLIST in
 		a) 	AFTERLIST=$OPTARG;;
@@ -93,8 +95,8 @@ do
 		e)  SHOW_EXAMPLES="true";;
 		h)  SHOW_HELP="true";;
 		i)	CPAN_INSTALL=$OPTARG;;
-		l)  PKG_LIST=$OPTARG;;	
-		o)  OVERWRITE="true";;
+        o)  OUTPUT_LIST=$OPTARG;;
+		w)  OVERWRITE="true";;
 		u)	UFIND="true";;
 		z)  ARCHIVE="true";;
 	esac
@@ -102,53 +104,48 @@ done
 shift $(expr $OPTIND - 1)
 
 # for debugging
-#echo "$BEFORELIST:$AFTERLIST:$PKG_LIST:$HELP"
+#echo "$BEFORELIST:$AFTERLIST:$OUTPUT_LIST:$HELP"
 #sleep 5s
 
 if [ "x$SHOW_HELP" = "xtrue" ]; then show_usage; fi
 if [ "x$SHOW_EXAMPLES" = "xtrue" ]; then show_examples; fi
 
-empty_var "-a (after list)" $AFTERLIST
-#file_exists $AFTERLIST
-ufind $AFTERLIST
-
-# check to see if we just want the ufind only
-if [ "x$UFIND" = "xtrue" ]; then
-	exit 0
-fi
-
-# do the find
-# FIXME abstract this; we can run find as many times as we want/need depending
-# on what we're trying to do;
-# - if there's no filelists, run it once
-# - if there are no filelists, and we're installing a CPAN module, run it
-# twice
-# - if there are filelists and we're installing a CPAN module, run it once?
-empty_var "-b (before list)" $BEFORELIST
-#file_exists $BEFORELIST
-empty_var "-p (package filelist)" $PKG_LIST
-file_exists $PKG_LIST
-
-# install a module from CPAN?
-if [ -n $CPAN_INSTALL ]; then
-	perl -MCPAN -e "install $CPAN_INSTALL"
-	if [ $? -ne 0 ]; then 
-		echo "Install of $CPAN_INSTALL failed; exiting..."
-		exit 1
-	fi # if [ $? -ne 0 ]
-fi # if [ -n $CPAN_INSTALL ]
-
-# TODO - the below grep -v "\.cpan" may be redundant, the previous grep in the
-# pipe may already snag that match; verify!
-# don't strip the .cpan directories
-# the file list needs to have forward slashes to keep tar happy
-if [ "x$CPAN" = "xtrue" ]; then
-	echo "Including .cpan directory in package filelist output"
-	diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
-		| sed '{s/^+//; s/\\/\//g;}' | tee $PKG_LIST
+if [ $OUTPUT_LIST ]; then
+    check_empty_var "-o (output list)" $OUTPUT_LIST
+    file_exists $OUTPUT_LIST
+    ufind $OUTPUT_LIST
+    exit 0
 else
-	# get rid of the .cpan directories
-	echo "Stripping .cpan directory from package filelist output"
-	diff -u $BEFORELIST $AFTERLIST | grep "^+[a-zA-Z]" | grep -v "\.cpan" \
-		| sed '{s/^+//; s/\\/\//g;}' | tee $PKG_LIST
-fi # if [ "x$NOCPAN" = "xtrue" ]
+    # do the find
+    check_empty_var "-b (before list)" $BEFORELIST
+    file_exists $BEFORELIST
+    check_empty_var "-a (after list)" $AFTERLIST
+    file_exists $AFTERLIST
+    ufind $AFTERLIST
+    check_empty_var "-o (output list)" $OUTPUT_LIST
+    file_exists $OUTPUT_LIST
+
+    # install a module from CPAN?
+    if [ -n $CPAN_INSTALL ]; then
+    	perl -MCPAN -e "install $CPAN_INSTALL"
+    	if [ $? -ne 0 ]; then 
+    		echo "Install of $CPAN_INSTALL failed; exiting..."
+    		exit 1
+    	fi # if [ $? -ne 0 ]
+    fi # if [ -n $CPAN_INSTALL ]
+
+    # TODO - the below grep -v "\.cpan" may be redundant, the previous grep in
+    # the pipe may already snag that match; verify!
+    # don't strip the .cpan directories
+    # the file list needs to have forward slashes to keep tar happy
+    if [ "x$CPAN" = "xtrue" ]; then
+    	echo "Including .cpan directory in package filelist output"
+    	diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
+    		| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
+    else
+    	# get rid of the .cpan directories
+    	echo "Stripping .cpan directory from package filelist output"
+    	diff -u $BEFORELIST $AFTERLIST | grep "^+[a-zA-Z]" | grep -v "\.cpan" \
+    		| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
+    fi # if [ "x$NOCPAN" = "xtrue" ]
+fi # if [ $OUTPUT_LIST ]; then
