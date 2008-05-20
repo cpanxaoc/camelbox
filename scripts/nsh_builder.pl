@@ -49,7 +49,7 @@
 
 =head1 NAME
 
-B<hump.pl> - Generate Camelbox filelists of one or more types
+B<nsh_builder.pl> - Generate Camelbox filelists of one or more types
 
 =head1 VERSION
 
@@ -58,7 +58,7 @@ the author's version number.
 
 =head1 SYNOPSIS
 
- perl hump.pl [options]
+ perl nsh_builder.pl [options]
 
 =head2 Script Options
 
@@ -70,7 +70,7 @@ the author's version number.
  --plaintext|-p <filename>
                     Generate a plain list of files, output file will be saved as
                     filelist.<filename>.txt, or filelist.TIMESTAMP.txt.  Use for
-                    creating packages
+                    creating a sorted list of files
  --md5list|-m <filename> 
                     Generate an MD5 checksummed list of files.  Output file
                     will be saved as filelist.<filename>.md5.txt, or
@@ -89,9 +89,6 @@ the author's version number.
 
 #### Package 'Hump::File::Stat' ####
 package Hump::File::Stat;
-use Log::Log4perl qw(get_logger);
-use Moose;
-use Moose::Util::TypeConstraints;
 
 =pod
 
@@ -108,9 +105,6 @@ devices), C<size>, C<atime>, C<mtime>, C<ctime>, C<blocksize>, C<blocks>
 
 #### Package 'Hump::File' ####
 package Hump::File;
-use Log::Log4perl qw(get_logger);
-use Moose;
-use Moose::Util::TypeConstraints;
 
 =pod
 
@@ -142,19 +136,6 @@ The CRC32 checksum for the file.  Not available for directories.
 
 =cut
 
-# a subtype for holding the name of a file in the archive
-# this should make it so that the file is checked when the object is created
-# Str is from Moose::Util::TypeConstraints
-subtype ArchiveFilename
-    => as Str
-    => where { ( -r $_ ) };
-
-has q(attrib) => ( is => q(rw), isa => q(Archive::Attributes));
-has q(archfilename) => (is => q(rw), isa => q(ArchiveFilename), required => 1);
-has q(filelist) => ( is => q(rw), isa => q(Archive::FileList) );
-has q(count_pulse) => ( is => q(rw), isa => q(Int), default => 10 );
-
-#### Package main ####
 package main;
 
 use strict;
@@ -169,45 +150,19 @@ my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
                         q(timestamp|t=s)                => \$o_timestamp,
-                        q(startdir|s=s)                => \$o_startdir,
+                        q(startdir|s=s)                 => \$o_startdir,
                         q(plaintext|p:s)                => \$o_plaintext,
                         q(md5list|m:s)                  => \$o_md5list,
                         q(nshlist|n:s)                  => \$o_nshlist,
                         q(install|i=s)                  => \$o_install,
-                        q(colorlog!)                    => \$o_colorlog,
                     ); # $go_parse->getoptions
-
-# always turn off color logs under Windows; terms in Windows don't do ANSI
-if ( $^O =~ /MSWin32/ ) { $o_colorlog = 0; }
-
-# set up the logger
-my $logger_conf = qq(log4perl.rootLogger = INFO, Screen\n);
-if ( $o_colorlog ) {
-    $logger_conf .= qq(log4perl.appender.Screen = )
-        . qq(Log::Log4perl::Appender::ScreenColoredLevels\n);
-} else {
-    $logger_conf .= qq(log4perl.appender.Screen = )
-        . qq(Log::Log4perl::Appender::Screen\n);
-} # if ( $Config->get(q(colorlog)) )
-
-$logger_conf .= qq(log4perl.appender.Screen.stderr = 1\n)
-    . qq(log4perl.appender.Screen.layout = PatternLayout\n)
-    . q(log4perl.appender.Screen.layout.ConversionPattern = %d %p %m%n)
-    . qq(\n);
-
-# create the logger object
-Log::Log4perl::init( \$logger_conf );
-my $logger = get_logger("");
-# change the log level from INFO if the user requests more gar-bage
-if ( $VERBOSE ) { $logger->level($DEBUG); }
 
 # more crap here
 
 #### main subroutines ####
 
 sub HelpDie {
-    my $logger = get_logger();
-    $logger->fatal(qq(Use '$0 --help' to view script options));
+    $die(qq(Use '$0 --help' to view script options));
     exit 1;
 } # sub HelpDie 
 
