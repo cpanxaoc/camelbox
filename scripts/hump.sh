@@ -18,13 +18,16 @@
 # - diff the two finds, or diff the two checksum lists
 # - (optional) filter out .cpan entries 
 
+# a starting directory, if the user doesn't pass one in
+START_DIR="/camelbox"
+
 function file_exists () {
 #echo "overwrite is $OVERWRITE"
 	if [ "x$OVERWRITE" != "xtrue" ]; then
 		if [ -e $1 ]; then
 			echo "ERROR: file $1 exists" 
 			echo "Cowardly refusing to overwrite existing files"
-			echo "Use the '-o' overwrite switch to ignore existing files"
+			echo "Use the '-w' overwrite switch to ignore existing files"
 			exit 1
 		fi # if [ -e $1 ]
 	fi # if [ "x$OVERWRITE" != "xtrue" ]
@@ -33,13 +36,13 @@ function file_exists () {
 function show_examples () {
 	echo "Examples:"
 	echo "# create a list of files"
-	echo "sh hump.sh -l filelist.txt"
+	echo "sh hump.sh -o filelist.txt"
 	echo
 	echo "# create a filelist and 'after' file from 'before' file"
-	echo "sh hump.sh -b before.txt -a after.txt -l filelist.txt"
+	echo "sh hump.sh -b before.txt -a after.txt -o filelist.txt"
 	echo
 	echo "# install a CPAN module, creating 'before/after' files and filelist"
-	echo "sh hump.sh -i JSON -b before.txt -a after.txt -l filelist.txt"
+	echo "sh hump.sh -i JSON -b before.txt -a after.txt -o filelist.txt"
 	echo
     exit 1
 } # function show_examples
@@ -58,7 +61,7 @@ function show_usage () {
 	echo "  -i install this Perl module from CPAN (optional)"
     echo
     echo "Miscellaneous Options"
-    echo "  -d start in this directory instead of 'C:\\camelbox'"
+    echo '  -d start in this directory instead of "C:\\camelbox"'
 	echo "  -z create the archive file based on filelist.txt"
 	echo "  -c show the .cpan directory in filelist output"
     echo	
@@ -73,15 +76,13 @@ function check_empty_var () {
 } # function check_empty_var ()
 
 function ufind () {
-    local OUTPUT_FILE=$1
     # sed removes the 'camelbox/' prefix from all files
     # and the 'camelbox/' directory itself
     ufind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
-	    | tee $OUTPUT_FILE
+	    | tee $1
 } # function ufind
 
-# a starting directory, if the user doesn't pass one in
-START_DIR="/camelbox"
+
 
 #### begin main script ####
 # call getopts with all of the supported options
@@ -110,12 +111,8 @@ shift $(expr $OPTIND - 1)
 if [ "x$SHOW_HELP" = "xtrue" ]; then show_usage; fi
 if [ "x$SHOW_EXAMPLES" = "xtrue" ]; then show_examples; fi
 
-if [ $OUTPUT_LIST ]; then
-    check_empty_var "-o (output list)" $OUTPUT_LIST
-    file_exists $OUTPUT_LIST
-    ufind $OUTPUT_LIST
-    exit 0
-else
+
+if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     # do the find
     check_empty_var "-b (before list)" $BEFORELIST
     file_exists $BEFORELIST
@@ -148,4 +145,12 @@ else
     	diff -u $BEFORELIST $AFTERLIST | grep "^+[a-zA-Z]" | grep -v "\.cpan" \
     		| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
     fi # if [ "x$NOCPAN" = "xtrue" ]
+elif [ "x$OUTPUT_LIST" != "x" ]; then
+    check_empty_var "-o (output list)" $OUTPUT_LIST
+    file_exists $OUTPUT_LIST
+    ufind $OUTPUT_LIST
+    exit 0
+else
+	# neither -o (output list) or -b/-a (before/after list) passed in
+	show_usage
 fi # if [ $OUTPUT_LIST ]; then
