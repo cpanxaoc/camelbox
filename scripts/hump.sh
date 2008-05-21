@@ -69,6 +69,7 @@ function show_usage () {
 } # function show_usage ()
 
 function check_empty_var () {
+	echo "checking for $2"
 	if [ -z $2 ]; then
 		echo "ERROR: switch '$1' empty/not used"
 		show_usage
@@ -78,11 +79,12 @@ function check_empty_var () {
 function ufind () {
     # sed removes the 'camelbox/' prefix from all files
     # and the 'camelbox/' directory itself
-    ufind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
-	    | tee $1
+    #ufind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
+	#    | tee $1
+	echo "running ufind and sending output to $1"
+    ufind "$START_DIR" | tee $1
+	exit 0
 } # function ufind
-
-
 
 #### begin main script ####
 # call getopts with all of the supported options

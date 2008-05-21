@@ -1,0 +1,4 @@
+Compile with:
+
+gcc gcc_demo.c
+
