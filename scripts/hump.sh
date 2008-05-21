@@ -76,15 +76,12 @@ function check_empty_var () {
 	fi
 } # function check_empty_var ()
 
-function ufind () {
+function run_ufind () {
     # sed removes the 'camelbox/' prefix from all files
     # and the 'camelbox/' directory itself
-    #ufind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
-	#    | tee $1
-	echo "running ufind and sending output to $1"
-    ufind "$START_DIR" | tee $1
-	exit 0
-} # function ufind
+    ufind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
+	    | tee $1
+} # function run_ufind
 
 #### begin main script ####
 # call getopts with all of the supported options
@@ -120,7 +117,7 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     file_exists $BEFORELIST
     check_empty_var "-a (after list)" $AFTERLIST
     file_exists $AFTERLIST
-    ufind $AFTERLIST
+    run_ufind $AFTERLIST
     check_empty_var "-o (output list)" $OUTPUT_LIST
     file_exists $OUTPUT_LIST
 
@@ -150,8 +147,7 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
 elif [ "x$OUTPUT_LIST" != "x" ]; then
     check_empty_var "-o (output list)" $OUTPUT_LIST
     file_exists $OUTPUT_LIST
-    ufind $OUTPUT_LIST
-    exit 0
+    run_ufind $OUTPUT_LIST
 else
 	# neither -o (output list) or -b/-a (before/after list) passed in
 	show_usage
