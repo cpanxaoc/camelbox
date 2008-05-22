@@ -889,7 +889,7 @@ mingw32/lib/ldscripts/i386pe.xbn
 mingw32/lib/ldscripts/i386pe.xn
 mingw32/lib/ldscripts/i386pe.xr
 mingw32/lib/ldscripts/i386pe.xu
-mingw32/MinGW-5.1.3.exe
+mingw32/MinGW-5.1.4.exe
 mingw32/uninst.exe
 share/doc/mingw-runtime
 share/doc/mingw-runtime/CONTRIBUTORS

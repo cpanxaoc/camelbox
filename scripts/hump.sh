@@ -21,7 +21,14 @@
 # a starting directory, if the user doesn't pass one in
 START_DIR="/camelbox"
 
-function file_exists () {
+function exists_check () {
+	if [ ! -e $1 ]; then
+		echo "ERROR: file $1 does not exist" 
+		exit 1
+	fi # if [ -e $1 ]
+} # function exists_check ()
+
+function overwrite_check () {
 #echo "overwrite is $OVERWRITE"
 	if [ "x$OVERWRITE" != "xtrue" ]; then
 		if [ -e $1 ]; then
@@ -31,7 +38,7 @@ function file_exists () {
 			exit 1
 		fi # if [ -e $1 ]
 	fi # if [ "x$OVERWRITE" != "xtrue" ]
-} # function file_exists ()
+} # function overwrite_check ()
 
 function show_examples () {
 	echo "Examples:"
@@ -114,12 +121,10 @@ if [ "x$SHOW_EXAMPLES" = "xtrue" ]; then show_examples; fi
 if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     # do the find
     check_empty_var "-b (before list)" $BEFORELIST
-    file_exists $BEFORELIST
-    check_empty_var "-a (after list)" $AFTERLIST
-    file_exists $AFTERLIST
-    run_ufind $AFTERLIST
+    exists_check $BEFORELIST
+    
     check_empty_var "-o (output list)" $OUTPUT_LIST
-    file_exists $OUTPUT_LIST
+    overwrite_check $OUTPUT_LIST
 
     # install a module from CPAN?
     if [ -n $CPAN_INSTALL ]; then
@@ -129,6 +134,10 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     		exit 1
     	fi # if [ $? -ne 0 ]
     fi # if [ -n $CPAN_INSTALL ]
+
+	check_empty_var "-a (after list)" $AFTERLIST
+    overwrite_check $AFTERLIST
+    run_ufind $AFTERLIST
 
     # TODO - the below grep -v "\.cpan" may be redundant, the previous grep in
     # the pipe may already snag that match; verify!
@@ -146,7 +155,7 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     fi # if [ "x$NOCPAN" = "xtrue" ]
 elif [ "x$OUTPUT_LIST" != "x" ]; then
     check_empty_var "-o (output list)" $OUTPUT_LIST
-    file_exists $OUTPUT_LIST
+    overwrite_check $OUTPUT_LIST
     run_ufind $OUTPUT_LIST
 else
 	# neither -o (output list) or -b/-a (before/after list) passed in
