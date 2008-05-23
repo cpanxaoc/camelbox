@@ -21,6 +21,23 @@
 # a starting directory, if the user doesn't pass one in
 START_DIR="/camelbox"
 
+function find_first_free_filename () {
+	local FILE_DIR=$1
+    local FILE_NAME=$2
+	local FILE_EXT=$3
+    local FILE_COUNTER=1
+    local FILE_DATE=$(TZ=GMT date +%Y.%j | tr -d '\n')
+    while [ -f $FILE_DIR/$FILE_NAME.$FILE_DATE.$FILE_COUNTER.$FILE_EXT ];
+    do
+        echo "$FILE_DIR/$FILE_NAME.$FILE_DATE.$FILE_COUNTER.$FILE_EXT exists"
+        FILE_COUNTER=$(($FILE_COUNTER + 1))
+    done
+    echo "Output file will be:"
+   	echo $FILE_DIR/$FILE_NAME.$FILE_DATE.$FILE_COUNTER.$FILE_EXT
+
+    OUTPUT_FILE="$FILE_DIR/$FILE_NAME.$FILE_DATE.$FILE_COUNTER.$FILE_EXT"
+} # function find_first_free_filename()
+
 function exists_check () {
 	if [ ! -e $1 ]; then
 		echo "ERROR: file $1 does not exist" 
@@ -50,6 +67,9 @@ function show_examples () {
 	echo
 	echo "# install a CPAN module, creating 'before/after' files and filelist"
 	echo "sh hump.sh -i JSON -b before.txt -a after.txt -o filelist.txt"
+	echo
+	echo "# create a filelist and and a package from that filelist"
+	echo "sh hump.sh -b before.txt -a after.txt -o filelist.txt -p package.txt"
 	echo
     exit 1
 } # function show_examples
@@ -92,7 +112,7 @@ function run_ufind () {
 
 #### begin main script ####
 # call getopts with all of the supported options
-while getopts a:b:cd:ehi:o:wuz VARLIST
+while getopts a:b:cd:ehi:o:p:wuz VARLIST
 do
 	case $VARLIST in
 		a) 	AFTERLIST=$OPTARG;;
@@ -103,6 +123,7 @@ do
 		h)  SHOW_HELP="true";;
 		i)	CPAN_INSTALL=$OPTARG;;
         o)  OUTPUT_LIST=$OPTARG;;
+		p)  PACKAGE_FILE=$OPTARG;;
 		w)  OVERWRITE="true";;
 		u)	UFIND="true";;
 		z)  ARCHIVE="true";;
@@ -127,7 +148,7 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     overwrite_check $OUTPUT_LIST
 
     # install a module from CPAN?
-    if [ -n $CPAN_INSTALL ]; then
+    if [ "x$CPAN_INSTALL" != "x" ]; then
     	perl -MCPAN -e "install $CPAN_INSTALL"
     	if [ $? -ne 0 ]; then 
     		echo "Install of $CPAN_INSTALL failed; exiting..."
@@ -161,3 +182,17 @@ else
 	# neither -o (output list) or -b/-a (before/after list) passed in
 	show_usage
 fi # if [ $OUTPUT_LIST ]; then
+
+if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
+	# feed the output list to tar, then compress it
+	overwrite_check $PACKAGE_FILE
+	find_first_free_filename "/temp" $PACKAGE_FILE "tar"
+	echo "Creating package tarball"
+	# $OUTPUT_FILE comes from find_first_free_filename
+	CURRENT_PWD=$PWD
+	cd $START_DIR
+	tar -cvf - -T"$OUTPUT_LIST" > "$OUTPUT_FILE"
+	cd $CURRENT_PWD
+fi # if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
+
+exit 0
