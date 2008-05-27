@@ -20,22 +20,22 @@
 
 # a starting directory, if the user doesn't pass one in
 START_DIR="/camelbox"
+TIMESTAMP=$(TZ=GMT date +%Y.%j | tr -d '\n')
 
 function find_first_free_filename () {
 	local FILE_DIR=$1
     local FILE_NAME=$2
 	local FILE_EXT=$3
     local FILE_COUNTER=1
-    local FILE_DATE=$(TZ=GMT date +%Y.%j | tr -d '\n')
-    while [ -f $FILE_DIR/$FILE_NAME.$FILE_DATE.$FILE_COUNTER.$FILE_EXT ];
+    while [ -f $FILE_DIR/$FILE_NAME.$TIMESTAMP.$FILE_COUNTER.$FILE_EXT ];
     do
-        echo "$FILE_DIR/$FILE_NAME.$FILE_DATE.$FILE_COUNTER.$FILE_EXT exists"
+        echo "$FILE_DIR/$FILE_NAME.$TIMESTAMP.$FILE_COUNTER.$FILE_EXT exists"
         FILE_COUNTER=$(($FILE_COUNTER + 1))
     done
     echo "Output file will be:"
-   	echo $FILE_DIR/$FILE_NAME.$FILE_DATE.$FILE_COUNTER.$FILE_EXT
+   	echo $FILE_DIR/$FILE_NAME.$TIMESTAMP.$FILE_COUNTER.$FILE_EXT
 
-    OUTPUT_FILE="$FILE_DIR/$FILE_NAME.$FILE_DATE.$FILE_COUNTER.$FILE_EXT"
+    OUTPUT_FILE="$FILE_DIR/$FILE_NAME.$TIMESTAMP.$FILE_COUNTER.$FILE_EXT"
 } # function find_first_free_filename()
 
 function exists_check () {
@@ -71,6 +71,9 @@ function show_examples () {
 	echo "# create a filelist and and a package from that filelist"
 	echo "sh hump.sh -b before.txt -a after.txt -o filelist.txt -p package.txt"
 	echo
+	echo "# create an md5sum filelist (list of files with checksums)"
+	echo "sh hump.sh -m filename -t TIMESTAMP -d /path/to/search"
+	echo
     exit 1
 } # function show_examples
 
@@ -87,6 +90,10 @@ function show_usage () {
 	echo "  -a after filelist - Generate an 'after install' list"
 	echo "  -i install this Perl module from CPAN (optional)"
     echo
+	echo "To get a list of files with MD5 checksums (for verifying downloads)"
+	echo "  -m generate a filelist with MD5 sums"
+	echo "  -t use this timestamp for the output file"
+	echo
     echo "Miscellaneous Options"
     echo '  -d start in this directory instead of "C:\\camelbox"'
 	echo "  -z create the archive file based on filelist.txt"
@@ -112,7 +119,7 @@ function run_ufind () {
 
 #### begin main script ####
 # call getopts with all of the supported options
-while getopts a:b:cd:ehi:o:p:wuz VARLIST
+while getopts a:b:cd:ehi:m:o:p:t:wuz VARLIST
 do
 	case $VARLIST in
 		a) 	AFTERLIST=$OPTARG;;
@@ -122,8 +129,10 @@ do
 		e)  SHOW_EXAMPLES="true";;
 		h)  SHOW_HELP="true";;
 		i)	CPAN_INSTALL=$OPTARG;;
+		m)  MD5_LIST=$OPTARG;;
         o)  OUTPUT_LIST=$OPTARG;;
 		p)  PACKAGE_FILE=$OPTARG;;
+		t)  TIMESTAMP=$OPTARG;;
 		w)  OVERWRITE="true";;
 		u)	UFIND="true";;
 		z)  ARCHIVE="true";;
@@ -178,6 +187,9 @@ elif [ "x$OUTPUT_LIST" != "x" ]; then
     check_empty_var "-o (output list)" $OUTPUT_LIST
     overwrite_check $OUTPUT_LIST
     run_ufind $OUTPUT_LIST
+elif [ "x$MD5_LIST" != "x" ]; then
+  	ufind $START_DIR -maxdepth 1 -type f | xargs md5sum \
+		>> $MD5_LIST.$TIMESTAMP.txt
 else
 	# neither -o (output list) or -b/-a (before/after list) passed in
 	show_usage

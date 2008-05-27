@@ -68,28 +68,39 @@ the author's version number.
  --timestamp|-t     Timestamp to use with output filenames
 
  --plaintext|-p <filename>
-                    Generate a plain list of files, output file will be saved as
-                    filelist.<filename>.txt, or filelist.TIMESTAMP.txt.  Use for
-                    creating a sorted list of files
+ 	Generate a plain list of files, output file will be saved as
+    filelist.<filename>.txt, or filelist.TIMESTAMP.txt.  Use for
+    creating a sorted list of files
+
  --md5list|-m <filename> 
-                    Generate an MD5 checksummed list of files.  Output file
-                    will be saved as filelist.<filename>.md5.txt, or
-                    filelist.DATETIME.md5.txt.  Use for creating md5sum files
-                    for releases
+    Generate an MD5 checksummed list of files.  Output file
+    will be saved as filelist.<filename>.md5.txt, or
+    filelist.DATETIME.md5.txt.  Use for creating md5sum files
+    for releases
+
  --nshlist|-n <filename>       
-                    Generate an NSIS script listing of files.  Output file
-                    will be saved as filelist.<filename>.nsh, or
-                    filelist.DATETIME.nsh.  Use for creating the NSIS filelist
-                    file
- --install|-i       Install this module from CPAN; run a plaintext filelist
-                    both before and after the CPAN module is installed, and
-                    output the list of files that have been added or changed
+    Generate an NSIS script listing of files.  Output file
+    will be saved as filelist.<filename>.nsh, or
+    filelist.DATETIME.nsh.  Use for creating the NSIS filelist file
+
+ --install|-i       
+	Install this module from CPAN; run a plaintext filelist
+    both before and after the CPAN module is installed, and
+    output the list of files that have been added or changed
 
 =cut
 
 #### Package 'Hump::File::Stat' ####
 package Hump::File::Stat;
+use strict;
+use warnings;
 
+sub new {
+	my $class = shift;
+	my $filename = shift;
+	my $self = bless ({ filename => $filename }, $class);
+
+} # sub new
 =pod
 
 =head2 Module Hump::File::Stat
@@ -105,6 +116,9 @@ devices), C<size>, C<atime>, C<mtime>, C<ctime>, C<blocksize>, C<blocks>
 
 #### Package 'Hump::File' ####
 package Hump::File;
+use strict;
+use warnings;
+use Digest::MD5;
 
 =pod
 
@@ -136,11 +150,42 @@ The CRC32 checksum for the file.  Not available for directories.
 
 =cut
 
+sub new {
+	my $class = shift;
+	my $filename = shift;
+	
+	if ( ! -f $filename ) {
+		die(qq(ERROR: filename $filename does not exist));
+	} # if ( -f $filename )
+
+	# the file exists, bless it into an object
+	my $self = bless({ filename => $filename }, $class);
+	open(FH, $self->{filename}) 
+		|| die qq(Can't open file ) . $self->{filename} . qq(: $!);
+	binmode(FH);
+	$self->{md5sum} = Digest::MD5->new->addfile(*FH)->hexdigest;
+	return $self;
+} # sub new
+
+sub filename {
+	my $self = shift;
+	return $self->{filename};
+} # sub filename
+
+sub md5sum { 
+	my $self = shift;
+	return $self->{md5sum};
+} # sub md5sum
+
+#### end package Hump::File ####
+
+#### begin package main ####
 package main;
 
 use strict;
 use warnings;
 use Getopt::Long;
+use File::Find::Rule;
 use Pod::Usage;
 
 my $o_colorlog = 1;
@@ -157,12 +202,34 @@ $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(install|i=s)                  => \$o_install,
                     ); # $go_parse->getoptions
 
-# more crap here
+# verify the start directory exists
+if ( ! defined $o_startdir ) { 
+	warn(qq(ERROR: start directory needed for searching;\n));
+	&HelpDie;
+} # if ( ! defined $o_startdir )
+
+if ( ! -d $o_startdir ) {
+	die(qq(ERROR: start directory $o_startdir does not exist));
+} # if ( ! -d $o_startdir )
+
+my @files = File::Find::Rule->file()->in($o_startdir);
+
+print qq(Found ) . scalar(@files) . qq( files in $o_startdir\n);
+
+foreach my $idx (0..9) {
+	my $humpfile = Hump::File->new( $files[$idx] );
+	print qq(md5sum: ) . $humpfile->md5sum() . q(; file: ) 
+		. $humpfile->filename() . qq(\n);
+} # foreach my $idx (0..9)
+
+exit 0;
+
+#### end main ####
 
 #### main subroutines ####
 
 sub HelpDie {
-    $die(qq(Use '$0 --help' to view script options));
+    die(qq(Use '$0 --help' to view script options\n));
     exit 1;
 } # sub HelpDie 
 
@@ -174,7 +241,8 @@ sub ShowHelp {
     # call pod2usage and have it exit non-zero
     # if if one of the 2 shorthelp options were not used, call longhelp
     if ( ($whichhelp eq q(help))  || ($whichhelp eq q(h)) ) {
-        pod2usage(-exitstatus => 1);
+        pod2usage(-exitstatus => 1,
+			-message => qq(Hint: 'perldoc $0' to see full help text));
     } else {
         pod2usage(-exitstatus => 1, -verbose => 2);
     } # if ( ($whichhelp eq q(help))  || ($whichhelp eq q(h)) )
