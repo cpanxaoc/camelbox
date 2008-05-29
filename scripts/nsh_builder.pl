@@ -152,14 +152,15 @@ The CRC32 checksum for the file.  Not available for directories.
 
 sub new {
 	my $class = shift;
-	my $filename = shift;
+	my %args = @_;
 	
-	if ( ! -f $filename ) {
-		die(qq(ERROR: filename $filename does not exist));
-	} # if ( -f $filename )
+	if ( ! -f $args{filename} ) {
+		die(qq(ERROR: filename ) . $args{filename} . q( does not exist));
+	} # if ( -f $args{filename} )
 
 	# the file exists, bless it into an object
-	my $self = bless({ filename => $filename }, $class);
+	my $self = bless({ 	filename => $args{filename}, 
+						verbose => $args{verbose} }, $class);
 	open(FH, $self->{filename}) 
 		|| die qq(Can't open file ) . $self->{filename} . qq(: $!);
 	binmode(FH);
@@ -167,6 +168,11 @@ sub new {
 	$self->{unpacked_size} = $self->get_unpacked_size();
 	return $self;
 } # sub new
+
+sub verbose  {
+	my $self = shift;
+	return $self->{verbose};
+} # sub verbose
 
 sub filename {
 	my $self = shift;
@@ -181,12 +187,32 @@ sub md5sum {
 sub get_unpacked_size {
 	my $self = shift;
 
+	my $total_unarchived_size = 0;
+
 	# this next bit is *VERY* Win32-specific
 	my $cmd = q(lzma -so d ) . $self->filename . q( 2>nul: | tar -tv);
 	my $archive_list = qx/$cmd/;
-	print "archive list is\n";
-	print "$archive_list\n";
-
+	chomp($archive_list);
+	if ( length($archive_list) > 0 ) {
+		#print "archive list is\n";
+		#print "$archive_list\n";
+		my @split_list = split(/\n/, $archive_list);
+		# work on one line at a time
+		foreach my $line ( @split_list ) {
+			$line =~ s/  +/ /g;
+			my $archive_file_size = (split(/ /, $line))[2];
+			# skip empty files/directories
+			next if ( $archive_file_size == 0 );
+			my $archive_file_name = (split(/ /, $line))[5];
+			print(qq(Size of file $archive_file_name is $archive_file_size\n))
+				if ( $self->verbose );
+			$total_unarchived_size += $archive_file_size;
+		} # foreach my $line ( @split_list )
+	} else {
+		warn(q(Hmmm.  Something went wrong with lzma/tar command:));
+		warn(qq($cmd));
+	} # if ( length($archive_list) > 0 )
+	return $total_unarchived_size;
 } # sub get_unpacked_size
 
 #### end package Hump::File ####
@@ -201,18 +227,18 @@ use File::Find::Rule;
 use Pod::Usage;
 
 my $o_colorlog = 1;
-my ($VERBOSE, $o_timestamp, $o_startdir);
-my ($o_plaintext, $o_md5list, $o_nshlist, $o_install);
+my $VERBOSE = 0;
+my ($o_timestamp, $o_startdir, $o_jsonlist);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
                         q(timestamp|t=s)                => \$o_timestamp,
                         q(startdir|s=s)                 => \$o_startdir,
-                        q(plaintext|p:s)                => \$o_plaintext,
-                        q(md5list|m:s)                  => \$o_md5list,
-                        q(nshlist|n:s)                  => \$o_nshlist,
-                        q(install|i=s)                  => \$o_install,
+						q(jsonlist|j:s)                 => \$o_jsonlist,
                     ); # $go_parse->getoptions
+
+# FIXME parse the JSON list here, build a thingy that does finds based on the
+# filename patterns found in the JSON list
 
 # verify the start directory exists
 if ( ! defined $o_startdir ) { 
@@ -226,13 +252,20 @@ if ( ! -d $o_startdir ) {
 
 my @files = File::Find::Rule->file()->name(q(*.lzma))->in($o_startdir);
 
+die(qq(ERROR: No *.lzma files found in $o_startdir\n)) 
+	unless ( scalar(@files) > 0 );
+
 print qq(Found ) . scalar(@files) . qq( files in $o_startdir\n);
 
 foreach my $idx (0..9) {
-	my $humpfile = Hump::File->new( $files[$idx] );
-	print qq(md5sum: ) . $humpfile->md5sum() . q(; file: ) 
-		. $humpfile->filename() . qq(\n);
-	$humpfile->get_unpacked_size;
+	my $humpfile = Hump::File->new( verbose => $VERBOSE, 
+									filename => $files[$idx] );
+	print q(file: ) . $humpfile->filename() . qq(\n);
+	print qq(md5sum: ) . $humpfile->md5sum() . qq(\n);
+	my $unpacked_size_in_kilobytes = sprintf("%d",
+		$humpfile->get_unpacked_size / 1000);
+	print qq(total size of archive when unpacked: ) 
+		. $unpacked_size_in_kilobytes . qq(k\n);
 } # foreach my $idx (0..9)
 
 exit 0;
