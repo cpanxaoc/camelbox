@@ -164,6 +164,7 @@ sub new {
 		|| die qq(Can't open file ) . $self->{filename} . qq(: $!);
 	binmode(FH);
 	$self->{md5sum} = Digest::MD5->new->addfile(*FH)->hexdigest;
+	$self->{unpacked_size} = $self->get_unpacked_size();
 	return $self;
 } # sub new
 
@@ -176,6 +177,17 @@ sub md5sum {
 	my $self = shift;
 	return $self->{md5sum};
 } # sub md5sum
+
+sub get_unpacked_size {
+	my $self = shift;
+
+	# this next bit is *VERY* Win32-specific
+	my $cmd = q(lzma -so d ) . $self->filename . q( 2>nul: | tar -tv);
+	my $archive_list = qx/$cmd/;
+	print "archive list is\n";
+	print "$archive_list\n";
+
+} # sub get_unpacked_size
 
 #### end package Hump::File ####
 
@@ -212,7 +224,7 @@ if ( ! -d $o_startdir ) {
 	die(qq(ERROR: start directory $o_startdir does not exist));
 } # if ( ! -d $o_startdir )
 
-my @files = File::Find::Rule->file()->in($o_startdir);
+my @files = File::Find::Rule->file()->name(q(*.lzma))->in($o_startdir);
 
 print qq(Found ) . scalar(@files) . qq( files in $o_startdir\n);
 
@@ -220,6 +232,7 @@ foreach my $idx (0..9) {
 	my $humpfile = Hump::File->new( $files[$idx] );
 	print qq(md5sum: ) . $humpfile->md5sum() . q(; file: ) 
 		. $humpfile->filename() . qq(\n);
+	$humpfile->get_unpacked_size;
 } # foreach my $idx (0..9)
 
 exit 0;
