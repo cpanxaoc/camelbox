@@ -257,11 +257,12 @@ die(qq(ERROR: No *.lzma files found in $o_startdir\n))
 
 print qq(Found ) . scalar(@files) . qq( files in $o_startdir\n);
 
-foreach my $idx (0..9) {
+foreach my $archive_file (@files) {
 	my $humpfile = Hump::File->new( verbose => $VERBOSE, 
-									filename => $files[$idx] );
+									filename => $archive_file );
 	print q(file: ) . $humpfile->filename() . qq(\n);
 	print qq(md5sum: ) . $humpfile->md5sum() . qq(\n);
+	# shorten it to kilobytes, this is what NSIS is expecting
 	my $unpacked_size_in_kilobytes = sprintf("%d",
 		$humpfile->get_unpacked_size / 1000);
 	print qq(total size of archive when unpacked: ) 
