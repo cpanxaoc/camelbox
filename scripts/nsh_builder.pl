@@ -6,8 +6,7 @@
 # For support with this software, visit the Camelbox Google Groups Page at:
 # http://groups.google.com/group/camelbox
 
-# A script to generate different types of filelists; a plaintext filelist, a
-# filelist with MD5sums, and the camelbox_filelist.nsh NSIS script with the
+# A script to generate the camelbox_filelist.nsh NSIS script with the
 # checksums in the right place for SnarfUnpack to use when downloading
 # packages
 
@@ -66,27 +65,7 @@ the author's version number.
  --verbose|-v       Verbose script output
  --startdir|-s      Start searching for files in this directory
  --timestamp|-t     Timestamp to use with output filenames
-
- --plaintext|-p <filename>
- 	Generate a plain list of files, output file will be saved as
-    filelist.<filename>.txt, or filelist.TIMESTAMP.txt.  Use for
-    creating a sorted list of files
-
- --md5list|-m <filename> 
-    Generate an MD5 checksummed list of files.  Output file
-    will be saved as filelist.<filename>.md5.txt, or
-    filelist.DATETIME.md5.txt.  Use for creating md5sum files
-    for releases
-
- --nshlist|-n <filename>       
-    Generate an NSIS script listing of files.  Output file
-    will be saved as filelist.<filename>.nsh, or
-    filelist.DATETIME.nsh.  Use for creating the NSIS filelist file
-
- --install|-i       
-	Install this module from CPAN; run a plaintext filelist
-    both before and after the CPAN module is installed, and
-    output the list of files that have been added or changed
+ --jsonlist|-j      JSON file that describes archive file groups
 
 =cut
 
@@ -99,8 +78,8 @@ sub new {
 	my $class = shift;
 	my $filename = shift;
 	my $self = bless ({ filename => $filename }, $class);
-
 } # sub new
+
 =pod
 
 =head2 Module Hump::File::Stat
@@ -189,8 +168,12 @@ sub get_unpacked_size {
 
 	my $total_unarchived_size = 0;
 
-	# this next bit is *VERY* Win32-specific
-	my $cmd = q(lzma -so d ) . $self->filename . q( 2>nul: | tar -tv);
+    my $cmd;
+    if ( $^O eq q(MSWin32) ) {
+    	$cmd = q(lzma -so d ) . $self->filename . q( 2>nul: | tar -tv);
+    } else {
+    	$cmd = q(lzma -c -d ) . $self->filename . q( 2>/dev/null | tar -tv);
+    } # if ( $^O eq q(MSWin32) )
 	my $archive_list = qx/$cmd/;
 	chomp($archive_list);
 	if ( length($archive_list) > 0 ) {
@@ -257,17 +240,31 @@ die(qq(ERROR: No *.lzma files found in $o_startdir\n))
 
 print qq(Found ) . scalar(@files) . qq( files in $o_startdir\n);
 
+# build a list of files that can have files removed when they match filenames
+# contained in the JSON document
+my %archive_filelist;
 foreach my $archive_file (@files) {
 	my $humpfile = Hump::File->new( verbose => $VERBOSE, 
 									filename => $archive_file );
-	print q(file: ) . $humpfile->filename() . qq(\n);
-	print qq(md5sum: ) . $humpfile->md5sum() . qq(\n);
+    $archive_filelist{$humpfile->filename()} = $humpfile;
+    #print q(file: ) . $humpfile->filename() . qq(\n);
+    #print qq(md5sum: ) . $humpfile->md5sum() . qq(\n);
 	# shorten it to kilobytes, this is what NSIS is expecting
-	my $unpacked_size_in_kilobytes = sprintf("%d",
-		$humpfile->get_unpacked_size / 1000);
-	print qq(total size of archive when unpacked: ) 
-		. $unpacked_size_in_kilobytes . qq(k\n);
-} # foreach my $idx (0..9)
+    #my $unpacked_size_in_kilobytes = sprintf("%d",
+    #	$humpfile->get_unpacked_size / 1000);
+    #print qq(total size of archive when unpacked: ) 
+    #	. $unpacked_size_in_kilobytes . qq(k\n);
+} # foreach my $archive_file (@files)
+
+# - read in the JSON document
+# - match each file requested in the JSON document with the file located in
+# the %archive_filelist hash; the filename in the hash may have to be
+# mangled/shortened so it will match what's listed in the JSON file
+# - print out the NSH file, with the groups and archive files in thier right
+# places
+# - print out a report of extra files found on the filesystem, as well as
+# patterns in the JSON file that didn't have a corresponding file on the
+# filesystem
 
 exit 0;
 
