@@ -59,8 +59,6 @@ the author's version number.
 
  perl nsh_builder.pl [options]
 
-=head2 Script Options
-
  --help|-h          Show this help message
  --verbose|-v       Verbose script output
  --startdir|-s      Start searching for files in this directory
