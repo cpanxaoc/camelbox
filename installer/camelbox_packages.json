@@ -5,6 +5,8 @@
 // - don't get sloppy with punctionation like you can in perl; no extra commas
 //   after closing brackets/braces for example
 // { 
+//      "package_file": {
+//      
 //      "archive_files": {
 //          "package1_name": {
 //              "package_group": "test_group_1", 
@@ -25,7 +27,7 @@
 //              "members": [ package1_name, package2_name ]
 //          }
 //      }
-// }
+// } // end package file
 
 // begin mapping of example files to platform
 {
