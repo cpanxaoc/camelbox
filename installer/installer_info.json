@@ -11,7 +11,7 @@
 //              "filename_pattern": "archive_filename",
 //              "section_name": "Human Readble Package Description",
 //              "section_id": "archive_filename_id",
-//              "section_in": "1 2 3 4 5 6 7 8 9"
+//              "section_in": [1, 2, 3, 4, 5, 6, 7, 8, 9]
 //          },
 //          "package2_name": [
 //              "program1",
@@ -22,6 +22,7 @@
 //          "group1": {
 //              "short_name": "group_name1",
 //              "display_name": "This is what's shown in the installer",
+//              "members": [ package1_name, package2_name ]
 //          }
 //      }
 // }
