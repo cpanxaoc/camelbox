@@ -29,81 +29,101 @@
 //      }
 // } // end package file
 
-// begin mapping of example files to platform
-{
-    "MSWin32": {
-        "C:/perl/5.8.8/examples/Gnome2-Canvas": [ "canvas.pl" ],
-        "C:/perl/5.8.8/examples/Gtk2": [  "calendar.pl", "colorlist.pl",
-            "layout.pl", "simplelist.pl" ],
-        "C:/perl/5.8.8/examples/Gtk2-Demo": [ "program1.pl" ],
-        "C:/perl/5.8.8/examples/Gtk2-GladeXML": [ "hello-world.pl", 
-            "scribble.pl" ],
-        "C:/perl/5.8.8/examples": [ 
-            "gyroscope.pl",
-            "perl_swiss_army_knife.pl" 
-         ]
-        "C:/apps/cygwin/home/demo/src/perl_scripts/UI_Presentation/examples":
-            [ "demo.pl" , "log4perl.pl", "examples.json"],
-
-    },
-    "cygwin": {
-        //"/bin": [ "win32-gui-demos.pl" ],
-        "/usr/bin": [ "widget" ],
-        "/lib/perl5/vendor_perl/5.8/cygwin/Win32/GUI/demos": [ 
-            "Notepad.pl", "Draw.pl", "MonthCal.pl"
-        ],
-        "/home/demo/src/perl_scripts/UI_Presentation/examples":
-            [ "demo.pl" , "log4perl.pl", "examples.json"],
-        "/home/demo/src/helloworld":
-            [ "helloworld_tk.pl", "helloworld_win32.pl" ]
-    },
-    "linux": {
-        "/usr/bin": [ "widget" ],
-        "/home/demo/examples": [ 
-            "gyroscope.pl", 
-            "perl_swiss_army_knife.pl"
-        ],
-        "/home/demo/examples/Gnome2-Canvas": [ "canvas.pl" ],
-        "/home/demo/examples/Gtk2": [ "calendar.pl", "colorlist.pl",
-            "layout.pl", "simplelist.pl"],
-        "/home/demo/examples/Gtk2-Demo": [ "program1.pl" ],
-        "/home/demo/examples/Gtk2-GladeXML": [ "hello-world.pl", 
-            "scribble.pl" ],
-        "/usr/share/doc/libsdl-perl/test": [ "testmenu.pl" ],
-        "/usr/share/doc/libqt-perl/examples/dclock": [ "dclock.pl" ],
-        "/usr/share/doc/libqt-perl/examples/buttongroups": [ 
-            "buttongroups.pl"
-        ],
-        "/home/demo/examples/UI-Dialog": [ "ascii.pl", "console.pl",
-            "gdialog.pl", "whiptail.pl", "xdialog.pl", "zenity.pl" ],
-        "/home/demo/src/perl_scripts/UI_Presentation/examples":
-            [ "demo.pl" , "log4perl.pl", "examples.json"],
-        "/home/demo/src/helloworld":
-            [ "helloworld_gtk2.pl" , "helloworld_tk.pl", 
-            "helloworld_qt.pl", "helloworld_ui-dialog.pl" ]
-    },
-    "darwin": {
-        "/usr/X11R6/bin": [ "xeyes" ],
-        "/opt/local/bin": [ "widget" ],
-        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples": [
-            "gyroscope.pl",
-            "perl_swiss_army_knife.pl"
-        ],
-        "/Users/Shared/Files/UI_Presentation/examples":
-            [ "demo.pl" , "log4perl.pl", "examples.json"],
-        "/Users/Shared/Files/helloworld":
-            [ "helloworld_gtk2.pl" , "helloworld_tk.pl", 
-             "helloworld_ui-dialog.pl" ],
-        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples/Gnome2-Canvas":
-            [ "canvas.pl" ],
-        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples/Gtk2": 
-            [  "calendar.pl", "colorlist.pl", "layout.pl", "simplelist.pl" ],
-        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples/Gtk2-Demo": 
-            [ "program1.pl" ],
-        "/Users/Shared/Files/Windows_Software/Gtk2Perl/examples/Gtk2-GladeXML":
-            [ "hello-world.pl", "scribble.pl" ],
-        "/Users/Shared/Files/Windows_Software/Gtk2Perl/UI-Dialog": 
-            [ "ascii.pl", "console.pl",
-            "gdialog.pl", "xdialog.pl", "zenity.pl" ]
-    }
-} // fin vim: filetype=javascript
+{ 
+    "manifest": [
+        "header",
+        "perl-5.10.0-core",
+        "group_gtk2-perl-core",
+        "group_gtk2-perl-extra",
+        "group_gtk2-perl-apps",
+        "group_extra-perl-mods",
+        "group_dev-packages",
+        "group_extra-tools",
+        "group_docs-examples",
+        "footer"
+    ], // manifest
+    "groups": {
+        "group_gtk2-perl-core": {
+            "description": "Core Gtk2-Perl Packages",
+            "expanded_flag": 0,
+            "sections_list": [  "gtk-core-bin", "imagelibs-bin",
+                                "gtk-support-bin", "perl-gtk2-core" ]
+        }, // group_gtk2-perl-core
+        "group_gtk2-perl-extra": {
+            "description": "Extra Gtk2-Perl Packages",
+            "expanded_flag": 0,
+            "sections_list": [  "libglade-bin", "perl-gtk2-gladexml",
+                                "libgnomecanvas-bin", "perl-gnome2-canvas" ]
+        }, // group_gtk2-perl-extra
+        "group_gtk2-perl-apps": {
+            "description": "Gtk2-Perl Applications",
+            "expanded_flag": 1,
+            "sections_list": [  "perl-asciio" ]
+        }, // group_gtk2-perl-apps
+        "group_extra-perl-mods": {
+            "description": "Extra Perl Modules",
+            "expanded_flag": 0,
+            "sections_list": [  "perl-YAML", "perl-LWP", "perl-Moose",
+                                "perl-PAR", "perl-PAR-Packer" ]
+        }, // group_extra-perl-mods 
+        "group_dev-packages": {
+            "description": "Development Packages",
+            "expanded_flag": 0,
+            "sections_list": [  "mingw", "dmake", "gtk-core-dev",
+                                "gtk-support-dev", "imagelibs-dev", 
+                                "libglade-dev", "libgnomecanvas-dev" ]
+        }, // group_dev-packages 
+        "group_extra-tools": {
+            "description": "Extra Tools Packages",
+            "expanded_flag": 0,
+            "sections_list": [  "glade-win32", "unxutils", "lzma",
+                                "imagelibs-utils", "gettext-utils",
+                                "dmake-extra" ]
+        }, // group_extra_tools 
+        "group_docs-examples": {
+            "description": "Documentation and Examples",
+            "expanded_flag": 0,
+            "sections_list": [  "perl-5.10.0-html_docs", "gtk-core-doc",
+                                "perl-gtk2-examples" ]
+        } // group_docs-examples
+    }, // groups
+    "packages": {
+        "perl-5.10.0-core": {
+            "description": "Perl 5.10.0 Base Package",
+            "sectionin_list": [ 1, 2, 3, 4, 5, 6, 9 ] },
+        // Core Gtk2-Perl Packages
+        "gtk-core-bin": {
+            "description": "Core GTK Binaries",
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+        "imagelibs-bin": {
+            "description": "imagelibs-bin (JPG/PNG/TIFF libraries)",
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+        "gtk-support-bin": {
+            "description": "gtk-support-bin (gettext/libintl/etc.)",
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+        "perl-gtk2-core": {
+            "description": "Gtk2-Perl Core Modules (Cairo/Glib/Gtk2)",
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+        // Extra Gtk2-Perl Packages
+        "libglade-bin": {
+            "description": "libglade-bin (Glade/XML libraries)",
+            "sectionin_list": [ 1, 4, 5, 6 ] },
+        "libglade-bin": {
+            "description": "libglade-bin (Glade/XML libraries)",
+            "sectionin_list": [ 1, 4, 5, 6 ] },
+        "perl-gtk2-gladexml": {
+            "description": "Gtk2::GladeXML (Perl Glade/XML libraries)",
+            "sectionin_list": [ 1, 4, 5, 6 ] },
+        "libgnomecanvas-bin": {
+            "description": "libgnomecanvas-bin (Gnome Canvas libs.)",
+            "sectionin_list": [ 1, 4, 5 ] },
+        "perl-gnome2-canvas": {
+            "description": "Gnome2::Canvas (Perl GnomeCanvas libs.)",
+            "sectionin_list": [ 1, 4, 5 ] },
+        // Gtk2-Perl Applications
+        "perl-asciio": {
+            "description": "Asciio v0.95_01 - ASCII Art Editor",
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] }
+    } // packages
+} // JSON data block
+// fin vim: filetype=javascript
