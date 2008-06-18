@@ -4,30 +4,20 @@
 // - valid JavaScript syntax is what we're looking for here
 // - don't get sloppy with punctionation like you can in perl; no extra commas
 //   after closing brackets/braces for example
-// { 
-//      "package_file": {
-//      
-//      "archive_files": {
-//          "package1_name": {
-//              "package_group": "test_group_1", 
-//              "filename_pattern": "archive_filename",
-//              "section_name": "Human Readble Package Description",
-//              "section_id": "archive_filename_id",
-//              "section_in": [1, 2, 3, 4, 5, 6, 7, 8, 9]
-//          },
-//          "package2_name": [
-//              "program1",
-//              "program2"
-//          ]
-//      },
-//      "package_groups": {
-//          "group1": {
-//              "short_name": "group_name1",
-//              "display_name": "This is what's shown in the installer",
-//              "members": [ package1_name, package2_name ]
-//          }
-//      }
-// } // end package file
+
+/*
+#### INSTALL TYPES ####
+InstType "Full Install - The Whole Enchilada"           # 1
+InstType "Perl Only"                                    # 2
+InstType "Perl with Core GTK Binaries"                  # 3
+InstType "Perl with Core/Extra GTK Binaries"            # 4
+InstType "Perl with Core/Extra Binaries/Dev"            # 5
+InstType "Perl with Core GTK2 and Glade"                # 6
+InstType "UnxUtils Only"                                # 7
+InstType "Extra Tools Only"                             # 8
+InstType "Perl with All Non-GTK Modules"                # 9
+#InstType "Vapourware"                                  # 10
+*/
 
 { 
     "manifest": [
@@ -123,7 +113,75 @@
         // Gtk2-Perl Applications
         "perl-asciio": {
             "description": "Asciio v0.95_01 - ASCII Art Editor",
-            "sectionin_list": [ 1, 3, 4, 5, 6 ] }
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+        // Extra Perl Modules
+        "perl-YAML": {
+            "description": "YAML - Yet Another Markup Language",
+            "sectionin_list": [ 1, 9 ] },
+        "perl-LWP": {
+            "description": "LWP/libwww-perl",
+            "sectionin_list": [ 1, 9 ] },
+        "perl-Moose": {
+            "description": "Moose: a Post-Modern Object Framework for Perl",
+            "sectionin_list": [ 1, 9 ] },
+        "perl-PAR": {
+            "description": "PAR: Perl Archive Toolkit",
+            "sectionin_list": [ 1, 9 ] },
+        "perl-PAR-Packer": {
+            "description": "PAR::Packer: The PAR Packer (creator) Toolkit",
+            "sectionin_list": [ 1, 9 ] },
+        // Development Packages
+        "mingw": {
+            "description": "Minimal GNU for Windows (MinGW) Toolkit",
+            "sectionin_list": [ 1, 5 ] },
+        "dmake": {
+            "description": "dmake Makefile Processor",
+            "sectionin_list": [ 1, 5 ] },
+        "gtk-core-dev": {
+            "description": "Core GTK Development Files",
+            "sectionin_list": [ 1, 5 ] },
+        "gtk-support-dev": {
+            "description": "gtk-support-dev (gettext/libintl/etc.)",
+            "sectionin_list": [ 1, 5 ] },
+        "imagelibs-dev": {
+            "description": "imagelibs-dev (JPG/PNG/TIFF Headers)",
+            "sectionin_list": [ 1, 5 ] },
+        "libglade-dev": {
+            "description": "libglade-dev (Glade Headers)",
+            "sectionin_list": [ 1, 5 ] },
+        "libgnomecanvas-dev": {
+            "description": "libgnomecanvas-dev (GnomeCanvas Headers)",
+            "sectionin_list": [ 1, 5 ] },
+        // Extra Tools Packages
+        "glade-win32": {
+            "description": "Glade GUI Builder Tool",
+            "sectionin_list": [ 1, 6, 8 ] },
+        "unxutils": {
+            "description": "UnxUtilities for Windows",
+            "sectionin_list": [ 1, 7, 8 ] },
+        "lzma": {
+            "description": "LZMA Compression Utility",
+            "sectionin_list": [ 1, 8 ] },
+        "imagelibs-utils": {
+            "description": "imagelibs Utilities",
+            "sectionin_list": [ 1, 8 ] },
+        "gettext-utils": {
+            "description": "gettext Utilities",
+            "sectionin_list": [ 1, 8 ] },
+        "dmake-extra": {
+            "description": "dmake Makefile Processor (extra files)",
+            "sectionin_list": [ 1, 8 ] },
+        // Documentation and Examples
+        "perl-5.10.0-html_docs": {
+            "description": "Perl 5.10.0 HTML Documentation",
+            "sectionin_list": [ 1 ] },
+        "gtk-core-doc": {
+            "description": "GTK C API HTML/SGML Documentation",
+            "sectionin_list": [ 1 ] },
+        "gtk2-perl-examples": {
+            "description": "Gtk2-Perl Example Scripts",
+            "sectionin_list": [ 1 ],
+            "extra_options": "StrCpy $demosInstalled 'true'" }
     } // packages
 } // JSON data block
 // fin vim: filetype=javascript

@@ -66,6 +66,34 @@ the author's version number.
  --jsonlist|-j      JSON file that describes archive file groups
 
 =cut
+#### Package 'Hump::JSON::PackageList' ####
+package Hump::JSON::PackageList;
+use strict;
+use warnings;
+use JSON;
+
+sub new {
+	my $class = shift;
+	my %args = @_;
+	
+	if ( ! -f $args{jsonlist} ) {
+		die(qq(ERROR: JSON file ) . $args{jsonlist} . q( does not exist));
+	} # if ( -f $args{jsonlist} )
+
+	# the file exists, bless it into an object
+	my $self = bless({ 	jsonlist => $args{jsonlist}, 
+						verbose => $args{verbose} }, $class);
+	open(FH, $self->{jsonlist}) 
+		|| die qq(Can't open file ) . $self->{jsonlist} . qq(: $!);
+	binmode(FH);
+    my $parser = JSON->new->ascii->pretty->allow_nonref;
+    my $json_string;
+    while(<FH>) {
+        $json_string .ٍ= $_;
+    } # while(<FH>)
+	$self->{jsonobj} = $parser->decode($json_string);
+	return $self;
+} # sub new
 
 #### Package 'Hump::File::Stat' ####
 package Hump::File::Stat;
@@ -218,9 +246,6 @@ $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
 						q(jsonlist|j:s)                 => \$o_jsonlist,
                     ); # $go_parse->getoptions
 
-# FIXME parse the JSON list here, build a thingy that does finds based on the
-# filename patterns found in the JSON list
-
 # verify the start directory exists
 if ( ! defined $o_startdir ) { 
 	warn(qq(ERROR: start directory needed for searching;\n));
@@ -254,6 +279,8 @@ foreach my $archive_file (@files) {
     #	. $unpacked_size_in_kilobytes . qq(k\n);
 } # foreach my $archive_file (@files)
 
+my $json_packagelist = Hump::JSON::PackageList->new( verbose => $VERBOSE,
+                                                     jsonlist => $o_jsonlist );
 # - read in the JSON document
 # - match each file requested in the JSON document with the file located in
 # the %archive_filelist hash; the filename in the hash may have to be
