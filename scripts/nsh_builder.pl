@@ -89,7 +89,7 @@ sub new {
     my $parser = JSON->new->ascii->pretty->allow_nonref;
     my $json_string;
     while(<FH>) {
-        $json_string .ٍ= $_;
+        $json_string .= $_;
     } # while(<FH>)
 	$self->{jsonobj} = $parser->decode($json_string);
 	return $self;
