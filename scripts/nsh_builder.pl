@@ -63,11 +63,12 @@ the author's version number.
  --verbose|-v       Verbose script output
  --startdir|-s      Start searching for files in this directory
  --timestamp|-t     Timestamp to use with output filenames
- --jsonlist|-j      JSON file that describes archive file groups
+ --jsonlist|-j      JSON file that describes packages and groups
 
 =cut
-#### Package 'Hump::JSON::PackageList' ####
-package Hump::JSON::PackageList;
+
+#### Package 'Hump::JSON::Distribution' ####
+package Hump::JSON::Distribution;
 use strict;
 use warnings;
 use JSON;
@@ -94,6 +95,45 @@ sub new {
 	$self->{jsonobj} = $parser->decode($json_string);
 	return $self;
 } # sub new
+
+sub get_packages {
+# return the list of packages described in the JSON file
+    my $self = shift;
+    
+    my %json_ref = %{$self->{jsonobj}};
+    # build a reference to packages
+    my $packages = $json_ref{q(packages)};
+    foreach my $package_key ( keys(%{$packages}) ) {
+        print qq(package: $package_key\n);
+    } # foreach my $package_key ( keys(%{$packages} )
+    return $packages;
+} # sub get_packages
+
+sub get_groups {
+# return the list of groups described in the JSON file
+    my $self = shift;
+    
+    my %json_ref = %{$self->{jsonobj}};
+    # build a reference to package groups
+    my $groups = $json_ref{q(groups)};
+    foreach my $group_key ( keys(%{$groups}) ) {
+        print qq(group: $group_key\n);
+    } # foreach my $group_key ( keys(%{$groups} )
+    return $groups;
+} # sub get_groups
+
+sub get_manifest {
+# return the list of packages described in the JSON file
+    my $self = shift;
+    
+    my %json_ref = %{$self->{jsonobj}};
+    # build a reference to packages
+    my $manifest = $json_ref{q(manifest)};
+    foreach my $manifest_key ( @{$manifest} ) {
+        print qq(manifest: $manifest_key\n);
+    } # foreach my $manifest_key ( @{$manifest} ) 
+    return $manifest;
+} # sub get_manifest
 
 #### Package 'Hump::File::Stat' ####
 package Hump::File::Stat;
@@ -252,6 +292,27 @@ if ( ! defined $o_startdir ) {
 	&HelpDie;
 } # if ( ! defined $o_startdir )
 
+# read in the JSON distro file
+my $distro = Hump::JSON::Distribution->new( verbose => $VERBOSE,
+                                            jsonlist => $o_jsonlist );
+# - read in the JSON document
+# - match each file requested in the JSON document with the file located in
+# the %archive_filelist hash; the filename in the hash may have to be
+# mangled/shortened so it will match what's listed in the JSON file
+# - print out the NSH file, with the groups and archive files in thier right
+# places
+# - print out a report of extra files found on the filesystem, as well as
+# patterns in the JSON file that didn't have a corresponding file on the
+# filesystem
+
+# get the list of packages in the JSON file
+my $manifest = $distro->get_manifest;
+# get the list of packages in the JSON file
+my $groups = $distro->get_groups;
+# get the list of packages in the JSON file
+my $packages = $distro->get_packages;
+
+exit 1;
 if ( ! -d $o_startdir ) {
 	die(qq(ERROR: start directory $o_startdir does not exist));
 } # if ( ! -d $o_startdir )
@@ -278,18 +339,6 @@ foreach my $archive_file (@files) {
     #print qq(total size of archive when unpacked: ) 
     #	. $unpacked_size_in_kilobytes . qq(k\n);
 } # foreach my $archive_file (@files)
-
-my $json_packagelist = Hump::JSON::PackageList->new( verbose => $VERBOSE,
-                                                     jsonlist => $o_jsonlist );
-# - read in the JSON document
-# - match each file requested in the JSON document with the file located in
-# the %archive_filelist hash; the filename in the hash may have to be
-# mangled/shortened so it will match what's listed in the JSON file
-# - print out the NSH file, with the groups and archive files in thier right
-# places
-# - print out a report of extra files found on the filesystem, as well as
-# patterns in the JSON file that didn't have a corresponding file on the
-# filesystem
 
 exit 0;
 
