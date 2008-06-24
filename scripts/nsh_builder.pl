@@ -65,7 +65,36 @@ the author's version number.
  --timestamp|-t     Timestamp to use with output filenames
  --jsonlist|-j      JSON file that describes packages and groups
 
+=head1 OBJECTS
+
 =cut
+
+#### Package 'Hump::JSON::Packages' ####
+package Hump::JSON::BaseObject;
+use strict;
+use warnings;
+
+# this object has a description field and a list of sections
+
+sub new {
+    my $class = shift;
+    my %args = @_;
+
+    die qq(ERROR: JSON variable undefined) unless defined($args{jsonvar});
+
+	# the file exists, bless it into an object
+	my $self = bless({ 	jsonvar => $args{jsonvar}, 
+						verbose => $args{verbose} }, $class);
+    return $self;
+} # sub new
+
+sub set_package_obj {
+    my $self = shift;
+    my %args = @_;
+
+    die qq(ERROR: No package object passed in) unless defined($args{package});
+    $self{package} = $args{package};
+}
 
 #### Package 'Hump::JSON::Distribution' ####
 package Hump::JSON::Distribution;
@@ -77,6 +106,8 @@ sub new {
 	my $class = shift;
 	my %args = @_;
 	
+    die qq(ERROR: JSON filelist undefined) unless defined($args{jsonlist});
+
 	if ( ! -f $args{jsonlist} ) {
 		die(qq(ERROR: JSON file ) . $args{jsonlist} . q( does not exist));
 	} # if ( -f $args{jsonlist} )
@@ -98,6 +129,8 @@ sub new {
 
 sub get_packages {
 # return the list of packages described in the JSON file
+# FIXME abstract this into it's own object which can then be queried with
+# methods
     my $self = shift;
     
     my %json_ref = %{$self->{jsonobj}};
