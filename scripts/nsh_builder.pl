@@ -63,14 +63,19 @@ the author's version number.
  --verbose|-v       Verbose script output
  --startdir|-s      Start searching for files in this directory
  --timestamp|-t     Timestamp to use with output filenames
- --jsonlist|-j      JSON file that describes packages and groups
+ --jsonfile|-j      JSON file that describes packages and groups
+
+ Example usage:
+
+ perl nsh_builder.pl --jsonfile file.json --startdir . \
+     --timestamp 200x.xxx.x
 
 =head1 OBJECTS
 
 =cut
 
 #### Package 'Hump::JSON::Packages' ####
-package Hump::JSON::BaseObject;
+package Hump::JSON::Object;
 use strict;
 use warnings;
 
@@ -84,17 +89,47 @@ sub new {
 
 	# the file exists, bless it into an object
 	my $self = bless({ 	jsonvar => $args{jsonvar}, 
-						verbose => $args{verbose} }, $class);
+						verbose => $args{verbose} }, 
+                        $class);
     return $self;
 } # sub new
 
-sub set_package_obj {
+#### Package 'Hump::JSON::Distribution' ####
+package Hump::JSON::Packages;
+use strict;
+use warnings;
+
+my %package_hash;
+
+sub new {
+    my $class = shift;
+    my %args = @_;
+
+    die qq(ERROR: 'packages' variable undefined) 
+        unless defined($args{packages});
+    # bless a packages object
+	my $self = bless({ 	packages => $args{packages}, 
+						verbose => $args{verbose} }, 
+                        $class);
+    # then populate it
+    foreach my $package_id ( keys(%{$self->{packages}}) ) {
+        $package_hash{$package_id} = $self->{packages}{$package_id};
+    } # foreach my ( keys(%{$self->get_packages()}) )
+
+    print qq(Picked up ) . scalar(keys(%package_hash)) . qq( packages\n);
+} # sub new
+
+sub get_package {
     my $self = shift;
     my %args = @_;
 
-    die qq(ERROR: No package object passed in) unless defined($args{package});
-    $self{package} = $args{package};
-}
+    if ( defined $args{package_id} 
+            && exists $package_hash{$args{package_id}} ) {
+        return $package_hash{$args{package_id}};
+    } else {
+        warn qq(package ) . $args{package_id} . qq(not defined/empty);
+    }# if ( exists $package_hash{$args{package_id}} )
+} # sub get_package
 
 #### Package 'Hump::JSON::Distribution' ####
 package Hump::JSON::Distribution;
@@ -106,17 +141,17 @@ sub new {
 	my $class = shift;
 	my %args = @_;
 	
-    die qq(ERROR: JSON filelist undefined) unless defined($args{jsonlist});
+    die qq(ERROR: JSON filelist undefined) unless defined($args{jsonfile});
 
-	if ( ! -f $args{jsonlist} ) {
-		die(qq(ERROR: JSON file ) . $args{jsonlist} . q( does not exist));
-	} # if ( -f $args{jsonlist} )
+	if ( ! -f $args{jsonfile} ) {
+		die(qq(ERROR: JSON file ) . $args{jsonfile} . q( does not exist));
+	} # if ( -f $args{jsonfile} )
 
 	# the file exists, bless it into an object
-	my $self = bless({ 	jsonlist => $args{jsonlist}, 
+	my $self = bless({ 	jsonfile => $args{jsonfile}, 
 						verbose => $args{verbose} }, $class);
-	open(FH, $self->{jsonlist}) 
-		|| die qq(Can't open file ) . $self->{jsonlist} . qq(: $!);
+	open(FH, $self->{jsonfile}) 
+		|| die qq(Can't open file ) . $self->{jsonfile} . qq(: $!);
 	binmode(FH);
     my $parser = JSON->new->ascii->pretty->allow_nonref;
     my $json_string;
@@ -124,6 +159,9 @@ sub new {
         $json_string .= $_;
     } # while(<FH>)
 	$self->{jsonobj} = $parser->decode($json_string);
+    $self->{packages} = Hump::JSON::Packages->new( 
+            packages => $self->{jsonobj}{packages},
+            verbose => $self->{verbose} );
 	return $self;
 } # sub new
 
@@ -310,13 +348,13 @@ use Pod::Usage;
 
 my $o_colorlog = 1;
 my $VERBOSE = 0;
-my ($o_timestamp, $o_startdir, $o_jsonlist);
+my ($o_timestamp, $o_startdir, $o_jsonfile);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
                         q(timestamp|t=s)                => \$o_timestamp,
                         q(startdir|s=s)                 => \$o_startdir,
-						q(jsonlist|j:s)                 => \$o_jsonlist,
+						q(jsonfile|j:s)                 => \$o_jsonfile,
                     ); # $go_parse->getoptions
 
 # verify the start directory exists
@@ -327,7 +365,7 @@ if ( ! defined $o_startdir ) {
 
 # read in the JSON distro file
 my $distro = Hump::JSON::Distribution->new( verbose => $VERBOSE,
-                                            jsonlist => $o_jsonlist );
+                                            jsonfile => $o_jsonfile );
 # - read in the JSON document
 # - match each file requested in the JSON document with the file located in
 # the %archive_filelist hash; the filename in the hash may have to be
@@ -339,11 +377,11 @@ my $distro = Hump::JSON::Distribution->new( verbose => $VERBOSE,
 # filesystem
 
 # get the list of packages in the JSON file
-my $manifest = $distro->get_manifest;
+#my $manifest = $distro->get_manifest;
 # get the list of packages in the JSON file
-my $groups = $distro->get_groups;
+#my $groups = $distro->get_groups;
 # get the list of packages in the JSON file
-my $packages = $distro->get_packages;
+#my $packages = $distro->get_packages;
 
 exit 1;
 if ( ! -d $o_startdir ) {
