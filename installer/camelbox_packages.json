@@ -80,107 +80,107 @@ InstType "Perl with All Non-GTK Modules"                # 9
     "packages": {
         "perl-5.10.0-core": {
             "description": "Perl 5.10.0 Base Package",
-            "section_list": [ 1, 2, 3, 4, 5, 6, 9 ] },
+            "sectionin_list": [ 1, 2, 3, 4, 5, 6, 9 ] },
         // Core Gtk2-Perl Packages
         "gtk-core-bin": {
             "description": "Core GTK Binaries",
-            "section_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
         "imagelibs-bin": {
             "description": "imagelibs-bin (JPG/PNG/TIFF libraries)",
-            "section_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
         "gtk-support-bin": {
             "description": "gtk-support-bin (gettext/libintl/etc.)",
-            "section_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
         "perl-gtk2-core": {
             "description": "Gtk2-Perl Core Modules (Cairo/Glib/Gtk2)",
-            "section_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
         // Extra Gtk2-Perl Packages
         "libglade-bin": {
             "description": "libglade-bin (Glade/XML libraries)",
-            "section_list": [ 1, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 4, 5, 6 ] },
         "libglade-bin": {
             "description": "libglade-bin (Glade/XML libraries)",
-            "section_list": [ 1, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 4, 5, 6 ] },
         "perl-gtk2-gladexml": {
             "description": "Gtk2::GladeXML (Perl Glade/XML libraries)",
-            "section_list": [ 1, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 4, 5, 6 ] },
         "libgnomecanvas-bin": {
             "description": "libgnomecanvas-bin (Gnome Canvas libs.)",
-            "section_list": [ 1, 4, 5 ] },
+            "sectionin_list": [ 1, 4, 5 ] },
         "perl-gnome2-canvas": {
             "description": "Gnome2::Canvas (Perl GnomeCanvas libs.)",
-            "section_list": [ 1, 4, 5 ] },
+            "sectionin_list": [ 1, 4, 5 ] },
         // Gtk2-Perl Applications
         "perl-asciio": {
             "description": "Asciio v0.95_01 - ASCII Art Editor",
-            "section_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
         // Extra Perl Modules
         "perl-YAML": {
             "description": "YAML - Yet Another Markup Language",
-            "section_list": [ 1, 9 ] },
+            "sectionin_list": [ 1, 9 ] },
         "perl-LWP": {
             "description": "LWP/libwww-perl",
-            "section_list": [ 1, 9 ] },
+            "sectionin_list": [ 1, 9 ] },
         "perl-Moose": {
             "description": "Moose: a Post-Modern Object Framework for Perl",
-            "section_list": [ 1, 9 ] },
+            "sectionin_list": [ 1, 9 ] },
         "perl-PAR": {
             "description": "PAR: Perl Archive Toolkit",
-            "section_list": [ 1, 9 ] },
+            "sectionin_list": [ 1, 9 ] },
         "perl-PAR-Packer": {
             "description": "PAR::Packer: The PAR Packer (creator) Toolkit",
-            "section_list": [ 1, 9 ] },
+            "sectionin_list": [ 1, 9 ] },
         // Development Packages
         "mingw": {
             "description": "Minimal GNU for Windows (MinGW) Toolkit",
-            "section_list": [ 1, 5 ] },
+            "sectionin_list": [ 1, 5 ] },
         "dmake": {
             "description": "dmake Makefile Processor",
-            "section_list": [ 1, 5 ] },
+            "sectionin_list": [ 1, 5 ] },
         "gtk-core-dev": {
             "description": "Core GTK Development Files",
-            "section_list": [ 1, 5 ] },
+            "sectionin_list": [ 1, 5 ] },
         "gtk-support-dev": {
             "description": "gtk-support-dev (gettext/libintl/etc.)",
-            "section_list": [ 1, 5 ] },
+            "sectionin_list": [ 1, 5 ] },
         "imagelibs-dev": {
             "description": "imagelibs-dev (JPG/PNG/TIFF Headers)",
-            "section_list": [ 1, 5 ] },
+            "sectionin_list": [ 1, 5 ] },
         "libglade-dev": {
             "description": "libglade-dev (Glade Headers)",
-            "section_list": [ 1, 5 ] },
+            "sectionin_list": [ 1, 5 ] },
         "libgnomecanvas-dev": {
             "description": "libgnomecanvas-dev (GnomeCanvas Headers)",
-            "section_list": [ 1, 5 ] },
+            "sectionin_list": [ 1, 5 ] },
         // Extra Tools Packages
         "glade-win32": {
             "description": "Glade GUI Builder Tool",
-            "section_list": [ 1, 6, 8 ] },
+            "sectionin_list": [ 1, 6, 8 ] },
         "unxutils": {
             "description": "UnxUtilities for Windows",
-            "section_list": [ 1, 7, 8 ] },
+            "sectionin_list": [ 1, 7, 8 ] },
         "lzma": {
             "description": "LZMA Compression Utility",
-            "section_list": [ 1, 8 ] },
+            "sectionin_list": [ 1, 8 ] },
         "imagelibs-utils": {
             "description": "imagelibs Utilities",
-            "section_list": [ 1, 8 ] },
+            "sectionin_list": [ 1, 8 ] },
         "gettext-utils": {
             "description": "gettext Utilities",
-            "section_list": [ 1, 8 ] },
+            "sectionin_list": [ 1, 8 ] },
         "dmake-extra": {
             "description": "dmake Makefile Processor (extra files)",
-            "section_list": [ 1, 8 ] },
+            "sectionin_list": [ 1, 8 ] },
         // Documentation and Examples
         "perl-5.10.0-html_docs": {
             "description": "Perl 5.10.0 HTML Documentation",
-            "section_list": [ 1 ] },
+            "sectionin_list": [ 1 ] },
         "gtk-core-doc": {
             "description": "GTK C API HTML/SGML Documentation",
-            "section_list": [ 1 ] },
+            "sectionin_list": [ 1 ] },
         "gtk2-perl-examples": {
             "description": "Gtk2-Perl Example Scripts",
-            "section_list": [ 1 ],
+            "sectionin_list": [ 1 ],
             "extra_options": "StrCpy $demosInstalled 'true'" }
     } // packages
 } // JSON data block

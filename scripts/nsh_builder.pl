@@ -70,54 +70,202 @@ the author's version number.
  perl nsh_builder.pl --jsonfile file.json --startdir . \
      --timestamp 200x.xxx.x
 
-=head1 OBJECTS
+=head1 PACKAGES
 
 =cut
 
-#### Package 'Hump::JSON::Packages' ####
+#### Package 'Hump::JSON::Object' ####
 package Hump::JSON::Object;
+
 use strict;
 use warnings;
 
-# this object has a description field and a list of sections
+my %obj_hash;
+
+=pod
+
+=head2 Hump::JSON::Object
+
+An individual JSON node, which will have one or more key/value pairs as read
+from the JSON file.
+
+=cut
 
 sub new {
     my $class = shift;
     my %args = @_;
 
-    die qq(ERROR: JSON variable undefined) unless defined($args{jsonvar});
+    if ( ! defined($args{jsonvar}) ) {
+        warn qq(ERROR: Hump::JSON::Object was created without passing\n);
+        die qq('jsonvar' hash reference\n);
+    } # if ( ! defined($args{jsonvar}) )
 
 	# the file exists, bless it into an object
-	my $self = bless({ 	jsonvar => $args{jsonvar}, 
-						verbose => $args{verbose} }, 
-                        $class);
+	my $self = bless({ 	
+        jsonvar => $args{jsonvar}, 
+		verbose => $args{verbose} }, 
+        $class);
+
+    # 'cast' the jsonvar argument into a hash
+    foreach my $jsonkey ( %{$args{jsonvar}} ) {
+        $self->set(key => $jsonkey, value => $args{jsonvar}{$jsonkey});
+    } # foreach my $jsonkey ( %{$args{jsonvar}} )
+    # return the object to the caller
     return $self;
 } # sub new
 
-#### Package 'Hump::JSON::Distribution' ####
+=pod 
+
+=head3 new( jsonvar => {JSON object}, verbose => {0|1} )
+
+Creates a L<Hump::JSON::Object> object.  Takes the following arguments:
+
+=over 4
+
+=item jsonvar 
+
+A reference to the hash containing the key/value pairs to be stored in the
+L<Hump::JSON::Object> object.
+
+=item verbose 
+
+Verbose debugging output.  (0 = false, 1 = true; default = 0) 
+
+=back
+
+=cut
+
+sub set {
+    my $self = shift;
+    my %args = @_;
+
+    die qq(ERROR: set method called without 'key'/'value' arguments)
+        unless ( exists $args{key} && exists $args{value} );
+
+    # so store it already
+    $obj_hash{$args{key}} = $args{value};
+} # sub set
+
+=pod 
+
+=head3 set( key => {key}, value => {value} )
+
+Sets values in an L<Hump::JSON::Object> object.  Takes the following
+arguments:
+
+=over 4
+
+=item key 
+
+Key to use in object hash.
+
+=item value 
+
+Value to store with key in object hash.
+
+=back
+
+=cut
+
+sub get {
+    my $self = shift;
+    my %args = @_;
+
+    die qq(ERROR: get method called without 'key' argument)
+        unless ( defined $args{key} );
+
+    if ( exists $obj_hash{$args{key}} ) {
+        return $obj_hash{$args{key}};
+    } else {
+        warn qq(WARNING: Key ) . $args{key} 
+            . qq( does not exist in this object\n);
+    } # if ( exists $obj_hash{$args{key}} )
+} # sub get
+
+=pod 
+
+=head3 get( key => {key} )
+
+Gets values from an L<Hump::JSON::Object> object.  Takes the following
+arguments:
+
+=over 4
+
+=item key 
+
+Key describing value to retrieve from object hash.
+
+=back
+
+If the key does not exist in the L<Hump::JSON::Object> hash, a warning will be
+given.
+
+=cut
+
+#### Package 'Hump::JSON::Packages' ####
 package Hump::JSON::Packages;
+# a hash of package objects
 use strict;
 use warnings;
 
 my %package_hash;
 
+=pod
+
+=head2 Hump::JSON::Packages
+
+An object that stores L<Hump::JSON::Object> objects that describe packages
+that will be a part of a NSIS distribution.
+
+=cut
+
 sub new {
     my $class = shift;
     my %args = @_;
 
-    die qq(ERROR: 'packages' variable undefined) 
-        unless defined($args{packages});
+    if ( ! defined($args{packages}) ) {
+        warn qq(ERROR: Hump::JSON::Packages object created without passing\n);
+        die qq('packages' hash reference);
+    } # іf ( ! defined($args{packages}) ) 
+
     # bless a packages object
 	my $self = bless({ 	packages => $args{packages}, 
 						verbose => $args{verbose} }, 
                         $class);
     # then populate it
     foreach my $package_id ( keys(%{$self->{packages}}) ) {
-        $package_hash{$package_id} = $self->{packages}{$package_id};
+        $package_hash{$package_id} 
+            = Hump::JSON::Object->new( 
+                    jsonvar => $self->{packages}{$package_id} );
     } # foreach my ( keys(%{$self->get_packages()}) )
 
-    print qq(Picked up ) . scalar(keys(%package_hash)) . qq( packages\n);
+    print qq(Picked up ) . scalar(keys(%package_hash)) . qq( packages\n)
+        if ( $args{verbose});
+
+    return $self;
 } # sub new
+
+=pod 
+
+=head3 new( jsonvar => {JSON variable reference}, verbose => {0|1} )
+
+Creates a L<Hump::JSON::Object> object.  Takes the following key/value pairs
+as arguments:
+
+=over 4
+
+=item jsonvar 
+
+A reference to the hash containing the key/value pairs to be stored in the
+L<Hump::JSON::Object> object.
+
+=item verbose
+
+Verbose debugging output.  (0 = false, 1 = true; default = 0) 
+
+=back
+
+=cut
 
 sub get_package {
     my $self = shift;
@@ -130,6 +278,34 @@ sub get_package {
         warn qq(package ) . $args{package_id} . qq(not defined/empty);
     }# if ( exists $package_hash{$args{package_id}} )
 } # sub get_package
+
+=pod 
+
+=head3 get_package( package_id => {package name} )
+
+Returns the package identified by B<package_id>.  Warns with an error if
+B<package_id> does not exist.
+
+=cut
+
+sub get_packages {
+    my $self = shift;
+
+    if ( scalar(keys(%package_hash)) > 0 ) {
+        return sort(keys(%package_hash));
+    } else {
+        warn qq(Warning: No packages are stored in the package hash\n);
+    } # if ( scalar(keys(%package_hash)) > 0 )
+} # sub get_package
+
+=pod 
+
+=head3 get_package( package_id => {package name} )
+
+Returns the package identified by B<package_id>.  Warns with an error if
+B<package_id> does not exist.
+
+=cut
 
 #### Package 'Hump::JSON::Distribution' ####
 package Hump::JSON::Distribution;
@@ -159,7 +335,7 @@ sub new {
         $json_string .= $_;
     } # while(<FH>)
 	$self->{jsonobj} = $parser->decode($json_string);
-    $self->{packages} = Hump::JSON::Packages->new( 
+    $self->{_package_obj} = Hump::JSON::Packages->new( 
             packages => $self->{jsonobj}{packages},
             verbose => $self->{verbose} );
 	return $self;
@@ -167,18 +343,16 @@ sub new {
 
 sub get_packages {
 # return the list of packages described in the JSON file
-# FIXME abstract this into it's own object which can then be queried with
-# methods
     my $self = shift;
-    
-    my %json_ref = %{$self->{jsonobj}};
-    # build a reference to packages
-    my $packages = $json_ref{q(packages)};
-    foreach my $package_key ( keys(%{$packages}) ) {
-        print qq(package: $package_key\n);
-    } # foreach my $package_key ( keys(%{$packages} )
-    return $packages;
+    return $self->{_package_obj}->get_packages();
 } # sub get_packages
+
+sub dump_packages {
+    my $self = shift;
+    foreach my $package_key ( $self->{_package_obj}->get_packages() ) {
+        print qq(package: $package_key\n);
+    } # foreach my $package_key ( $package_obj->get_packages() )
+} # ѕub dump_packages
 
 sub get_groups {
 # return the list of groups described in the JSON file
@@ -366,6 +540,7 @@ if ( ! defined $o_startdir ) {
 # read in the JSON distro file
 my $distro = Hump::JSON::Distribution->new( verbose => $VERBOSE,
                                             jsonfile => $o_jsonfile );
+$distro->dump_packages();
 # - read in the JSON document
 # - match each file requested in the JSON document with the file located in
 # the %archive_filelist hash; the filename in the hash may have to be
