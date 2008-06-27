@@ -307,6 +307,22 @@ B<package_id> does not exist.
 
 =cut
 
+sub dump_packages {
+    my $self = shift;
+    foreach my $package_key ( $self->get_packages() ) {
+        print qq(package: $package_key\n);
+    } # foreach my $package_key ( $package_obj->get_packages() )
+} # sub dump_packages
+
+=pod 
+
+=head3 get_package( package_id => {package name} )
+
+Returns the package identified by B<package_id>.  Warns with an error if
+B<package_id> does not exist.
+
+=cut
+
 #### Package 'Hump::JSON::Distribution' ####
 package Hump::JSON::Distribution;
 use strict;
@@ -341,18 +357,11 @@ sub new {
 	return $self;
 } # sub new
 
-sub get_packages {
+sub get_package_obj {
 # return the list of packages described in the JSON file
     my $self = shift;
-    return $self->{_package_obj}->get_packages();
+    return $self->{_package_obj};
 } # sub get_packages
-
-sub dump_packages {
-    my $self = shift;
-    foreach my $package_key ( $self->{_package_obj}->get_packages() ) {
-        print qq(package: $package_key\n);
-    } # foreach my $package_key ( $package_obj->get_packages() )
-} # ѕub dump_packages
 
 sub get_groups {
 # return the list of groups described in the JSON file
@@ -537,10 +546,7 @@ if ( ! defined $o_startdir ) {
 	&HelpDie;
 } # if ( ! defined $o_startdir )
 
-# read in the JSON distro file
-my $distro = Hump::JSON::Distribution->new( verbose => $VERBOSE,
-                                            jsonfile => $o_jsonfile );
-$distro->dump_packages();
+# script operations:
 # - read in the JSON document
 # - match each file requested in the JSON document with the file located in
 # the %archive_filelist hash; the filename in the hash may have to be
@@ -550,6 +556,15 @@ $distro->dump_packages();
 # - print out a report of extra files found on the filesystem, as well as
 # patterns in the JSON file that didn't have a corresponding file on the
 # filesystem
+
+# read in the JSON distro file
+my $distro = Hump::JSON::Distribution->new( verbose => $VERBOSE,
+                                            jsonfile => $o_jsonfile );
+
+# grab the packages object
+my $packages = $distro->get_package_obj();
+# pump and dump
+$packages->dump_packages();
 
 # get the list of packages in the JSON file
 #my $manifest = $distro->get_manifest;
