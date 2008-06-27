@@ -74,17 +74,17 @@ the author's version number.
 
 =cut
 
-#### Package 'Hump::JSON::Object' ####
-package Hump::JSON::Object;
+#### Package 'Hump::JSON::Node' ####
+package Hump::JSON::Node;
 
 use strict;
 use warnings;
 
-my %obj_hash;
+my %node_hash;
 
 =pod
 
-=head2 Hump::JSON::Object
+=head2 Hump::JSON::Node
 
 An individual JSON node, which will have one or more key/value pairs as read
 from the JSON file.
@@ -96,7 +96,7 @@ sub new {
     my %args = @_;
 
     if ( ! defined($args{jsonvar}) ) {
-        warn qq(ERROR: Hump::JSON::Object was created without passing\n);
+        warn qq(ERROR: Hump::JSON::Node was created without passing\n);
         die qq('jsonvar' hash reference\n);
     } # if ( ! defined($args{jsonvar}) )
 
@@ -116,16 +116,16 @@ sub new {
 
 =pod 
 
-=head3 new( jsonvar => {JSON object}, verbose => {0|1} )
+=head3 new( jsonvar => {JSON variable reference}, verbose => {0|1} )
 
-Creates a L<Hump::JSON::Object> object.  Takes the following arguments:
+Creates a L<Hump::JSON::Node> object.  Takes the following arguments:
 
 =over 4
 
 =item jsonvar 
 
 A reference to the hash containing the key/value pairs to be stored in the
-L<Hump::JSON::Object> object.
+L<Hump::JSON::Node> object.
 
 =item verbose 
 
@@ -143,14 +143,14 @@ sub set {
         unless ( exists $args{key} && exists $args{value} );
 
     # so store it already
-    $obj_hash{$args{key}} = $args{value};
+    $node_hash{$args{key}} = $args{value};
 } # sub set
 
 =pod 
 
 =head3 set( key => {key}, value => {value} )
 
-Sets values in an L<Hump::JSON::Object> object.  Takes the following
+Sets values in an L<Hump::JSON::Node> object.  Takes the following
 arguments:
 
 =over 4
@@ -174,19 +174,19 @@ sub get {
     die qq(ERROR: get method called without 'key' argument)
         unless ( defined $args{key} );
 
-    if ( exists $obj_hash{$args{key}} ) {
-        return $obj_hash{$args{key}};
+    if ( exists $node_hash{$args{key}} ) {
+        return $node_hash{$args{key}};
     } else {
         warn qq(WARNING: Key ) . $args{key} 
             . qq( does not exist in this object\n);
-    } # if ( exists $obj_hash{$args{key}} )
+    } # if ( exists $node_hash{$args{key}} )
 } # sub get
 
 =pod 
 
 =head3 get( key => {key} )
 
-Gets values from an L<Hump::JSON::Object> object.  Takes the following
+Gets values from an L<Hump::JSON::Node> object.  Takes the following
 arguments:
 
 =over 4
@@ -197,24 +197,24 @@ Key describing value to retrieve from object hash.
 
 =back
 
-If the key does not exist in the L<Hump::JSON::Object> hash, a warning will be
+If the key does not exist in the L<Hump::JSON::Node> hash, a warning will be
 given.
 
 =cut
 
-#### Package 'Hump::JSON::Packages' ####
-package Hump::JSON::Packages;
+#### Package 'Hump::JSON::Objects' ####
+package Hump::JSON::Objects;
 # a hash of package objects
 use strict;
 use warnings;
 
-my %package_hash;
+my %object_hash;
 
 =pod
 
-=head2 Hump::JSON::Packages
+=head2 Hump::JSON::Objects
 
-An object that stores L<Hump::JSON::Object> objects that describe packages
+An object that stores L<Hump::JSON::Node> objects that describe packages
 that will be a part of a NSIS distribution.
 
 =cut
@@ -223,23 +223,23 @@ sub new {
     my $class = shift;
     my %args = @_;
 
-    if ( ! defined($args{packages}) ) {
-        warn qq(ERROR: Hump::JSON::Packages object created without passing\n);
+    if ( ! defined($args{objects}) ) {
+        warn qq(ERROR: Hump::JSON::Objects object created without passing\n);
         die qq('packages' hash reference);
-    } # іf ( ! defined($args{packages}) ) 
+    } # іf ( ! defined($args{objects}) ) 
 
     # bless a packages object
-	my $self = bless({ 	packages => $args{packages}, 
+	my $self = bless({ 	objects => $args{objects}, 
 						verbose => $args{verbose} }, 
                         $class);
     # then populate it
-    foreach my $package_id ( keys(%{$self->{packages}}) ) {
-        $package_hash{$package_id} 
-            = Hump::JSON::Object->new( 
-                    jsonvar => $self->{packages}{$package_id} );
+    foreach my $object_id ( keys(%{$self->{objects}}) ) {
+        $object_hash{$object_id} 
+            = Hump::JSON::Node->new( 
+                    jsonvar => $self->{objects}{$object_id} );
     } # foreach my ( keys(%{$self->get_packages()}) )
 
-    print qq(Picked up ) . scalar(keys(%package_hash)) . qq( packages\n)
+    print qq(Picked up ) . scalar(keys(%object_hash)) . qq( objects\n)
         if ( $args{verbose});
 
     return $self;
@@ -249,7 +249,7 @@ sub new {
 
 =head3 new( jsonvar => {JSON variable reference}, verbose => {0|1} )
 
-Creates a L<Hump::JSON::Object> object.  Takes the following key/value pairs
+Creates a L<Hump::JSON::Node> object.  Takes the following key/value pairs
 as arguments:
 
 =over 4
@@ -257,7 +257,7 @@ as arguments:
 =item jsonvar 
 
 A reference to the hash containing the key/value pairs to be stored in the
-L<Hump::JSON::Object> object.
+L<Hump::JSON::Node> object.
 
 =item verbose
 
@@ -271,39 +271,39 @@ sub get_package {
     my $self = shift;
     my %args = @_;
 
-    if ( defined $args{package_id} 
-            && exists $package_hash{$args{package_id}} ) {
-        return $package_hash{$args{package_id}};
+    if ( defined $args{object_id} 
+            && exists $object_hash{$args{object_id}} ) {
+        return $object_hash{$args{object_id}};
     } else {
-        warn qq(package ) . $args{package_id} . qq(not defined/empty);
-    }# if ( exists $package_hash{$args{package_id}} )
+        warn qq(package ) . $args{object_id} . qq(not defined/empty);
+    }# if ( exists $object_hash{$args{object_id}} )
 } # sub get_package
 
 =pod 
 
-=head3 get_package( package_id => {package name} )
+=head3 get_package( object_id => {package name} )
 
-Returns the package identified by B<package_id>.  Warns with an error if
-B<package_id> does not exist.
+Returns the package identified by B<object_id>.  Warns with an error if
+B<object_id> does not exist.
 
 =cut
 
 sub get_packages {
     my $self = shift;
 
-    if ( scalar(keys(%package_hash)) > 0 ) {
-        return sort(keys(%package_hash));
+    if ( scalar(keys(%object_hash)) > 0 ) {
+        return sort(keys(%object_hash));
     } else {
         warn qq(Warning: No packages are stored in the package hash\n);
-    } # if ( scalar(keys(%package_hash)) > 0 )
+    } # if ( scalar(keys(%object_hash)) > 0 )
 } # sub get_package
 
 =pod 
 
-=head3 get_package( package_id => {package name} )
+=head3 get_package( object_id => {package name} )
 
-Returns the package identified by B<package_id>.  Warns with an error if
-B<package_id> does not exist.
+Returns the package identified by B<object_id>.  Warns with an error if
+B<object_id> does not exist.
 
 =cut
 
@@ -351,8 +351,8 @@ sub new {
         $json_string .= $_;
     } # while(<FH>)
 	$self->{jsonobj} = $parser->decode($json_string);
-    $self->{_package_obj} = Hump::JSON::Packages->new( 
-            packages => $self->{jsonobj}{packages},
+    $self->{_package_obj} = Hump::JSON::Objects->new( 
+            objects => $self->{jsonobj}{packages},
             verbose => $self->{verbose} );
 	return $self;
 } # sub new
