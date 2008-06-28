@@ -97,7 +97,7 @@ sub new {
 
     if ( ! defined($args{jsonvar}) ) {
         warn qq(ERROR: Hump::JSON::Node was created without passing\n);
-        die qq('jsonvar' hash reference\n);
+        die qq('jsonvar' hash reference);
     } # if ( ! defined($args{jsonvar}) )
 
 	# the file exists, bless it into an object
@@ -202,20 +202,64 @@ given.
 
 =cut
 
+#### Package 'Hump::JSON::Manifest' ####
+package Hump::JSON::Manifest;
+# a package manifest containing a list of package groups and individual
+# packages
+use strict;
+use warnings;
+
+my @_manifest;
+
+sub new {
+    my $class = shift;
+    my %args = @_;
+
+    if ( ! defined($args{manifest}) ) {
+        warn qq(ERROR: Hump::JSON::Manifest was created without passing\n);
+        die qq('manifest' hash reference);
+    } # if ( ! defined($args{jsonvar}) )
+
+	# the file exists, bless it into an object
+	my $self = bless({ verbose => $args{verbose} }, $class);
+
+    @_manifest = @{$args{manifest}};
+    return $self;
+} # sub new 
+
+# FIXME PODs please
+
+sub get_manifest {
+# return the list of packages described in the JSON file
+    return @_manifest; 
+} # sub get_manifest
+
+# FIXME PODs please
+
+sub dump_manifest {
+    foreach my $manifest_key ( @_manifest ) {
+        print qq(manifest: $manifest_key\n);
+    } # foreach my $manifest_key ( @{$manifest} ) 
+} # sub dump_manifest    
+
+# FIXME PODs please
+
 #### Package 'Hump::JSON::Objects' ####
 package Hump::JSON::Objects;
 # a hash of package objects
 use strict;
 use warnings;
 
-my %object_hash;
+my %_object_hash;
+my $_object_type;
 
 =pod
 
 =head2 Hump::JSON::Objects
 
-An object that stores L<Hump::JSON::Node> objects that describe packages
-that will be a part of a NSIS distribution.
+An object that stores one or more L<Hump::JSON::Node> objects.  The objects
+could be either individual Camelbox packages, or the package group
+descriptions.
 
 =cut
 
@@ -225,22 +269,30 @@ sub new {
 
     if ( ! defined($args{objects}) ) {
         warn qq(ERROR: Hump::JSON::Objects object created without passing\n);
-        die qq('packages' hash reference);
+        die qq('objects' hash reference);
     } # іf ( ! defined($args{objects}) ) 
 
-    # bless a packages object
-	my $self = bless({ 	objects => $args{objects}, 
-						verbose => $args{verbose} }, 
-                        $class);
-    # then populate it
-    foreach my $object_id ( keys(%{$self->{objects}}) ) {
-        $object_hash{$object_id} 
+    if ( ! defined($args{object_type}) ) {
+        warn qq(ERROR: Hump::JSON::Objects object created without passing\n);
+        die "'object_type' string (a description of the object) ";
+    } # іf ( ! defined($args{objects}) ) 
+    $_object_type = $args{object_type};
+
+    # bless an objects object
+	my $self = bless({ verbose => $args{verbose} }, $class);
+
+    # loop across all of the nodes in the JSON object; add them to the
+    # internal objects hash using the key in the JSON object as the key in the
+    # internal objects hash
+    foreach my $object_id ( keys(%{$args{objects}}) ) {
+        $_object_hash{$object_id} 
             = Hump::JSON::Node->new( 
-                    jsonvar => $self->{objects}{$object_id} );
+                    jsonvar => $args{objects}{$object_id} );
     } # foreach my ( keys(%{$self->get_packages()}) )
 
-    print qq(Picked up ) . scalar(keys(%object_hash)) . qq( objects\n)
-        if ( $args{verbose});
+    print qq(Picked up ) . scalar(keys(%_object_hash)) . qq( )
+        . $_object_type . qq( objects\n)
+        if ( $args{verbose} );
 
     return $self;
 } # sub new
@@ -272,8 +324,8 @@ sub get_package {
     my %args = @_;
 
     if ( defined $args{object_id} 
-            && exists $object_hash{$args{object_id}} ) {
-        return $object_hash{$args{object_id}};
+            && exists $_object_hash{$args{object_id}} ) {
+        return $_object_hash{$args{object_id}};
     } else {
         warn qq(package ) . $args{object_id} . qq(not defined/empty);
     }# if ( exists $object_hash{$args{object_id}} )
@@ -291,8 +343,8 @@ B<object_id> does not exist.
 sub get_packages {
     my $self = shift;
 
-    if ( scalar(keys(%object_hash)) > 0 ) {
-        return sort(keys(%object_hash));
+    if ( scalar(keys(%_object_hash)) > 0 ) {
+        return sort(keys(%_object_hash));
     } else {
         warn qq(Warning: No packages are stored in the package hash\n);
     } # if ( scalar(keys(%object_hash)) > 0 )
@@ -351,9 +403,14 @@ sub new {
         $json_string .= $_;
     } # while(<FH>)
 	$self->{jsonobj} = $parser->decode($json_string);
+    $self->{_manifest_obj} = Hump::JSON::Manifest->new(
+            manifest    => $self->{jsonobj}{manifest},
+            verbose     => $self->{verbose} );
+
     $self->{_package_obj} = Hump::JSON::Objects->new( 
-            objects => $self->{jsonobj}{packages},
-            verbose => $self->{verbose} );
+            objects     => $self->{jsonobj}{packages},
+            object_type => q(package),
+            verbose     => $self->{verbose} );
 	return $self;
 } # sub new
 
@@ -361,33 +418,13 @@ sub get_package_obj {
 # return the list of packages described in the JSON file
     my $self = shift;
     return $self->{_package_obj};
-} # sub get_packages
+} # sub get_package_obj
 
-sub get_groups {
-# return the list of groups described in the JSON file
+sub get_manifest_obj {
+# return the package manifest described in the JSON file
     my $self = shift;
-    
-    my %json_ref = %{$self->{jsonobj}};
-    # build a reference to package groups
-    my $groups = $json_ref{q(groups)};
-    foreach my $group_key ( keys(%{$groups}) ) {
-        print qq(group: $group_key\n);
-    } # foreach my $group_key ( keys(%{$groups} )
-    return $groups;
-} # sub get_groups
-
-sub get_manifest {
-# return the list of packages described in the JSON file
-    my $self = shift;
-    
-    my %json_ref = %{$self->{jsonobj}};
-    # build a reference to packages
-    my $manifest = $json_ref{q(manifest)};
-    foreach my $manifest_key ( @{$manifest} ) {
-        print qq(manifest: $manifest_key\n);
-    } # foreach my $manifest_key ( @{$manifest} ) 
-    return $manifest;
-} # sub get_manifest
+    return $self->{_manifest_obj};
+} # sub get_manifest_obj
 
 #### Package 'Hump::File::Stat' ####
 package Hump::File::Stat;
@@ -562,13 +599,14 @@ my $distro = Hump::JSON::Distribution->new(
 				verbose => $VERBOSE,
                 jsonfile => $o_jsonfile );
 
-# get the list of packages in the JSON file
-#my $manifest = $distro->get_manifest;
+# get the manifest of this NSIS packages list
+my $manifest = $distro->get_manifest_obj();
+$manifest->dump_manifest;
+
 # grab the packages object
 my $packages = $distro->get_package_obj();
 # pump and dump
 $packages->dump_packages();
-
 
 # get the list of packages in the JSON file
 #my $groups = $distro->get_groups;
