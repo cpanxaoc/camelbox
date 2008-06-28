@@ -558,16 +558,18 @@ if ( ! defined $o_startdir ) {
 # filesystem
 
 # read in the JSON distro file
-my $distro = Hump::JSON::Distribution->new( verbose => $VERBOSE,
-                                            jsonfile => $o_jsonfile );
+my $distro = Hump::JSON::Distribution->new( 
+				verbose => $VERBOSE,
+                jsonfile => $o_jsonfile );
 
+# get the list of packages in the JSON file
+#my $manifest = $distro->get_manifest;
 # grab the packages object
 my $packages = $distro->get_package_obj();
 # pump and dump
 $packages->dump_packages();
 
-# get the list of packages in the JSON file
-#my $manifest = $distro->get_manifest;
+
 # get the list of packages in the JSON file
 #my $groups = $distro->get_groups;
 # get the list of packages in the JSON file
