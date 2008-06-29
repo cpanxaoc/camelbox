@@ -74,6 +74,17 @@ the author's version number.
 
 =cut
 
+package Hump::Header;
+use strict;
+use warnings;
+
+sub new {
+    return;
+} 
+
+sub print_section {
+    warn(qq(something goes on here...));
+} 
 #### Package 'Hump::JSON::Node' ####
 package Hump::JSON::Node;
 
@@ -276,22 +287,25 @@ sub new {
         warn qq(ERROR: Hump::JSON::Objects object created without passing\n);
         die "'object_type' string (a description of the object) ";
     } # іf ( ! defined($args{objects}) ) 
-    $_object_type = $args{object_type};
 
     # bless an objects object
-	my $self = bless({ verbose => $args{verbose} }, $class);
+	my $self = bless({ 
+            verbose => $args{verbose} , 
+            object_type => $args{object_type},
+            objects => {},
+            }, $class);
 
     # loop across all of the nodes in the JSON object; add them to the
     # internal objects hash using the key in the JSON object as the key in the
     # internal objects hash
     foreach my $object_id ( keys(%{$args{objects}}) ) {
-        $_object_hash{$object_id} 
+        $self->{objects}->{$object_id} 
             = Hump::JSON::Node->new( 
                     jsonvar => $args{objects}{$object_id} );
-    } # foreach my ( keys(%{$self->get_packages()}) )
+    } # foreach my ( keys(%{$self->get_objects()}) )
 
-    print qq(Picked up ) . scalar(keys(%_object_hash)) . qq( )
-        . $_object_type . qq( objects\n)
+    print qq(Picked up ) . scalar( $self->get_object_count() ) . qq( )
+        . $self->{object_type} . qq( objects\n)
         if ( $args{verbose} );
 
     return $self;
@@ -319,59 +333,98 @@ Verbose debugging output.  (0 = false, 1 = true; default = 0)
 
 =cut
 
-sub get_package {
+sub object_exists {
     my $self = shift;
     my %args = @_;
 
-    if ( defined $args{object_id} 
-            && exists $_object_hash{$args{object_id}} ) {
-        return $_object_hash{$args{object_id}};
+    if ( defined $self->{objects}
+            && exists $self->{objects}->{$args{object_id}} ) {
+        return 1;
+    } else {
+        return 0;
+    } # if ( exists $object_hash{$args{object_id}} )
+} # sub get_object
+
+=pod 
+
+=head3 get_object( object_id => {package name} )
+
+Returns the package identified by B<object_id>.  Warns with an error if
+B<object_id> does not exist.
+
+=cut
+
+sub get_object {
+    my $self = shift;
+    my %args = @_;
+
+    if ( defined $self->{objects}
+            && exists $self->{objects}->{$args{object_id}} ) {
+        return $self->{objects}->{$args{object_id}};
     } else {
         warn qq(package ) . $args{object_id} . qq(not defined/empty);
     }# if ( exists $object_hash{$args{object_id}} )
-} # sub get_package
+} # sub get_object
 
 =pod 
 
-=head3 get_package( object_id => {package name} )
+=head3 get_object( object_id => {package name} )
 
 Returns the package identified by B<object_id>.  Warns with an error if
 B<object_id> does not exist.
 
 =cut
 
-sub get_packages {
+sub get_objects {
     my $self = shift;
 
-    if ( scalar(keys(%_object_hash)) > 0 ) {
-        return sort(keys(%_object_hash));
+    if ( scalar(keys(%{$self->{objects}}) > 0 )  ) {
+        return sort(keys(%{$self->{objects}}));
     } else {
-        warn qq(Warning: No packages are stored in the package hash\n);
-    } # if ( scalar(keys(%object_hash)) > 0 )
-} # sub get_package
+        warn qq(Warning: No objects are stored in the object hash\n);
+    } # if ( scalar(keys($self->{objects}) > 0 ) 
+} # sub get_objects
 
 =pod 
 
-=head3 get_package( object_id => {package name} )
+=head3 get_objects()
 
-Returns the package identified by B<object_id>.  Warns with an error if
-B<object_id> does not exist.
+Returns the keys to all of the objects stored in the %_object_hash
 
 =cut
 
-sub dump_packages {
+sub get_object_count {
     my $self = shift;
-    foreach my $package_key ( $self->get_packages() ) {
-        print qq(package: $package_key\n);
-    } # foreach my $package_key ( $package_obj->get_packages() )
-} # sub dump_packages
+
+    if ( scalar(keys(%{$self->{objects}}) > 0 )  ) {
+        return scalar(keys(%{$self->{objects}}));
+    } else {
+        return 0;
+    } # if ( scalar(keys($self->{objects}) > 0 ) 
+} # sub get_objects
 
 =pod 
 
-=head3 get_package( package_id => {package name} )
+=head3 get_object_count()
 
-Returns the package identified by B<package_id>.  Warns with an error if
-B<package_id> does not exist.
+Returns the integer count of all of the objects contained in the object hash
+attribute.
+
+=cut
+
+sub dump_objects {
+    my $self = shift;
+    foreach my $object_key ( $self->get_objects() ) {
+        print $self->{object_type} . qq(: $object_key\n);
+    } # foreach my $object_key ( $self->get_objects() )
+} # sub dump_objects
+
+=pod 
+
+=head3 dump_objects()
+
+Prints the keys to all of the objects in the object hash, prefixed by the
+object type.
 
 =cut
 
@@ -411,20 +464,31 @@ sub new {
             objects     => $self->{jsonobj}{packages},
             object_type => q(package),
             verbose     => $self->{verbose} );
+
+    $self->{_group_obj} = Hump::JSON::Objects->new( 
+            objects     => $self->{jsonobj}{groups},
+            object_type => q(group),
+            verbose     => $self->{verbose} );
 	return $self;
 } # sub new
-
-sub get_package_obj {
-# return the list of packages described in the JSON file
-    my $self = shift;
-    return $self->{_package_obj};
-} # sub get_package_obj
 
 sub get_manifest_obj {
 # return the package manifest described in the JSON file
     my $self = shift;
     return $self->{_manifest_obj};
 } # sub get_manifest_obj
+
+sub get_group_obj {
+# return the list of groups described in the JSON file
+    my $self = shift;
+    return $self->{_group_obj};
+} # sub get_group_obj
+
+sub get_package_obj {
+# return the list of packages described in the JSON file
+    my $self = shift;
+    return $self->{_package_obj};
+} # sub get_package_obj
 
 #### Package 'Hump::File::Stat' ####
 package Hump::File::Stat;
@@ -601,19 +665,35 @@ my $distro = Hump::JSON::Distribution->new(
 
 # get the manifest of this NSIS packages list
 my $manifest = $distro->get_manifest_obj();
-$manifest->dump_manifest;
+
+
+# get the list of groups in the JSON file
+my $groups = $distro->get_group_obj();
+
 
 # grab the packages object
 my $packages = $distro->get_package_obj();
-# pump and dump
-$packages->dump_packages();
 
-# get the list of packages in the JSON file
-#my $groups = $distro->get_groups;
-# get the list of packages in the JSON file
-#my $packages = $distro->get_packages;
+if ( $VERBOSE ) {
+    $manifest->dump_manifest;
+    $groups->dump_objects();
+    $packages->dump_objects();
+} # if ( $VERBOSE )
+
+# walk the manifest list, going through each group, package or special
+# handler, and outputting the NSIS script info for each type of object
+foreach my $manifest_key ( $manifest->get_manifest() ) {
+    if ( $manifest_key =~ /^group/ ) {
+        print(qq(group object $manifest_key goes here\n));
+    } elsif ( $packages->object_exists(object_id => $manifest_key) ) {
+        print(qq(package object $manifest_key goes here\n));
+    } else {
+        print(qq(handler object $manifest_key goes here\n));
+    } # if ( $manifest_key =~ /^group/ )
+} # foreach my $manifest_key ( $manifest->get_objects() )
 
 exit 1;
+
 if ( ! -d $o_startdir ) {
 	die(qq(ERROR: start directory $o_startdir does not exist));
 } # if ( ! -d $o_startdir )
