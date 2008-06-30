@@ -91,8 +91,6 @@ package Hump::JSON::Node;
 use strict;
 use warnings;
 
-my %node_hash;
-
 =pod
 
 =head2 Hump::JSON::Node
@@ -114,7 +112,9 @@ sub new {
 	# the file exists, bless it into an object
 	my $self = bless({ 	
         jsonvar => $args{jsonvar}, 
-		verbose => $args{verbose} }, 
+		verbose => $args{verbose},
+        nodehash => {},
+        }, 
         $class);
 
     # 'cast' the jsonvar argument into a hash
@@ -146,6 +146,20 @@ Verbose debugging output.  (0 = false, 1 = true; default = 0)
 
 =cut
 
+sub keys {
+    my $self = shift;
+    # return a list of keys
+    return keys(%{$self->{node_hash}});
+} # sub set
+
+=pod 
+
+=head3 keys()
+
+Returns the keys of a L<Hump::JSON::Node> object.
+
+=cut
+
 sub set {
     my $self = shift;
     my %args = @_;
@@ -154,7 +168,7 @@ sub set {
         unless ( exists $args{key} && exists $args{value} );
 
     # so store it already
-    $node_hash{$args{key}} = $args{value};
+    $self->{node_hash}->{$args{key}} = $args{value};
 } # sub set
 
 =pod 
@@ -185,8 +199,8 @@ sub get {
     die qq(ERROR: get method called without 'key' argument)
         unless ( defined $args{key} );
 
-    if ( exists $node_hash{$args{key}} ) {
-        return $node_hash{$args{key}};
+    if ( exists $self->{node_hash}->{$args{key}} ) {
+        return $self->{node_hash}->{$args{key}};
     } else {
         warn qq(WARNING: Key ) . $args{key} 
             . qq( does not exist in this object\n);
@@ -347,10 +361,10 @@ sub object_exists {
 
 =pod 
 
-=head3 get_object( object_id => {package name} )
+=head3 object_exists( object_id => {package name} )
 
-Returns the package identified by B<object_id>.  Warns with an error if
-B<object_id> does not exist.
+Returns true (1) if the object identified by B<object_id> exists in the
+objects hash.  Returns false (0) otherwise.
 
 =cut
 
@@ -685,6 +699,10 @@ if ( $VERBOSE ) {
 foreach my $manifest_key ( $manifest->get_manifest() ) {
     if ( $manifest_key =~ /^group/ ) {
         print(qq(group object $manifest_key goes here\n));
+        my $current_group = $groups->get_object( object_id => $manifest_key );
+#use Data::Dumper; 
+#print Dumper $current_group . qq(\n);
+        print q(keys: ) . join(q(:), $current_group->keys()) . qq(\n);
     } elsif ( $packages->object_exists(object_id => $manifest_key) ) {
         print(qq(package object $manifest_key goes here\n));
     } else {
