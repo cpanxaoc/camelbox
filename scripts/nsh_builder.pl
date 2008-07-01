@@ -667,10 +667,19 @@ sub new {
 	my $class = shift;
 	my %args = @_;
 	
-	if ( ! -f $args{filename} ) {
-		die(qq(ERROR: filename ) . $args{filename} . q( does not exist));
-	} # if ( -f $args{filename} )
-
+    if ( exists $args{filename} && exists $args{file_regex} ) {
+        warn qq(ERROR: use either 'filename' *OR* 'file_regex'\n);
+        die qq( parameters when creating a Hump::File object (not both)\n);
+    } elsif ( exists $args{filename} ) {
+    	if ( ! -f $args{filename} ) {
+	    	die(qq(ERROR: filename ) . $args{filename} . q( does not exist));
+    	} # if ( -f $args{filename} )
+    } elsif ( exists $args{file_regex} ) {
+        
+    } elsif ( defined $args{pretend} ) {
+        # pretend that all of the files exist (for testing)
+        
+    } # if ( exists $args{filename} )
 	# the file exists, bless it into an object
 	my $self = bless({ 	filename => $args{filename}, 
 						verbose => $args{verbose} }, $class);
@@ -732,8 +741,8 @@ sub get_unpacked_size {
 	return $total_unarchived_size;
 } # sub get_unpacked_size
 
-#### begin package Hump::Helper ####
-package Hump::Helper;
+#### begin package Hump::WriteBlocks ####
+package Hump::WriteBlocks;
 use strict;
 use warnings;
 
@@ -801,6 +810,7 @@ $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(timestamp|t=s)                => \$o_timestamp,
                         q(startdir|s=s)                 => \$o_startdir,
 						q(jsonfile|j:s)                 => \$o_jsonfile,
+						q(pretend|p)                    => \$o_pretend,
                     ); # $go_parse->getoptions
 
 # verify the start directory exists
@@ -827,8 +837,10 @@ my $distro = Hump::JSON::Distribution->new(
 
 # handlers for non-package and non-group entries in the manifest
 my $mischandler = Hump::MiscHandlers->new();
-# helper functions for this ѕcript
-my $humphelper = Hump::Helper->new();
+# object that writes blocks of NSIS scripting
+my $writeblocks = Hump::WriteBlocks->new();
+# file/package operations
+my $pa
 
 # get the manifest of this NSIS packages list
 my $manifest = $distro->get_manifest_obj();
@@ -856,10 +868,10 @@ foreach my $manifest_key ( $manifest->get_manifest() ) {
             warn qq(group object '$manifest_key'\n);
             warn q(  keys: ) . join(q(:), $current_group->keys()) . qq(\n);
         } # if ( $VERBOSE )
-        $humphelper->output_group( 
+        $writeblocks->output_group( 
                         packages => $packages,
                         group_obj => $current_group, 
-        ); # $humphelper->output_group
+        ); # $writeblocks->output_group
 
 
 
@@ -870,10 +882,10 @@ foreach my $manifest_key ( $manifest->get_manifest() ) {
                                 object_id => $manifest_key );
         warn q(  keys: ) . join(q(:), $current_package->keys()) . qq(\n)
             if ( $VERBOSE );
-        $humphelper->output_section(
+        $writeblocks->output_section(
                         package_id      => $manifest_key,
                         package_obj     => $current_package,
-        ); # $humphelper->output_section
+        ); # $writeblocks->output_section
     } else {
         warn qq(handler object '$manifest_key'\n) if ( $VERBOSE );
         if ( $mischandler->can($manifest_key) ) {
