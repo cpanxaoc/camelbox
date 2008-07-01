@@ -22,6 +22,7 @@ InstType "Perl with All Non-GTK Modules"                # 9
 { 
     "manifest": [
         "header",
+        "sec_writeuninstaller",
         "perl-5.10.0-core",
         "group_gtk2-perl-core",
         "group_gtk2-perl-extra",
@@ -30,6 +31,8 @@ InstType "Perl with All Non-GTK Modules"                # 9
         "group_dev-packages",
         "group_extra-tools",
         "group_docs-examples",
+        "sec_environmentvariables",
+        "sec_uninstall",
         "footer"
     ], // manifest
     "groups": {
@@ -178,7 +181,7 @@ InstType "Perl with All Non-GTK Modules"                # 9
         "gtk-core-doc": {
             "description": "GTK C API HTML/SGML Documentation",
             "sectionin_list": [ 1 ] },
-        "gtk2-perl-examples": {
+        "perl-gtk2-examples": {
             "description": "Gtk2-Perl Example Scripts",
             "sectionin_list": [ 1 ],
             "extra_options": "StrCpy $demosInstalled 'true'" }

@@ -74,20 +74,115 @@ the author's version number.
 
 =cut
 
-package Hump::Header;
+package Hump::MiscHandlers;
 use strict;
 use warnings;
 
 sub new {
-    return;
+	my $class = shift;
+	my $self = bless ({}, $class);
+} # sub new
+
+sub header {
+    # FIXME perl-ify this
+    my $date = qx/date +%Y.%j.%H%mZ | tr -d '\n'/;
+    print <<"HEREDOC"
+#==========================================================================
+#
+# TYPE:     NSIS header/include file
+#
+# AUTHOR:   nsh_builder.pl 
+# (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
+# DATE:     $date 
+#
+# COMMENT:  automatically generated file; edit at your own risk
+
+#==========================================================================
+# Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 1, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+#==========================================================================
+
+#### SECTIONS ####
+HEREDOC
 } 
 
-sub print_section {
-    warn(qq(something goes on here...));
-} 
+sub sec_writeuninstaller {
+    print <<'HEREDOC'
+Section "-WriteUninstaller"
+    SectionIn RO
+    SetOutPath "$INSTDIR"
+    CreateDirectory "$INSTDIR\bin"
+    writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
+    #writeUninstaller "$INSTDIR\bin\camelbox_uninstaller.exe"
+SectionEnd ; WriteUninstaller 
+HEREDOC
+}  # sub sec_writeuninstaller
+
+sub sec_environmentvariables {
+    print <<'HEREDOC'
+
+SectionGroup /e "Environment Variables"
+    Section "Add Camelbox to PATH variable"
+        SectionIn 1 2 3 4 5 6 7 8 9
+        StrCpy $1 "$INSTDIR\bin"
+        Push $1
+        DetailPrint "Adding to %PATH%: $1"
+        Call AddToPath
+    SectionEnd
+SectionGroupEnd ; "Environment Variables"
+HEREDOC
+} # sub sec_environmentvariables
+
+sub sec_uninstall {
+    print <<'HEREDOC'
+Section "Uninstall"
+    SectionIn RO
+    # delete the uninstaller first
+    DetailPrint "Removing installer files"
+    #delete "${INSTALL_PATH}\bin\camelbox_uninstaller.exe"
+    delete "${INSTALL_PATH}\camelbox_uninstaller.exe"
+    # remove the binpath
+    StrCpy $1 "${INSTALL_PATH}\bin"
+    Push $1
+    DetailPrint "Removing from %PATH%: $1"
+    Call un.RemoveFromPath
+    # then delete the other files/directories
+    DetailPrint "Removing ${INSTALL_PATH}"
+    RMDir /r ${INSTALL_PATH}
+SectionEnd ; Uninstall
+HEREDOC
+} # sub sec_uninstall
+
+sub footer {
+    print <<'HEREDOC'
+# blank subsection
+#   Section "some-package (extra notes, etc.)"
+#       AddSize  # kilobytes
+#       push "package-name.YYYY.JJJ.V.tar.lzma"
+#       SectionGetText ${some-package_id} $0
+#       push $0
+#       Call SnarfUnpack
+#   SectionEnd
+
+# vim: filetype=nsis paste
+HEREDOC
+} # sub footer
+
 #### Package 'Hump::JSON::Node' ####
 package Hump::JSON::Node;
-
 use strict;
 use warnings;
 
@@ -113,12 +208,13 @@ sub new {
 	my $self = bless({ 	
         jsonvar => $args{jsonvar}, 
 		verbose => $args{verbose},
-        nodehash => {},
+        node_hash => {},
         }, 
         $class);
 
-    # 'cast' the jsonvar argument into a hash
-    foreach my $jsonkey ( %{$args{jsonvar}} ) {
+    # 'cast' the jsonvar argument into a hash and then enumerate over it to
+    # gain access to the keys stored inside
+    foreach my $jsonkey ( keys(%{$args{jsonvar}}) ) {
         $self->set(key => $jsonkey, value => $args{jsonvar}{$jsonkey});
     } # foreach my $jsonkey ( %{$args{jsonvar}} )
     # return the object to the caller
@@ -168,6 +264,9 @@ sub set {
         unless ( exists $args{key} && exists $args{value} );
 
     # so store it already
+    warn qq(Hump::JSON::Node->set: ) 
+        . $args{key} . q(:) . $args{value} . qq(\n)
+        if ( $self->{verbose} );
     $self->{node_hash}->{$args{key}} = $args{value};
 } # sub set
 
@@ -227,56 +326,12 @@ given.
 
 =cut
 
-#### Package 'Hump::JSON::Manifest' ####
-package Hump::JSON::Manifest;
-# a package manifest containing a list of package groups and individual
-# packages
-use strict;
-use warnings;
-
-my @_manifest;
-
-sub new {
-    my $class = shift;
-    my %args = @_;
-
-    if ( ! defined($args{manifest}) ) {
-        warn qq(ERROR: Hump::JSON::Manifest was created without passing\n);
-        die qq('manifest' hash reference);
-    } # if ( ! defined($args{jsonvar}) )
-
-	# the file exists, bless it into an object
-	my $self = bless({ verbose => $args{verbose} }, $class);
-
-    @_manifest = @{$args{manifest}};
-    return $self;
-} # sub new 
-
-# FIXME PODs please
-
-sub get_manifest {
-# return the list of packages described in the JSON file
-    return @_manifest; 
-} # sub get_manifest
-
-# FIXME PODs please
-
-sub dump_manifest {
-    foreach my $manifest_key ( @_manifest ) {
-        print qq(manifest: $manifest_key\n);
-    } # foreach my $manifest_key ( @{$manifest} ) 
-} # sub dump_manifest    
-
-# FIXME PODs please
 
 #### Package 'Hump::JSON::Objects' ####
 package Hump::JSON::Objects;
 # a hash of package objects
 use strict;
 use warnings;
-
-my %_object_hash;
-my $_object_type;
 
 =pod
 
@@ -313,8 +368,10 @@ sub new {
     # internal objects hash using the key in the JSON object as the key in the
     # internal objects hash
     foreach my $object_id ( keys(%{$args{objects}}) ) {
+        warn qq(- creating node for $object_id\n) if ( $self->{verbose} );
         $self->{objects}->{$object_id} 
             = Hump::JSON::Node->new( 
+                    verbose => $self->{verbose},
                     jsonvar => $args{objects}{$object_id} );
     } # foreach my ( keys(%{$self->get_objects()}) )
 
@@ -376,7 +433,7 @@ sub get_object {
             && exists $self->{objects}->{$args{object_id}} ) {
         return $self->{objects}->{$args{object_id}};
     } else {
-        warn qq(package ) . $args{object_id} . qq(not defined/empty);
+        warn qq(package ) . $args{object_id} . qq( not defined/empty);
     }# if ( exists $object_hash{$args{object_id}} )
 } # sub get_object
 
@@ -441,6 +498,48 @@ Prints the keys to all of the objects in the object hash, prefixed by the
 object type.
 
 =cut
+
+#### Package 'Hump::JSON::Manifest' ####
+package Hump::JSON::Manifest;
+# a package manifest containing a list of package groups and individual
+# packages
+use strict;
+use warnings;
+
+my @_manifest;
+
+sub new {
+    my $class = shift;
+    my %args = @_;
+
+    if ( ! defined($args{manifest}) ) {
+        warn qq(ERROR: Hump::JSON::Manifest was created without passing\n);
+        die qq('manifest' hash reference);
+    } # if ( ! defined($args{jsonvar}) )
+
+	# the file exists, bless it into an object
+	my $self = bless({ verbose => $args{verbose} }, $class);
+
+    @_manifest = @{$args{manifest}};
+    return $self;
+} # sub new 
+
+# FIXME PODs please
+
+sub get_manifest {
+# return the list of packages described in the JSON file
+    return @_manifest; 
+} # sub get_manifest
+
+# FIXME PODs please
+
+sub dump_manifest {
+    foreach my $manifest_key ( @_manifest ) {
+        print qq(manifest: $manifest_key\n);
+    } # foreach my $manifest_key ( @{$manifest} ) 
+} # sub dump_manifest    
+
+# FIXME PODs please
 
 #### Package 'Hump::JSON::Distribution' ####
 package Hump::JSON::Distribution;
@@ -633,7 +732,56 @@ sub get_unpacked_size {
 	return $total_unarchived_size;
 } # sub get_unpacked_size
 
-#### end package Hump::File ####
+#### begin package Hump::Helper ####
+package Hump::Helper;
+use strict;
+use warnings;
+
+sub new {
+	my $class = shift;
+	my $self = bless ({}, $class);
+} # sub new
+
+sub output_section { 
+    my $self = shift;
+    my %args = @_;
+
+    my $indent = q();
+    if ( exists $args{indent} ) { $indent = q(    ); }
+    # a Hump::JSON::Node object
+    my $package = $args{package_obj};
+    # a scalar string
+    my $pkg_id = $args{package_id};
+
+    print $indent . qq(Section ") 
+        . $package->get(key => q(description)) . qq(" $pkg_id\n);
+    print $indent . q(    SectionIn ) 
+        . join(q( ), @{$package->get(key => q(sectionin_list))}) . qq(\n);
+    print $indent . qq(SectionEnd ; $pkg_id\n);
+} # sub output_section
+
+sub output_group {
+    my $self = shift;
+    my %args = @_;
+
+    # FIXME check for the '/e' switch (expand group) here
+    my $group = $args{group_obj};
+    my $packages = $args{packages};
+    print qq(\nSectionGroup ") 
+        . $group->get(key => q(description)) . qq("\n);
+    foreach my $section_item ( 
+        @{$group->get(key => q(sections_list))} ) {
+            my $group_package = $packages->get_object(
+                                object_id => $section_item );
+            $self->output_section( 
+                                indent => 1,
+                                package_obj => $group_package,
+                                package_id => $section_item,
+            ); # $self->output_section
+        } # foreach my $section_item
+        print qq(SectionGroupEnd ; ) 
+            . $group->get(key => q(description)) . qq(\n);
+} # sub output_group
 
 #### begin package main ####
 package main;
@@ -677,13 +825,16 @@ my $distro = Hump::JSON::Distribution->new(
 				verbose => $VERBOSE,
                 jsonfile => $o_jsonfile );
 
+# handlers for non-package and non-group entries in the manifest
+my $mischandler = Hump::MiscHandlers->new();
+# helper functions for this ѕcript
+my $humphelper = Hump::Helper->new();
+
 # get the manifest of this NSIS packages list
 my $manifest = $distro->get_manifest_obj();
 
-
 # get the list of groups in the JSON file
 my $groups = $distro->get_group_obj();
-
 
 # grab the packages object
 my $packages = $distro->get_package_obj();
@@ -698,15 +849,39 @@ if ( $VERBOSE ) {
 # handler, and outputting the NSIS script info for each type of object
 foreach my $manifest_key ( $manifest->get_manifest() ) {
     if ( $manifest_key =~ /^group/ ) {
-        print(qq(group object $manifest_key goes here\n));
+
+        # $current_group is a Hump::JSON::Node
         my $current_group = $groups->get_object( object_id => $manifest_key );
-#use Data::Dumper; 
-#print Dumper $current_group . qq(\n);
-        print q(keys: ) . join(q(:), $current_group->keys()) . qq(\n);
+        if ( $VERBOSE ) {
+            warn qq(group object '$manifest_key'\n);
+            warn q(  keys: ) . join(q(:), $current_group->keys()) . qq(\n);
+        } # if ( $VERBOSE )
+        $humphelper->output_group( 
+                        packages => $packages,
+                        group_obj => $current_group, 
+        ); # $humphelper->output_group
+
+
+
     } elsif ( $packages->object_exists(object_id => $manifest_key) ) {
-        print(qq(package object $manifest_key goes here\n));
+        warn(qq(package object '$manifest_key'\n)) if ( $VERBOSE);
+        # $current_package is a Hump::JSON::Node
+        my $current_package = $packages->get_object(
+                                object_id => $manifest_key );
+        warn q(  keys: ) . join(q(:), $current_package->keys()) . qq(\n)
+            if ( $VERBOSE );
+        $humphelper->output_section(
+                        package_id      => $manifest_key,
+                        package_obj     => $current_package,
+        ); # $humphelper->output_section
     } else {
-        print(qq(handler object $manifest_key goes here\n));
+        warn qq(handler object '$manifest_key'\n) if ( $VERBOSE );
+        if ( $mischandler->can($manifest_key) ) {
+            $mischandler->$manifest_key;
+            print qq(\n);
+        } else {
+            warn qq(Warning: don't know how to '$manifest_key');
+        } # if ( $mischandlers->can($manifest_key) )
     } # if ( $manifest_key =~ /^group/ )
 } # foreach my $manifest_key ( $manifest->get_objects() )
 
