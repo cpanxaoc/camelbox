@@ -803,7 +803,7 @@ use Pod::Usage;
 
 my $o_colorlog = 1;
 my $VERBOSE = 0;
-my ($o_timestamp, $o_startdir, $o_jsonfile);
+my ($o_timestamp, $o_startdir, $o_jsonfile, $o_pretend);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
