@@ -85,7 +85,8 @@ sub new {
 
 sub header {
     # FIXME perl-ify this
-    my $date = qx/date +%Y.%j.%H%mZ | tr -d '\n'/;
+	#my $date = qx/$datecmd +%Y.%j.%H%mZ | tr -d '\n'/;
+    my $date = q($Date$);
     print <<"HEREDOC"
 #==========================================================================
 #
@@ -208,7 +209,7 @@ sub new {
 	# the file exists, bless it into an object
 	my $self = bless({ 	
         jsonvar => $args{jsonvar}, 
-		verbose => $args{verbose},
+		logging => $args{logging},
         node_hash => {},
         }, 
         $class);
@@ -267,7 +268,7 @@ sub set {
     # so store it already
     warn qq(Hump::JSON::Node->set: ) 
         . $args{key} . q(:) . $args{value} . qq(\n)
-        if ( $self->{verbose} );
+        if ( $self->{logging} );
     $self->{node_hash}->{$args{key}} = $args{value};
 } # sub set
 
@@ -352,16 +353,16 @@ sub new {
     if ( ! defined($args{objects}) ) {
         warn qq(ERROR: Hump::JSON::Objects object created without passing\n);
         croak qq('objects' hash reference\n );
-    } # іf ( ! defined($args{objects}) ) 
+    } # if ( ! defined($args{objects}) ) 
 
     if ( ! defined($args{object_type}) ) {
         warn qq(ERROR: Hump::JSON::Objects object created without passing\n);
         croak "'object_type' string (a description of the object)\n ";
-    } # іf ( ! defined($args{objects}) ) 
+    } # if ( ! defined($args{objects}) ) 
 
     # bless an objects object
 	my $self = bless({ 
-            verbose => $args{verbose} , 
+			logging		=> $args{logging},
             object_type => $args{object_type},
             objects => {},
             }, $class);
@@ -370,16 +371,17 @@ sub new {
     # internal objects hash using the key in the JSON object as the key in the
     # internal objects hash
     foreach my $object_id ( keys(%{$args{objects}}) ) {
-        warn qq(- creating node for $object_id\n) if ( $self->{verbose} );
+        warn qq(- creating node for $object_id\n) 
+			if ( $self->{logging} = LOG_VERBOSE );
         $self->{objects}->{$object_id} 
             = Hump::JSON::Node->new( 
-                    verbose => $self->{verbose},
+                    logging => $self->{logging},
                     jsonvar => $args{objects}{$object_id} );
     } # foreach my ( keys(%{$self->get_objects()}) )
 
-    print qq(Picked up ) . scalar( $self->get_object_count() ) . qq( )
+    warn qq(-> Picked up ) . scalar( $self->get_object_count() ) . qq( )
         . $self->{object_type} . qq( objects\n)
-        if ( $args{verbose} );
+        if ( $self->{logging} = LOG_VERBOSE );
 
     return $self;
 } # sub new
@@ -521,7 +523,7 @@ sub new {
     } # if ( ! defined($args{jsonvar}) )
 
 	# the file exists, bless it into an object
-	my $self = bless({ verbose => $args{verbose} }, $class);
+	my $self = bless({ logging => $args{logging} }, $class);
 
     @_manifest = @{$args{manifest}};
     return $self;
@@ -563,7 +565,8 @@ sub new {
 
 	# the file exists, bless it into an object
 	my $self = bless({ 	jsonfile => $args{jsonfile}, 
-						verbose => $args{verbose} }, $class);
+						logging => $args{logging},
+				   	}, $class);
 	open(FH, $self->{jsonfile}) 
 		|| croak qq(Can't open file ) . $self->{jsonfile} . qq(: $!\n );
 	binmode(FH);
@@ -575,17 +578,19 @@ sub new {
 	$self->{jsonobj} = $parser->decode($json_string);
     $self->{_manifest_obj} = Hump::JSON::Manifest->new(
             manifest    => $self->{jsonobj}{manifest},
-            verbose     => $self->{verbose} );
+            logging     => $self->{logging} );
 
     $self->{_package_obj} = Hump::JSON::Objects->new( 
             objects     => $self->{jsonobj}{packages},
             object_type => q(package),
-            verbose     => $self->{verbose} );
+            logging     => $self->{logging},
+	);
 
     $self->{_group_obj} = Hump::JSON::Objects->new( 
             objects     => $self->{jsonobj}{groups},
             object_type => q(group),
-            verbose     => $self->{verbose} );
+            logging     => $self->{logging},
+	);
 	return $self;
 } # sub new
 
@@ -683,7 +688,7 @@ sub new {
     } # if ( exists $args{filename} )
 	# the file exists, bless it into an object
 	my $self = bless({ 	filename => $args{filename}, 
-						verbose => $args{verbose} }, $class);
+						logging => $args{logging} }, $class);
 	open(FH, $self->{filename}) 
 		|| croak qq(Can't open file ) . $self->{filename} . qq(: $!\n );
 	binmode(FH);
@@ -692,10 +697,10 @@ sub new {
 	return $self;
 } # sub new
 
-sub verbose  {
+sub loglevel {
 	my $self = shift;
-	return $self->{verbose};
-} # sub verbose
+	return $self->{logging};
+} # sub loglevel
 
 sub filename {
 	my $self = shift;
@@ -734,7 +739,7 @@ sub get_unpacked_size {
 			next if ( $archive_file_size == 0 );
 			my $archive_file_name = (split(/ /, $line))[5];
 			print(qq(Size of file $archive_file_name is $archive_file_size\n))
-				if ( $self->verbose );
+				if ( $self->logging() );
 			$total_unarchived_size += $archive_file_size;
 		} # foreach my $line ( @split_list )
 	} else {
@@ -765,15 +770,13 @@ sub new {
     croak(q(ERROR: No *.lzma files found in ) . $args{startdir} . qq(\n )) 
 	    unless ( scalar(@archive_files) > 0 );
 
-    if ( $args{verbose} ) {
-        warn qq(Found ) . scalar(@archive_files) 
-            . qq( files in ) . $args{startdir} . qq(\n);
-    } # if ( $args{verbose} )
+	warn qq(-> Found ) . scalar(@archive_files) 
+   		. qq( files in ) . $args{startdir} . qq(\n);
 
     # build a list of files that can have files removed when they match
     # filenames contained in the JSON document
     foreach my $current_file (@archive_files) {
-    	my $humpfile = Hump::File->new( verbose => $args{verbose}, 
+    	my $humpfile = Hump::File->new( logging => $args{logging}, 
     									filename => $current_file );
         $self->add_file(humpfile => $humpfile);
     } # foreach my $current_file (@files)
@@ -784,7 +787,7 @@ sub add_file {
     my %args = @_;
 
     my $humpfile = $args{humpfile};
-    if ( $humpfile->{verbose} ) {
+    if ( $humpfile->{logging} = LOG_DEBUG ) {
         warn q(file: ) . $humpfile->filename() . qq(\n);
         warn qq(md5sum: ) . $humpfile->md5sum() . qq(\n);
         # shorten it to kilobytes, this is what NSIS is expecting
@@ -817,6 +820,8 @@ sub get_file_regex {
     croak qq(ERROR: get_file_regex called without a regular expression\n ) 
         unless ( $args{regex} );
     my $filename_pattern = qr/$args{regex}/;
+} # sub get_file_regex
+
 # FIXME
 # query the files list for a list of filenames that match $filename_pattern
 # return the list of files to the caller
@@ -890,20 +895,30 @@ use File::Find::Rule;
 use Pod::Usage;
 use Carp;
 
+use constant {
+	LOG_VERBOSE => 1,
+	LOG_DEBUG => 2,
+}; # use constant
+
 my $o_colorlog = 1;
 my $VERBOSE = 0;
+my $DEBUG = 0;
 # this is fugly, but it works
 my $program_name = (split(/\//,$0))[-1];
 warn qq(==== $program_name ====\n);
-my ($o_timestamp, $o_startdir, $o_jsonfile);
+my ($logging, $o_timestamp, $o_startdir, $o_jsonfile);
 my $go_parse = Getopt::Long::Parser->new();
-$go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
-                        q(help|h)                       => \&ShowHelp,
-                        q(timestamp|t=s)                => \$o_timestamp,
-                        q(startdir|s=s)                 => \$o_startdir,
-						q(jsonfile|j:s)                 => \$o_jsonfile,
-                    ); # $go_parse->getoptions
+$go_parse->getoptions( 
+	q(verbose|v)                    => \$VERBOSE,
+	q(debug|d)                    	=> \$DEBUG,
+    q(help|h)                       => \&ShowHelp,
+    q(timestamp|t=s)                => \$o_timestamp,
+    q(startdir|s=s)                 => \$o_startdir,
+	q(jsonfile|j:s)                 => \$o_jsonfile,
+); # $go_parse->getoptions
 
+if ( $VERBOSE ) { $logging = LOG_VERBOSE };
+if ( $DEBUG ) { $logging = LOG_DEBUG };
 # verify the start directory was passed in and exists
 if ( ! defined $o_startdir ) { 
 	warn(qq(ERROR: start directory needed for searching;\n));
@@ -928,7 +943,7 @@ if ( ! -d $o_startdir ) {
 warn qq(-> Reading JSON distribution file '$o_jsonfile'\n);
 # read in the JSON distro file
 my $distro = Hump::JSON::Distribution->new( 
-				verbose => $VERBOSE,
+				logging => $logging,
                 jsonfile => $o_jsonfile );
 
 # get the manifest of this NSIS packages list
@@ -952,7 +967,8 @@ if ( $VERBOSE ) {
 my $mischandler = Hump::MiscHandlers->new();
 # file/package operations
 warn qq(-> Cataloging archive files in '$o_startdir'\n);
-my $filelist = Hump::ArchiveFileList->new(startdir => $o_startdir);
+my $filelist = Hump::ArchiveFileList->new(	logging		=> $logging,
+											startdir 	=> $o_startdir);
 # object that writes blocks of NSIS scripting
 my $writeblocks = Hump::WriteBlocks->new( 
         filelist => $filelist, 
@@ -980,7 +996,7 @@ foreach my $manifest_key ( $manifest->get_manifest() ) {
                         package_obj     => $current_package,
         ); # $writeblocks->output_section
     } else {
-        warn qq(handler object '$manifest_key'\n) if ( $VERBOSE );
+        warn qq(-> Handler object '$manifest_key'\n) if ( $VERBOSE );
         if ( $mischandler->can($manifest_key) ) {
             $mischandler->$manifest_key;
             print qq(\n);
