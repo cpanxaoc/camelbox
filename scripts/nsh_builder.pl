@@ -186,7 +186,7 @@ HEREDOC
 package Hump::JSON::Node;
 use strict;
 use warnings;
-use Carp;
+use Log::Log4perl qw(get_logger);
 
 =pod
 
@@ -200,16 +200,16 @@ from the JSON file.
 sub new {
     my $class = shift;
     my %args = @_;
+    my $logger = get_logger();
 
     if ( ! defined($args{jsonvar}) ) {
-        warn qq(ERROR: Hump::JSON::Node was created without passing\n);
-        croak qq('jsonvar' hash reference\n );
+        $logger->error(qq(Hump::JSON::Node was created without passing));
+        $logger->logcroak(qq('jsonvar' hash reference\n ));
     } # if ( ! defined($args{jsonvar}) )
 
 	# the file exists, bless it into an object
 	my $self = bless({ 	
         jsonvar => $args{jsonvar}, 
-		logging => $args{logging},
         node_hash => {},
         }, 
         $class);
@@ -261,14 +261,14 @@ Returns the keys of a L<Hump::JSON::Node> object.
 sub set {
     my $self = shift;
     my %args = @_;
+    my $logger = get_logger();
 
-    croak qq(ERROR: set method called without 'key'/'value' arguments\n )
+    $logger->logcroak(qq(set method called without 'key'/'value' arguments))
         unless ( exists $args{key} && exists $args{value} );
 
     # so store it already
-    warn qq(Hump::JSON::Node->set: ) 
-        . $args{key} . q(:) . $args{value} . qq(\n)
-        if ( $self->{logging} );
+    $logger->debug(qq(Hump::JSON::Node->set: ) 
+        . $args{key} . q(:) . $args{value});
     $self->{node_hash}->{$args{key}} = $args{value};
 } # sub set
 
@@ -296,15 +296,16 @@ Value to store with key in object hash.
 sub get {
     my $self = shift;
     my %args = @_;
+    my $logger = get_logger();
 
-    croak qq(ERROR: get method called without 'key' argument\n )
+    $logger->logcroak(qq(ERROR: get method called without 'key' argument))
         unless ( defined $args{key} );
 
     if ( exists $self->{node_hash}->{$args{key}} ) {
         return $self->{node_hash}->{$args{key}};
     } else {
-        warn qq(WARNING: Key ) . $args{key} 
-            . qq( does not exist in this object\n);
+        $logger->error(qq(Key ) . $args{key} 
+            . qq( does not exist in this object));
     } # if ( exists $node_hash{$args{key}} )
 } # sub get
 
@@ -334,7 +335,7 @@ package Hump::JSON::Objects;
 # a hash of package objects
 use strict;
 use warnings;
-use Carp;
+use Log::Log4perl qw(get_logger);
 
 =pod
 
@@ -349,20 +350,20 @@ descriptions.
 sub new {
     my $class = shift;
     my %args = @_;
+    my $logger = get_logger();
 
     if ( ! defined($args{objects}) ) {
-        warn qq(ERROR: Hump::JSON::Objects object created without passing\n);
-        croak qq('objects' hash reference\n );
+        $logger->error(qq(Hump::JSON::Objects object created without passing));
+        $logger->logcroak(qq('objects' hash reference));
     } # if ( ! defined($args{objects}) ) 
 
     if ( ! defined($args{object_type}) ) {
-        warn qq(ERROR: Hump::JSON::Objects object created without passing\n);
-        croak "'object_type' string (a description of the object)\n ";
+        $logger->error(qq(Hump::JSON::Objects object created without passing));
+        $logger->logcroak("'object_type' string (a description of the object)");
     } # if ( ! defined($args{objects}) ) 
 
     # bless an objects object
 	my $self = bless({ 
-			logging		=> $args{logging},
             object_type => $args{object_type},
             objects => {},
             }, $class);
@@ -371,17 +372,13 @@ sub new {
     # internal objects hash using the key in the JSON object as the key in the
     # internal objects hash
     foreach my $object_id ( keys(%{$args{objects}}) ) {
-        warn qq(- creating node for $object_id\n) 
-			if ( $self->{logging} = LOG_VERBOSE );
+        $logger->info(qq(creating node for $object_id));
         $self->{objects}->{$object_id} 
-            = Hump::JSON::Node->new( 
-                    logging => $self->{logging},
-                    jsonvar => $args{objects}{$object_id} );
+            = Hump::JSON::Node->new( jsonvar => $args{objects}{$object_id} );
     } # foreach my ( keys(%{$self->get_objects()}) )
 
-    warn qq(-> Picked up ) . scalar( $self->get_object_count() ) . qq( )
-        . $self->{object_type} . qq( objects\n)
-        if ( $self->{logging} = LOG_VERBOSE );
+    $logger->warn(qq(Picked up ) . scalar( $self->get_object_count() ) . qq( )
+        . $self->{object_type} . qq( objects));
 
     return $self;
 } # sub new
@@ -432,13 +429,14 @@ objects hash.  Returns false (0) otherwise.
 sub get_object {
     my $self = shift;
     my %args = @_;
+    my $logger = get_logger();
 
     if ( defined $self->{objects}
             && exists $self->{objects}->{$args{object_id}} ) {
         return $self->{objects}->{$args{object_id}};
     } else {
-        warn qq(package ) . $args{object_id} . qq( not defined/empty);
-    }# if ( exists $object_hash{$args{object_id}} )
+        $logger->warn(qq(package ) . $args{object_id} . qq( not defined/empty));
+    } # if ( exists $object_hash{$args{object_id}} )
 } # sub get_object
 
 =pod 
@@ -452,11 +450,12 @@ B<object_id> does not exist.
 
 sub get_objects {
     my $self = shift;
+    my $logger = get_logger();
 
     if ( scalar(keys(%{$self->{objects}}) > 0 )  ) {
         return sort(keys(%{$self->{objects}}));
     } else {
-        warn qq(Warning: No objects are stored in the object hash\n);
+        $logger->warn(qq(No objects are stored in the object hash));
     } # if ( scalar(keys($self->{objects}) > 0 ) 
 } # sub get_objects
 
@@ -490,7 +489,7 @@ attribute.
 sub dump_objects {
     my $self = shift;
     foreach my $object_key ( $self->get_objects() ) {
-        print $self->{object_type} . qq(: $object_key\n);
+        warn $self->{object_type} . qq(: $object_key\n);
     } # foreach my $object_key ( $self->get_objects() )
 } # sub dump_objects
 
@@ -498,8 +497,8 @@ sub dump_objects {
 
 =head3 dump_objects()
 
-Prints the keys to all of the objects in the object hash, prefixed by the
-object type.
+Prints the keys to all of the objects in the object hash to STDERR, prefixed
+by the object type.
 
 =cut
 
@@ -509,7 +508,7 @@ package Hump::JSON::Manifest;
 # packages
 use strict;
 use warnings;
-use Carp;
+use Log::Log4perl qw(get_logger);
 
 my @_manifest;
 
@@ -894,39 +893,60 @@ use Getopt::Long;
 use File::Find::Rule;
 use Pod::Usage;
 use Carp;
+use Log::Log4perl qw(get_logger);
+use Log::Log4perl::Level;
 
-use constant {
-	LOG_VERBOSE => 1,
-	LOG_DEBUG => 2,
-}; # use constant
-
-my $o_colorlog = 1;
-my $VERBOSE = 0;
-my $DEBUG = 0;
+my $o_verbose = 0;
+my $o_debug = 0;
 # this is fugly, but it works
 my $program_name = (split(/\//,$0))[-1];
 warn qq(==== $program_name ====\n);
 my ($logging, $o_timestamp, $o_startdir, $o_jsonfile);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions( 
-	q(verbose|v)                    => \$VERBOSE,
-	q(debug|d)                    	=> \$DEBUG,
+	q(verbose|v)                    => \$o_verbose,
+	q(debug|d)                    	=> \$o_debug,
     q(help|h)                       => \&ShowHelp,
     q(timestamp|t=s)                => \$o_timestamp,
     q(startdir|s=s)                 => \$o_startdir,
 	q(jsonfile|j:s)                 => \$o_jsonfile,
+    q(colorlog!)                    => \$o_colorlog,
 ); # $go_parse->getoptions
 
-if ( $VERBOSE ) { $logging = LOG_VERBOSE };
-if ( $DEBUG ) { $logging = LOG_DEBUG };
+# always turn off color logs under Windows, the terms don't do ANSI
+if ( $^O =~ /MSWin32/ ) { $o_colorlog = 0; }
+
+# set up the logger
+my $logger_conf = qq(log4perl.rootLogger = WARN, Screen\n);
+if ( $o_colorlog ) {
+    $logger_conf .= qq(log4perl.appender.Screen = )
+        . qq(Log::Log4perl::Appender::ScreenColoredLevels\n);
+} else {
+    $logger_conf .= qq(log4perl.appender.Screen = )
+        . qq(Log::Log4perl::Appender::Screen\n);
+} # if ( $Config->get(q(o_colorlog)) )
+
+$logger_conf .= qq(log4perl.appender.Screen.stderr = 1\n)
+    . qq(log4perl.appender.Screen.layout = PatternLayout\n)
+#. q(log4perl.appender.Screen.layout.ConversionPattern = %d %p %m%n)
+    . q(log4perl.appender.Screen.layout.ConversionPattern = %p -> %m%n)
+    . qq(\n);
+#log4perl.appender.Screen.layout.ConversionPattern = %d %p> %F{1}:%L %M - %m%n
+# create the logger object
+Log::Log4perl::init( \$logger_conf );
+my $logger = get_logger("");
+
+# change the log level from INFO if the user requests more gar-bage
+if ( $VERBOSE ) { $logger->level($INFO); }
+if ( $DEBUG ) { $logger->level($DEBUG); }
 # verify the start directory was passed in and exists
 if ( ! defined $o_startdir ) { 
-	warn(qq(ERROR: start directory needed for searching;\n));
+	$logger->warn(qq(start directory needed for searching;));
 	&HelpCroak;
 } # if ( ! defined $o_startdir )
 
 if ( ! -d $o_startdir ) {
-	croak(qq(ERROR: start directory $o_startdir does not exist\n ));
+	$logger->croak(qq(start directory $o_startdir does not exist));
 } # if ( ! -d $o_startdir )
 
 # script operations:
@@ -940,7 +960,7 @@ if ( ! -d $o_startdir ) {
 # patterns in the JSON file that didn't have a corresponding file on the
 # filesystem
 
-warn qq(-> Reading JSON distribution file '$o_jsonfile'\n);
+$logger->warn(qq(Reading JSON distribution file '$o_jsonfile'));
 # read in the JSON distro file
 my $distro = Hump::JSON::Distribution->new( 
 				logging => $logging,
@@ -966,7 +986,7 @@ if ( $VERBOSE ) {
 # handlers for non-package and non-group entries in the manifest
 my $mischandler = Hump::MiscHandlers->new();
 # file/package operations
-warn qq(-> Cataloging archive files in '$o_startdir'\n);
+$logger->warn(qq(Cataloging archive files in '$o_startdir'));
 my $filelist = Hump::ArchiveFileList->new(	logging		=> $logging,
 											startdir 	=> $o_startdir);
 # object that writes blocks of NSIS scripting
@@ -979,29 +999,26 @@ foreach my $manifest_key ( $manifest->get_manifest() ) {
     if ( $manifest_key =~ /^group/ ) {
         # $current_group is a Hump::JSON::Node
         my $current_group = $groups->get_object( object_id => $manifest_key );
-        if ( $VERBOSE ) {
-            warn qq(group object '$manifest_key'\n);
-            warn q(  keys: ) . join(q(:), $current_group->keys()) . qq(\n);
-        } # if ( $VERBOSE )
+        $logger->info(qq(group object '$manifest_key'));
+        $logger->info(q(  keys: ) . join(q(:), $current_group->keys()) );
         $writeblocks->output_group( group_obj => $current_group);
     } elsif ( $packages->object_exists(object_id => $manifest_key) ) {
-        warn(qq(package object '$manifest_key'\n)) if ( $VERBOSE);
+        $logger->info(qq(package object '$manifest_key'));
         # $current_package is a Hump::JSON::Node
         my $current_package = $packages->get_object(
                                 object_id => $manifest_key );
-        warn q(  keys: ) . join(q(:), $current_package->keys()) . qq(\n)
-            if ( $VERBOSE );
+        $logger->info(q(  keys: ) . join(q(:), $current_package->keys()) );
         $writeblocks->output_section(
                         package_id      => $manifest_key,
                         package_obj     => $current_package,
         ); # $writeblocks->output_section
     } else {
-        warn qq(-> Handler object '$manifest_key'\n) if ( $VERBOSE );
+        $logger->warn(qq(Handler object '$manifest_key'));
         if ( $mischandler->can($manifest_key) ) {
             $mischandler->$manifest_key;
             print qq(\n);
         } else {
-            warn qq(Warning: don't know how to '$manifest_key');
+            $logger->error(qq(don't know how to '$manifest_key'));
         } # if ( $mischandlers->can($manifest_key) )
     } # if ( $manifest_key =~ /^group/ )
 } # foreach my $manifest_key ( $manifest->get_objects() )
