@@ -917,6 +917,8 @@ $go_parse->getoptions(
 if ( $^O =~ /MSWin32/ ) { $o_colorlog = 0; }
 
 # set up the logger
+# FIXME change the ConversionPattern below for Windows; since you can't use
+# ANSI.SYS (no colorization), add the loglevel to the output
 my $logger_conf = qq(log4perl.rootLogger = WARN, Screen\n);
 if ( $o_colorlog ) {
     $logger_conf .= qq(log4perl.appender.Screen = )
