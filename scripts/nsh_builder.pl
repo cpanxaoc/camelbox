@@ -48,12 +48,7 @@
 
 =head1 NAME
 
-B<nsh_builder.pl> - Generate Camelbox filelists of one or more types
-
-=head1 VERSION
-
-The SVN version of this file is $Revision$. See the top of this file for
-the author's version number.
+B<nsh_builder.pl> - Generate Camelbox NSIS filelists
 
 =head1 SYNOPSIS
 
@@ -65,6 +60,10 @@ the author's version number.
  --timestamp|-t     Timestamp to use with output filenames
  --jsonfile|-j      JSON file that describes packages and groups
 
+ --nocolorlog       Turn off ANSI colors for logging messages
+ --verbose          Verbose script execution
+ --debug            Even more verbose script execution
+
  Example usage:
 
  perl nsh_builder.pl --jsonfile file.json --startdir . \
@@ -74,7 +73,7 @@ the author's version number.
 
 =cut
 
-package Hump::MiscHandlers;
+package Hump::BlockHandlers;
 use strict;
 use warnings;
 
@@ -225,7 +224,7 @@ sub new {
 
 =pod 
 
-=head3 new( jsonvar => {JSON variable reference}, verbose => {0|1} )
+=head3 new( jsonvar => {JSON variable reference} )
 
 Creates a L<Hump::JSON::Node> object.  Takes the following arguments:
 
@@ -235,10 +234,6 @@ Creates a L<Hump::JSON::Node> object.  Takes the following arguments:
 
 A reference to the hash containing the key/value pairs to be stored in the
 L<Hump::JSON::Node> object.
-
-=item verbose 
-
-Verbose debugging output.  (0 = false, 1 = true; default = 0) 
 
 =back
 
@@ -385,7 +380,7 @@ sub new {
 
 =pod 
 
-=head3 new( jsonvar => {JSON variable reference}, verbose => {0|1} )
+=head3 new( jsonvar => {JSON variable reference} )
 
 Creates a L<Hump::JSON::Node> object.  Takes the following key/value pairs
 as arguments:
@@ -396,10 +391,6 @@ as arguments:
 
 A reference to the hash containing the key/value pairs to be stored in the
 L<Hump::JSON::Node> object.
-
-=item verbose
-
-Verbose debugging output.  (0 = false, 1 = true; default = 0) 
 
 =back
 
@@ -515,59 +506,86 @@ my @_manifest;
 sub new {
     my $class = shift;
     my %args = @_;
+    my $logger = get_logger();
 
     if ( ! defined($args{manifest}) ) {
-        warn qq(ERROR: Hump::JSON::Manifest was created without passing\n);
-        croak qq('manifest' hash reference\n );
-    } # if ( ! defined($args{jsonvar}) )
+        $logger->warn(qq(Hump::JSON::Manifest was created without passing));
+        $logger->logcroak(qq('manifest' hash reference));
+    } # if ( ! defined($args{manifest}) )
 
 	# the file exists, bless it into an object
-	my $self = bless({ logging => $args{logging} }, $class);
+	my $self = bless({}, $class);
 
     @_manifest = @{$args{manifest}};
     return $self;
 } # sub new 
 
-# FIXME PODs please
+=pod 
+
+=head3 new( manifest => {manifest list} )
+
+Creates a L<Hump::JSON::Manifest> object.
+
+=over 4
+
+=item manifest
+
+A list of manifest 'keywords' as arguments.
+
+=back
+
+=cut
 
 sub get_manifest {
 # return the list of packages described in the JSON file
     return @_manifest; 
 } # sub get_manifest
 
-# FIXME PODs please
+=pod
+
+=head3 get_manifest()
+
+Returns the manifest list.
+
+=cut
 
 sub dump_manifest {
     foreach my $manifest_key ( @_manifest ) {
-        print qq(manifest: $manifest_key\n);
+         warn qq(manifest: $manifest_key\n);
     } # foreach my $manifest_key ( @{$manifest} ) 
 } # sub dump_manifest    
 
-# FIXME PODs please
+=pod
+
+=head3 dump_manifest()
+
+Prints the manifest list to STDERR.
+
+=cut
 
 #### Package 'Hump::JSON::Distribution' ####
 package Hump::JSON::Distribution;
 use strict;
 use warnings;
 use JSON;
-use Carp;
+use Log::Log4perl qw(get_logger);
 
 sub new {
 	my $class = shift;
 	my %args = @_;
+    my $logger = get_logger();
 	
-    croak qq(ERROR: JSON filelist undefined\n ) unless defined($args{jsonfile});
+    $logger->logcroak(qq(JSON filelist undefined))
+        unless ( defined($args{jsonfile}) );
 
-	if ( ! -f $args{jsonfile} ) {
-		croak(qq(ERROR: JSON file ) . $args{jsonfile} . qq( does not exist\n ));
-	} # if ( -f $args{jsonfile} )
+    $logger->logcroak(qq(JSON file ) . $args{jsonfile} . qq( does not exist))
+        unless ( -f $args{jsonfile} );
 
 	# the file exists, bless it into an object
-	my $self = bless({ 	jsonfile => $args{jsonfile}, 
-						logging => $args{logging},
-				   	}, $class);
+	my $self = bless({ 	jsonfile => $args{jsonfile} }, $class);
 	open(FH, $self->{jsonfile}) 
-		|| croak qq(Can't open file ) . $self->{jsonfile} . qq(: $!\n );
+        || $logger->logcroak(qq(Can't open file ) 
+        . $self->{jsonfile} . qq(: $!));
 	binmode(FH);
     my $parser = JSON->new->ascii->pretty->allow_nonref;
     my $json_string;
@@ -577,18 +595,16 @@ sub new {
 	$self->{jsonobj} = $parser->decode($json_string);
     $self->{_manifest_obj} = Hump::JSON::Manifest->new(
             manifest    => $self->{jsonobj}{manifest},
-            logging     => $self->{logging} );
+    );
 
     $self->{_package_obj} = Hump::JSON::Objects->new( 
             objects     => $self->{jsonobj}{packages},
             object_type => q(package),
-            logging     => $self->{logging},
 	);
 
     $self->{_group_obj} = Hump::JSON::Objects->new( 
             objects     => $self->{jsonobj}{groups},
             object_type => q(group),
-            logging     => $self->{logging},
 	);
 	return $self;
 } # sub new
@@ -640,7 +656,7 @@ package Hump::File;
 use strict;
 use warnings;
 use Digest::MD5;
-use Carp;
+use Log::Log4perl qw(get_logger);
 
 =pod
 
@@ -675,31 +691,25 @@ The CRC32 checksum for the file.  Not available for directories.
 sub new {
 	my $class = shift;
 	my %args = @_;
+    my $logger = get_logger();
 	
     if ( exists $args{filename} && exists $args{file_regex} ) {
-        warn qq(ERROR: use either 'filename' *OR* 'file_regex'\n);
-        croak qq( parameters when creating a Hump::File object (not both)\n);
+        $logger->warn(qq(use either 'filename' *OR* 'file_regex' parameters));
+        $logger->logcroak(qq( when creating a Hump::File object (not both)) );
     } elsif ( exists $args{filename} ) {
-    	if ( ! -f $args{filename} ) {
-	    	croak(qq(ERROR: filename ) . $args{filename} 
-                . qq( does not exist\n ));
-    	} # if ( -f $args{filename} )
+        $logger->logcroak(qq(filename ) . $args{filename} 
+            . qq( does not exist\n ))
+        	unless ( -f $args{filename} );
     } # if ( exists $args{filename} )
 	# the file exists, bless it into an object
-	my $self = bless({ 	filename => $args{filename}, 
-						logging => $args{logging} }, $class);
-	open(FH, $self->{filename}) 
-		|| croak qq(Can't open file ) . $self->{filename} . qq(: $!\n );
+	my $self = bless({ 	filename => $args{filename}, }, $class);
+	open(FH, $self->{filename}) || $logger->logcroak(qq(Can't open file ) 
+        . $self->{filename} . qq(: $!));
 	binmode(FH);
 	$self->{md5sum} = Digest::MD5->new->addfile(*FH)->hexdigest;
 	$self->{unpacked_size} = $self->get_unpacked_size();
 	return $self;
 } # sub new
-
-sub loglevel {
-	my $self = shift;
-	return $self->{logging};
-} # sub loglevel
 
 sub filename {
 	my $self = shift;
@@ -713,16 +723,18 @@ sub md5sum {
 
 sub get_unpacked_size {
 	my $self = shift;
+    my $logger = get_logger();
 
 	my $total_unarchived_size = 0;
     # FIXME add a check for script verbosity here, BSD tar is barfing on some
     # of the archive files, and printing the file prior to running tar on it
     # would isolate the problem file
     my $cmd;
+    $logger->info(q(Obtaining unpacked size of) . $self->filename() );
     if ( $^O eq q(MSWin32) ) {
-    	$cmd = q(lzma -so d ) . $self->filename . q( 2>nul: | tar -tv);
+    	$cmd = q(lzma -so d ) . $self->filename() . q( 2>nul: | tar -tv);
     } else {
-    	$cmd = q(lzma -c -d ) . $self->filename . q( 2>/dev/null | tar -tv);
+    	$cmd = q(lzma -c -d ) . $self->filename() . q( 2>/dev/null | tar -tv);
     } # if ( $^O eq q(MSWin32) )
 	my $archive_list = qx/$cmd/;
 	chomp($archive_list);
@@ -737,13 +749,13 @@ sub get_unpacked_size {
 			# skip empty files/directories
 			next if ( $archive_file_size == 0 );
 			my $archive_file_name = (split(/ /, $line))[5];
-			print(qq(Size of file $archive_file_name is $archive_file_size\n))
-				if ( $self->logging() );
+			$logger->debug(qq(Size of file $archive_file_name is )
+                . qq($archive_file_size\n));
 			$total_unarchived_size += $archive_file_size;
 		} # foreach my $line ( @split_list )
 	} else {
-		warn(q(Hmmm.  Something went wrong with lzma/tar command:));
-		warn(qq($cmd));
+		$logger->warn(q(Hmmm.  Something went wrong with lzma/tar command:));
+        $logger->warn(qq($cmd));
 	} # if ( length($archive_list) > 0 )
 	return $total_unarchived_size;
 } # sub get_unpacked_size
@@ -752,49 +764,52 @@ sub get_unpacked_size {
 package Hump::ArchiveFileList;
 use strict;
 use warnings;
-use Carp;
+use Log::Log4perl qw(get_logger);
 
 sub new {
 	my $class = shift;
     my %args = @_;
+    my $logger = get_logger();
+
 	my $self = bless ({ files => {} }, $class);
 
-    croak qq(ERROR: Hump::ArchiveFileList::new called )
-        . qq(without 'startdir' argument\n ) 
-        unless ( $args{startdir} );
+    $logger->logcroak(qq(Hump::ArchiveFileList::new called )
+        . qq(without 'startdir' argument)) 
+        unless ( exists $args{startdir} );
 
     my @archive_files = File::Find::Rule->file()
         ->name(q(*.lzma))->in($args{startdir});
 
-    croak(q(ERROR: No *.lzma files found in ) . $args{startdir} . qq(\n )) 
+    $logger->logcroak(q(No *.lzma files found in ) . $args{startdir}) 
 	    unless ( scalar(@archive_files) > 0 );
 
-	warn qq(-> Found ) . scalar(@archive_files) 
-   		. qq( files in ) . $args{startdir} . qq(\n);
+	$logger->warn(qq(Found ) . scalar(@archive_files) 
+   		. qq( files in ) . $args{startdir});
 
     # build a list of files that can have files removed when they match
     # filenames contained in the JSON document
     foreach my $current_file (@archive_files) {
-    	my $humpfile = Hump::File->new( logging => $args{logging}, 
-    									filename => $current_file );
+    	my $humpfile = Hump::File->new( filename => $current_file );
         $self->add_file(humpfile => $humpfile);
     } # foreach my $current_file (@files)
+    return $self;
 } # sub new
 
 sub add_file {
     my $self = shift;
     my %args = @_;
+    my $logger = get_logger();
 
     my $humpfile = $args{humpfile};
-    if ( $humpfile->{logging} = LOG_DEBUG ) {
-        warn q(file: ) . $humpfile->filename() . qq(\n);
-        warn qq(md5sum: ) . $humpfile->md5sum() . qq(\n);
+    if ( $logger->is_debug ) {
+        $logger->debug(q(file: ) . $humpfile->filename());
+        $logger->debug(qq(md5sum: ) . $humpfile->md5sum());
         # shorten it to kilobytes, this is what NSIS is expecting
         my $unpacked_size_in_kilobytes = sprintf("%d",
         	$humpfile->get_unpacked_size / 1000);
-        warn qq(total size of archive when unpacked: ) 
-        	. $unpacked_size_in_kilobytes . qq(k\n);
-    } # if ( $humpfile->{verbose} )
+        $logger->debug(qq(total size of archive when unpacked: ) 
+        	. $unpacked_size_in_kilobytes . qq(k));
+    } # if ( $logger->is_debug )
 
     # add the humpfile object to the files hash
     $self->{files}->{$humpfile->filename()} = $humpfile;
@@ -803,35 +818,50 @@ sub add_file {
 sub get_file {
     my $self = shift;
     my %args = @_;
+    my $logger = get_logger();
 
-    croak qq(ERROR: get_file called without a filename argument\n ) 
+    $logger->logcroak(qq(get_file called without a filename argument)) 
         unless ( $args{filename} );
 
-	if ( defined $self->{files}->{$args{filename}} ) {
-		croak qq(ERROR: get_file requested for file that does not exist\n );
-	} # if ( -f $args{jsonfile} )
+    $logger->logcroak(qq(get_file requested for file that does not exist))
+	    unless ( defined $self->{files}->{$args{filename}} ); 
+
+    return $self->{files}->{$args{filename}};
 } # sub get_file
 
 sub get_file_regex {
     my $self = shift;
     my %args = @_;
+    my $logger = get_logger();
 
-    croak qq(ERROR: get_file_regex called without a regular expression\n ) 
+    $logger->logcroak(q(get_file_regex called without a regular expression))
         unless ( $args{regex} );
     my $filename_pattern = qr/$args{regex}/;
+    my @keys = keys(%{$self->{files}});
+    my @matches = grep($filename_pattern, @keys);
+    $logger->warn(q(get_file_regex matches: ) . join(q(:), @matches) );
 } # sub get_file_regex
 
 # FIXME
 # query the files list for a list of filenames that match $filename_pattern
 # return the list of files to the caller
+
 #### Package Hump::WriteBlocks ####
 package Hump::WriteBlocks;
 use strict;
 use warnings;
+use Log::Log4perl qw(get_logger);
 
 sub new {
 	my $class = shift;
     my %args = @_;
+    my $logger = get_logger();
+
+    $logger->logcroak(qq(Hump::ArchiveFileList object required as 'filename')) 
+        unless ( defined $args{filelist} );
+
+    $logger->logcroak(qq(Packages object requird as 'packages'))
+	    unless ( defined $args{packages} ); 
 
 	my $self = bless ({ 
             filelist => $args{filelist},
@@ -843,6 +873,7 @@ sub new {
 sub output_section { 
     my $self = shift;
     my %args = @_;
+    my $logger = get_logger();
 
     my $indent = q();
     if ( exists $args{indent} ) { $indent = q(    ); }
@@ -852,6 +883,7 @@ sub output_section {
     my $pkg_id = $args{package_id};
     # a list of file objects
     my $filelist = $self->{filelist};
+    $filelist->get_file_regex(regex => $pkg_id);
 
     print $indent . qq(Section ") 
         . $package->get(key => q(description)) 
@@ -898,10 +930,9 @@ use Log::Log4perl::Level;
 
 my $o_verbose = 0;
 my $o_debug = 0;
-# this is fugly, but it works
-my $program_name = (split(/\//,$0))[-1];
-warn qq(==== $program_name ====\n);
-my ($logging, $o_timestamp, $o_startdir, $o_jsonfile);
+my $o_colorlog = 1;
+
+my ($o_timestamp, $o_startdir, $o_jsonfile, $o_dump_blocks);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions( 
 	q(verbose|v)                    => \$o_verbose,
@@ -911,14 +942,13 @@ $go_parse->getoptions(
     q(startdir|s=s)                 => \$o_startdir,
 	q(jsonfile|j:s)                 => \$o_jsonfile,
     q(colorlog!)                    => \$o_colorlog,
+    q(dumpblocks|dump)              => \$o_dump_blocks,
 ); # $go_parse->getoptions
 
 # always turn off color logs under Windows, the terms don't do ANSI
 if ( $^O =~ /MSWin32/ ) { $o_colorlog = 0; }
 
 # set up the logger
-# FIXME change the ConversionPattern below for Windows; since you can't use
-# ANSI.SYS (no colorization), add the loglevel to the output
 my $logger_conf = qq(log4perl.rootLogger = WARN, Screen\n);
 if ( $o_colorlog ) {
     $logger_conf .= qq(log4perl.appender.Screen = )
@@ -938,9 +968,14 @@ $logger_conf .= qq(log4perl.appender.Screen.stderr = 1\n)
 Log::Log4perl::init( \$logger_conf );
 my $logger = get_logger("");
 
+# this is fugly, but it works
+my $program_name = (split(/\//,$0))[-1];
+$logger->warn(qq(==== $program_name ====));
+
 # change the log level from INFO if the user requests more gar-bage
-if ( $VERBOSE ) { $logger->level($INFO); }
-if ( $DEBUG ) { $logger->level($DEBUG); }
+if ( $o_verbose ) { $logger->level($INFO); }
+if ( $o_debug ) { $logger->level($DEBUG); }
+
 # verify the start directory was passed in and exists
 if ( ! defined $o_startdir ) { 
 	$logger->warn(qq(start directory needed for searching;));
@@ -964,9 +999,7 @@ if ( ! -d $o_startdir ) {
 
 $logger->warn(qq(Reading JSON distribution file '$o_jsonfile'));
 # read in the JSON distro file
-my $distro = Hump::JSON::Distribution->new( 
-				logging => $logging,
-                jsonfile => $o_jsonfile );
+my $distro = Hump::JSON::Distribution->new( jsonfile => $o_jsonfile );
 
 # get the manifest of this NSIS packages list
 my $manifest = $distro->get_manifest_obj();
@@ -977,20 +1010,20 @@ my $groups = $distro->get_group_obj();
 # grab the packages object
 my $packages = $distro->get_package_obj();
 
-if ( $VERBOSE ) {
+if ( $o_verbose ) {
     $manifest->dump_manifest;
     $groups->dump_objects();
     $packages->dump_objects();
-} # if ( $VERBOSE )
+} # if ( $o_verbose )
 
 # walk the manifest list, going through each group, package or special
 # handler, and outputting the NSIS script info for each type of object
 # handlers for non-package and non-group entries in the manifest
-my $mischandler = Hump::MiscHandlers->new();
+my $block_handler = Hump::BlockHandlers->new();
 # file/package operations
 $logger->warn(qq(Cataloging archive files in '$o_startdir'));
-my $filelist = Hump::ArchiveFileList->new(	logging		=> $logging,
-											startdir 	=> $o_startdir);
+my $filelist = Hump::ArchiveFileList->new( startdir	=> $o_startdir );
+
 # object that writes blocks of NSIS scripting
 my $writeblocks = Hump::WriteBlocks->new( 
         filelist => $filelist, 
@@ -1016,15 +1049,14 @@ foreach my $manifest_key ( $manifest->get_manifest() ) {
         ); # $writeblocks->output_section
     } else {
         $logger->warn(qq(Handler object '$manifest_key'));
-        if ( $mischandler->can($manifest_key) ) {
-            $mischandler->$manifest_key;
+        if ( $block_handler->can($manifest_key) ) {
+            $block_handler->$manifest_key;
             print qq(\n);
         } else {
             $logger->error(qq(don't know how to '$manifest_key'));
-        } # if ( $mischandlers->can($manifest_key) )
+        } # if ( $block_handler->can($manifest_key) )
     } # if ( $manifest_key =~ /^group/ )
 } # foreach my $manifest_key ( $manifest->get_objects() )
-
 
 exit 0;
 
