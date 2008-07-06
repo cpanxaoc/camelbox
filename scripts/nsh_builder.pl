@@ -707,7 +707,7 @@ sub new {
         . $self->{filename} . qq(: $!));
 	binmode(FH);
 	$self->{md5sum} = Digest::MD5->new->addfile(*FH)->hexdigest;
-	$self->{unpacked_size} = $self->get_unpacked_size();
+    $self->{unpacked_size} = $self->get_unpacked_size();
 	return $self;
 } # sub new
 
@@ -815,7 +815,7 @@ sub add_file {
     $self->{files}->{$humpfile->filename()} = $humpfile;
 } # sub add_file
 
-sub get_file {
+sub get_file_object {
     my $self = shift;
     my %args = @_;
     my $logger = get_logger();
@@ -829,17 +829,26 @@ sub get_file {
     return $self->{files}->{$args{filename}};
 } # sub get_file
 
-sub get_file_regex {
+sub get_filename_regex {
     my $self = shift;
     my %args = @_;
     my $logger = get_logger();
 
     $logger->logcroak(q(get_file_regex called without a regular expression))
         unless ( $args{regex} );
-    my $filename_pattern = qr/$args{regex}/;
     my @keys = keys(%{$self->{files}});
-    my @matches = grep($filename_pattern, @keys);
-    $logger->warn(q(get_file_regex matches: ) . join(q(:), @matches) );
+    my @matches = grep(/$args{regex}\..*/, @keys);
+    $logger->info(q(matching ) . $args{regex});
+    if ( scalar(@matches) > 0 ) {
+        # FIXME handle multiple matches here
+        $logger->info(q(get_file_regex matches: ) . join(q(:), @matches) );
+        my $newest_match = (sort(@matches))[-1];
+        $newest_match =~ s/.*\/(.*lzma)$/$1/;
+        $logger->info(qq(newest match is $newest_match));
+        return $newest_match;
+    } else {
+        $logger->warn(q(no matches found for ') . $args{regex} . q('));
+    } # if ( scalar(@matches) > 0 )
 } # sub get_file_regex
 
 # FIXME
@@ -883,13 +892,28 @@ sub output_section {
     my $pkg_id = $args{package_id};
     # a list of file objects
     my $filelist = $self->{filelist};
-    $filelist->get_file_regex(regex => $pkg_id);
+    my $filename = $filelist->get_filename_regex(regex => $pkg_id);
+    my $file_obj = $filelist->get_file_object(filename => $filename);
 
+    # section heading
     print $indent . qq(Section ") 
         . $package->get(key => q(description)) 
         . qq(" ) . $pkg_id . qq(_id\n);
+    # list of sections this file belongs to
     print $indent . q(    SectionIn ) 
         . join(q( ), @{$package->get(key => q(sectionin_list))}) . qq(\n);
+    # push the name of the file onto the stack
+    print $indent . qq(    push "$filename"\n);
+    # FIXME need to get the filesize here for AddSize
+    print $indent . q(    AddSize ) . $file_obj->get_unpacked_size . qq(\n);
+    # FIXME need to get the MD5 checksum and push that onto the stack as well
+    # get the ID of this section...
+    print $indent . q(    SectionGetText ${) . $pkg_id . q(} $0) . qq(\n);
+    # push that onto the stack
+    print $indent . q(    push $0) . qq(\n);
+    # grab the file, unpack it
+    print $indent . qq(    Call SnarfUnpack\n);
+    # end of this section
     print $indent . qq(SectionEnd ; $pkg_id\n);
 } # sub output_section
 
