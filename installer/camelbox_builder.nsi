@@ -63,7 +63,7 @@
 # Section 5.4.1 of the NSIS manual describes !define
 # The strftime strings for this next !define are here:
 # http://msdn2.microsoft.com/en-us/library/fe06s4ak.aspx
-!define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ"
+!define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ-nul"
 
 # define some macros for use later on
 !define CAPTION_TEXT "Camelbox ${RELEASE_VERSION}"
@@ -72,6 +72,7 @@
 !define MAIN_ICON "${INSTALLER_BASE}\Icons\camelbox-logo.ico"
 !define BASE_URL "http://camelbox.googlecode.com/files"
 !define INSTALL_PATH "C:\camelbox"
+OutFile "C:\temp\camelbox_${RELEASE_VERSION}.exe"	# 4.8.1.31
 
 #### NSIS OPTIONS ####
 # compiler flags
@@ -97,7 +98,7 @@ Name "${CAPTION_TEXT}"
 
 LicenseText "${CAPTION_TEXT}" 		# 4.8.1.28
 LicenseData "${LICENSE_FILE}" 		# 4.8.1.26
-OutFile "C:\temp\camelbox_${RELEASE_VERSION}.exe"	# 4.8.1.31
+
 InstallDir "${INSTALL_PATH}"
 
 #### EXTERNAL FUNCTION SCRIPTS ####
