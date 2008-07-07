@@ -57,8 +57,8 @@ B<nsh_builder.pl> - Generate Camelbox NSIS filelists
  --help|-h          Show this help message
  --verbose|-v       Verbose script output
  --startdir|-s      Start searching for files in this directory
- --timestamp|-t     Timestamp to use with output filenames
  --jsonfile|-j      JSON file that describes packages and groups
+ --outfile|-o       Write the NSH script output to this file
 
  --nocolorlog       Turn off ANSI colors for logging messages
  --verbose          Verbose script execution
@@ -66,8 +66,7 @@ B<nsh_builder.pl> - Generate Camelbox NSIS filelists
 
  Example usage:
 
- perl nsh_builder.pl --jsonfile file.json --startdir . \
-     --timestamp 200x.xxx.x
+ perl nsh_builder.pl --jsonfile file.json --startdir .
 
 =head1 PACKAGES
 
@@ -77,6 +76,7 @@ package Hump::BlockHandlers;
 use strict;
 use warnings;
 use Log::Log4perl qw(get_logger);
+use Date::Format; # formats the header below
 
 sub new {
 	my $class = shift;
@@ -95,9 +95,8 @@ sub new {
 sub header {
     my $self = shift;
     my $OUT_FH = $self->{output_filehandle};
-    # FIXME perl-ify this
-	#my $date = qx/$datecmd +%Y.%j.%H%mZ | tr -d '\n'/;
-    my $date = q($Date$);
+	my @gmtime = gmtime;
+	my $date = strftime(q(%Y.%j.%H%MZ), @gmtime );
     print $OUT_FH <<"HEREDOC"
 #==========================================================================
 #
@@ -731,7 +730,7 @@ sub new {
         . $self->{filename} . qq(: $!));
 	binmode(FH);
 	$self->{md5sum} = Digest::MD5->new->addfile(*FH)->hexdigest;
-    $self->{unpacked_size} = $self->get_unpacked_size();
+    $self->{unpacked_size} = $self->calculate_unpacked_size();
 	return $self;
 } # sub new
 
@@ -745,28 +744,37 @@ sub md5sum {
 	return $self->{md5sum};
 } # sub md5sum
 
-sub get_unpacked_size {
+sub get_unpacked_bytes {
+	my $self = shift;
+	return $self->{unpacked_size};
+} # sub get_unpacked_bytes
+
+sub get_unpacked_kilobytes {
+	my $self = shift;
+
+	my $kbytes = $self->{unpacked_size};
+	return sprintf("%0d", $kbytes / 1000);
+} # sub get_unpacked_kilobytes
+
+sub calculate_unpacked_size {
 	my $self = shift;
     my $logger = get_logger();
 
 	my $total_unarchived_size = 0;
-    # FIXME add a check for script verbosity here, BSD tar is barfing on some
-    # of the archive files, and printing the file prior to running tar on it
-    # would isolate the problem file
-    my $cmd;
+
+    my $tarlzma_cmd;
     $logger->info(q(Obtaining unpacked size of) . $self->filename() );
+	# windows devices have different names than the unix ones
     if ( $^O eq q(MSWin32) ) {
-    	$cmd = q(lzma -so d ) . $self->filename() 
-            . q( 2>nul: | tar -tv 2>/dev/null);
+    	$tarlzma_cmd = q(lzma -so d ) . $self->filename() 
+            . q( 2>nul: | tar -tv 2>nul:);
     } else {
-    	$cmd = q(lzma -c -d ) . $self->filename() 
+    	$tarlzma_cmd = q(lzma -c -d ) . $self->filename() 
             . q( 2>/dev/null | tar -tv 2>/dev/null);
     } # if ( $^O eq q(MSWin32) )
-	my $archive_list = qx/$cmd/;
+	my $archive_list = qx/$tarlzma_cmd/;
 	chomp($archive_list);
 	if ( length($archive_list) > 0 ) {
-		#print "archive list is\n";
-		#print "$archive_list\n";
 		my @split_list = split(/\n/, $archive_list);
 		# work on one line at a time
 		foreach my $line ( @split_list ) {
@@ -781,7 +789,7 @@ sub get_unpacked_size {
 		} # foreach my $line ( @split_list )
 	} else {
 		$logger->warn(q(Hmmm.  Something went wrong with lzma/tar command:));
-        $logger->warn(qq($cmd));
+        $logger->warn(qq($tarlzma_cmd));
 	} # if ( length($archive_list) > 0 )
 	return $total_unarchived_size;
 } # sub get_unpacked_size
@@ -832,11 +840,8 @@ sub add_file {
         $logger->debug(q(file: ) . $humpfile->filename());
         $logger->debug(q(short name: ) . $short_filename);
         $logger->debug(qq(md5sum: ) . $humpfile->md5sum());
-        # shorten it to kilobytes, this is what NSIS is expecting
-        my $unpacked_size_in_kilobytes = sprintf("%d",
-        	$humpfile->get_unpacked_size / 1000);
         $logger->debug(qq(total size of archive when unpacked: ) 
-        	. $unpacked_size_in_kilobytes . qq(k));
+ 			. $humpfile->get_unpacked_kilobytes . q(k));
     } # if ( $logger->is_debug )
 
     # add the humpfile object to the files hash
@@ -878,7 +883,6 @@ sub get_filename_regex {
     my @matches = grep(/$args{regex}\..*/, @keys);
     $logger->info(q(matching ) . $args{regex});
     if ( scalar(@matches) > 0 ) {
-        # FIXME handle multiple matches here
         $logger->info(q(get_file_regex matches: ) . join(q(:), @matches) );
         my $newest_match = (sort(@matches))[-1];
         $newest_match =~ s/.*\/(.*lzma)$/$1/;
@@ -888,10 +892,6 @@ sub get_filename_regex {
         $logger->warn(q(no matches found for ') . $args{regex} . q('));
     } # if ( scalar(@matches) > 0 )
 } # sub get_file_regex
-
-# FIXME
-# query the files list for a list of filenames that match $filename_pattern
-# return the list of files to the caller
 
 #### Package Hump::WriteBlocks ####
 package Hump::WriteBlocks;
@@ -947,7 +947,7 @@ sub output_section {
         . join(q( ), @{$package->get(key => q(sectionin_list))}) . qq(\n);
     # filesize for AddSize
     print $OUT_FH $indent . q(    AddSize ) 
-        . $file_obj->get_unpacked_size() . qq(\n);
+        . $file_obj->get_unpacked_kilobytes() . qq(\n);
     # push the name of the file onto the stack
     print $OUT_FH $indent . qq(    push "$filename"\n);
     # the MD5 checksum 
@@ -955,7 +955,7 @@ sub output_section {
         . $file_obj->md5sum() . qq("\n);
     # get the ID of this section...
     print $OUT_FH $indent . q(    SectionGetText ${) 
-        . $pkg_id . q(} $0) . qq(\n);
+        . $pkg_id . q(_id} $0) . qq(\n);
     # push that onto the stack
     print $OUT_FH $indent . q(    push $0) . qq(\n);
     # grab the file, unpack it
@@ -968,13 +968,19 @@ sub output_group {
     my $self = shift;
     my %args = @_;
 
-    # FIXME check for the '/e' switch (expand group) here
+
     my $group = $args{group_obj};
     my $packages = $self->{packages};
     my $OUT_FH = $self->{output_filehandle};
 
-    print $OUT_FH qq(\nSectionGroup ") 
-        . $group->get(key => q(description)) . qq("\n);
+    # check for the '/e' switch (expand group) 
+	if ( $group->get(key => q(expanded_flag)) == 1 ) {
+	    print $OUT_FH qq(\nSectionGroup /e ") 
+   			. $group->get(key => q(description)) . qq("\n);
+	} else {
+	    print $OUT_FH qq(\nSectionGroup ") 
+   			. $group->get(key => q(description)) . qq("\n);
+	} # if ( $group->get(key => q(expanded_flag)) == 1 )
     foreach my $section_item ( 
         @{$group->get(key => q(sections_list))} ) {
             my $group_package = $packages->get_object(
@@ -1005,18 +1011,16 @@ my $o_verbose = 0;
 my $o_debug = 0;
 my $o_colorlog = 1;
 
-my ($o_timestamp, $o_startdir, $o_jsonfile, $o_outfile, $o_dump_blocks);
+my ($o_startdir, $o_jsonfile, $o_outfile, $o_dump_blocks);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions( 
 	q(verbose|v)                    => \$o_verbose,
 	q(debug|d)                    	=> \$o_debug,
     q(help|h)                       => \&ShowHelp,
-    q(timestamp|t:s)                => \$o_timestamp,
     q(startdir|s:s)                 => \$o_startdir,
 	q(jsonfile|j=s)                 => \$o_jsonfile,
     q(outfile|o:s)                  => \$o_outfile,
     q(colorlog!)                    => \$o_colorlog,
-    q(dumpblocks|dump)              => \$o_dump_blocks,
 ); # $go_parse->getoptions
 
 # always turn off color logs under Windows, the terms don't do ANSI
