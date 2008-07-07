@@ -51,7 +51,7 @@ InstType "Perl with All Non-GTK Modules"                # 9
         "group_gtk2-perl-apps": {
             "description": "Gtk2-Perl Applications",
             "expanded_flag": 1,
-            "sections_list": [  "perl-asciio" ]
+            "sections_list": [  "perl-app-asciio-0.95_01" ]
         }, // group_gtk2-perl-apps
         "group_extra-perl-mods": {
             "description": "Extra Perl Modules",
@@ -114,7 +114,7 @@ InstType "Perl with All Non-GTK Modules"                # 9
             "description": "Gnome2::Canvas (Perl GnomeCanvas libs.)",
             "sectionin_list": [ 1, 4, 5 ] },
         // Gtk2-Perl Applications
-        "perl-asciio": {
+        "perl-app-asciio-0.95_01": {
             "description": "Asciio v0.95_01 - ASCII Art Editor",
             "sectionin_list": [ 1, 3, 4, 5, 6 ] },
         // Extra Perl Modules

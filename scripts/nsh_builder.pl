@@ -76,17 +76,29 @@ B<nsh_builder.pl> - Generate Camelbox NSIS filelists
 package Hump::BlockHandlers;
 use strict;
 use warnings;
+use Log::Log4perl qw(get_logger);
 
 sub new {
 	my $class = shift;
-	my $self = bless ({}, $class);
+    my %args = @_;
+    my $logger = get_logger();
+    
+    $logger->logcroak(qq(Output filehandle parameter missing)) 
+        unless ( defined $args{output_filehandle} );
+
+    # create the object
+	my $self = bless ({ 
+        output_filehandle => $args{output_filehandle},
+    }, $class);
 } # sub new
 
 sub header {
+    my $self = shift;
+    my $OUT_FH = $self->{output_filehandle};
     # FIXME perl-ify this
 	#my $date = qx/$datecmd +%Y.%j.%H%mZ | tr -d '\n'/;
     my $date = q($Date$);
-    print <<"HEREDOC"
+    print $OUT_FH <<"HEREDOC"
 #==========================================================================
 #
 # TYPE:     NSIS header/include file
@@ -120,7 +132,10 @@ HEREDOC
 } 
 
 sub sec_writeuninstaller {
-    print <<'HEREDOC'
+    my $self = shift;
+    my $OUT_FH = $self->{output_filehandle};
+
+    print $OUT_FH <<'HEREDOC'
 Section "-WriteUninstaller"
     SectionIn RO
     SetOutPath "$INSTDIR"
@@ -132,7 +147,10 @@ HEREDOC
 }  # sub sec_writeuninstaller
 
 sub sec_environmentvariables {
-    print <<'HEREDOC'
+    my $self = shift;
+    my $OUT_FH = $self->{output_filehandle};
+
+    print $OUT_FH <<'HEREDOC'
 
 SectionGroup /e "Environment Variables"
     Section "Add Camelbox to PATH variable"
@@ -147,7 +165,10 @@ HEREDOC
 } # sub sec_environmentvariables
 
 sub sec_uninstall {
-    print <<'HEREDOC'
+    my $self = shift;
+    my $OUT_FH = $self->{output_filehandle};
+
+    print $OUT_FH <<'HEREDOC'
 Section "Uninstall"
     SectionIn RO
     # delete the uninstaller first
@@ -167,7 +188,10 @@ HEREDOC
 } # sub sec_uninstall
 
 sub footer {
-    print <<'HEREDOC'
+    my $self = shift;
+    my $OUT_FH = $self->{output_filehandle};
+
+    print $OUT_FH <<'HEREDOC'
 # blank subsection
 #   Section "some-package (extra notes, etc.)"
 #       AddSize  # kilobytes
@@ -732,9 +756,11 @@ sub get_unpacked_size {
     my $cmd;
     $logger->info(q(Obtaining unpacked size of) . $self->filename() );
     if ( $^O eq q(MSWin32) ) {
-    	$cmd = q(lzma -so d ) . $self->filename() . q( 2>nul: | tar -tv);
+    	$cmd = q(lzma -so d ) . $self->filename() 
+            . q( 2>nul: | tar -tv 2>/dev/null);
     } else {
-    	$cmd = q(lzma -c -d ) . $self->filename() . q( 2>/dev/null | tar -tv);
+    	$cmd = q(lzma -c -d ) . $self->filename() 
+            . q( 2>/dev/null | tar -tv 2>/dev/null);
     } # if ( $^O eq q(MSWin32) )
 	my $archive_list = qx/$cmd/;
 	chomp($archive_list);
@@ -801,8 +827,10 @@ sub add_file {
     my $logger = get_logger();
 
     my $humpfile = $args{humpfile};
+    my $short_filename = (split(q(/), $humpfile->filename()))[-1];
     if ( $logger->is_debug ) {
         $logger->debug(q(file: ) . $humpfile->filename());
+        $logger->debug(q(short name: ) . $short_filename);
         $logger->debug(qq(md5sum: ) . $humpfile->md5sum());
         # shorten it to kilobytes, this is what NSIS is expecting
         my $unpacked_size_in_kilobytes = sprintf("%d",
@@ -812,8 +840,18 @@ sub add_file {
     } # if ( $logger->is_debug )
 
     # add the humpfile object to the files hash
-    $self->{files}->{$humpfile->filename()} = $humpfile;
+    $self->{files}->{$short_filename} = $humpfile;
 } # sub add_file
+
+=pod
+
+=head3 add_file(humpfile => $humpfile)
+
+Add a L<Hump::File> object to the L<Hump::ArchiveFileList> object.  This
+method will strip the path from the file so that the filename is stored as the
+key to the Hump::File object.
+
+=cut
 
 sub get_file_object {
     my $self = shift;
@@ -872,9 +910,13 @@ sub new {
     $logger->logcroak(qq(Packages object requird as 'packages'))
 	    unless ( defined $args{packages} ); 
 
+    $logger->logcroak(qq(Output filehandle parameter missing)) 
+        unless ( defined $args{output_filehandle} );
+
 	my $self = bless ({ 
-            filelist => $args{filelist},
-            packages => $args{packages},
+            filelist            => $args{filelist},
+            packages            => $args{packages},
+            output_filehandle   => $args{output_filehandle},
     }, $class); # my $self = bless
     return $self;
 } # sub new
@@ -894,27 +936,32 @@ sub output_section {
     my $filelist = $self->{filelist};
     my $filename = $filelist->get_filename_regex(regex => $pkg_id);
     my $file_obj = $filelist->get_file_object(filename => $filename);
+    my $OUT_FH = $self->{output_filehandle};
 
     # section heading
-    print $indent . qq(Section ") 
+    print $OUT_FH $indent . qq(Section ") 
         . $package->get(key => q(description)) 
         . qq(" ) . $pkg_id . qq(_id\n);
     # list of sections this file belongs to
-    print $indent . q(    SectionIn ) 
+    print $OUT_FH $indent . q(    SectionIn ) 
         . join(q( ), @{$package->get(key => q(sectionin_list))}) . qq(\n);
+    # filesize for AddSize
+    print $OUT_FH $indent . q(    AddSize ) 
+        . $file_obj->get_unpacked_size() . qq(\n);
     # push the name of the file onto the stack
-    print $indent . qq(    push "$filename"\n);
-    # FIXME need to get the filesize here for AddSize
-    print $indent . q(    AddSize ) . $file_obj->get_unpacked_size . qq(\n);
-    # FIXME need to get the MD5 checksum and push that onto the stack as well
+    print $OUT_FH $indent . qq(    push "$filename"\n);
+    # the MD5 checksum 
+    print $OUT_FH $indent . qq(    push ") 
+        . $file_obj->md5sum() . qq("\n);
     # get the ID of this section...
-    print $indent . q(    SectionGetText ${) . $pkg_id . q(} $0) . qq(\n);
+    print $OUT_FH $indent . q(    SectionGetText ${) 
+        . $pkg_id . q(} $0) . qq(\n);
     # push that onto the stack
-    print $indent . q(    push $0) . qq(\n);
+    print $OUT_FH $indent . q(    push $0) . qq(\n);
     # grab the file, unpack it
-    print $indent . qq(    Call SnarfUnpack\n);
+    print $OUT_FH $indent . qq(    Call SnarfUnpack\n);
     # end of this section
-    print $indent . qq(SectionEnd ; $pkg_id\n);
+    print $OUT_FH $indent . qq(SectionEnd ; $pkg_id\n);
 } # sub output_section
 
 sub output_group {
@@ -924,7 +971,9 @@ sub output_group {
     # FIXME check for the '/e' switch (expand group) here
     my $group = $args{group_obj};
     my $packages = $self->{packages};
-    print qq(\nSectionGroup ") 
+    my $OUT_FH = $self->{output_filehandle};
+
+    print $OUT_FH qq(\nSectionGroup ") 
         . $group->get(key => q(description)) . qq("\n);
     foreach my $section_item ( 
         @{$group->get(key => q(sections_list))} ) {
@@ -936,7 +985,7 @@ sub output_group {
                                 package_id => $section_item,
             ); # $self->output_section
         } # foreach my $section_item
-        print qq(SectionGroupEnd ; ) 
+        print $OUT_FH qq(SectionGroupEnd ; ) 
             . $group->get(key => q(description)) . qq(\n);
 } # sub output_group
 
@@ -956,15 +1005,16 @@ my $o_verbose = 0;
 my $o_debug = 0;
 my $o_colorlog = 1;
 
-my ($o_timestamp, $o_startdir, $o_jsonfile, $o_dump_blocks);
+my ($o_timestamp, $o_startdir, $o_jsonfile, $o_outfile, $o_dump_blocks);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions( 
 	q(verbose|v)                    => \$o_verbose,
 	q(debug|d)                    	=> \$o_debug,
     q(help|h)                       => \&ShowHelp,
-    q(timestamp|t=s)                => \$o_timestamp,
-    q(startdir|s=s)                 => \$o_startdir,
-	q(jsonfile|j:s)                 => \$o_jsonfile,
+    q(timestamp|t:s)                => \$o_timestamp,
+    q(startdir|s:s)                 => \$o_startdir,
+	q(jsonfile|j=s)                 => \$o_jsonfile,
+    q(outfile|o:s)                  => \$o_outfile,
     q(colorlog!)                    => \$o_colorlog,
     q(dumpblocks|dump)              => \$o_dump_blocks,
 ); # $go_parse->getoptions
@@ -1040,18 +1090,32 @@ if ( $o_verbose ) {
     $packages->dump_objects();
 } # if ( $o_verbose )
 
+# if an output file was specified, set that up now; otherwise, use STDOUT
+# create a scalar for holding the output filehandle
+my $OUT_FH;
+if ( $o_outfile ) {
+    if ( ! open($OUT_FH, qq(>$o_outfile)) ) {
+        $logger->warn(qq(Can't open output file $o_outfile for writing;));
+        $logger->logcroak($!);
+    } # if ( ! open($OUT_FH, qq(>$o_outfile)) )
+} else {
+    $OUT_FH = *STDOUT;
+} # if ( $o_outfile )
+
 # walk the manifest list, going through each group, package or special
 # handler, and outputting the NSIS script info for each type of object
 # handlers for non-package and non-group entries in the manifest
-my $block_handler = Hump::BlockHandlers->new();
+my $block_handler = Hump::BlockHandlers->new( output_filehandle => $OUT_FH );
+
 # file/package operations
 $logger->warn(qq(Cataloging archive files in '$o_startdir'));
 my $filelist = Hump::ArchiveFileList->new( startdir	=> $o_startdir );
 
 # object that writes blocks of NSIS scripting
 my $writeblocks = Hump::WriteBlocks->new( 
-        filelist => $filelist, 
-        packages => $packages,
+        filelist            => $filelist, 
+        packages            => $packages,
+        output_filehandle   => $OUT_FH
 ); # my $writeblocks = Hump::WriteBlocks->new
 
 foreach my $manifest_key ( $manifest->get_manifest() ) {
@@ -1072,10 +1136,10 @@ foreach my $manifest_key ( $manifest->get_manifest() ) {
                         package_obj     => $current_package,
         ); # $writeblocks->output_section
     } else {
-        $logger->warn(qq(Handler object '$manifest_key'));
+        $logger->warn(qq(Writing handler object '$manifest_key'));
         if ( $block_handler->can($manifest_key) ) {
             $block_handler->$manifest_key;
-            print qq(\n);
+            print $OUT_FH qq(\n);
         } else {
             $logger->error(qq(don't know how to '$manifest_key'));
         } # if ( $block_handler->can($manifest_key) )
