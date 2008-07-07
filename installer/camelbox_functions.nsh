@@ -201,28 +201,27 @@ FunctionEnd # ShortcutsAndReadmeLeave
 Function SnarfUnpack
 	# pop arguments off of the stack
 	pop $sectionname
-	#pop $archivemd5sum
+	pop $archivemd5sum
 	pop $archivefile
     Snarf:
         DetailPrint "Downloading: $DL_URL/$archivefile"
     	### download
     	#inetc::get /POPUP "$sectionname" \
     	#	"$DL_URL/$archivefile" "$INSTDIR\$archivefile"
+    	# return value = exit code, "OK" if OK
+		#StrCmp $0 "OK" 0 FailBail # inetc::get
+    	# return code for NSISdl should be 'success'
     	NSISdl::download "$DL_URL/$archivefile" "$INSTDIR\$archivefile"
     	Pop $0 
     	# check for an OK download; continues on success, bails on error
-    	# return value = exit code, "OK" if OK
-    	#StrCmp $0 "OK" 0 FailBail # inetc::get
-    	# return code for NSISdl should be 'success'
     	StrCmp $0 "success" 0 FailBail
     Checksum:
-    	#DetailPrint "Verifying $archivefile"
-    	#md5dll::GetMD5File "$INSTDIR\$archivefile"
-    	#Pop $0
+    	DetailPrint "Verifying $archivefile"
+    	md5dll::GetMD5File "$INSTDIR\$archivefile"
+    	Pop $0
         # compare the two MD5 checksums
-    	#StrCmp $0 $archivemd5sum 0 SnarfRetry
-    	#DetailPrint "MD5 sum verified!"
-    	#DetailPrint "$archivefile : $0"
+    	StrCmp $0 $archivemd5sum 0 SnarfRetry
+    	DetailPrint "MD5 sum matches!"
     Extract:
     	DetailPrint "Extracting $archivefile"
     	untgz::extract -zlzma "$INSTDIR\$archivefile"
@@ -243,8 +242,12 @@ Function SnarfUnpack
 		abort "'$0'; Aborting..."
     SnarfRetry:
         # messageBox is section 4.9.4.15 of the docs
+    	DetailPrint "MD5 sum does not match!"
+		DetailPrint "Expected: $archivemd5sum"
+		DetailPrint "Received: $0"
         messageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION|MB_TOPMOST \
-            "Download of $archivefile failed" IDRETRY Snarf
+            "Checksum of $archivefile failed...$\nRetry download?" \
+			IDRETRY Snarf
         abort
 FunctionEnd # SnarfUnpack
 
