@@ -731,6 +731,8 @@ sub new {
 	binmode(FH);
 	$self->{md5sum} = Digest::MD5->new->addfile(*FH)->hexdigest;
     $self->{unpacked_size} = $self->calculate_unpacked_size();
+	# assigning a scalar from a returned list
+	$self->{archived_size} = (stat($args{filename}))[7];
 	return $self;
 } # sub new
 
@@ -744,10 +746,15 @@ sub md5sum {
 	return $self->{md5sum};
 } # sub md5sum
 
-sub get_unpacked_bytes {
+sub get_archived_size {
+	my $self = shift;
+	return $self->{archived_size};
+} # sub get_archived_size
+
+sub get_unpacked_size {
 	my $self = shift;
 	return $self->{unpacked_size};
-} # sub get_unpacked_bytes
+} # sub get_unpacked_size
 
 sub get_unpacked_kilobytes {
 	my $self = shift;
@@ -841,8 +848,9 @@ sub add_file {
         $logger->debug(q(short name: ) . $short_filename);
         $logger->debug(qq(md5sum: ) . $humpfile->md5sum());
         $logger->debug(qq(total size of archive when unpacked: ) 
- 			. $humpfile->get_unpacked_kilobytes . q(k));
+ 			. $humpfile->get_unpacked_kilobytes() . q(k));
     } # if ( $logger->is_debug )
+
 
     # add the humpfile object to the files hash
     $self->{files}->{$short_filename} = $humpfile;
@@ -899,6 +907,9 @@ use strict;
 use warnings;
 use Log::Log4perl qw(get_logger);
 
+my $total_unpacked_size;
+my $total_archived_size;
+
 sub new {
 	my $class = shift;
     my %args = @_;
@@ -938,6 +949,9 @@ sub output_section {
     my $file_obj = $filelist->get_file_object(filename => $filename);
     my $OUT_FH = $self->{output_filehandle};
 
+	$total_unpacked_size += $file_obj->get_unpacked_size();
+	$total_archived_size += $file_obj->get_archived_size();
+
     # section heading
     print $OUT_FH $indent . qq(Section ") 
         . $package->get(key => q(description)) 
@@ -968,7 +982,6 @@ sub output_group {
     my $self = shift;
     my %args = @_;
 
-
     my $group = $args{group_obj};
     my $packages = $self->{packages};
     my $OUT_FH = $self->{output_filehandle};
@@ -994,6 +1007,14 @@ sub output_group {
         print $OUT_FH qq(SectionGroupEnd ; ) 
             . $group->get(key => q(description)) . qq(\n);
 } # sub output_group
+
+sub get_archived_size {
+	return $total_archived_size;
+} # sub get_archived_size
+
+sub get_unpacked_size {
+	return $total_unpacked_size;
+} # sub get_unpacked_size
 
 #### begin package main ####
 package main;
@@ -1150,6 +1171,11 @@ foreach my $manifest_key ( $manifest->get_manifest() ) {
     } # if ( $manifest_key =~ /^group/ )
 } # foreach my $manifest_key ( $manifest->get_objects() )
 
+my $packed_ratio 
+	= $writeblocks->get_archived_size() / $writeblocks->get_unpacked_size();
+$logger->warn(qq(Unpacked size: ) . $writeblocks->get_unpacked_size());
+$logger->warn(qq(Archived size: ) . $writeblocks->get_archived_size());
+$logger->warn(qq(Ratio: ) . sprintf(q(%0.2f), $packed_ratio));
 exit 0;
 
 #### end main ####
