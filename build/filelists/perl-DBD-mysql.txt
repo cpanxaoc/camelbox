@@ -4,7 +4,6 @@ bin/mysqldump.exe
 bin/mysqlmanager.exe
 include/config-win.h
 include/decimal.h
-include/errmsg.h
 include/keycache.h
 include/mysql.h
 include/mysqld_ername.h
@@ -35,3 +34,13 @@ include/sslopt-longopts.h
 include/sslopt-vars.h
 include/typelib.h
 lib/libmysql.lib
+site/lib/auto/DBD/mysql
+site/lib/auto/DBD/mysql/.packlist
+site/lib/auto/DBD/mysql/mysql.bs
+site/lib/auto/DBD/mysql/mysql.dll
+site/lib/Bundle/DBD
+site/lib/Bundle/DBD/mysql.pm
+site/lib/DBD/mysql
+site/lib/DBD/mysql/GetInfo.pm
+site/lib/DBD/mysql/INSTALL.pod
+site/lib/DBD/mysql.pm
