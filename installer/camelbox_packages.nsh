@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2008.191.0839Z 
+# DATE:     2008.191.1623Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -241,9 +241,9 @@ SectionGroup "Perl Database Support"
     SectionEnd ; perl-DBD-SQLite
     Section "DBD::mysql - DBD driver for MySQL" perl-DBD-mysql_id
         SectionIn 1 9 11 12
-        AddSize 8530
-        push "perl-DBD-mysql.2008.191.1.tar.lzma"
-        push "67daab411d433e10bc8b322bed9fca09"
+        AddSize 8854
+        push "perl-DBD-mysql.2008.191.2.tar.lzma"
+        push "36bf94473cc9c779807725924f1f6e9f"
         SectionGetText ${perl-DBD-mysql_id} $0
         push $0
         Call SnarfUnpack
