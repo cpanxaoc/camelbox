@@ -60,9 +60,11 @@ InstType "Perl with Database Support only"              # 12
             "description": "Extra Perl Modules",
             "expanded_flag": 0,
             "sections_list": [  "perl-YAML", "perl-LWP", "perl-Moose",
-                                "perl-PAR", "perl-PAR-Packer" ]
+                                "perl-PAR", "perl-PAR-Packer",
+							    "perl-Log-Log4perl", "perl-TimeDate",
+								"perl-JSON"	]
         }, // group_extra-perl-mods 
-        "group_perl_databases ": {
+        "group_perl_databases": {
             "description": "Perl Database Support",
             "expanded_flag": 0,
             "sections_list": [  "perl-DBI", "perl-DBD-ODBC", 
@@ -142,6 +144,15 @@ InstType "Perl with Database Support only"              # 12
         "perl-PAR-Packer": {
             "description": "PAR::Packer: The PAR Packer (creator) Toolkit",
             "sectionin_list": [ 1, 9 ] },
+        "perl-Log-Log4perl": {
+            "description": "Log::Log4perl: A Perl clone of log4j (but better)",
+            "sectionin_list": [ 1, 9, 11, 12 ] },
+        "perl-TimeDate": {
+            "description": "Date::Format: Date formatting subroutines",
+            "sectionin_list": [ 1, 9, 11, 12 ] },
+        "perl-JSON": {
+            "description": "JSON: Javascript data serialization/storage",
+            "sectionin_list": [ 1, 9, 11, 12 ] },
         // Perl Database Support
         "perl-DBI": {
             "description": "DBI - Database Independent Interface",

@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2008.189.2152Z 
+# DATE:     2008.191.0839Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -182,7 +182,73 @@ SectionGroup "Extra Perl Modules"
         push $0
         Call SnarfUnpack
     SectionEnd ; perl-PAR-Packer
+    Section "Log::Log4perl: A Perl clone of log4j (but better)" perl-Log-Log4perl_id
+        SectionIn 1 9 11 12
+        AddSize 1578
+        push "perl-Log-Log4perl.2008.191.1.tar.lzma"
+        push "8baa8d5ac50902b110566b08b97a6d9c"
+        SectionGetText ${perl-Log-Log4perl_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-Log-Log4perl
+    Section "Date::Format: Date formatting subroutines" perl-TimeDate_id
+        SectionIn 1 9 11 12
+        AddSize 145
+        push "perl-TimeDate.2008.191.1.tar.lzma"
+        push "185c8cfc68cd006270164a0314dfbe8c"
+        SectionGetText ${perl-TimeDate_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-TimeDate
+    Section "JSON: Javascript data serialization/storage" perl-JSON_id
+        SectionIn 1 9 11 12
+        AddSize 196
+        push "perl-JSON.2008.191.1.tar.lzma"
+        push "26e732601e927d4b1db9ad8968210b79"
+        SectionGetText ${perl-JSON_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-JSON
 SectionGroupEnd ; Extra Perl Modules
+
+SectionGroup "Perl Database Support"
+    Section "DBI - Database Independent Interface" perl-DBI_id
+        SectionIn 1 9 11 12
+        AddSize 2988
+        push "perl-DBI.2008.191.1.tar.lzma"
+        push "b15371585d8f4337a3900ccb87c9f797"
+        SectionGetText ${perl-DBI_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-DBI
+    Section "DBD::ODBC - ODBC Driver for Perl DBI" perl-DBD-ODBC_id
+        SectionIn 1 9 11 12
+        AddSize 879
+        push "perl-DBD-ODBC.2008.191.1.tar.lzma"
+        push "d5c64340c9cf5121ff5b17585f32069e"
+        SectionGetText ${perl-DBD-ODBC_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-DBD-ODBC
+    Section "DBD::SQLite - Pure Perl DBD driver for SQLite" perl-DBD-SQLite_id
+        SectionIn 1 9 11 12
+        AddSize 1752
+        push "perl-DBD-SQLite.2008.191.1.tar.lzma"
+        push "7c32c1c68088b0f361ad2f7b76ad12d5"
+        SectionGetText ${perl-DBD-SQLite_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-DBD-SQLite
+    Section "DBD::mysql - DBD driver for MySQL" perl-DBD-mysql_id
+        SectionIn 1 9 11 12
+        AddSize 8530
+        push "perl-DBD-mysql.2008.191.1.tar.lzma"
+        push "67daab411d433e10bc8b322bed9fca09"
+        SectionGetText ${perl-DBD-mysql_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-DBD-mysql
+SectionGroupEnd ; Perl Database Support
 
 SectionGroup "Development Packages"
     Section "Minimal GNU for Windows (MinGW) Toolkit" mingw_id
