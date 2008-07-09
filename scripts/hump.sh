@@ -69,7 +69,7 @@ function show_examples () {
 	echo "sh hump.sh -i JSON -b before.txt -a after.txt -o filelist.txt"
 	echo
 	echo "# create a filelist and and a package from that filelist"
-	echo "sh hump.sh -b before.txt -a after.txt -o filelist.txt -p package.txt"
+	echo "sh hump.sh -b before.txt -a after.txt -o filelist.txt -p pkg_name"
 	echo
 	echo "# create an md5sum filelist (list of files with checksums)"
 	echo "sh hump.sh -m filename -t TIMESTAMP -d /path/to/search"
@@ -86,7 +86,7 @@ function show_usage () {
 	echo "  -o output list - Generate a simple list of files"
     echo
     echo "To get a list of files that are installed for an application:"
-	echo "  -b before filelist - Generate a 'before install' list"
+	echo "  -b before filelist - A pre-generated 'before install' list"
 	echo "  -a after filelist - Generate an 'after install' list"
 	echo "  -i install this Perl module from CPAN (optional)"
     echo
@@ -96,6 +96,7 @@ function show_usage () {
 	echo
     echo "Miscellaneous Options"
     echo '  -d start in this directory instead of "C:\\camelbox"'
+	echo "  -p create a tarball using the output filelist"
 	echo "  -z create the archive file based on filelist.txt"
 	echo "  -c show the .cpan directory in filelist output"
     echo	
@@ -203,7 +204,7 @@ if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 	# $OUTPUT_FILE comes from find_first_free_filename
 	CURRENT_PWD=$PWD
 	cd $START_DIR
-	tar -cvf - -T"$OUTPUT_LIST" > "$OUTPUT_FILE"
+	tar -cvf - -T"$OUTPUT_LIST" > "/temp/$PACKAGE_FILE.tar"
 	cd $CURRENT_PWD
 fi # if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 
