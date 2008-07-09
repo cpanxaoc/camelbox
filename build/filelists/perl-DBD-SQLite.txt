@@ -1,0 +1,14 @@
+site/lib/auto/DBD
+site/lib/auto/DBD/ODBC
+site/lib/auto/DBD/ODBC/.packlist
+site/lib/auto/DBD/ODBC/ODBC.bs
+site/lib/auto/DBD/ODBC/ODBC.dll
+site/lib/auto/DBD/SQLite
+site/lib/auto/DBD/SQLite/.packlist
+site/lib/auto/DBD/SQLite/SQLite.bs
+site/lib/auto/DBD/SQLite/SQLite.dll
+site/lib/DBD/ODBC
+site/lib/DBD/ODBC/Changes.pm
+site/lib/DBD/ODBC/FAQ.pm
+site/lib/DBD/ODBC.pm
+site/lib/DBD/SQLite.pm
