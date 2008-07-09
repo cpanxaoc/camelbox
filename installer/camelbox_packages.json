@@ -16,7 +16,9 @@ InstType "Perl with Core GTK2 and Glade"                # 6
 InstType "UnxUtils Only"                                # 7
 InstType "Extra Tools Only"                             # 8
 InstType "Perl with All Non-GTK Modules"                # 9
-#InstType "Vapourware"                                  # 10
+InstType "Vapourware"                                   # 10
+InstType "Perl with GTK and Database Support"           # 11
+InstType "Perl with Database Support only"              # 12
 */
 
 { 
@@ -28,6 +30,7 @@ InstType "Perl with All Non-GTK Modules"                # 9
         "group_gtk2-perl-extra",
         "group_gtk2-perl-apps",
         "group_extra-perl-mods",
+        "group_perl_databases",
         "group_dev-packages",
         "group_extra-tools",
         "group_docs-examples",
@@ -59,6 +62,12 @@ InstType "Perl with All Non-GTK Modules"                # 9
             "sections_list": [  "perl-YAML", "perl-LWP", "perl-Moose",
                                 "perl-PAR", "perl-PAR-Packer" ]
         }, // group_extra-perl-mods 
+        "group_perl_databases ": {
+            "description": "Perl Database Support",
+            "expanded_flag": 0,
+            "sections_list": [  "perl-DBI", "perl-DBD-ODBC", 
+                                "perl-DBD-SQLite", "perl-DBD-mysql" ]
+        }, // group_perl_databases 
         "group_dev-packages": {
             "description": "Development Packages",
             "expanded_flag": 0,
@@ -133,6 +142,19 @@ InstType "Perl with All Non-GTK Modules"                # 9
         "perl-PAR-Packer": {
             "description": "PAR::Packer: The PAR Packer (creator) Toolkit",
             "sectionin_list": [ 1, 9 ] },
+        // Perl Database Support
+        "perl-DBI": {
+            "description": "DBI - Database Independent Interface",
+            "sectionin_list": [ 1, 9, 11, 12 ] },
+        "perl-DBD-ODBC": {
+            "description": "DBD::ODBC - ODBC Driver for Perl DBI",
+            "sectionin_list": [ 1, 9, 11, 12 ] },
+        "perl-DBD-SQLite": {
+            "description": "DBD::SQLite - Pure Perl DBD driver for SQLite",
+            "sectionin_list": [ 1, 9, 11, 12 ] },
+        "perl-DBD-mysql": {
+            "description": "DBD::mysql - DBD driver for MySQL",
+            "sectionin_list": [ 1, 9, 11, 12 ] },
         // Development Packages
         "mingw": {
             "description": "Minimal GNU for Windows (MinGW) Toolkit",

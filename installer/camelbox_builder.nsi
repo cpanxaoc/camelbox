@@ -127,5 +127,7 @@ InstType "Perl with Core GTK2 and Glade"				# 6
 InstType "UnxUtils Only"								# 7
 InstType "Extra Tools Only"								# 8
 InstType "Perl with All Non-GTK Modules"				# 9
-#InstType "Vapourware"									# 10
-
+InstType "Vapourware"									# 10
+InstType "Perl with GTK and Database Support"           # 11
+InstType "Perl with Database Support only"              # 12
+# vim: filetype=nsis paste
