@@ -111,16 +111,16 @@ function check_empty_var () {
 	fi
 } # function check_empty_var ()
 
-function run_ufind () {
+function run_xfind () {
     # sed removes the 'camelbox/' prefix from all files
     # and the 'camelbox/' directory itself
-    ufind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
+    xfind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
 	    | tee $1
-} # function run_ufind
+} # function run_xfind
 
 #### begin main script ####
 # call getopts with all of the supported options
-while getopts a:b:cd:ehi:m:o:p:t:wuz VARLIST
+while getopts a:b:cd:ehi:m:o:p:t:wz VARLIST
 do
 	case $VARLIST in
 		a) 	AFTERLIST=$OPTARG;;
@@ -135,7 +135,6 @@ do
 		p)  PACKAGE_FILE=$OPTARG;;
 		t)  TIMESTAMP=$OPTARG;;
 		w)  OVERWRITE="true";;
-		u)	UFIND="true";;
 		z)  ARCHIVE="true";;
 	esac
 done
@@ -168,7 +167,7 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
 
 	check_empty_var "-a (after list)" $AFTERLIST
     overwrite_check $AFTERLIST
-    run_ufind $AFTERLIST
+    run_xfind $AFTERLIST
 
     # TODO - the below grep -v "\.cpan" may be redundant, the previous grep in
     # the pipe may already snag that match; verify!
@@ -187,9 +186,9 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
 elif [ "x$OUTPUT_LIST" != "x" ]; then
     check_empty_var "-o (output list)" $OUTPUT_LIST
     overwrite_check $OUTPUT_LIST
-    run_ufind $OUTPUT_LIST
+    run_xfind $OUTPUT_LIST
 elif [ "x$MD5_LIST" != "x" ]; then
-  	ufind $START_DIR -maxdepth 1 -type f | xargs md5sum \
+  	xfind $START_DIR -maxdepth 1 -type f | xargs md5sum \
 		>> $MD5_LIST.$TIMESTAMP.txt
 else
 	# neither -o (output list) or -b/-a (before/after list) passed in
