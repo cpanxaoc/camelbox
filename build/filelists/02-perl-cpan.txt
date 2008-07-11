@@ -198,14 +198,12 @@ bin\test.exe
 bin\touch.exe
 bin\tr.exe
 bin\type.exe
-bin\ufind.exe
 bin\uname.exe
 bin\unexpand.exe
 bin\uniq.exe
 bin\unrar.exe
 bin\unshar.exe
 bin\unzip.exe
-bin\usort.exe
 bin\uudecode.exe
 bin\uuencode.exe
 bin\wc.exe
@@ -216,6 +214,10 @@ bin\whoami.exe
 bin\windres.exe
 bin\wperl.exe
 bin\xargs.exe
+bin\xdate.exe
+bin\xfind.exe
+bin\xhead.exe
+bin\xsort.exe
 bin\xsubpp.bat
 bin\yes.exe
 bin\zcat.exe
@@ -3929,7 +3931,7 @@ mingw32\lib\ldscripts\i386pe.xbn
 mingw32\lib\ldscripts\i386pe.xn
 mingw32\lib\ldscripts\i386pe.xr
 mingw32\lib\ldscripts\i386pe.xu
-mingw32\MinGW-5.1.3.exe
+mingw32\MinGW-5.1.4.exe
 mingw32\uninst.exe
 share
 share\doc

@@ -118,14 +118,12 @@ bin\test.exe
 bin\touch.exe
 bin\tr.exe
 bin\type.exe
-bin\ufind.exe
 bin\uname.exe
 bin\unexpand.exe
 bin\uniq.exe
 bin\unrar.exe
 bin\unshar.exe
 bin\unzip.exe
-bin\usort.exe
 bin\uudecode.exe
 bin\uuencode.exe
 bin\wc.exe
@@ -134,6 +132,10 @@ bin\wget.hlp
 bin\which.exe
 bin\whoami.exe
 bin\xargs.exe
+bin\xdate.exe
+bin\xfind.exe
+bin\xhead.exe
+bin\xsort.exe
 bin\yes.exe
 bin\zcat.exe
 bin\zip.exe
