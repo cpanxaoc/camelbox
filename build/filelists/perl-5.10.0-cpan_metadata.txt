@@ -1,0 +1,5 @@
+.cpan/Metadata
+.cpan/sources/authors/01mailrc.txt.gz
+.cpan/sources/MIRRORED.BY
+.cpan/sources/modules/02packages.details.txt.gz
+.cpan/sources/modules/03modlist.data.gz

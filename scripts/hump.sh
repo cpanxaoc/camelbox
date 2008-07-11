@@ -114,7 +114,8 @@ function check_empty_var () {
 function run_xfind () {
     # sed removes the 'camelbox/' prefix from all files
     # and the 'camelbox/' directory itself
-    xfind $START_DIR | sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
+    xfind $START_DIR -type f \
+   		| sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
 	    | tee $1
 } # function run_xfind
 
