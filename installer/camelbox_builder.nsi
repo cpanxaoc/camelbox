@@ -118,6 +118,10 @@ UninstPage uninstConfirm
 UninstPage InstFiles
 
 #### INSTALL TYPES ####
+# full install
+# full install + DB support
+# developer install
+# bloatware install
 InstType "Full Install - The Whole Enchilada"			# 1
 InstType "Perl Only"									# 2
 InstType "Perl with Core GTK Binaries"					# 3
