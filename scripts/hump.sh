@@ -35,7 +35,7 @@ function find_first_free_filename () {
     echo "Output file will be:"
    	echo $FILE_DIR/$FILE_NAME.$TIMESTAMP.$FILE_COUNTER.$FILE_EXT
 
-    OUTPUT_FILE="$FILE_DIR/$FILE_NAME.$TIMESTAMP.$FILE_COUNTER.$FILE_EXT"
+    FREE_FILENAME="$FILE_DIR/$FILE_NAME.$TIMESTAMP.$FILE_COUNTER.$FILE_EXT"
 } # function find_first_free_filename()
 
 function exists_check () {
@@ -179,9 +179,7 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     if [ "x$CPAN" = "xtrue" ]; then
     	echo "Including .cpan directory in package filelist output"
     	diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
-    		| tee $OUTPUT_LIST
-    	#diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
-    	#	| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
+    		| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
     else
     	# get rid of the .cpan directories
     	echo "Stripping .cpan directory from package filelist output"
@@ -204,12 +202,17 @@ if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 	# feed the output list to tar, then compress it
 	overwrite_check $PACKAGE_FILE
 	find_first_free_filename "/temp" $PACKAGE_FILE "tar"
-	echo "Creating package tarball"
+	echo "Creating package tarball '${FREE_FILENAME}' from ${OUTPUT_LIST}"
 	# $OUTPUT_FILE comes from find_first_free_filename
 	CURRENT_PWD=$PWD
 	cd $START_DIR
-	tar -cvf - -T"$OUTPUT_LIST" > "/temp/$PACKAGE_FILE.tar"
-	#lzma e "/temp/$PACKAGE_FILE.tar" "/temp/$PACKAGE_FILE.tar.lzma"
+	tar -cvf - -T ${OUTPUT_LIST} > $FREE_FILENAME
+	echo "Compressing package tarball '${FREE_FILENAME}'"
+	lzma e "${FREE_FILENAME}" "${FREE_FILENAME}.lzma"
+	if [ $? -eq 0 ]; then
+		echo "Compression exited without errors, deleting ${FREE_FILENAME}"
+		rm $FREE_FILENAME
+	fi
 	cd $CURRENT_PWD
 fi # if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 
