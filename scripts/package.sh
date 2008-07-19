@@ -2,6 +2,11 @@
 
 # simple script to package a directory full of files
 
+## SCRIPT VARIABLES
+TIMESTAMP=$(TZ=GMT date +%Y.%j | tr -d '\n')
+ARCHIVE_DIR="../archives"
+
+## FUNCTIONS
 function find_first_free_filename () {
 	local FILE_DIR=$1
     local FILE_NAME=$2
@@ -18,14 +23,33 @@ function find_first_free_filename () {
     FREE_FILENAME="$FILE_DIR/$FILE_NAME.$TIMESTAMP.$FILE_COUNTER.$FILE_EXT"
 } # function find_first_free_filename()
 
-# - create a timestamp
-TIMESTAMP=$(TZ=GMT date +%Y.%j | tr -d '\n')
-ARCHIVE_DIR="/temp/Camelbox/archives"
-PACKAGE_DIR="/temp/Camelbox/package_dirs"
+## MAIN SCRIPT
 
-for DIR in "$@" 
+for ARCHIVE_NAME in "$@" 
 do
-	echo "${TIMESTAMP}: argument ${DIR}"
+    if [ -d $ARCHIVE_NAME ]; then
+        echo "Creating archive package '${ARCHIVE_NAME}'"
+	    echo "Checking for existing ${ARCHIVE_NAME}.${TIMESTAMP} files"
+        find_first_free_filename $ARCHIVE_DIR $ARCHIVE_NAME "tar.lzma"
+        CURRENT_DIR=$PWD
+        cd $ARCHIVE_NAME
+        SYSNAME=$(uname -s | tr -d '\n')
+        if [ "x$SYSNAME" == "xDarwin" ]; then
+            # Mac OS X, lzma from the MacPorts tree
+            tar -cvf - * | lzma -z -c > ../$ARCHIVE_DIR/$FREE_FILENAME
+        else 
+            # Windows, lzma from the lzma SDK
+            tar -cvf - * | lzma e -si ../$ARCHIVE_DIR/$FREE_FILENAME
+        fi # if [ "x$SYSNAME" == "xDarwin" ]
+        if [ $? -ne 0 ]; then
+            echo "ERROR: tar/lzma exited with an error code of $?"
+            exit 1
+        fi # if [ $? -ne 0 ]
+        cd $CURRENT_DIR
+    else 
+        echo "ERROR: Directory ${ARCHIVE_NAME} does not exist"
+        exit 1
+    fi # if [ -d $ARCHIVE_NAME ]
 done
 # - read in a list of directories
 
