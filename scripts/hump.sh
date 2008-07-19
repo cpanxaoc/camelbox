@@ -59,7 +59,7 @@ function overwrite_check () {
 
 function show_examples () {
 	echo "Examples:"
-	echo "# create a list of files"
+	echo "# create a list of files that can be used with GNU tar"
 	echo "sh hump.sh -o filelist.txt"
 	echo
 	echo "# create a filelist and 'after' file from 'before' file"
@@ -82,13 +82,15 @@ function show_usage () {
 	echo "  -h show this help text"
 	echo "  -e show usage examples"
 	echo
-    echo "To get a simple list of files:"
+    echo "To get a simple list of files that can be used with GNU tar:"
 	echo "  -o output list - Generate a simple list of files"
+	echo "(Output file has *NIX forward slashes for path separation)"
     echo
     echo "To get a list of files that are installed for an application:"
-	echo "  -b before filelist - A pre-generated 'before install' list"
-	echo "  -a after filelist - Generate an 'after install' list"
 	echo "  -i install this Perl module from CPAN (optional)"
+	echo "  -b before filelist - An existing 'before install' filelist"
+	echo "  -a after filelist - Generate an 'after install' filelist"
+	echo "(Output file has MS-DOS backslashes for path separation)"
     echo
 	echo "To get a list of files with MD5 checksums (for verifying downloads)"
 	echo "  -m generate a filelist with MD5 sums"
@@ -96,7 +98,7 @@ function show_usage () {
 	echo
     echo "Miscellaneous Options"
     echo '  -d start in this directory instead of "C:\\camelbox"'
-	echo "  -p create a tarball using the output filelist"
+	echo "  -p name of a tarball to create using the output filelist"
 	echo "  -z create the archive file based on filelist.txt"
 	echo "  -c show the .cpan directory in filelist output"
     echo	
@@ -177,7 +179,9 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     if [ "x$CPAN" = "xtrue" ]; then
     	echo "Including .cpan directory in package filelist output"
     	diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
-    		| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
+    		| tee $OUTPUT_LIST
+    	#diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
+    	#	| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
     else
     	# get rid of the .cpan directories
     	echo "Stripping .cpan directory from package filelist output"
@@ -205,6 +209,7 @@ if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 	CURRENT_PWD=$PWD
 	cd $START_DIR
 	tar -cvf - -T"$OUTPUT_LIST" > "/temp/$PACKAGE_FILE.tar"
+	#lzma e "/temp/$PACKAGE_FILE.tar" "/temp/$PACKAGE_FILE.tar.lzma"
 	cd $CURRENT_PWD
 fi # if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 
