@@ -102,6 +102,8 @@ function show_usage () {
 	echo "  -z create the archive file based on filelist.txt"
 	echo "  -c show the .cpan directory in filelist output"
     echo	
+	echo "NOTE: all files should use full paths to avoid problems"
+	echo "  when the script changes directories" 
 	exit 1
 } # function show_usage ()
 
@@ -150,7 +152,7 @@ shift $(expr $OPTIND - 1)
 if [ "x$SHOW_HELP" = "xtrue" ]; then show_usage; fi
 if [ "x$SHOW_EXAMPLES" = "xtrue" ]; then show_examples; fi
 
-
+## BEFORELIST and AFTERLIST; run a diff on the two lists
 if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     # do the find
     check_empty_var "-b (before list)" $BEFORELIST
@@ -186,18 +188,23 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     	diff -u $BEFORELIST $AFTERLIST | grep "^+[a-zA-Z]" | grep -v "\.cpan" \
     		| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
     fi # if [ "x$NOCPAN" = "xtrue" ]
+
+## OUTPUT_LIST only; just generate a filelist
 elif [ "x$OUTPUT_LIST" != "x" ]; then
     check_empty_var "-o (output list)" $OUTPUT_LIST
     overwrite_check $OUTPUT_LIST
     run_xfind $OUTPUT_LIST
+## MD5_LIST only; just generate a filelist with MD5 checksums
 elif [ "x$MD5_LIST" != "x" ]; then
   	xfind $START_DIR -maxdepth 1 -type f | xargs md5sum \
 		>> $MD5_LIST.$TIMESTAMP.txt
+## no variables; show usage message
 else
 	# neither -o (output list) or -b/-a (before/after list) passed in
 	show_usage
 fi # if [ $OUTPUT_LIST ]; then
 
+## OUTPUT_LIST and PACKAGE_FILE; generate a package archive file
 if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 	# feed the output list to tar, then compress it
 	overwrite_check $PACKAGE_FILE
