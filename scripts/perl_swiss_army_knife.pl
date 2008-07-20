@@ -21,9 +21,9 @@ if ( exists $ENV{'REQUEST_METHOD'} ) {
 } # if ( exists $ENV{'REQUEST_METHOD'} )
 
 print "##################################################################\n";
-print "# Perl Executable Name (\$^X)                                    #\n";
+print "# Perl Executable Name (\$^X)                                     #\n";
 print "##################################################################\n";
-print qq(Executable name: $^X\n);
+print qq(Executable name: $^X\n\n);
 
 print "##################################################################\n";
 print "# Perl Runtime Environment (\%ENV)                                #\n";
