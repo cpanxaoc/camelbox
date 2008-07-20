@@ -2,6 +2,9 @@
 
 # simple script to package a directory full of files
 
+# usage:
+# time sh ~/Documents/src/camelbox-svn/scripts/package.sh package1 package2
+
 ## SCRIPT VARIABLES
 TIMESTAMP=$(TZ=GMT date +%Y.%j | tr -d '\n')
 ARCHIVE_DIR="../archives"
