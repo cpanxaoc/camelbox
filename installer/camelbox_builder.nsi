@@ -122,16 +122,25 @@ UninstPage InstFiles
 # full install + DB support
 # developer install
 # bloatware install
-InstType "Full Install - The Whole Enchilada"			# 1
-InstType "Perl Only"									# 2
-InstType "Perl with Core GTK Binaries"					# 3
-InstType "Perl with Core/Extra GTK Binaries"			# 4
-InstType "Perl with Core/Extra Binaries/Dev"			# 5
-InstType "Perl with Core GTK2 and Glade"				# 6
-InstType "UnxUtils Only"								# 7
-InstType "Extra Tools Only"								# 8
-InstType "Perl with All Non-GTK Modules"				# 9
-InstType "Vapourware"									# 10
-InstType "Perl with GTK and Database Support"           # 11
-InstType "Perl with Database Support only"              # 12
+InstType "Essentials - Perl, GTK, DB libs"
+InstType "Essentials+ - Essentials with extra tools"
+InstType "Developer - Essentials+ with dev files"
+InstType "Bloatware - Everything, The Whole Enchilada"
+InstType "Basics - Perl Only"
+InstType "Basics - Perl with All Non-GTK Modules"
+InstType "Basics - Perl with GTK/Database Support"
+InstType "Basics - Perl with Database Support only"
+
+#InstType "Full Install - The Whole Enchilada"			# 1
+#InstType "Perl Only"									# 2
+#InstType "Perl with Core GTK Binaries"					# 3
+#InstType "Perl with Core/Extra GTK Binaries"			# 4
+#InstType "Perl with Core/Extra Binaries/Dev"			# 5
+#InstType "Perl with Core GTK2 and Glade"				# 6
+#InstType "UnxUtils Only"								# 7
+#InstType "Extra Tools Only"								# 8
+#InstType "Perl with All Non-GTK Modules"				# 9
+#InstType "Vapourware"									# 10
+#InstType "Perl with GTK and Database Support"           # 11
+#InstType "Perl with Database Support only"              # 12
 # vim: filetype=nsis paste

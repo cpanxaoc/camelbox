@@ -1,0 +1,22 @@
+--- Kid.pm.orig	Tue Dec 18 03:47:08 2007
++++ Kid.pm	Sun Jul 20 02:25:23 2008
+@@ -220,7 +220,8 @@
+     require Text::ParseWords;
+ 
+     my($self, $potential_libs, $verbose, $give_libs) = @_;
+-    $verbose ||= 0;
++	$verbose ||= 0;
++	#$verbose = 1;
+ 
+     # If user did not supply a list, we punt.
+     # (caller should probably use the list in $Config{libs})
+@@ -346,6 +347,9 @@
+ 		goto LOOKAGAIN;
+ 	    }
+ 	}
++
++	if (!$found_lib ) { goto LOOKAGAIN if s/a$/lib/i; }
++	if (!$found_lib ) { goto LOOKAGAIN if s/lib$/dll/i; }
+ 
+ 	# give up
+ 	warn "Note (probably harmless): "
