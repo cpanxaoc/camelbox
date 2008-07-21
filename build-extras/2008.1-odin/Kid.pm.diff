@@ -1,22 +1,44 @@
 --- Kid.pm.orig	Tue Dec 18 03:47:08 2007
-+++ Kid.pm	Sun Jul 20 02:25:23 2008
++++ Kid.pm	Sun Jul 20 11:28:57 2008
 @@ -220,7 +220,8 @@
      require Text::ParseWords;
  
      my($self, $potential_libs, $verbose, $give_libs) = @_;
 -    $verbose ||= 0;
-+	$verbose ||= 0;
-+	#$verbose = 1;
++	#$verbose ||= 0;
++	$verbose = 1;
  
      # If user did not supply a list, we punt.
      # (caller should probably use the list in $Config{libs})
-@@ -346,6 +347,9 @@
- 		goto LOOKAGAIN;
+@@ -339,12 +340,26 @@
+ 	# do another pass with (or without) leading 'lib' if they used -l
+ 	if (!$found_lib and $thislib =~ /^-l/ and !$secondpass++) {
+ 	    if ($GC) {
+-		goto LOOKAGAIN if s/^lib//i;
+-	    }
+-	    elsif (!/^lib/i) {
+-		$_ = "lib$_";
+-		goto LOOKAGAIN;
++			goto LOOKAGAIN if s/^lib//i;
++	    } elsif (!/^lib/i) {
++			$_ = "lib$_";
++			goto LOOKAGAIN;
  	    }
- 	}
++	}
 +
-+	if (!$found_lib ) { goto LOOKAGAIN if s/a$/lib/i; }
-+	if (!$found_lib ) { goto LOOKAGAIN if s/lib$/dll/i; }
++	# a pass for *.lib files
++	if (!$found_lib ) { 
++		if (s/a$/lib/i) { 
++			$secondpass = 0;
++			goto LOOKAGAIN ; 
++		}
++	} 
++
++	# a pass for *.dll files
++	if (!$found_lib ) { 
++		if (s/lib$/dll/i) {
++			goto LOOKAGAIN;
++	   	}
+ 	}
  
  	# give up
- 	warn "Note (probably harmless): "

@@ -1,9 +1,6 @@
-site/lib/auto/Gtk2/GladeXML
 site/lib/auto/Gtk2/GladeXML/.packlist
 site/lib/auto/Gtk2/GladeXML/GladeXML.bs
 site/lib/auto/Gtk2/GladeXML/GladeXML.dll
-site/lib/Gtk2/GladeXML
-site/lib/Gtk2/GladeXML/Install
 site/lib/Gtk2/GladeXML/Install/Files.pm
 site/lib/Gtk2/GladeXML/Install/gladexmlperl.h
 site/lib/Gtk2/GladeXML/Install/gladexmlperl.typemap
