@@ -1,0 +1,17 @@
+--- Makefile.PL.orig	Mon Jul 21 23:50:14 2008
++++ Makefile.PL	Tue Jul 22 00:26:44 2008
+@@ -397,6 +397,14 @@
+ ),
+ );
+ 
++sub MY::dynamic_lib {
++	my $inherited = shift->SUPER::dynamic_lib(@_);
++	$inherited .= "\tdlltool --input-def Cairo.def --dllname Cairo.dll \\\n";
++	$inherited .= "\t\t--output-lib libCairoPerl.a\n";
++	$inherited .= "\t\$(CP) libCairoPerl.a " . $Config{libpth} . "\n";
++	return $inherited;
++}
++
+ sub MY::postamble
+ {
+ 	my $autogen_dir = $MakeHelper::autogen_dir;

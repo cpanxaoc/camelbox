@@ -1,0 +1,17 @@
+--- Makefile.PL.orig	Tue Jul 22 00:32:49 2008
++++ Makefile.PL	Tue Jul 22 00:32:57 2008
+@@ -190,6 +190,14 @@
+ 
+ =cut
+ 
++sub MY::dynamic_lib {
++	my $inherited = shift->SUPER::dynamic_lib(@_);
++	$inherited .= "\tdlltool --input-def Glib.def --dllname Glib.dll \\\n";
++	$inherited .= "\t\t--output-lib libGlibPerl.a\n";
++	$inherited .= "\t\$(CP) libGlibPerl.a " . $Config{libpth} . "\n";
++	return $inherited;
++}
++
+ # rule to build the documentation
+ sub MY::postamble
+ {
