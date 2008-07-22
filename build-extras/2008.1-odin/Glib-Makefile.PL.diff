@@ -1,10 +1,13 @@
 --- Makefile.PL.orig	Tue Jul 22 00:32:49 2008
-+++ Makefile.PL	Tue Jul 22 00:32:57 2008
-@@ -190,6 +190,14 @@
++++ Makefile.PL	Tue Jul 22 00:49:10 2008
+@@ -190,8 +190,19 @@
  
  =cut
  
-+sub MY::dynamic_lib {
++package MY;
++use Config;
++
++sub dynamic_lib {
 +	my $inherited = shift->SUPER::dynamic_lib(@_);
 +	$inherited .= "\tdlltool --input-def Glib.def --dllname Glib.dll \\\n";
 +	$inherited .= "\t\t--output-lib libGlibPerl.a\n";
@@ -13,5 +16,8 @@
 +}
 +
  # rule to build the documentation
- sub MY::postamble
+-sub MY::postamble
++sub postamble
  {
+ 	require 'MakeHelper.pm';
+ 	# $glib will be undefined if any of our dependencies couldn't be found;

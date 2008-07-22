@@ -1,5 +1,5 @@
 --- Makefile.PL.orig	Sun Jul 20 02:20:22 2008
-+++ Makefile.PL	Tue Jul 22 00:34:57 2008
++++ Makefile.PL	Tue Jul 22 00:40:04 2008
 @@ -28,6 +28,7 @@
  use ExtUtils::MakeMaker;
  use File::Spec;
@@ -23,20 +23,25 @@
  $gtk2->add_pm (%pm_files);
  $gtk2->add_xs (@xs_files);
  my $cwd = cwd();
-@@ -303,6 +310,16 @@
- #
+@@ -304,7 +311,20 @@
  # extra makefile override stuff... watch for falling wizardry.
  #
-+
+ 
+-sub MY::postamble
 +# hopefully you have dynamic_lib disabled in Glib::MakeHelper, or this won't
 +# get fired :(
-+sub MY::dynamic_lib {
++package MY;
++use Config;
++
++sub dynamic_lib {
 +	my $inherited = shift->SUPER::dynamic_lib(@_);
 +	$inherited .= "\tdlltool --input-def Gtk2.def --dllname Gtk2.dll \\\n";
 +	$inherited .= "\t\t--output-lib libGtk2Perl.a\n";
 +	$inherited .= "\t\$(CP) libGtk2Perl.a " . $Config{libpth} . "\n";
 +	return $inherited;
 +}
- 
- sub MY::postamble
++
++sub postamble
  {
+ 	my $text = "POD_DEPENDS=build/stock_items.podi\n\n"
+ 		 . Glib::MakeHelper->postamble_clean ()
