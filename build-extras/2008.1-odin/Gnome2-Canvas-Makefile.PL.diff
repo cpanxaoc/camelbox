@@ -1,0 +1,21 @@
+--- Makefile.PL.orig	Fri Jul 25 00:57:53 2008
++++ Makefile.PL	Fri Jul 25 00:58:00 2008
+@@ -7,6 +7,7 @@
+ use ExtUtils::MakeMaker;
+ use Cwd;
+ use File::Spec;
++use Config;
+ 
+ # minimum required version of dependencies we need to build
+ our %build_reqs = (
+@@ -70,7 +71,9 @@
+ 
+ my $gnomecanvas = ExtUtils::Depends->new ('Gnome2::Canvas', 'Gtk2');
+ $gnomecanvas->set_inc ($pkgcfg{cflags});
+-$gnomecanvas->set_libs ($pkgcfg{libs});
++
++$gnomecanvas->set_libs (q(-L) . $Config{bin} . q( ) . $pkgcfg{libs}
++	. q(-lGlibPerl -lCairoPerl -lGtk2Perl));
+ $gnomecanvas->add_xs (@xs_files);
+ $gnomecanvas->add_pm (%pm_files);
+ my $cwd = cwd();
