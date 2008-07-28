@@ -1,8 +1,5 @@
-site/lib/auto/TimeDate
 site/lib/auto/TimeDate/.packlist
-site/lib/Date
 site/lib/Date/Format.pm
-site/lib/Date/Language
 site/lib/Date/Language/Afar.pm
 site/lib/Date/Language/Amharic.pm
 site/lib/Date/Language/Austrian.pm
@@ -28,5 +25,4 @@ site/lib/Date/Language/TigrinyaEritrean.pm
 site/lib/Date/Language/TigrinyaEthiopian.pm
 site/lib/Date/Language.pm
 site/lib/Date/Parse.pm
-site/lib/Time
 site/lib/Time/Zone.pm

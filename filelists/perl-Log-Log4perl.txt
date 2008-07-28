@@ -1,9 +1,4 @@
-site/lib/auto/Log
-site/lib/auto/Log/Log4perl
 site/lib/auto/Log/Log4perl/.packlist
-site/lib/Log
-site/lib/Log/Log4perl
-site/lib/Log/Log4perl/Appender
 site/lib/Log/Log4perl/Appender/Buffer.pm
 site/lib/Log/Log4perl/Appender/DBI.pm
 site/lib/Log/Log4perl/Appender/File.pm
@@ -18,7 +13,6 @@ site/lib/Log/Log4perl/Appender/TestArrayBuffer.pm
 site/lib/Log/Log4perl/Appender/TestBuffer.pm
 site/lib/Log/Log4perl/Appender/TestFileCreeper.pm
 site/lib/Log/Log4perl/Appender.pm
-site/lib/Log/Log4perl/Config
 site/lib/Log/Log4perl/Config/BaseConfigurator.pm
 site/lib/Log/Log4perl/Config/DOMConfigurator.pm
 site/lib/Log/Log4perl/Config/PropertyConfigurator.pm
@@ -26,13 +20,11 @@ site/lib/Log/Log4perl/Config/Watch.pm
 site/lib/Log/Log4perl/Config.pm
 site/lib/Log/Log4perl/DateFormat.pm
 site/lib/Log/Log4perl/FAQ.pm
-site/lib/Log/Log4perl/Filter
 site/lib/Log/Log4perl/Filter/Boolean.pm
 site/lib/Log/Log4perl/Filter/LevelMatch.pm
 site/lib/Log/Log4perl/Filter/LevelRange.pm
 site/lib/Log/Log4perl/Filter/StringMatch.pm
 site/lib/Log/Log4perl/Filter.pm
-site/lib/Log/Log4perl/JavaMap
 site/lib/Log/Log4perl/JavaMap/ConsoleAppender.pm
 site/lib/Log/Log4perl/JavaMap/FileAppender.pm
 site/lib/Log/Log4perl/JavaMap/JDBCAppender.pm
@@ -41,9 +33,7 @@ site/lib/Log/Log4perl/JavaMap/RollingFileAppender.pm
 site/lib/Log/Log4perl/JavaMap/SyslogAppender.pm
 site/lib/Log/Log4perl/JavaMap/TestBuffer.pm
 site/lib/Log/Log4perl/JavaMap.pm
-site/lib/Log/Log4perl/Layout
 site/lib/Log/Log4perl/Layout/NoopLayout.pm
-site/lib/Log/Log4perl/Layout/PatternLayout
 site/lib/Log/Log4perl/Layout/PatternLayout/Multiline.pm
 site/lib/Log/Log4perl/Layout/PatternLayout.pm
 site/lib/Log/Log4perl/Layout/SimpleLayout.pm
@@ -53,7 +43,6 @@ site/lib/Log/Log4perl/Logger.pm
 site/lib/Log/Log4perl/MDC.pm
 site/lib/Log/Log4perl/NDC.pm
 site/lib/Log/Log4perl/Resurrector.pm
-site/lib/Log/Log4perl/Util
 site/lib/Log/Log4perl/Util/Semaphore.pm
 site/lib/Log/Log4perl/Util.pm
 site/lib/Log/Log4perl.pm

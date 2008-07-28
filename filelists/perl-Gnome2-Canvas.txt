@@ -1,11 +1,6 @@
-site/lib/auto/Gnome2
-site/lib/auto/Gnome2/Canvas
 site/lib/auto/Gnome2/Canvas/.packlist
 site/lib/auto/Gnome2/Canvas/Canvas.bs
 site/lib/auto/Gnome2/Canvas/Canvas.dll
-site/lib/Gnome2
-site/lib/Gnome2/Canvas
-site/lib/Gnome2/Canvas/Install
 site/lib/Gnome2/Canvas/Install/canvas.typemap
 site/lib/Gnome2/Canvas/Install/Files.pm
 site/lib/Gnome2/Canvas/Install/gnomecanvasperl-autogen.h

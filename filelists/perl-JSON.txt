@@ -1,7 +1,4 @@
-site/lib/auto/JSON
 site/lib/auto/JSON/.packlist
-site/lib/JSON
-site/lib/JSON/PP
 site/lib/JSON/PP/Boolean.pm
 site/lib/JSON/PP.pm
 site/lib/JSON/PP5005.pm

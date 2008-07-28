@@ -1,8 +1,5 @@
-html/site/lib/Test/Number/Delta.html
 lib/libCairoPerl.a
 lib/libGlibPerl.a
-lib/libGtk2Perl.a
-man/man3/Test.Number.Delta.3
 site/lib/auto/Cairo/.packlist
 site/lib/auto/Cairo/Cairo.bs
 site/lib/auto/Cairo/Cairo.dll
@@ -14,7 +11,6 @@ site/lib/auto/Glib/Glib.dll
 site/lib/auto/Gtk2/.packlist
 site/lib/auto/Gtk2/Gtk2.bs
 site/lib/auto/Gtk2/Gtk2.dll
-site/lib/auto/Test/Number/Delta/.packlist
 site/lib/Cairo/Install/cairo-perl-auto.h
 site/lib/Cairo/Install/cairo-perl-auto.typemap
 site/lib/Cairo/Install/cairo-perl.h
@@ -55,4 +51,3 @@ site/lib/Gtk2/SimpleList.pm
 site/lib/Gtk2/SimpleMenu.pm
 site/lib/Gtk2/TestHelper.pm
 site/lib/Gtk2.pm
-site/lib/Test/Number/Delta.pm
