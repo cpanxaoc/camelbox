@@ -122,14 +122,16 @@ UninstPage InstFiles
 # full install + DB support
 # developer install
 # bloatware install
-InstType "Essentials - Perl, GTK, DB libs"
-InstType "Essentials+ - Essentials with extra tools"
-InstType "Developer - Essentials+ with dev files"
+#InstType "Essentials - Perl, GTK, DB libs"
+InstType "The Standard - Perl, GTK, DB libs"
+#InstType "Essentials+ - Essentials with extra tools"
+InstType "The Standard+ - The Standard with extra tools"
+InstType "The Developer - The Standard+ with dev files"
 InstType "Bloatware - Everything, The Whole Enchilada"
 InstType "Basics - Perl Only"
 InstType "Basics - Perl with All Non-GTK Modules"
-InstType "Basics - Perl with GTK/Database Support"
 InstType "Basics - Perl with Database Support only"
+InstType "Vapourware - Nothing"
 
 #InstType "Full Install - The Whole Enchilada"			# 1
 #InstType "Perl Only"									# 2
