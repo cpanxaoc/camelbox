@@ -213,7 +213,7 @@ if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 	# $OUTPUT_FILE comes from find_first_free_filename
 	CURRENT_PWD=$PWD
 	cd $START_DIR
-	tar -cvf - -T ${OUTPUT_LIST} > $FREE_FILENAME
+	tar -cvf - -T ${CURRENT_PWD}/${OUTPUT_LIST} > $FREE_FILENAME
 	echo "Compressing package tarball '${FREE_FILENAME}'"
 	lzma e "${FREE_FILENAME}" "${FREE_FILENAME}.lzma"
 	if [ $? -eq 0 ]; then
