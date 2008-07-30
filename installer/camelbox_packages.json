@@ -220,16 +220,16 @@ InstType "Vapourware - Nothing"
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         "mysql-client": {
             "description": "MySQL Client Binary (mysql.exe)",
-            "sectionin_list": [ 2, 4, 7 ] },
+            "sectionin_list": [ 2, 3, 4, 7 ] },
         "mysql-debug": {
             "description": "MySQL Debugging Binaries",
             "sectionin_list": [ 4 ] },
         "mysql-dev": {
             "description": "MySQL Devel. (headers and import libs)",
-            "sectionin_list": [ 2, 3, 4 ] },
+            "sectionin_list": [ 3, 4 ] },
         "mysql-docs": {
             "description": "MySQL Documentation in .CHM format",
-            "sectionin_list": [ 2, 3, 4 ] },
+            "sectionin_list": [ 3, 4 ] },
         "mysql-server": {
             "description": "MySQL Server Binaries",
             "sectionin_list": [ 4 ] },
@@ -238,7 +238,7 @@ InstType "Vapourware - Nothing"
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         "sqlite-utils": {
             "description": "SQLite Database Utilities",
-            "sectionin_list": [ 2, 3, 4 ] },
+            "sectionin_list": [ 3, 4 ] },
         // Development Packages
         "dmake": {
             "description": "dmake Makefile Processor",
