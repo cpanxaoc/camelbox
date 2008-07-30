@@ -230,15 +230,15 @@ Function SnarfUnpack
     	StrCmp $R0 "success" 0 FailBail
     	# don't delete archive files if the user asked to keep them
     	StrCmp $keepDownloadedArchives "true" +3 0
-    	DetailPrint "Deleting: $INSTDIR\$archivefile"
     	delete "$INSTDIR\$archivefile"
+		IfErrors DeleteError 0
     	# if we've been successful, exit now
     	return
 	# we should only hit these if called
     # all of the below labels either need to abort or call another label
 	FailBail:
 		# $0 should have already been set by the caller
-		DetailPrint "Installer encountered the following fatal error:"
+		DetailPrint "Installer encountered a following fatal error;"
 		abort "'$0'; Aborting..."
     SnarfRetry:
         # messageBox is section 4.9.4.15 of the docs
@@ -249,6 +249,9 @@ Function SnarfUnpack
             "Checksum of $archivefile failed...$\nRetry download?" \
 			IDRETRY Snarf
         abort
+	DeleteError:
+		DetailPrint "Could not delete $archive file; aborting..."
+		abort
 FunctionEnd # SnarfUnpack
 
 Function DebugPause
