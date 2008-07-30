@@ -63,7 +63,7 @@
 # Section 5.4.1 of the NSIS manual describes !define
 # The strftime strings for this next !define are here:
 # http://msdn2.microsoft.com/en-us/library/fe06s4ak.aspx
-!define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ-nul"
+!define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ-odin"
 
 # define some macros for use later on
 !define CAPTION_TEXT "Camelbox ${RELEASE_VERSION}"
@@ -123,27 +123,13 @@ UninstPage InstFiles
 # full install + DB support
 # developer install
 # bloatware install
-#InstType "Essentials - Perl, GTK, DB libs"
-#InstType "Essentials+ - Essentials with extra tools"
 InstType "The Starter - Perl, GTK, DB libs"
 InstType "The Step Up - The Starter with extra tools/libs"
 InstType "The Developer - The Step Up with dev tools"
-InstType "The Bloatware - Everything, The Whole Enchilada"
+InstType "The Bloatware - The Whole Enchilada"
 InstType "The Basics - Perl Only"
 InstType "The Basics - Perl with All Non-GTK Modules"
 InstType "The Basics - Perl with Database Support only"
 InstType "The Vapourware - Nothing"
 
-#InstType "Full Install - The Whole Enchilada"			# 1
-#InstType "Perl Only"									# 2
-#InstType "Perl with Core GTK Binaries"					# 3
-#InstType "Perl with Core/Extra GTK Binaries"			# 4
-#InstType "Perl with Core/Extra Binaries/Dev"			# 5
-#InstType "Perl with Core GTK2 and Glade"				# 6
-#InstType "UnxUtils Only"								# 7
-#InstType "Extra Tools Only"								# 8
-#InstType "Perl with All Non-GTK Modules"				# 9
-#InstType "Vapourware"									# 10
-#InstType "Perl with GTK and Database Support"           # 11
-#InstType "Perl with Database Support only"              # 12
 # vim: filetype=nsis paste
