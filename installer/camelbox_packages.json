@@ -76,12 +76,12 @@ InstType "Vapourware - Nothing"
         "group_gtk2-perl-apps": {
             "description": "Gtk2-Perl Applications",
             "expanded_flag": 1,
-            "sections_list": [  "perl-App-Asciio", "Gtk2-Ex-PodViewer" ]
+            "sections_list": [  "perl-App-Asciio", "perl-Gtk2-Ex-PodViewer" ]
         }, // group_gtk2-perl-apps
         "group_extra-perl-mods": {
             "description": "Extra Perl Modules",
             "expanded_flag": 0,
-            "sections_list": [  "perl-CPAN-Metadata", "perl-XML-Parser",
+            "sections_list": [  "perl-5.10.0-CPAN_Metadata", "perl-XML-Parser",
 								"perl-YAML", "perl-LWP", "perl-Moose",
                                 "perl-PAR", "perl-PAR-Packer",
 							    "perl-Log-Log4perl", "perl-TimeDate",
@@ -98,7 +98,11 @@ InstType "Vapourware - Nothing"
             "expanded_flag": 0,
             "sections_list": [  "mysql-bin", "mysql-client", "mysql-debug",
 		   						"mysql-dev", "mysql-docs", "mysql-server",
-							    "sqlite-bin", "sqlite-utils"	]
+							    "sqlite-utils"	]
+								// sqlite-bin should not technically be
+								// needed, as DBD::SQLite provides it's own
+								// version of the SQLite source
+							    //"sqlite-bin", "sqlite-utils"	]
         }, // group_database-tools 
         "group_extra-tools": {
             "description": "Extra Tools Packages",
@@ -168,7 +172,7 @@ InstType "Vapourware - Nothing"
             "description": "Gtk2::Ex::PodViewer - a GTK Perl POD viewer",
             "sectionin_list": [ 2, 3, 4 ] },
         // Extra Perl Modules
-		"perl-CPAN-Metadata": {
+		"perl-5.10.0-CPAN_Metadata": {
             "description": "CPAN Metadata files",
             "sectionin_list": [ 2, 3, 4, 6 ] },
         "perl-JSON": {
@@ -193,27 +197,27 @@ InstType "Vapourware - Nothing"
             "description": "Date::Format: Date formatting subroutines",
             "sectionin_list": [ 2, 3, 4, 6 ] },
         "perl-Win32-API-ODBC": {
-            "description": "JSON: Javascript data serialization/storage",
+            "description": "Win32::API and Win32::ODBC Modules",
             "sectionin_list": [ 2, 3, 4, 6 ] },
         "perl-XML-Parser": {
             "description": "XML::Parser - XML document parsing in Perl",
             "sectionin_list": [ 2, 3, 4, 6 ] },
         "perl-YAML": {
             "description": "YAML - Yet Another Markup Language",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
+            "sectionin_list": [ 1, 2, 3, 4, 6 ] },
         // Perl Database Support
         "perl-DBI": {
             "description": "DBI - Database Independent Interface",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         "perl-DBD-ODBC": {
             "description": "DBD::ODBC - ODBC Driver for Perl DBI",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         "perl-DBD-SQLite": {
             "description": "DBD::SQLite - Pure Perl DBD driver for SQLite",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         "perl-DBD-mysql": {
             "description": "DBD::mysql - DBD driver for MySQL",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         // Database Tools
         "mysql-bin": {
             "description": "MySQL Client Library (libmysql.dll)",
@@ -233,12 +237,12 @@ InstType "Vapourware - Nothing"
         "mysql-server": {
             "description": "MySQL Server Binaries",
             "sectionin_list": [ 4 ] },
-        "sqlite-bin": {
-            "description": "SQLite Client Library",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
+        //"sqlite-bin": {
+        //    "description": "SQLite Client Library",
+        //    "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         "sqlite-utils": {
             "description": "SQLite Database Utilities",
-            "sectionin_list": [ 3, 4 ] },
+            "sectionin_list": [ 2, 3, 4, 7 ] },
         // Development Packages
         "dmake": {
             "description": "dmake Makefile Processor",
