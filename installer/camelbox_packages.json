@@ -7,25 +7,42 @@
 
 /*
 #### INSTALL TYPES ####
-InstType "Full Install - The Whole Enchilada"           # 1
-InstType "Perl Only"                                    # 2
-InstType "Perl with Core GTK Binaries"                  # 3
-InstType "Perl with Core/Extra GTK Binaries"            # 4
-InstType "Perl with Core/Extra Binaries/Dev"            # 5
-InstType "Perl with Core GTK2 and Glade"                # 6
-InstType "UnxUtils Only"                                # 7
-InstType "Extra Tools Only"                             # 8
-InstType "Perl with All Non-GTK Modules"                # 9
-InstType "Vapourware"                                   # 10
-InstType "Perl with GTK and Database Support"           # 11
-InstType "Perl with Database Support only"              # 12
+InstType "The Starter - Perl, GTK, DB libs"
+InstType "The Step Up - The Starter with extra tools/libs"
+InstType "The Developer - The Standard+ with dev files"
+InstType "Bloatware - Everything, The Whole Enchilada"
+InstType "Basics - Perl Only"
+InstType "Basics - Perl with All Non-GTK Modules"
+InstType "Basics - Perl with Database Support only"
+InstType "Vapourware - Nothing"
+
+#InstType "Essentials - Perl, GTK, DB libs"
+#InstType "Essentials+ - Essentials with extra tools"
+
+#InstType "Full Install - The Whole Enchilada"			# 1
+#InstType "Perl Only"									# 2
+#InstType "Perl with Core GTK Binaries"					# 3
+#InstType "Perl with Core/Extra GTK Binaries"			# 4
+#InstType "Perl with Core/Extra Binaries/Dev"			# 5
+#InstType "Perl with Core GTK2 and Glade"				# 6
+#InstType "UnxUtils Only"								# 7
+#InstType "Extra Tools Only"								# 8
+#InstType "Perl with All Non-GTK Modules"				# 9
+#InstType "Vapourware"									# 10
+#InstType "Perl with GTK and Database Support"           # 11
+#InstType "Perl with Database Support only"              # 12 
 */
 
-// FIXME add a 'filehint' to each section; if filehint is populated, then
+// FIXME 
+// - add a 'filehint' to each section; if filehint is populated, then
 // nsh_builder.pl should look for that file first when building the NSH file;
 // if it doesn't find that file, it can fall back to the newest file found
+// - add a section for URL links and program shortcuts?
 
 { 
+	"baseurls" : [
+		"http://camelbox.googlecode.com/files"
+	],
     "manifest": [
         "header",
         "sec_writeuninstaller",
@@ -34,8 +51,9 @@ InstType "Perl with Database Support only"              # 12
         "group_gtk2-perl-extra",
         "group_gtk2-perl-apps",
         "group_extra-perl-mods",
-        "group_perl_databases",
+        "group_perl-databases",
         "group_dev-packages",
+		"group_database-tools",
         "group_extra-tools",
         "group_docs-examples",
         "sec_environmentvariables",
@@ -47,47 +65,61 @@ InstType "Perl with Database Support only"              # 12
             "description": "Core Gtk2-Perl Packages",
             "expanded_flag": 0,
             "sections_list": [  "gtk-core-bin", "imagelibs-bin",
-                                "gtk-support-bin", "perl-gtk2-core" ]
+                                "gtk-support-bin", "perl-Gtk2-core" ]
         }, // group_gtk2-perl-core
         "group_gtk2-perl-extra": {
             "description": "Extra Gtk2-Perl Packages",
             "expanded_flag": 0,
-            "sections_list": [  "libglade-bin", "perl-gtk2-gladexml",
-                                "libgnomecanvas-bin", "perl-gnome2-canvas" ]
+            "sections_list": [  "libglade-bin", "perl-Gtk2-GladeXML",
+                                "libgnomecanvas-bin", "perl-Gnome2-Canvas" ]
         }, // group_gtk2-perl-extra
         "group_gtk2-perl-apps": {
             "description": "Gtk2-Perl Applications",
             "expanded_flag": 1,
-            "sections_list": [  "perl-app-asciio-0.95_01" ]
+            "sections_list": [  "perl-App-Asciio", "Gtk2-Ex-PodViewer" ]
         }, // group_gtk2-perl-apps
         "group_extra-perl-mods": {
             "description": "Extra Perl Modules",
             "expanded_flag": 0,
-            "sections_list": [  "perl-YAML", "perl-LWP", "perl-Moose",
+            "sections_list": [  "perl-CPAN-Metadata", "perl-XML-Parser",
+								"perl-YAML", "perl-LWP", "perl-Moose",
                                 "perl-PAR", "perl-PAR-Packer",
 							    "perl-Log-Log4perl", "perl-TimeDate",
-								"perl-JSON"	]
+								"perl-JSON", "perl-Win32-API-ODBC" ]
         }, // group_extra-perl-mods 
-        "group_perl_databases": {
+        "group_perl-databases": {
             "description": "Perl Database Support",
             "expanded_flag": 0,
             "sections_list": [  "perl-DBI", "perl-DBD-ODBC", 
                                 "perl-DBD-SQLite", "perl-DBD-mysql" ]
         }, // group_perl_databases 
+        "group_database-tools": {
+            "description": "Database Tools Packages",
+            "expanded_flag": 0,
+            "sections_list": [  "mysql-bin", "mysql-client", "mysql-debug",
+		   						"mysql-dev", "mysql-docs", "mysql-server",
+							    "sqlite-bin", "sqlite-utils"	]
+        }, // group_database-tools 
+        "group_extra-tools": {
+            "description": "Extra Tools Packages",
+            "expanded_flag": 0,
+            "sections_list": [  "gladewin32-bin", "unxutils", "lzma",
+		   						"expat-bin"	]
+        }, // group_extra-tools 
         "group_dev-packages": {
             "description": "Development Packages",
             "expanded_flag": 0,
             "sections_list": [  "mingw", "dmake", "gtk-core-dev",
                                 "gtk-support-dev", "imagelibs-dev", 
-                                "libglade-dev", "libgnomecanvas-dev" ]
+                                "libglade-dev", "libgnomecanvas-dev",
+							    "expat-dev", "gladewin32-dev"	]
         }, // group_dev-packages 
-        "group_extra-tools": {
-            "description": "Extra Tools Packages",
+		"group_bloatware": {
+            "description": "Bloatware Packages",
             "expanded_flag": 0,
-            "sections_list": [  "glade-win32", "unxutils", "lzma",
-                                "imagelibs-utils", "gettext-utils",
-                                "dmake-extra" ]
-        }, // group_extra_tools 
+            "sections_list": [  "glade-win32-dev", "imagelibs-utils",
+		   						"gettext-utils", "dmake-extra" ]
+		}, // group_bloatware
         "group_docs-examples": {
             "description": "Documentation and Examples",
             "expanded_flag": 0,
@@ -98,129 +130,173 @@ InstType "Perl with Database Support only"              # 12
     "packages": {
         "perl-5.10.0-core": {
             "description": "Perl 5.10.0 Base Package",
-            "sectionin_list": [ 1, 2, 3, 4, 5, 6, 9 ] },
+            "sectionin_list": [ 1, 2, 3, 4, 5, 6, 7 ] },
         // Core Gtk2-Perl Packages
         "gtk-core-bin": {
             "description": "Core GTK Binaries",
-            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 2, 3, 4 ] },
         "imagelibs-bin": {
             "description": "imagelibs-bin (JPG/PNG/TIFF libraries)",
-            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 2, 3, 4 ] },
         "gtk-support-bin": {
             "description": "gtk-support-bin (gettext/libintl/etc.)",
-            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
-        "perl-gtk2-core": {
+            "sectionin_list": [ 1, 2, 3, 4 ] },
+        "perl-Gtk2-core": {
             "description": "Gtk2-Perl Core Modules (Cairo/Glib/Gtk2)",
-            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 1, 2, 3, 4 ] },
         // Extra Gtk2-Perl Packages
+		"expat-bin": {
+            "description": "Expat XML Parsing Library",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
         "libglade-bin": {
             "description": "libglade-bin (Glade/XML libraries)",
-            "sectionin_list": [ 1, 4, 5, 6 ] },
-        "libglade-bin": {
-            "description": "libglade-bin (Glade/XML libraries)",
-            "sectionin_list": [ 1, 4, 5, 6 ] },
-        "perl-gtk2-gladexml": {
-            "description": "Gtk2::GladeXML (Perl Glade/XML libraries)",
-            "sectionin_list": [ 1, 4, 5, 6 ] },
+            "sectionin_list": [ 2, 3, 4 ] },
         "libgnomecanvas-bin": {
             "description": "libgnomecanvas-bin (Gnome Canvas libs.)",
-            "sectionin_list": [ 1, 4, 5 ] },
-        "perl-gnome2-canvas": {
+            "sectionin_list": [ 2, 3, 4 ] },
+        "perl-Gnome2-Canvas": {
             "description": "Gnome2::Canvas (Perl GnomeCanvas libs.)",
-            "sectionin_list": [ 1, 4, 5 ] },
+            "sectionin_list": [ 2, 3, 4 ] },
+        "perl-Gtk2-GladeXML": {
+            "description": "Gtk2::GladeXML (Perl Glade/XML libraries)",
+            "sectionin_list": [ 2, 3, 4 ] },
         // Gtk2-Perl Applications
-        "perl-app-asciio-0.95_01": {
+        "perl-App-Asciio": {
             "description": "Asciio v0.95_01 - ASCII Art Editor",
-            "sectionin_list": [ 1, 3, 4, 5, 6 ] },
+            "sectionin_list": [ 2, 3, 4 ] },
+        "perl-Gtk2-Ex-PodViewer": {
+            "description": "Gtk2::Ex::PodViewer - a GTK Perl POD viewer",
+            "sectionin_list": [ 2, 3, 4 ] },
         // Extra Perl Modules
-        "perl-YAML": {
-            "description": "YAML - Yet Another Markup Language",
-            "sectionin_list": [ 1, 9 ] },
-        "perl-LWP": {
-            "description": "LWP/libwww-perl",
-            "sectionin_list": [ 1, 9 ] },
-        "perl-Moose": {
-            "description": "Moose: a Post-Modern Object Framework for Perl",
-            "sectionin_list": [ 1, 9 ] },
-        "perl-PAR": {
-            "description": "PAR: Perl Archive Toolkit",
-            "sectionin_list": [ 1, 9 ] },
-        "perl-PAR-Packer": {
-            "description": "PAR::Packer: The PAR Packer (creator) Toolkit",
-            "sectionin_list": [ 1, 9 ] },
-        "perl-Log-Log4perl": {
-            "description": "Log::Log4perl: A Perl clone of log4j (but better)",
-            "sectionin_list": [ 1, 9, 11, 12 ] },
-        "perl-TimeDate": {
-            "description": "Date::Format: Date formatting subroutines",
-            "sectionin_list": [ 1, 9, 11, 12 ] },
+		"perl-CPAN-Metadata": {
+            "description": "CPAN Metadata files",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
         "perl-JSON": {
             "description": "JSON: Javascript data serialization/storage",
-            "sectionin_list": [ 1, 9, 11, 12 ] },
+            "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-Log-Log4perl": {
+            "description": "Log::Log4perl: A Perl clone of log4j (but better)",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-LWP": {
+            "description": "LWP/libwww-perl",
+            "sectionin_list": [ 1, 2, 3, 4, 6 ] },
+        "perl-Moose": {
+            "description": "Moose: a Post-Modern Object Framework for Perl",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-PAR": {
+            "description": "PAR: Perl Archive Toolkit",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-PAR-Packer": {
+            "description": "PAR::Packer: The PAR Packer (creator) Toolkit",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-TimeDate": {
+            "description": "Date::Format: Date formatting subroutines",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-Win32-API-ODBC": {
+            "description": "JSON: Javascript data serialization/storage",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-XML-Parser": {
+            "description": "XML::Parser - XML document parsing in Perl",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-YAML": {
+            "description": "YAML - Yet Another Markup Language",
+            "sectionin_list": [ 2, 3, 4, 6 ] },
         // Perl Database Support
         "perl-DBI": {
             "description": "DBI - Database Independent Interface",
-            "sectionin_list": [ 1, 9, 11, 12 ] },
+            "sectionin_list": [ 2, 3, 4, 7 ] },
         "perl-DBD-ODBC": {
             "description": "DBD::ODBC - ODBC Driver for Perl DBI",
-            "sectionin_list": [ 1, 9, 11, 12 ] },
+            "sectionin_list": [ 2, 3, 4, 7 ] },
         "perl-DBD-SQLite": {
             "description": "DBD::SQLite - Pure Perl DBD driver for SQLite",
-            "sectionin_list": [ 1, 9, 11, 12 ] },
+            "sectionin_list": [ 2, 3, 4, 7 ] },
         "perl-DBD-mysql": {
             "description": "DBD::mysql - DBD driver for MySQL",
-            "sectionin_list": [ 1, 9, 11, 12 ] },
+            "sectionin_list": [ 2, 3, 4, 7 ] },
+        // Database Tools
+        "mysql-bin": {
+            "description": "MySQL Client Library (libmysql.dll)",
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
+        "mysql-client": {
+            "description": "MySQL Client Binary (mysql.exe)",
+            "sectionin_list": [ 2, 4, 7 ] },
+        "mysql-debug": {
+            "description": "MySQL Debugging Binaries",
+            "sectionin_list": [ 4 ] },
+        "mysql-dev": {
+            "description": "MySQL Devel. (headers and import libs)",
+            "sectionin_list": [ 2, 3, 4 ] },
+        "mysql-docs": {
+            "description": "MySQL Documentation in .CHM format",
+            "sectionin_list": [ 2, 3, 4 ] },
+        "mysql-server": {
+            "description": "MySQL Server Binaries",
+            "sectionin_list": [ 4 ] },
+        "sqlite-bin": {
+            "description": "SQLite Client Library",
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
+        "sqlite-utils": {
+            "description": "SQLite Database Utilities",
+            "sectionin_list": [ 2, 3, 4 ] },
         // Development Packages
-        "mingw": {
-            "description": "Minimal GNU for Windows (MinGW) Toolkit",
-            "sectionin_list": [ 1, 5 ] },
         "dmake": {
             "description": "dmake Makefile Processor",
-            "sectionin_list": [ 1, 5 ] },
+            "sectionin_list": [ 3, 4 ] },
+        "expat-dev": {
+            "description": "Expat XML Parser Development Files",
+            "sectionin_list": [ 3, 4 ] },
+        "gladewin32-dev": {
+            "description": "Glade for Windows Development Files",
+            "sectionin_list": [ 3, 4 ] },
         "gtk-core-dev": {
             "description": "Core GTK Development Files",
-            "sectionin_list": [ 1, 5 ] },
+            "sectionin_list": [ 3, 4 ] },
         "gtk-support-dev": {
             "description": "gtk-support-dev (gettext/libintl/etc.)",
-            "sectionin_list": [ 1, 5 ] },
+            "sectionin_list": [ 3, 4 ] },
         "imagelibs-dev": {
             "description": "imagelibs-dev (JPG/PNG/TIFF Headers)",
-            "sectionin_list": [ 1, 5 ] },
+            "sectionin_list": [ 3, 4 ] },
         "libglade-dev": {
             "description": "libglade-dev (Glade Headers)",
-            "sectionin_list": [ 1, 5 ] },
+            "sectionin_list": [ 3, 4 ] },
         "libgnomecanvas-dev": {
             "description": "libgnomecanvas-dev (GnomeCanvas Headers)",
-            "sectionin_list": [ 1, 5 ] },
+            "sectionin_list": [ 3, 4 ] },
+        "mingw": {
+            "description": "Minimal GNU for Windows (MinGW) Toolkit",
+            "sectionin_list": [ 3, 4 ] },
         // Extra Tools Packages
-        "glade-win32": {
-            "description": "Glade GUI Builder Tool",
-            "sectionin_list": [ 1, 6, 8 ] },
-        "unxutils": {
-            "description": "UnxUtilities for Windows",
-            "sectionin_list": [ 1, 7, 8 ] },
+        "gladewin32-bin": {
+            "description": "Glade XML GUI Builder Tool",
+            "sectionin_list": [ 2, 3, 4 ] },
         "lzma": {
             "description": "LZMA Compression Utility",
-            "sectionin_list": [ 1, 8 ] },
-        "imagelibs-utils": {
+            "sectionin_list": [ 2, 3, 4 ] },
+        "unxutils": {
+            "description": "UnxUtilities for Windows",
+            "sectionin_list": [ 2, 3, 4 ] },
+		// Bloatware
+		"imagelibs-utils": {
             "description": "imagelibs Utilities",
-            "sectionin_list": [ 1, 8 ] },
+            "sectionin_list": [ 4 ] },
         "gettext-utils": {
             "description": "gettext Utilities",
-            "sectionin_list": [ 1, 8 ] },
+            "sectionin_list": [ 4 ] },
         "dmake-extra": {
             "description": "dmake Makefile Processor (extra files)",
-            "sectionin_list": [ 1, 8 ] },
+            "sectionin_list": [ 4 ] },
         // Documentation and Examples
         "perl-5.10.0-html_docs": {
             "description": "Perl 5.10.0 HTML Documentation",
-            "sectionin_list": [ 1 ] },
+            "sectionin_list": [ 3, 4 ] },
         "gtk-core-doc": {
             "description": "GTK C API HTML/SGML Documentation",
-            "sectionin_list": [ 1 ] },
+            "sectionin_list": [ 3, 4 ] },
         "perl-gtk2-examples": {
             "description": "Gtk2-Perl Example Scripts",
-            "sectionin_list": [ 1 ],
+            "sectionin_list": [ 3, 4 ],
             "extra_options": "StrCpy $demosInstalled 'true'" }
     } // packages
 } // JSON data block

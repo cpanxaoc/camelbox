@@ -92,10 +92,11 @@ Icon "${MAIN_ICON}"
 Caption "${CAPTION_TEXT}"
 # shown at the bottom of this dialog 4.8.1.6
 BrandingText "Thanks to Milo for the installer!"
-#BrandingText "http://code.google.com/p/camelbox/"
+#BrandingText "http://code.google.c om/p/camelbox/"
 # name of this project 4.8.1.30
 Name "${CAPTION_TEXT}"
 
+LicenseBkColor /windows
 LicenseText "${CAPTION_TEXT}" 		# 4.8.1.28
 LicenseData "${LICENSE_FILE}" 		# 4.8.1.26
 
@@ -123,15 +124,15 @@ UninstPage InstFiles
 # developer install
 # bloatware install
 #InstType "Essentials - Perl, GTK, DB libs"
-InstType "The Standard - Perl, GTK, DB libs"
 #InstType "Essentials+ - Essentials with extra tools"
-InstType "The Standard+ - The Standard with extra tools"
-InstType "The Developer - The Standard+ with dev files"
-InstType "Bloatware - Everything, The Whole Enchilada"
-InstType "Basics - Perl Only"
-InstType "Basics - Perl with All Non-GTK Modules"
-InstType "Basics - Perl with Database Support only"
-InstType "Vapourware - Nothing"
+InstType "The Starter - Perl, GTK, DB libs"
+InstType "The Step Up - The Starter with extra tools/libs"
+InstType "The Developer - The Step Up with dev tools"
+InstType "The Bloatware - Everything, The Whole Enchilada"
+InstType "The Basics - Perl Only"
+InstType "The Basics - Perl with All Non-GTK Modules"
+InstType "The Basics - Perl with Database Support only"
+InstType "The Vapourware - Nothing"
 
 #InstType "Full Install - The Whole Enchilada"			# 1
 #InstType "Perl Only"									# 2
