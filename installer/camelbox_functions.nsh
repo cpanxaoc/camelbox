@@ -49,6 +49,16 @@ var openUsingCamelboxWebpage
 # run the demo launcher?
 var runDemoLauncher
 
+# for the StartPage
+var dialog_StartPage
+var dialog_SP_LogoImgBox
+var dialog_SP_LogoImg
+var dialog_SP_ReleaseImgBox
+var dialog_SP_ReleaseNameImg
+var dialog_SP_Headline
+var dialog_SP_Text
+var Headline_Font
+
 #### FUNCTIONS ####
 
 Function .onInit
@@ -75,6 +85,8 @@ Function .onInit
     	System::Call "user32::SetForegroundWindow(i r1) i."  ; Bring to front
 	    Abort
   	launch:
+	# for the StartPage below
+	CreateFont $Headline_Font "$(^Font)" "14" "700"
 FunctionEnd
 
 Function ErrorExit
@@ -82,6 +94,59 @@ Function ErrorExit
 	pop $0
 	DetailPrint "Installer encountered the following fatal error:"
 	abort "$0; Aborting..."
+FunctionEnd
+
+# custom page for displaying the welcome banner and logo
+Function StartPage
+	# every time you use a nsDialogs macro, you need to pop the return value
+	# off of the stack; sometimes you can save and reuse this value (it's a
+	# reference to a dialog window for example)
+	nsDialogs::Create /NOUNLOAD 1018
+	Pop $dialog_StartPage
+	StrCmp $0 "error" FailBail 0
+
+
+	# logo image
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 0 10 140u 140u ""
+	Pop $dialog_SP_LogoImgBox
+
+	StrCpy $0 ${INSTALLER_BASE}\Icons\camelbox-logo.bmp
+	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
+	Pop $dialog_SP_LogoImg
+	
+	SendMessage $dialog_SP_LogoImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
+		$dialog_SP_LogoImg
+
+	# release name image
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 0 10 140u 140u ""
+	Pop $dialog_SP_LogoImgBox
+
+	StrCpy $0 ${INSTALLER_BASE}\Icons\camelbox-logo.bmp
+	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
+	Pop $dialog_SP_LogoImg
+	
+	SendMessage $dialog_SP_LogoImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
+		$dialog_SP_LogoImg
+
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 100u 10u -100u 20u "Welcome to Camelbox!"
+	Pop $dialog_SP_Headline
+
+	SendMessage $dialog_SP_Headline ${WM_SETFONT} $Headline_Font 0
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 100u 32u -100u -32u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n * A nice Windows installer that automatically downloads and installs the correct archive files$\r$\n* All of the core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
+	Pop $dialog_SP_Text
+
+	SetCtlColors $dialog_StartPage "" 0xffffff
+	SetCtlColors $dialog_SP_Headline "" 0xffffff
+	SetCtlColors $dialog_SP_Text "" 0xffffff
+
+	# this always comes last
+	nsDialogs::Show
+
+	System::Call gdi32::DeleteObject(i$dialog_SP_LogoImg)
+
+	FailBail:
+		push $0
+		Call ErrorExit
 FunctionEnd
 
 # custom page for entering in a download URL

@@ -1,18 +1,3 @@
-Camelbox: A complete build of Perl for 32-bit Windows that includes:
-
-* A nice Windows installer that automatically downloads and installs the correct archive files
-* All of the core Gtk2-Perl modules (Gtk2, Glib, Cairo)
-* A working CPAN module
-* Bonus (!) Perl modules
-* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN
-* Lots of Perl/GTK documenation in HTML format
-
-all neatly packaged and ready to install! 
-
-Many thanks to Milo for the original NSI installer script!
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
 The files in this archive are licensed under one or more of the following
 licenses:
 
@@ -25,12 +10,13 @@ terms put forth by the authors of the original applications that have been
 bundled into this application.
 
 If in doubt about the license that a piece of software is covered under,
-consult the source code and/or the original authors of the software.  Any
-files specifically written for the Camelbox project are licensed under the GNU
-GPLv2.
+consult the source code and/or the original authors of the software.  
 
-For support with this software, please post to the Camelbox Google Group:
-http://groups.google.com/group/camelbox
+Any files specifically written for the Camelbox project are licensed under the
+GNU GPLv2.
+
+For support with this software, feature requests and complaints, please post
+to the Camelbox Google Group: http://groups.google.com/group/camelbox
 
 The Camelbox homepage is located at:
 

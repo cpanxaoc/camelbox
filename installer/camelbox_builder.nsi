@@ -109,6 +109,7 @@ InstallDir "${INSTALL_PATH}"
 !include "camelbox_packages.nsh"  	# the list of package archives
 
 #### PAGES ####
+Page custom StartPage
 Page License
 Page custom ChooseHTTPServer ChooseHTTPServerLeave
 Page Components
