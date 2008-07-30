@@ -449,7 +449,9 @@ sub get_object {
             && exists $self->{objects}->{$args{object_id}} ) {
         return $self->{objects}->{$args{object_id}};
     } else {
-        $logger->warn(qq(package ) . $args{object_id} . qq( not defined/empty));
+        $logger->error(qq(package ) . $args{object_id} 
+			. qq( not defined/empty));
+		die;
     } # if ( exists $object_hash{$args{object_id}} )
 } # sub get_object
 
@@ -874,9 +876,10 @@ sub get_file_object {
     $logger->logcroak(qq(get_file called without a filename argument)) 
         unless ( $args{filename} );
 
-    $logger->logcroak(qq(get_file requested for file that does not exist))
-	    unless ( defined $self->{files}->{$args{filename}} ); 
-
+	if ( ! defined $self->{files}->{$args{filename}} ) {
+	    $logger->error(qq(get_file requested for file that does not exist));
+		$logger->logcroak(q(requested file was ) . $args{filename} );
+	} # if ( ! defined $self->{files}->{$args{filename}} )
     return $self->{files}->{$args{filename}};
 } # sub get_file
 
@@ -898,6 +901,7 @@ sub get_filename_regex {
         return $newest_match;
     } else {
         $logger->warn(q(no matches found for ') . $args{regex} . q('));
+		die;
     } # if ( scalar(@matches) > 0 )
 } # sub get_file_regex
 
