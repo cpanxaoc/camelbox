@@ -105,9 +105,8 @@ Function StartPage
 	Pop $dialog_StartPage
 	StrCmp $0 "error" FailBail 0
 
-
 	# logo image
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 0 10 140u 140u ""
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 0 140u 140u ""
 	Pop $dialog_SP_LogoImgBox
 
 	StrCpy $0 ${INSTALLER_BASE}\Icons\camelbox-logo.bmp
@@ -118,21 +117,21 @@ Function StartPage
 		$dialog_SP_LogoImg
 
 	# release name image
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 0 10 140u 140u ""
-	Pop $dialog_SP_LogoImgBox
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 -40u 140u 50u ""
+	Pop $dialog_SP_ReleaseImgBox
 
-	StrCpy $0 ${INSTALLER_BASE}\Icons\camelbox-logo.bmp
+	StrCpy $0 ${INSTALLER_BASE}\Icons\2008.1-odin.140x50.bmp
 	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
-	Pop $dialog_SP_LogoImg
+	Pop $dialog_SP_ReleaseNameImg
 	
-	SendMessage $dialog_SP_LogoImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
-		$dialog_SP_LogoImg
+	SendMessage $dialog_SP_ReleaseImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
+		$dialog_SP_ReleaseNameImg
 
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 100u 10u -100u 20u "Welcome to Camelbox!"
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 107u 2u -95u 20u "Welcome to Camelbox!"
 	Pop $dialog_SP_Headline
 
 	SendMessage $dialog_SP_Headline ${WM_SETFONT} $Headline_Font 0
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 100u 32u -100u -32u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n * A nice Windows installer that automatically downloads and installs the correct archive files$\r$\n* All of the core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 105u 20u -100u -5u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n* All of the core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
 	Pop $dialog_SP_Text
 
 	SetCtlColors $dialog_StartPage "" 0xffffff

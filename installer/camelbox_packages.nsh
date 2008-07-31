@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2008.212.0742Z 
+# DATE:     2008.213.0146Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -359,15 +359,6 @@ SectionGroup "Development Packages"
         push $0
         Call SnarfUnpack
     SectionEnd ; expat-dev
-    Section "Glade for Windows Development Files" gladewin32-dev_id
-        SectionIn 3 4
-        AddSize 617
-        push "gladewin32-dev.2008.202.1.tar.lzma"
-        push "4731ead2f4b09a8cf9eb01d52347c5da"
-        SectionGetText ${gladewin32-dev_id} $0
-        push $0
-        Call SnarfUnpack
-    SectionEnd ; gladewin32-dev
 SectionGroupEnd ; Development Packages
 
 SectionGroup "Database Tools Packages"
@@ -474,6 +465,45 @@ SectionGroup "Extra Tools Packages"
         Call SnarfUnpack
     SectionEnd ; expat-bin
 SectionGroupEnd ; Extra Tools Packages
+
+SectionGroup "Bloatware Packages"
+    Section "Glade for Windows Development Files" gladewin32-dev_id
+        SectionIn 3 4
+        AddSize 617
+        push "gladewin32-dev.2008.202.1.tar.lzma"
+        push "4731ead2f4b09a8cf9eb01d52347c5da"
+        SectionGetText ${gladewin32-dev_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; gladewin32-dev
+    Section "imagelibs Utilities" imagelibs-utils_id
+        SectionIn 4
+        AddSize 1660
+        push "imagelibs-utils.2008.201.1.tar.lzma"
+        push "98dd73d7d8dff390609f88527f645be8"
+        SectionGetText ${imagelibs-utils_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; imagelibs-utils
+    Section "gettext Utilities" gettext-utils_id
+        SectionIn 4
+        AddSize 6702
+        push "gettext-utils.2008.089.1.tar.lzma"
+        push "f28b6d1e1bd3089e8629de9d2af57ea6"
+        SectionGetText ${gettext-utils_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; gettext-utils
+    Section "dmake Makefile Processor (extra files)" dmake-extra_id
+        SectionIn 4
+        AddSize 606
+        push "dmake-extra.2008.199.1.tar.lzma"
+        push "32f3d240ea9874e3aca23d968487a760"
+        SectionGetText ${dmake-extra_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; dmake-extra
+SectionGroupEnd ; Bloatware Packages
 
 SectionGroup "Documentation and Examples"
     Section "Perl 5.10.0 HTML Documentation" perl-5.10.0-html_docs_id

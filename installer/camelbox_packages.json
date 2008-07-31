@@ -55,6 +55,7 @@ InstType "Vapourware - Nothing"
         "group_dev-packages",
 		"group_database-tools",
         "group_extra-tools",
+		"group_bloatware",
         "group_docs-examples",
         "sec_environmentvariables",
         "sec_uninstall",
@@ -116,12 +117,12 @@ InstType "Vapourware - Nothing"
             "sections_list": [  "mingw", "dmake", "gtk-core-dev",
                                 "gtk-support-dev", "imagelibs-dev", 
                                 "libglade-dev", "libgnomecanvas-dev",
-							    "expat-dev", "gladewin32-dev"	]
+							    "expat-dev"	]
         }, // group_dev-packages 
 		"group_bloatware": {
             "description": "Bloatware Packages",
             "expanded_flag": 0,
-            "sections_list": [  "glade-win32-dev", "imagelibs-utils",
+            "sections_list": [  "gladewin32-dev", "imagelibs-utils",
 		   						"gettext-utils", "dmake-extra" ]
 		}, // group_bloatware
         "group_docs-examples": {
