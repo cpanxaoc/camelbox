@@ -1,0 +1,5 @@
+site/lib/auto/DBD/Pg/.packlist
+site/lib/auto/DBD/Pg/Pg.bs
+site/lib/auto/DBD/Pg/Pg.dll
+site/lib/Bundle/DBD/Pg.pm
+site/lib/DBD/Pg.pm
