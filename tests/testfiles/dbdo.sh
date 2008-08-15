@@ -11,7 +11,7 @@ function check_exit_code () {
 	local EXIT_STATUS=$2
 
 	if [ $EXIT_STATUS -gt 0 ]; then
-		echo "ERROR: $ACTION command exited with status $EXIT_STATUS"
+		echo "ERROR: '$ACTION' command exited with status $EXIT_STATUS"
 		exit 1
 	fi
 } # function check_exit_code
@@ -49,13 +49,14 @@ if [ "x$SHOW_HELP" = "xtrue" ]; then show_usage; fi
 if [ "x$ACTION" = "xcreate" ]; then
 	# create the database
 	sqlite3 -line $SQLITE_DB_FILE '.read sqlite_create.sql'  
-	check_exit_code "create" $?	
+	check_exit_code "create db file" $?	
 
 elif [ "x$ACTION" = "xdestroy" ]; then
 	# destroy the database
 	sqlite3 -line $SQLITE_DB_FILE '.read sqlite_destroy.sql'
-	check_exit_code "destroy" $?	
-
+	check_exit_code "destroy db file" $?	
+	rm $SQLITE_DB_FILE
+	check_exit_code "delete db file" $?
 else
 	# neither -c (create) or -d (destroy) passed in
 	show_usage
