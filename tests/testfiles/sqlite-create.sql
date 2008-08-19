@@ -17,12 +17,12 @@ CREATE TABLE manifest (
 
 CREATE TABLE groups (
     group_id                TEXT,
-    group-desc              TEXT,
+    group_desc              TEXT,
     expanded_flag           INTEGER
 );
 -- CREATE TABLE groups
 
-CREATE TABLE groups-selections (
+CREATE TABLE groups_sections (
     group_id                TEXT,
     package_id              TEXT
 );
@@ -36,8 +36,6 @@ CREATE TABLE packages (
 
 CREATE TABLE package_install_type (
     package_id              TEXT,
-    install_type.type_num   INTEGER
+    install_type_num   INTEGER
 );
 -- CREATE TABLE package_install_type
-
-

@@ -20,15 +20,15 @@ function show_usage () {
 	echo "dbdo.sh [options]"
 	echo "Usage:"
 	echo "  -h show this help text"
-	echo "  -c create the database file (${SQLITE_DB_FILE})"
-	echo "  -z zero out the tables in ${SQLITE_DB_FILE}"
-	echo "  -d destroy the database file (${SQLITE_DB_FILE})"
+	echo "  -c create database tables"
+	echo "  -z zero out database tables"
+	echo "  -d destroy the database file (SQLite only)"
 	echo
 	echo "Database options:"
 	echo "  -s connect via SQLite (database filename: ${SQLITE_DB_FILE})"
 	echo "  -f filename to use for the SQLite database file"
-	echo "  -m connect via MySQL client"
-	echo "  -p connect via PostgreSQL client"
+	#echo "  -m connect via MySQL client"
+	#echo "  -p connect via PostgreSQL client"
 	echo
 	exit 1
 } # function show_usage ()
@@ -38,11 +38,14 @@ function show_usage () {
 while getopts hczdsf:mp VARLIST
 do
 	case $VARLIST in
-		c)  ACTION="create";;
-        d)  ACTION="destroy";;
-        s)  ACTION="zero";;
-		f)  DB_FILENAME=$OPTARG;;
 		h)  SHOW_HELP="true";;
+		c)  ACTION="create";;
+        z)  ACTION="zero";;
+        d)  ACTION="destroy";;
+        s)  DB_TYPE="sqlite";; 
+		f)  DB_FILENAME=$OPTARG;;
+        m)  DB_TYPE="mysql";;
+        p)  DB_TYPE="postgresql";;
 	esac
 done
 shift $(expr $OPTIND - 1)
@@ -66,7 +69,7 @@ elif [ "x$ACTION" = "xdestroy" ]; then
 	check_exit_code "delete db file" $?
 
 else
-	# neither -c (create) or -d (destroy) passed in
+	# neither -c (create), -z (zero), or -d (destroy) passed in
 	show_usage
 fi # if [ $OUTPUT_LIST ]; then
 
