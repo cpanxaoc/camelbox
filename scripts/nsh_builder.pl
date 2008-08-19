@@ -1179,7 +1179,7 @@ my $packed_ratio
 	= $writeblocks->get_archived_size() / $writeblocks->get_unpacked_size();
 $logger->warn(qq(Unpacked size: ) . $writeblocks->get_unpacked_size());
 $logger->warn(qq(Archived size: ) . $writeblocks->get_archived_size());
-$logger->warn(qq(Ratio: ) . sprintf(q(%0.2f), $packed_ratio));
+$logger->warn(qq(Compression Ratio: ) . sprintf(q(%0.2f), $packed_ratio));
 exit 0;
 
 #### end main ####
