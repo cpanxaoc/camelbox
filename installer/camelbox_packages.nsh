@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2008.213.0146Z 
+# DATE:     2008.232.0726Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -134,6 +134,33 @@ SectionGroup /e "Gtk2-Perl Applications"
         push $0
         Call SnarfUnpack
     SectionEnd ; perl-App-Asciio
+    Section "Sprog v0.14 - Build programs using 'parts'" perl-App-Sprog_id
+        SectionIn 2 3 4
+        AddSize 467
+        push "perl-App-Sprog.2008.228.1.tar.lzma"
+        push "8b3027df9175a1603c6384fd649465ab"
+        SectionGetText ${perl-App-Sprog_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-App-Sprog
+    Section "Gtk2::Ex::DBI - Bind Glade XML to a datasource" perl-Gtk2-Ex-DBI_id
+        SectionIn 2 3 4
+        AddSize 120
+        push "perl-Gtk2-Ex-DBI.2008.213.1.tar.lzma"
+        push "5a05d132e82b6851ec8f4c32d2e8d687"
+        SectionGetText ${perl-Gtk2-Ex-DBI_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-Gtk2-Ex-DBI
+    Section "Gtk2::Ex::Datasheet::DBI - Model/Treeview Object" perl-Gtk2-Ex-Datasheet-DBI_id
+        SectionIn 2 3 4
+        AddSize 344
+        push "perl-Gtk2-Ex-Datasheet-DBI.2008.213.1.tar.lzma"
+        push "c6b312c89d073dfdbbd81209e4785c80"
+        SectionGetText ${perl-Gtk2-Ex-Datasheet-DBI_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-Gtk2-Ex-Datasheet-DBI
     Section "Gtk2::Ex::PodViewer - a GTK Perl POD viewer" perl-Gtk2-Ex-PodViewer_id
         SectionIn 2 3 4
         AddSize 207
@@ -257,24 +284,6 @@ SectionGroup "Perl Database Support"
         push $0
         Call SnarfUnpack
     SectionEnd ; perl-DBI
-    Section "DBD::ODBC - ODBC Driver for Perl DBI" perl-DBD-ODBC_id
-        SectionIn 1 2 3 4 7
-        AddSize 194
-        push "perl-DBD-ODBC.2008.210.1.tar.lzma"
-        push "d63df1a4dfd955c970682f6d8165c46a"
-        SectionGetText ${perl-DBD-ODBC_id} $0
-        push $0
-        Call SnarfUnpack
-    SectionEnd ; perl-DBD-ODBC
-    Section "DBD::SQLite - Pure Perl DBD driver for SQLite" perl-DBD-SQLite_id
-        SectionIn 1 2 3 4 7
-        AddSize 444
-        push "perl-DBD-SQLite.2008.210.1.tar.lzma"
-        push "aa2c6e3f955bd870830d9982d97356e3"
-        SectionGetText ${perl-DBD-SQLite_id} $0
-        push $0
-        Call SnarfUnpack
-    SectionEnd ; perl-DBD-SQLite
     Section "DBD::mysql - DBD driver for MySQL" perl-DBD-mysql_id
         SectionIn 1 2 3 4 7
         AddSize 191
@@ -284,6 +293,33 @@ SectionGroup "Perl Database Support"
         push $0
         Call SnarfUnpack
     SectionEnd ; perl-DBD-mysql
+    Section "DBD::ODBC - ODBC Driver for Perl DBI" perl-DBD-ODBC_id
+        SectionIn 1 2 3 4 7
+        AddSize 194
+        push "perl-DBD-ODBC.2008.210.1.tar.lzma"
+        push "d63df1a4dfd955c970682f6d8165c46a"
+        SectionGetText ${perl-DBD-ODBC_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-DBD-ODBC
+    Section "DBD::Pg - DBD driver for PostgreSQL" perl-DBD-Pg_id
+        SectionIn 1 2 3 4 7
+        AddSize 371
+        push "perl-DBD-Pg.2008.227.1.tar.lzma"
+        push "d659766f6a5632f36c7b26a9d31040de"
+        SectionGetText ${perl-DBD-Pg_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-DBD-Pg
+    Section "DBD::SQLite - Pure Perl DBD driver for SQLite" perl-DBD-SQLite_id
+        SectionIn 1 2 3 4 7
+        AddSize 444
+        push "perl-DBD-SQLite.2008.210.1.tar.lzma"
+        push "aa2c6e3f955bd870830d9982d97356e3"
+        SectionGetText ${perl-DBD-SQLite_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-DBD-SQLite
 SectionGroupEnd ; Perl Database Support
 
 SectionGroup "Development Packages"
@@ -416,6 +452,51 @@ SectionGroup "Database Tools Packages"
         push $0
         Call SnarfUnpack
     SectionEnd ; mysql-server
+    Section "PostgreSQL Client Library (libpq.dll)" postgresql-bin_id
+        SectionIn 1 2 3 4 7
+        AddSize 181
+        push "postgresql-bin.2008.226.1.tar.lzma"
+        push "1a4570beff18ea47e77fd7c4182fb408"
+        SectionGetText ${postgresql-bin_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; postgresql-bin
+    Section "PostgreSQL Client Binary (psql.exe)" postgresql-client_id
+        SectionIn 2 3 4 7
+        AddSize 322
+        push "postgresql-client.2008.226.1.tar.lzma"
+        push "9115adb76f8ffb87ad5110ba3ea8a9f9"
+        SectionGetText ${postgresql-client_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; postgresql-client
+    Section "PostgreSQL Devel. (headers and import libs)" postgresql-dev_id
+        SectionIn 3 4
+        AddSize 11452
+        push "postgresql-dev.2008.227.1.tar.lzma"
+        push "1e418a7387d159a706d55cb2718c8ab6"
+        SectionGetText ${postgresql-dev_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; postgresql-dev
+    Section "PostgreSQL Documentation in HTML/manpage format" postgresql-docs_id
+        SectionIn 3 4
+        AddSize 9522
+        push "postgresql-docs.2008.226.1.tar.lzma"
+        push "63a91bc28fa99b8ade7ef94890a6e8b2"
+        SectionGetText ${postgresql-docs_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; postgresql-docs
+    Section "PostgreSQL Server Binaries" postgresql-server_id
+        SectionIn 4
+        AddSize 12724
+        push "postgresql-server.2008.227.1.tar.lzma"
+        push "4547e65a69abeea7a6aab21ee21989fc"
+        SectionGetText ${postgresql-server_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; postgresql-server
     Section "SQLite Database Utilities" sqlite-utils_id
         SectionIn 2 3 4 7
         AddSize 1714

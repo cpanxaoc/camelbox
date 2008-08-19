@@ -77,7 +77,10 @@ InstType "Vapourware - Nothing"
         "group_gtk2-perl-apps": {
             "description": "Gtk2-Perl Applications",
             "expanded_flag": 1,
-            "sections_list": [  "perl-App-Asciio", "perl-Gtk2-Ex-PodViewer" ]
+            "sections_list": [  "perl-App-Asciio", "perl-App-Sprog",
+								"perl-Gtk2-Ex-DBI", 
+								"perl-Gtk2-Ex-Datasheet-DBI",
+								"perl-Gtk2-Ex-PodViewer" ]
         }, // group_gtk2-perl-apps
         "group_extra-perl-mods": {
             "description": "Extra Perl Modules",
@@ -91,15 +94,18 @@ InstType "Vapourware - Nothing"
         "group_perl-databases": {
             "description": "Perl Database Support",
             "expanded_flag": 0,
-            "sections_list": [  "perl-DBI", "perl-DBD-ODBC", 
-                                "perl-DBD-SQLite", "perl-DBD-mysql" ]
+            "sections_list": [  "perl-DBI", "perl-DBD-mysql",
+		   						"perl-DBD-ODBC", "perl-DBD-Pg",
+                                "perl-DBD-SQLite" ]
         }, // group_perl_databases 
         "group_database-tools": {
             "description": "Database Tools Packages",
             "expanded_flag": 0,
             "sections_list": [  "mysql-bin", "mysql-client", "mysql-debug",
 		   						"mysql-dev", "mysql-docs", "mysql-server",
-							    "sqlite-utils"	]
+            					"postgresql-bin", "postgresql-client", 
+		   						"postgresql-dev", "postgresql-docs", 
+								"postgresql-server", "sqlite-utils"	]
 								// sqlite-bin should not technically be
 								// needed, as DBD::SQLite provides it's own
 								// version of the SQLite source
@@ -169,6 +175,15 @@ InstType "Vapourware - Nothing"
         "perl-App-Asciio": {
             "description": "Asciio v0.95_01 - ASCII Art Editor",
             "sectionin_list": [ 2, 3, 4 ] },
+        "perl-App-Sprog": {
+            "description": "Sprog v0.14 - Build programs using 'parts'",
+            "sectionin_list": [ 2, 3, 4 ] },
+        "perl-Gtk2-Ex-Datasheet-DBI": {
+            "description": "Gtk2::Ex::Datasheet::DBI - Model/Treeview Object",
+            "sectionin_list": [ 2, 3, 4 ] },
+        "perl-Gtk2-Ex-DBI": {
+            "description": "Gtk2::Ex::DBI - Bind Glade XML to a datasource",
+            "sectionin_list": [ 2, 3, 4 ] },
         "perl-Gtk2-Ex-PodViewer": {
             "description": "Gtk2::Ex::PodViewer - a GTK Perl POD viewer",
             "sectionin_list": [ 2, 3, 4 ] },
@@ -210,14 +225,17 @@ InstType "Vapourware - Nothing"
         "perl-DBI": {
             "description": "DBI - Database Independent Interface",
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
+        "perl-DBD-mysql": {
+            "description": "DBD::mysql - DBD driver for MySQL",
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         "perl-DBD-ODBC": {
             "description": "DBD::ODBC - ODBC Driver for Perl DBI",
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
+        "perl-DBD-Pg": {
+            "description": "DBD::Pg - DBD driver for PostgreSQL",
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         "perl-DBD-SQLite": {
             "description": "DBD::SQLite - Pure Perl DBD driver for SQLite",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "perl-DBD-mysql": {
-            "description": "DBD::mysql - DBD driver for MySQL",
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         // Database Tools
         "mysql-bin": {
@@ -237,6 +255,21 @@ InstType "Vapourware - Nothing"
             "sectionin_list": [ 3, 4 ] },
         "mysql-server": {
             "description": "MySQL Server Binaries",
+            "sectionin_list": [ 4 ] },
+        "postgresql-bin": {
+            "description": "PostgreSQL Client Library (libpq.dll)",
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
+        "postgresql-client": {
+            "description": "PostgreSQL Client Binary (psql.exe)",
+            "sectionin_list": [ 2, 3, 4, 7 ] },
+        "postgresql-dev": {
+            "description": "PostgreSQL Devel. (headers and import libs)",
+            "sectionin_list": [ 3, 4 ] },
+        "postgresql-docs": {
+            "description": "PostgreSQL Documentation in HTML/manpage format",
+            "sectionin_list": [ 3, 4 ] },
+        "postgresql-server": {
+            "description": "PostgreSQL Server Binaries",
             "sectionin_list": [ 4 ] },
         //"sqlite-bin": {
         //    "description": "SQLite Client Library",

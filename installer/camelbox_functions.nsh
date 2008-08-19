@@ -131,7 +131,7 @@ Function StartPage
 	Pop $dialog_SP_Headline
 
 	SendMessage $dialog_SP_Headline ${WM_SETFONT} $Headline_Font 0
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 105u 20u -100u -5u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n* All of the core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules including DBI/DBD::[ЅQLite|mysql|Pg|ODBC] and friends$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 105u 20u -100u -5u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n* Core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules including DBI/DBD::[SQLite|mysql|Pg|ODBC] and friends$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
 	Pop $dialog_SP_Text
 
 	SetCtlColors $dialog_StartPage "" 0xffffff

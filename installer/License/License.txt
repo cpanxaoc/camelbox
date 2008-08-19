@@ -1,4 +1,4 @@
-The files in this archive are licensed under one or more of the following
+The files in this distribution are licensed under one or more of the following
 licenses:
 
 * GNU General Public License, versions 1 or 2
@@ -6,9 +6,10 @@ licenses:
 * The Perl "Artistic License"
 
 Installing this application signifies that you agree to all of the license
-terms put forth by the authors of the original applications that have been
-bundled into this application.  If you don't agree, then simply click the
-'Cancel' button below to exit the installer.
+terms put forth by the authors of the original bundled applications, as well
+as the license terms of the Camelbox distribution itself.  If you don't agree
+to these license terms, then simply click the 'Cancel' button below to exit
+the installer.
 
 If in doubt about the license that a piece of software is covered under,
 consult the source code and/or the original authors of the software.  You can
