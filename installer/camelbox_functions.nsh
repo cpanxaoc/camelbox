@@ -105,6 +105,13 @@ Function StartPage
 	Pop $dialog_StartPage
 	StrCmp $0 "error" FailBail 0
 
+	# coordinates for dialogs
+	# 1 - some number; see docs
+	# 2 - horizontal offset
+	# 3 - vertical offset
+	# 4 - box width
+	# 5 - box height
+
 	# logo image
 	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 0 140u 140u ""
 	Pop $dialog_SP_LogoImgBox
@@ -127,7 +134,7 @@ Function StartPage
 	SendMessage $dialog_SP_ReleaseImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
 		$dialog_SP_ReleaseNameImg
 
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 107u 2u -95u 20u "Welcome to Camelbox!"
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 107u 2u -95u 18u "Welcome to Camelbox!"
 	Pop $dialog_SP_Headline
 
 	SendMessage $dialog_SP_Headline ${WM_SETFONT} $Headline_Font 0
