@@ -4,15 +4,17 @@
 
 use strict;
 use warnings;
-use Test::More tests => 14;
+use Test::More tests => 15;
+# for debugging tests
+#use Test::More qw(no_plan);
 
-# the Config module is part of the Perl distribution
+# load up the DBI module
 BEGIN { use_ok( q(DBI) ) };
 my $db_odbc_dsn = q(sqlite_demo);
 
 # CREATE DATABASE
 my $dbh = DBI->connect(qq(dbi:ODBC:$db_odbc_dsn), q(), q());
-
+ok($dbh,  qq(Database handle to ODBC DSN $db_odbc_dsn successfully created));
 # CREATE TEST TABLE
 my $sth = $dbh->prepare(
    	q( CREATE TABLE camelbox_test (string TEXT, number INTEGER) ) );

@@ -4,15 +4,16 @@
 
 use strict;
 use warnings;
-use Test::More tests => 14;
+use Test::More tests => 15;
+#use Test::More qw(no_plan);
 
-# the Config module is part of the Perl distribution
+# load up the DBI module
 BEGIN { use_ok( q(DBI) ) };
 my $db_testfile = q(camelbox.sqlite.db);
 
 # CREATE DATABASE
 my $dbh = DBI->connect(qq(dbi:SQLite:dbname=$db_testfile), q(), q());
-#isa_ok($dbh, q(DBI));
+ok($dbh, q(Database handle to SQLite database successfully created));
 ok($dbh->{sqlite_version}, q(SQLite version is ) . $dbh->{sqlite_version});
 
 # CREATE TEST TABLE
