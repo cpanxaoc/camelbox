@@ -48,8 +48,9 @@ ok($sth->execute, q(Executed DROP TABLE statement) );
 $dbh->{PrintError} = 0;
 ok( ! $dbh->prepare(
 	q(SELECT string, number FROM camelbox_test WHERE number = 20) ),
-	q(Executed SELECT with an empty table) );
-#ok(! $sth->execute, q(Executed SELECT with an empty table) );
+	q(Prepared SELECT with an empty table) );
+# removed the ->execute statement here, the prepare statement above handles
+# the test to see if the table was dropped or not
 
 ok($sth->finish, q(Closed the statement handle with $sth->finish ) );
 ok(! undef $sth, q(undef'ed $sth));
