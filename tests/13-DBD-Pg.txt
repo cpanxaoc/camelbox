@@ -10,15 +10,11 @@ use Test::More tests => 17;
 # load up the DBI module
 BEGIN { use_ok( q(DBI) ) };
 my $db_host = q(127.0.0.1);
-my $db_port = 13306;
+my $db_port = 15432;
 my $db_name = q(camelbox);
 my $db_user = q(camelbox);
-my $dbpass;
-if ( exists $ENV{DB_MYSQL_PASS} ) {
-    $db_pass = $ENV{DB_MYSQL_PASS};
-} else {
-    die(q(Environment variable 'DB_MYSQL_PASS' is not set; exiting...));
-} # if ( exists $ENV{DB_MYSQL_PASS} )
+#die qq(Set the database password please);
+my $db_pass = q();
 
 my @rows; # returned rows
 
