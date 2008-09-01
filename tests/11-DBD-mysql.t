@@ -13,7 +13,7 @@ my $db_host = q(127.0.0.1);
 my $db_port = 13306;
 my $db_name = q(camelbox);
 my $db_user = q(camelbox);
-my $dbpass;
+my $db_pass;
 if ( exists $ENV{DB_MYSQL_PASS} ) {
     $db_pass = $ENV{DB_MYSQL_PASS};
 } else {

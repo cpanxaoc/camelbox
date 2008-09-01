@@ -13,26 +13,32 @@ my $db_host = q(127.0.0.1);
 my $db_port = 15432;
 my $db_name = q(camelbox);
 my $db_user = q(camelbox);
-#die qq(Set the database password please);
-my $db_pass = q();
+my $db_pass;
+if ( exists $ENV{PGPASSWORD} ) {
+    $db_pass = $ENV{PGPASSWORD};
+} else {
+    die(q(Environment variable 'PGPASSWORD' is not set; exiting...));
+} # if ( exists $ENV{PGPASSWORD} )
 
 my @rows; # returned rows
 
 # CREATE DATABASE
 my $dbh = DBI->connect(
-    qq(dbi:mysql:database=$db_name;)
+    qq(dbi:Pg:database=$db_name;)
     . qq(host=$db_host;port=$db_port), 
     qq($db_user), qq($db_pass) );
-ok($dbh,  q(Database handle to MySQL database successfully created));
+ok($dbh,  q(Database handle to PostgreSQL database successfully created));
 
-# check the MySQL version; this checks the connection as well
-my $sth = $dbh->prepare( q(SELECT VERSION();) );
-ok($sth->execute, q(Executed SELECT VERSION() query));
-@rows = $sth->fetchrow_array();
-ok($rows[0], q(MySQL version is ) . $rows[0]);
+# send a ping to the database to test it
+my $db_ping_rv = $dbh->ping;
+ok($db_ping_rv > 0, qq(Database ping returned success: $db_ping_rv));
+
+# check the PostgreSQL version; this checks the connection as well
+my $db_version = $dbh->{pg_server_version};
+ok($db_version, q(PostgreSQL version is ) . $db_version);
 
 # CREATE TEST TABLE
-$sth = $dbh->prepare(
+my $sth = $dbh->prepare(
    	q( CREATE TABLE camelbox_test (string TEXT, number INTEGER) ) );
 ok($sth->execute, q(Executed CREATE statement));
 
