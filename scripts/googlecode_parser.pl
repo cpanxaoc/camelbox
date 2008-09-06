@@ -27,28 +27,12 @@
 # Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #==========================================================================
 
-# things to keep track of for the NSIS package list:
-#
-# for each file:
-# - Which package group the file belongs to (toplevel, core, dev, "Core
-# Gtk2-Perl Packages"
-# - The filename match pattern (qr/gtk-core-bin/)
-# - The Section name of the package ("Core GTK Binaries")
-# - The Section_ID name (gtk-core-bin_id)
-# - The SectionIn list (used with selecting groups of packages at
-# installtime)
-# 
-# for package groups:
-# - short name of the group
-# - long/display name of the group
-# - group members (package files)
-
 =pod
 
 =head1 NAME
 
-B<installtype_lister.pl> - Show what packages get installed from different
-install types
+B<googlecode_parser.pl> - Parse the downloads page on Google Code's website
+to get some statistics on what's being downloaded
 
 =head1 VERSION
 
@@ -57,14 +41,12 @@ the author's version number.
 
 =head1 SYNOPSIS
 
- perl installtype_lister.pl [options]
+ perl googlecode_parser.pl [options]
 
 =head2 Script Options
 
  --help|-h          Show this help message
  --verbose|-v       Verbose script output
- --jsonfile|-j      JSON file to parse to build the list of packages vs.
-                    install types
 
 =cut
 
@@ -159,18 +141,11 @@ use Getopt::Long;
 use File::Find::Rule;
 use Pod::Usage;
 
-my $o_colorlog = 1;
 my ($VERBOSE, $o_timestamp, $o_startdir);
 my ($o_plaintext, $o_md5list, $o_nshlist, $o_install);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
-                        q(timestamp|t=s)                => \$o_timestamp,
-                        q(startdir|s=s)                 => \$o_startdir,
-                        q(plaintext|p:s)                => \$o_plaintext,
-                        q(md5list|m:s)                  => \$o_md5list,
-                        q(nshlist|n:s)                  => \$o_nshlist,
-                        q(install|i=s)                  => \$o_install,
                     ); # $go_parse->getoptions
 
 # verify the start directory exists
