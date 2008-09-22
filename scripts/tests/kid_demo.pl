@@ -48,15 +48,45 @@ on Windows.
 use strict;
 use warnings; # disabled, this script will exercise a few warnings otherwise
 
-my @extension_list = qw( lib dll a );
-foreach my $extension ( @filenames ) { 
+my @searchargs = ( q(-LC:/camelbox/lib), q(-lcairo), q(-lmsvcrt),
+	q(-lmoldname), q(-lkernel32), q(-luser32), q(-lgdi32),
+   	q(-lwinspool), q(-lcomdlg32), q(-ladvapi32), q(-lshell32),
+   	q(-lole32), q(-loleaut32), q(-lnetapi32), q(-luuid),
+   	q(-lws2_32), q(-lmpr), q(-lwinmm), q(-lversion),
+   	q(-lodbc32), q(-lodbccp32) ); 
+my @searchpath_list = ( q(C:/camelbox/lib/CORE) );
+my @extension_list = qw( .lib .dll .a );
+my @library_list;
 
-	if ( -f $file ) {
-		print qq(Exists:        $file\n);
-	} else {
-		print qq(Doesn't Exist: $file\n);
-	} # if ( -f $file )
-} # foreach my $file ( @filenames )
+# parse all of the arguments first
+foreach my $searcharg ( @searchargs ) {
+	# if it's a -L argument, it's another directory to search
+	if ( $searcharg =~ s/^-L(.*)$/$1/ ) {
+		print "adding $1 to search path\n";
+		push ( @searchpath_list, $1 );
+ 	} elsif ( $searcharg =~ s/^-l(.*)$/$1/ ) {
+		print "adding $1 to list of libraries to hunt\n";
+		push ( @library_list, $1 );
+	} # foreach my $file ( @filenames )
+} # foreach my $searcharg ( @searchargs )
+
+# now match library arguments with actual files
+foreach my $library_file ( @library_list ) { 
+	my @possible_files;
+	foreach my $extension ( @extension_list ) {
+		push(@possible_files, $library_file . $extension);
+	} 
+	foreach my $search_path ( @searchpath_list ) {
+		foreach my $possible_file ( @possible_files ) {
+			my $file = $search_path . q(/) . $possible_file;
+			if ( -f $file ) {
+				print qq(Exists:        $file\n);
+			} else {
+				print qq(Doesn't Exist: $file\n);
+			} # if ( -f $file )
+		} # foreach my $library_file ( @library_list )
+	} # foreach my $extension ( @filenames ) 
+} # foreach my $library_file ( @library_list )
 
 exit 0;
 
