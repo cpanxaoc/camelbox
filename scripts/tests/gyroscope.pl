@@ -2,7 +2,7 @@
 #
 # Color Selector
 #
-# $Id$
+# $Id: gyroscope.pl 191 2008-04-15 07:18:00Z elspicyjack $
 # 
 # Original script by Gtk2-Perl team
 #

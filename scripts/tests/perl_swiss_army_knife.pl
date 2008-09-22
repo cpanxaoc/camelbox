@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# $Id$
+# $Id: perl_swiss_army_knife.pl 367 2008-07-20 17:48:23Z elspicyjack $
 
 # A script to print out a bunch of info about the current Perl environment
 # by Brian Manning (elspicyjack {at} gmail &sdot; com)
