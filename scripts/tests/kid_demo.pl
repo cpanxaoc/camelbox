@@ -48,14 +48,15 @@ on Windows.
 use strict;
 use warnings; # disabled, this script will exercise a few warnings otherwise
 
-my @searchargs = ( q(-LC:/camelbox/lib), q(-lcairo), q(-lmsvcrt),
+my @searchargs = ( q(-LC:/camelbox/bin), q(-LC:/camelbox/lib), 
+	q(-lcairo), q(-lmsvcrt),
 	q(-lmoldname), q(-lkernel32), q(-luser32), q(-lgdi32),
    	q(-lwinspool), q(-lcomdlg32), q(-ladvapi32), q(-lshell32),
    	q(-lole32), q(-loleaut32), q(-lnetapi32), q(-luuid),
    	q(-lws2_32), q(-lmpr), q(-lwinmm), q(-lversion),
    	q(-lodbc32), q(-lodbccp32) ); 
 my @searchpath_list = ( q(C:/camelbox/lib/CORE) );
-my @extension_list = qw( .lib .dll .a );
+my @extension_list = qw( .a .dll .lib );
 my @library_list;
 
 # parse all of the arguments first
@@ -70,11 +71,17 @@ foreach my $searcharg ( @searchargs ) {
 	} # foreach my $file ( @filenames )
 } # foreach my $searcharg ( @searchargs )
 
+# FIXME 
+# - this needs to be searched by enumerating over @searchpath_list;  Once you
+# have a list of paths to search, do a find in those paths, and then grep for
+# the specific filename you're looking for
+
 # now match library arguments with actual files
 foreach my $library_file ( @library_list ) { 
 	my @possible_files;
+	# one run through with each extension in the extension list
 	foreach my $extension ( @extension_list ) {
-		push(@possible_files, $library_file . $extension);
+		push(@possible_files, $library_file . q(*) . $extension);
 	} 
 	foreach my $search_path ( @searchpath_list ) {
 		foreach my $possible_file ( @possible_files ) {
