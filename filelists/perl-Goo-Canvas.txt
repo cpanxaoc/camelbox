@@ -1,0 +1,15 @@
+bin/perlmine.bat
+bin/perlmine.pl
+bin/perltetris.bat
+bin/perltetris.pl
+site/lib/auto/Goo/Canvas/.packlist
+site/lib/auto/Goo/Canvas/Canvas.bs
+site/lib/auto/Goo/Canvas/Canvas.dll
+site/lib/auto/Goo/Canvas/Canvas.lib.a
+site/lib/Goo/Canvas/Install/Files.pm
+site/lib/Goo/Canvas/Install/goocanvas-perl-autogen.h
+site/lib/Goo/Canvas/Install/goocanvas-perl-version.h
+site/lib/Goo/Canvas/Install/goocanvas-perl.h
+site/lib/Goo/Canvas/Install/goocanvas-perl.typemap
+site/lib/Goo/Canvas/Install/goocanvas.typemap
+site/lib/Goo/Canvas.pm

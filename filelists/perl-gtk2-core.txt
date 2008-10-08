@@ -1,5 +1,6 @@
 lib/libCairoPerl.a
 lib/libGlibPerl.a
+lib/libGtk2Perl.a
 site/lib/auto/Cairo/.packlist
 site/lib/auto/Cairo/Cairo.bs
 site/lib/auto/Cairo/Cairo.dll
