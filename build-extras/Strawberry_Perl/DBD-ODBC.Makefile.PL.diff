@@ -1,0 +1,29 @@
+--- Makefile.PL.orig	Mon Sep 08 06:37:16 2008
++++ Makefile.PL	Sat Oct 11 23:33:21 2008
+@@ -617,7 +617,25 @@
+     }
+     $_;
+ }
+-sub MY::post_constants {
++
++sub constants {
++	my $self = shift;
++	require DBI::DBD;
++
++	my $old_constants = $self->SUPER::constants();
++	my $new_constants;
++	foreach my $line ( split(/\n/, $old_constants) ) {
++		if ( $line =~ /^INC = .*strawberry.*/ ) { 
++			print qq(Strawberry Perl found; adjusting the INC variable;\n);
++			$line = $line . q( -I) .  DBI::DBD::dbd_dbi_arch_dir();
++			print qq(INC is now $line\n);
++		}
++		$new_constants .= $line . qq(\n);
++	}
++	return $new_constants;
++}
++
++sub post_constants {
+     my ($self) = shift;
+ 
+     '
