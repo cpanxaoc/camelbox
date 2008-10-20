@@ -72,7 +72,8 @@ InstType "Vapourware - Nothing"
             "description": "Extra Gtk2-Perl Packages",
             "expanded_flag": 0,
             "sections_list": [  "libglade-bin", "perl-Gtk2-GladeXML",
-                                "libgnomecanvas-bin", "perl-Gnome2-Canvas" ]
+                                "libgnomecanvas-bin", "perl-Gnome2-Canvas",
+							   	"libgoocanvas-bin", "perl-Goo-Canvas"	]
         }, // group_gtk2-perl-extra
         "group_gtk2-perl-apps": {
             "description": "Gtk2-Perl Applications",
@@ -165,8 +166,14 @@ InstType "Vapourware - Nothing"
         "libgnomecanvas-bin": {
             "description": "libgnomecanvas-bin (Gnome Canvas libs.)",
             "sectionin_list": [ 2, 3, 4 ] },
+        "libgoocanvas-bin": {
+            "description": "libgoocanvas-bin (the GooCanvas libs.)",
+            "sectionin_list": [ 2, 3, 4 ] },
         "perl-Gnome2-Canvas": {
             "description": "Gnome2::Canvas (Perl GnomeCanvas libs.)",
+            "sectionin_list": [ 2, 3, 4 ] },
+        "perl-Goo-Canvas": {
+            "description": "Goo::Canvas (Perl GooCanvas libs.)",
             "sectionin_list": [ 2, 3, 4 ] },
         "perl-Gtk2-GladeXML": {
             "description": "Gtk2::GladeXML (Perl Glade/XML libraries)",
@@ -301,6 +308,9 @@ InstType "Vapourware - Nothing"
             "sectionin_list": [ 3, 4 ] },
         "libgnomecanvas-dev": {
             "description": "libgnomecanvas-dev (GnomeCanvas Headers)",
+            "sectionin_list": [ 3, 4 ] },
+        "libgoocanvas-dev": {
+            "description": "libgoocanvas-dev (GooCanvas Headers)",
             "sectionin_list": [ 3, 4 ] },
         "mingw": {
             "description": "Minimal GNU for Windows (MinGW) Toolkit",
