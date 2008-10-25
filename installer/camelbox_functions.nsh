@@ -46,8 +46,6 @@ var keepDownloadedArchives
 var demosInstalled
 # open the Using Camelbox page after the install?
 var openUsingCamelboxWebpage
-# run the demo launcher?
-var runDemoLauncher
 
 # for the StartPage
 var dialog_StartPage
@@ -64,7 +62,6 @@ var Headline_Font
 Function .onInit
 	StrCpy $demosInstalled "false"
 	StrCpy $openUsingCamelboxWebpage "false"
-	StrCpy $runDemoLauncher "false"
  
 	# added from http://nsis.sourceforge.net/Allow_only_one_installer_instance
   	BringToFront
@@ -217,28 +214,21 @@ Function ShortcutsAndReadme
 	pop $openUsingCamelboxWebpage
 
 	# indent these and make them dependent on the above checkbox being checked
-	${NSD_CreateCheckBox} 0 0 100% 13u \
+	${NSD_CreateCheckBox} 0 15u 100% 13u \
 		"Create icons to Camelbox binaries and Demo Launcher?"
 	pop $openUsingCamelboxWebpage
 
-	${NSD_CreateCheckBox} 0 0 100% 13u \
+	${NSD_CreateCheckBox} 0 30u 100% 13u \
 		"Create icons to recommended tutorials on the Web?"
 	pop $openUsingCamelboxWebpage
 
-	${NSD_CreateCheckBox} 0 0 100% 13u \
+	${NSD_CreateCheckBox} 0 45u 100% 13u \
 	"Open the 'Using Camelbox' page in a web browser after install is complete?"
 	pop $openUsingCamelboxWebpage
 
 	# check to see if the demos were installed, exit if not
 	StrCmp $demosInstalled "false" ShowDialog 0
 
-	${NSD_CreateCheckBox} 0 15u 100% 13u \
-		"Run the Camelbox Demo Launcher?"
-	pop $runDemoLauncher
-
-	${NSD_CreateCheckBox} 0 15u 100% 13u \
-		"Create a shortcut on the Desktop for the Demo Launcher?"
-	pop $runDemoLauncher
 	# example of creating shortcuts for things
 	# http://nsis.sourceforge.net/Many_Icons_Many_shortcuts
 
