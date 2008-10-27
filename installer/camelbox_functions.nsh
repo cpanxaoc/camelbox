@@ -34,35 +34,32 @@ var archivefile
 var archivemd5sum
 # what the name of the section is, for use with the downloader/unpacker
 var sectionname
-# dialog label and name
-var dialogURL
-# the download URL
-var DL_URL
-# keep the archive files after downloading?
-var dialogKeepDownloadedArchives
-var dialogKeepDownloadedArchivesState
-var keepDownloadedArchives
-# did the demos get installed?
-var demosInstalled
+
+# Variables used with creating icons
+# create Windows program group
+var createProgramGroup
+# create binary icons
+var createBinaryIcons
+var createBinaryIcons_state
+# create demo icons
+var createDemoIcons 
+var createDemoIcons_state
+# create icons to docs on the web
+var createDocsIcons
+var createDocsIcons_state
+
 # open the Using Camelbox page after the install?
 var openUsingCamelboxWebpage
 
-# for the StartPage
-var dialog_StartPage
-var dialog_SP_LogoImgBox
-var dialog_SP_LogoImg
-var dialog_SP_ReleaseImgBox
-var dialog_SP_ReleaseNameImg
-var dialog_SP_Headline
-var dialog_SP_Text
-var Headline_Font
-
 #### FUNCTIONS ####
 
+# initialization of any dialogs
 Function .onInit
-	StrCpy $demosInstalled "false"
 	StrCpy $openUsingCamelboxWebpage "false"
- 
+	StrCpy $createBinaryIcons_state ${BST_UNCHECKED}
+	StrCpy $createDemoIcons_state ${BST_UNCHECKED}
+	StrCpy $createDocsIcons ${BST_UNCHECKED} 
+
 	# added from http://nsis.sourceforge.net/Allow_only_one_installer_instance
   	BringToFront
 	; Check if already running
@@ -92,6 +89,16 @@ Function ErrorExit
 	DetailPrint "Installer encountered the following fatal error:"
 	abort "$0; Aborting..."
 FunctionEnd
+
+# for the StartPage
+var dialog_StartPage
+var dialog_SP_LogoImgBox
+var dialog_SP_LogoImg
+var dialog_SP_ReleaseImgBox
+var dialog_SP_ReleaseNameImg
+var dialog_SP_Headline
+var dialog_SP_Text
+#var Headline_Font
 
 # custom page for displaying the welcome banner and logo
 Function StartPage
@@ -152,6 +159,16 @@ Function StartPage
 		Call ErrorExit
 FunctionEnd
 
+# for the two ChooseHTTPServer functions
+# dialog label and name
+var dialogURL
+# the download URL
+var DL_URL
+# keep the archive files after downloading?
+var dialogKeepDownloadedArchives
+var dialogKeepDownloadedArchivesState
+var keepDownloadedArchives
+
 # custom page for entering in a download URL
 Function ChooseHTTPServer 
 	# every time you use a nsDialogs macro, you need to pop the return value
@@ -202,6 +219,37 @@ Function ChooseHTTPServerLeave
 		StrCpy $keepDownloadedArchives "true"
 FunctionEnd
 
+Function CheckProgramGroupState
+	Pop $0 # the control that called this function?
+	${NSD_GetState} $0 $1
+	StrCmp $1 ${BST_CHECKED} EnableIconCheckboxes DisableIconCheckboxes
+	EnableIconCheckboxes:
+		EnableWindow $createBinaryIcons 1
+		${NSD_SetState} $createBinaryIcons $createBinaryIcons_state
+		EnableWindow $createDemoIcons 1
+		${NSD_SetState} $createDemoIcons $createDemoIcons_state
+		EnableWindow $createDocsIcons 1
+		${NSD_SetState} $createDocsIcons $createDocsIcons_state
+		Goto CheckProgramGroupStateExit
+	DisableIconCheckboxes:
+		# binary icons checkbox
+		${NSD_GetState} $createBinaryIcons $0
+		StrCpy $createBinaryIcons_state $0
+		${NSD_SetState} $createBinaryIcons ${BST_UNCHECKED}
+		EnableWindow $createBinaryIcons 0
+		# demo icons checkbox
+		${NSD_GetState} $createDemoIcons $0
+		StrCpy $createDemoIcons_state $0
+		${NSD_SetState} $createDemoIcons ${BST_UNCHECKED}
+		EnableWindow $createDemoIcons 0
+		# docs icons checkbox
+		${NSD_GetState} $createDocsIcons $0
+		StrCpy $createDocsIcons_state $0
+		${NSD_SetState} $createDocsIcons ${BST_UNCHECKED}
+		EnableWindow $createDocsIcons 0
+	CheckProgramGroupStateExit:
+FunctionEnd
+
 # parse the docs/shortcuts installer page and respond appropriately
 Function ShortcutsAndReadme
 	# create the dialog
@@ -211,36 +259,41 @@ Function ShortcutsAndReadme
 
 	${NSD_CreateCheckBox} 0 0 100% 13u \
 		"Create a Camelbox Program Group in the Start Menu?"
-	pop $openUsingCamelboxWebpage
-
+	pop $createProgramGroup
+	GetFunctionAddress $0 CheckProgramGroupState
+	nsDialogs::OnClick /NOUNLOAD $createProgramGroup $0
+	
 	# indent these and make them dependent on the above checkbox being checked
-	${NSD_CreateCheckBox} 0 15u 100% 13u \
-		"Create icons to Camelbox binaries and Demo Launcher?"
-	pop $openUsingCamelboxWebpage
+	${NSD_CreateCheckBox} 10u 15u 100% 13u \
+		"Create icons to Camelbox binaries?"
+	pop $createBinaryIcons
+	EnableWindow $createBinaryIcons 0
 
-	${NSD_CreateCheckBox} 0 30u 100% 13u \
-		"Create icons to recommended tutorials on the Web?"
-	pop $openUsingCamelboxWebpage
+	${NSD_CreateCheckBox} 10u 30u 100% 13u \
+		"Create icons to demos and examples?"
+	pop $createDemoIcons
+	EnableWindow $createDemoIcons 0
 
-	${NSD_CreateCheckBox} 0 45u 100% 13u \
+	${NSD_CreateCheckBox} 10u 45u 100% 13u \
+		"Create icons to recommended documentation/tutorials on the Web?"
+	pop $createDocsIcons
+	EnableWindow $createDocsIcons 0
+
+	${NSD_CreateCheckBox} 0 60u 100% 13u \
 	"Open the 'Using Camelbox' page in a web browser after install is complete?"
 	pop $openUsingCamelboxWebpage
-
-	# check to see if the demos were installed, exit if not
-	StrCmp $demosInstalled "false" ShowDialog 0
 
 	# example of creating shortcuts for things
 	# http://nsis.sourceforge.net/Many_Icons_Many_shortcuts
 
-	#Goto ShowDialog
-	ShowDialog:
-		# this always comes last
-		nsDialogs::Show
+	# this always comes last
+	nsDialogs::Show
 
 	FailBail:
 		push $0
 		Call ErrorExit
 FunctionEnd # ShortcutsAndReadme
+
 
 /*
 # scrape the user's answer out of the text box
