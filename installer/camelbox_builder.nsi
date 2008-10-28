@@ -73,6 +73,7 @@
 !define BASE_URL "http://camelbox.googlecode.com/files"
 !define INSTALL_PATH "C:\camelbox"
 OutFile "C:\temp\camelbox_${RELEASE_VERSION}.exe"	# 4.8.1.31
+InstallDir "${INSTALL_PATH}"
 
 #### NSIS OPTIONS ####
 # compiler flags
@@ -91,8 +92,8 @@ Icon "${MAIN_ICON}"
 # caption for this dialog, shown in titlebar 4.8.1.7
 Caption "${CAPTION_TEXT}"
 # shown at the bottom of this dialog 4.8.1.6
-BrandingText "Thanks to Milo for the installer!"
-#BrandingText "http://code.google.c om/p/camelbox/"
+#BrandingText "Thanks to Milo for the installer!"
+BrandingText "http://code.google.com/p/camelbox/"
 # name of this project 4.8.1.30
 Name "${CAPTION_TEXT}"
 
@@ -100,7 +101,7 @@ LicenseBkColor /windows
 LicenseText "${CAPTION_TEXT}" 		# 4.8.1.28
 LicenseData "${LICENSE_FILE}" 		# 4.8.1.26
 
-InstallDir "${INSTALL_PATH}"
+
 
 #### EXTERNAL FUNCTION SCRIPTS ####
 !include "AddToPath.nsh"
