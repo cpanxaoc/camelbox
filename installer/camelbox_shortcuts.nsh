@@ -28,22 +28,17 @@
 #==========================================================================
 
 # for the StartPage
-var dialog_StartPage
-var dialog_SP_LogoImgBox
-var dialog_SP_LogoImg
-var dialog_SP_ReleaseImgBox
-var dialog_SP_ReleaseNameImg
-var dialog_SP_Headline
-var dialog_SP_Text
-#var Headline_Font
+var d_Shortcuts
+var dS_StatusBox
+var status_text
 
-# custom page for displaying the welcome banner and logo
-Function StartPage
+# custom page for displaying the status of shortcut creation
+Function ShortcutsDialog
 	# every time you use a nsDialogs macro, you need to pop the return value
 	# off of the stack; sometimes you can save and reuse this value (it's a
 	# reference to a dialog window for example)
 	nsDialogs::Create /NOUNLOAD 1018
-	Pop $dialog_StartPage
+	Pop $d_Shortcuts
 	StrCmp $0 "error" FailBail 0
 
 	# coordinates for dialogs
@@ -53,43 +48,13 @@ Function StartPage
 	# 4 - box width
 	# 5 - box height
 
-	# logo image
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 0 140u 140u ""
-	Pop $dialog_SP_LogoImgBox
-
-	StrCpy $0 ${INSTALLER_BASE}\Icons\camelbox-logo.bmp
-	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
-	Pop $dialog_SP_LogoImg
-	
-	SendMessage $dialog_SP_LogoImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
-		$dialog_SP_LogoImg
-
-	# release name image
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 -40u 140u 50u ""
-	Pop $dialog_SP_ReleaseImgBox
-
-	StrCpy $0 ${INSTALLER_BASE}\Icons\2008.1-odin.140x50.bmp
-	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
-	Pop $dialog_SP_ReleaseNameImg
-	
-	SendMessage $dialog_SP_ReleaseImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
-		$dialog_SP_ReleaseNameImg
-
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 107u 2u -95u 18u "Welcome to Camelbox!"
-	Pop $dialog_SP_Headline
-
-	SendMessage $dialog_SP_Headline ${WM_SETFONT} $Headline_Font 0
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 105u 20u -100u -5u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n* Core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules including DBI/DBD::[SQLite|mysql|Pg|ODBC] and friends$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
-	Pop $dialog_SP_Text
-
-	SetCtlColors $dialog_StartPage "" 0xffffff
-	SetCtlColors $dialog_SP_Headline "" 0xffffff
-	SetCtlColors $dialog_SP_Text "" 0xffffff
+	${NSD_CreateText} 0 13u 100% -13u
+	pop $dS_StatusBox
 
 	# this always comes last
 	nsDialogs::Show
 
-	System::Call gdi32::DeleteObject(i$dialog_SP_LogoImg)
+	Call CreateShortcuts
 
 	FailBail:
 		push $0
@@ -116,18 +81,24 @@ Function ShortCutFeedback
 Nop
 FunctionEnd
 
+Function CheckShortcutFileExists
+# we do the actual call to CreateShortCut here, after we check that the file
+# the shortcut will be pointing to exitsts first
+FunctionEnd
+
 Function CreateShortcuts
+# open the INI file
+# loop over it's contents
+ReadINIStr $0 "C:\temp\shortcuts.ini" demosection testentry
+#${NSD_SetText} $dS_StatusBox $0
+MessageBox MB_OK $0
+FunctionEnd
+
+Function ParseShortcutINIFile
 # $SMPROGRAMS is usually the Programs menu under the Start button
-CreateDirectory "$SMPROGRAMS\Camelbox"
 # 1:link.lnk 2:target.exe 3:parameters 4:icon_file 5:icon_index_number
 # 6:start_options 7:keyboard_shortcut 8:description
-CreateShortCut "$SMPROGRAMS\Camelbox\Camelbox Uninstall.lnk" \
-	"$INSTDIR\camelbox_uninstall.exe" "" "$INSTDIR\uninstall.exe" 0 \
-	"" "Uninstall Camelbox"
-CreateShortCut "$SMPROGRAMS\Camelbox\CPAN Shell.lnk" \
-	"$INSTDIR\cpan.bat" "" "$SYSDIR\shell32.dll" 163 \
-	"" "CPAN Shell"
-
-FunctionEnd
+${NSD_SetText} $dS_StatusBox $status_text
+FunctionEnd # ParseShortcutINIfile
 
 # vim: filetype=nsis paste

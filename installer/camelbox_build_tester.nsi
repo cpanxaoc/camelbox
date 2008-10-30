@@ -105,10 +105,12 @@ InstallDir "${INSTALL_PATH}"
 #### EXTERNAL FUNCTION SCRIPTS ####
 !include "nsDialogs.nsh"
 !include "camelbox_functions.nsh"	# functions used by all scripts
+!include "camelbox_shortcuts.nsh"	# functions used by all scripts
 
 #### PAGES ####
 #Page Directory
-Page custom ShortcutsAndReadme
+#Page custom ShortcutsAndReadme
+Page custom ShortcutsDialog
 #UninstPage uninstConfirm
 #UninstPage RemoveShortcutsAndReadme
 

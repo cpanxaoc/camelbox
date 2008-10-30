@@ -56,13 +56,14 @@ B<nsh_builder.pl> - Generate Camelbox NSIS filelists
 
  --help|-h          Show this help message
  --verbose|-v       Verbose script output
- --startdir|-s      Start searching for files in this directory
+ --startdir|-s      Start searching for archive files in this directory
  --jsonfile|-j      JSON file that describes packages and groups
  --outfile|-o       Write the NSH script output to this file
 
  --nocolorlog       Turn off ANSI colors for logging messages
- --verbose          Verbose script execution
  --debug            Even more verbose script execution
+
+ Color logging is disabled by default on the 'MSWin32' platform.
 
  Example usage:
 

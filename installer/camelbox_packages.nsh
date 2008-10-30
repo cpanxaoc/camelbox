@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2008.232.0726Z 
+# DATE:     2008.304.0730Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -122,6 +122,24 @@ SectionGroup "Extra Gtk2-Perl Packages"
         push $0
         Call SnarfUnpack
     SectionEnd ; perl-Gnome2-Canvas
+    Section "libgoocanvas-bin (the GooCanvas libs.)" libgoocanvas-bin_id
+        SectionIn 2 3 4
+        AddSize 962
+        push "libgoocanvas-bin.2008.280.1.tar.lzma"
+        push "f463d5180fad87ee009639c2f16e214b"
+        SectionGetText ${libgoocanvas-bin_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; libgoocanvas-bin
+    Section "Goo::Canvas (Perl GooCanvas libs.)" perl-Goo-Canvas_id
+        SectionIn 2 3 4
+        AddSize 317
+        push "perl-Goo-Canvas.2008.282.1.tar.lzma"
+        push "09579754398c21b2508560743df7c69d"
+        SectionGetText ${perl-Goo-Canvas_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-Goo-Canvas
 SectionGroupEnd ; Extra Gtk2-Perl Packages
 
 SectionGroup /e "Gtk2-Perl Applications"
@@ -386,6 +404,15 @@ SectionGroup "Development Packages"
         push $0
         Call SnarfUnpack
     SectionEnd ; libgnomecanvas-dev
+    Section "libgoocanvas-dev (GooCanvas Headers)" libgoocanvas-dev_id
+        SectionIn 3 4
+        AddSize 7589
+        push "libgoocanvas-dev.2008.280.1.tar.lzma"
+        push "79f84bd90fcbe207b394a737463d6c0c"
+        SectionGetText ${libgoocanvas-dev_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; libgoocanvas-dev
     Section "Expat XML Parser Development Files" expat-dev_id
         SectionIn 3 4
         AddSize 1262

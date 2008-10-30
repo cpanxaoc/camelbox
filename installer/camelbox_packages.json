@@ -124,7 +124,7 @@ InstType "Vapourware - Nothing"
             "sections_list": [  "mingw", "dmake", "gtk-core-dev",
                                 "gtk-support-dev", "imagelibs-dev", 
                                 "libglade-dev", "libgnomecanvas-dev",
-							    "expat-dev"	]
+							    "libgoocanvas-dev", "expat-dev"	]
         }, // group_dev-packages 
 		"group_bloatware": {
             "description": "Bloatware Packages",
