@@ -116,6 +116,8 @@ Function StartPage
 	# 4 - box width
 	# 5 - box height
 
+	# FIXME these calls to nsDialogs below may be able to use the macros;
+	# shorter commands!
 	# logo image
 	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 0 140u 140u ""
 	Pop $dialog_SP_LogoImgBox

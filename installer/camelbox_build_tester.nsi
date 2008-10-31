@@ -116,6 +116,8 @@ Page custom ShortcutsDialog
 
 Section # dummy section to keep NSIS happy
 
+DetailPrint "some text that may get printed"
+#Call CreateShortcuts
 SectionEnd
 
 # vim: filetype=nsis paste

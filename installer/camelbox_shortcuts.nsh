@@ -34,12 +34,12 @@ var status_text
 
 # custom page for displaying the status of shortcut creation
 Function ShortcutsDialog
+	# http://forums.winamp.com/showthread.php?threadid=297163
 	# every time you use a nsDialogs macro, you need to pop the return value
 	# off of the stack; sometimes you can save and reuse this value (it's a
 	# reference to a dialog window for example)
 	nsDialogs::Create /NOUNLOAD 1018
 	Pop $d_Shortcuts
-	StrCmp $0 "error" FailBail 0
 
 	# coordinates for dialogs
 	# 1 - some number; see docs
@@ -48,13 +48,27 @@ Function ShortcutsDialog
 	# 4 - box width
 	# 5 - box height
 
-	${NSD_CreateText} 0 13u 100% -13u
+	nsDialogs::CreateControl /NOUNLOAD ${__NSD_Text_CLASS} ${DEFAULT_STYLES}|${WS_TABSTOP}|${ES_AUTOHSCROLL}|${ES_MULTILINE}|${WS_VSCROLL} ${__NSD_Text_EXSTYLE} 0 13u 100% -13u ""
+	#${NSD_CreateText} 0 13u 100% -13u ""
 	pop $dS_StatusBox
+
+	#SendMessage $dS_StatusBox ${WM_SETTEXT} 0 "STR:$1"
+
+	# change the dialog background to white
+	SetCtlColors $dS_StatusBox "" 0xffffff
+
+	# open the INI file
+	# loop over it's contents
+	ReadINIStr $0 "C:\temp\shortcuts.ini" section0 shortcut
+	StrCpy $0 "shortcut = $SMPROGRAMS\$0 $\r$\n"
+	ReadINIStr $1 "C:\temp\shortcuts.ini" section0 target
+	StrCpy $1 "$0target = $SMPROGRAMS\$1"
+	${NSD_SetText} $dS_StatusBox $1
 
 	# this always comes last
 	nsDialogs::Show
 
-	Call CreateShortcuts
+#	Call CreateShortcuts
 
 	FailBail:
 		push $0
@@ -82,16 +96,13 @@ Nop
 FunctionEnd
 
 Function CheckShortcutFileExists
-# we do the actual call to CreateShortCut here, after we check that the file
-# the shortcut will be pointing to exitsts first
+# - check that the file that the shortcut will point to exists; if not, exit
+# - check that the directory exists; if not, create it
+# - check that the shortcut file exists; if not, create it
 FunctionEnd
 
 Function CreateShortcuts
-# open the INI file
-# loop over it's contents
-ReadINIStr $0 "C:\temp\shortcuts.ini" demosection testentry
-#${NSD_SetText} $dS_StatusBox $0
-MessageBox MB_OK $0
+
 FunctionEnd
 
 Function ParseShortcutINIFile
