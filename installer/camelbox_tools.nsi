@@ -111,6 +111,7 @@ SectionEnd ; perl-5.10.0-core
 # dmake
 # gvim
 # IrfanView
+# getif (networking)
 # NSIS 
 # - unzip plugin
 # - md5sum plugin

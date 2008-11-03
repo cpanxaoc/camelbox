@@ -30,7 +30,20 @@
 # for the StartPage
 var d_Shortcuts
 var dS_StatusBox
-var status_text
+var dialog_output
+var ini_counter
+
+# 1:link.lnk 2:target.exe 3:parameters 4:icon_file 5:icon_index_number
+# 6:start_options 7:keyboard_shortcut 8:description
+var directory
+var link
+var target
+var params
+var iconfile
+var iconidx
+var startopts
+var magickeys
+var description
 
 # custom page for displaying the status of shortcut creation
 Function ShortcutsDialog
@@ -52,20 +65,58 @@ Function ShortcutsDialog
 	#${NSD_CreateText} 0 13u 100% -13u ""
 	pop $dS_StatusBox
 
-	#SendMessage $dS_StatusBox ${WM_SETTEXT} 0 "STR:$1"
-
 	# change the dialog background to white
 	SetCtlColors $dS_StatusBox "" 0xffffff
 
+	# $SMPROGRAMS is usually the Programs menu under the Start button
+	# 1:link.lnk 2:target.exe 3:parameters 4:icon_file 5:icon_index_number
+	# 6:start_options 7:keyboard_shortcut 8:description
+	
 	# open the INI file
-	# loop over it's contents
-	ReadINIStr $0 "C:\temp\shortcuts.ini" section0 shortcut
-	StrCpy $0 "shortcut = $SMPROGRAMS\$0 $\r$\n"
-	ReadINIStr $1 "C:\temp\shortcuts.ini" section0 target
-	StrCpy $1 "$0target = $SMPROGRAMS\$1"
-	${NSD_SetText} $dS_StatusBox $1
+	# loop over it's contents; start at 1, section0 is the template in the ini
+	# file
+	
+
+	StrCpy $dialog_output "The following shortcuts were created:"
+	StrCpy $ini_counter "1"
+
+	# loop through the ini file and create shortcuts based on the list of files
+	# contained in that file
+	ReadINI:
+	ClearErrors
+	#StrCpy $ini_section "link-${ini_counter}"
+	ReadINIStr $directory ${SHORTCUT_INI} $ini_counter directory
+
+	ReadINIStr $link ${SHORTCUT_INI} $ini_counter link
+	ReadINIStr $target ${SHORTCUT_INI} $ini_counter target
+	ReadINIStr $params ${SHORTCUT_INI} $ini_counter params
+	ReadINIStr $iconfile ${SHORTCUT_INI} $ini_counter iconfile
+	ReadINIStr $iconidx ${SHORTCUT_INI} $ini_counter iconidx
+	ReadINIStr $startopts ${SHORTCUT_INI} $ini_counter startopts
+	ReadINIStr $magickeys ${SHORTCUT_INI} $ini_counter magickeys
+	ReadINIStr $description ${SHORTCUT_INI} $ini_counter description
+	IfErrors ShowDialog 0
+	# check if the target file exists
+	IfFileExists "$target" 0 ReadINI
+	# yep, create the directory for the shortcut
+	IfFileExists "$SMPROGRAMS\$directory\*.*" +2
+	CreateDirectory "$SMPROGRAMS\$directory"
+	# then create the shortcut in that directory
+	CreateShortcut "$SMPROGRAMS\$directory\$link" "$target" "$params" \
+		"$iconfile" 1 "" "$magickeys" "$description"
+	#CreateShortcut "$SMPROGRAMS\$directory\$link" $target $params \
+	#	$iconfile $iconidx $startopts $magickeys $description
+	#StrCpy $dialog_output "Shortcut for ini_section"
+	StrCpy $dialog_output "$dialog_output$\r$\n$ini_counter: $link -> $target"
+	StrCpy $dialog_output "$dialog_output$\r$\nIcon: $iconfile : $iconidx"
+	# increment the counter
+	IntOp $ini_counter $ini_counter + 1
+	Goto ReadINI
+	StrCpy $dialog_output "$dialog_output$\r$\nini counter is $ini_counter"
 
 	# this always comes last
+	ShowDialog:
+	${NSD_SetText} $dS_StatusBox $dialog_output
 	nsDialogs::Show
 
 #	Call CreateShortcuts
@@ -101,15 +152,6 @@ Function CheckShortcutFileExists
 # - check that the shortcut file exists; if not, create it
 FunctionEnd
 
-Function CreateShortcuts
 
-FunctionEnd
-
-Function ParseShortcutINIFile
-# $SMPROGRAMS is usually the Programs menu under the Start button
-# 1:link.lnk 2:target.exe 3:parameters 4:icon_file 5:icon_index_number
-# 6:start_options 7:keyboard_shortcut 8:description
-${NSD_SetText} $dS_StatusBox $status_text
-FunctionEnd # ParseShortcutINIfile
 
 # vim: filetype=nsis paste

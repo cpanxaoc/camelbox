@@ -72,6 +72,7 @@
 !define MAIN_ICON "${INSTALLER_BASE}\Icons\camelbox-logo.ico"
 !define BASE_URL "http://camelbox.googlecode.com/files"
 !define INSTALL_PATH "C:\camelbox"
+!define SHORTCUT_INI "${INSTALLER_BASE}\shortcuts.ini"
 OutFile "C:\temp\camelbox_build_tester-${RELEASE_VERSION}.exe"	# 4.8.1.31
 
 #### NSIS OPTIONS ####
@@ -115,9 +116,6 @@ Page custom ShortcutsDialog
 #UninstPage RemoveShortcutsAndReadme
 
 Section # dummy section to keep NSIS happy
-
-DetailPrint "some text that may get printed"
-#Call CreateShortcuts
 SectionEnd
 
 # vim: filetype=nsis paste
