@@ -102,8 +102,12 @@ Function ShortcutsDialog
 	IfFileExists "$SMPROGRAMS\$directory\*.*" +2
 	CreateDirectory "$SMPROGRAMS\$directory"
 	# then create the shortcut in that directory
-	CreateShortcut "$SMPROGRAMS\$directory\$link" "$target" "$params" \
-		"$iconfile" $iconidx "" "" "$description"
+	#CreateShortcut "$SMPROGRAMS\$directory\$link" "$target" "$params" \
+	#	"$iconfile" 1 "" "$magickeys" "$description"
+
+
+	#CreateShortcut "$SMPROGRAMS\$directory\$link" $target $params \
+	#	$iconfile $iconidx $startopts $magickeys $description
 	#StrCpy $dialog_output "Shortcut for ini_section"
 	StrCpy $dialog_output "$dialog_output$\r$\n$ini_counter: $link -> $target"
 	StrCpy $dialog_output "$dialog_output$\r$\nIcon: $iconfile : $iconidx"
@@ -111,9 +115,22 @@ Function ShortcutsDialog
 	IntOp $ini_counter $ini_counter + 1
 	Goto ReadINI
 	StrCpy $dialog_output "$dialog_output$\r$\nini counter is $ini_counter"
-
+	
 	# this always comes last
 	ShowDialog:
+	CreateShortcut "$SMPROGRAMS\Camelbox\CPAN Shell.lnk" \
+		"C:\camelbox\bin\cpan.bat" "" "C:\camelbox\bin\perl.exe" 0 \
+		"" "" "The Perl CPAN Shell"
+	CreateShortcut "$SMPROGRAMS\Camelbox\zsh.lnk" \
+		"C:\camelbox\bin\sh.exe" "" "C:\camelbox\bin\sh.exe" 0 \
+		"" "" "The zsh shell compiled for Windows"
+	CreateShortcut "$SMPROGRAMS\Camelbox\Glade-3.lnk" \
+		"C:\camelbox\bin\glade-3.exe" "" "C:\camelbox\bin\glade-3.exe" 0 \
+		"" "" "The Glade XML GUI Generation Toolkit"
+	CreateShortcut "$SMPROGRAMS\Camelbox\MySQL Client.lnk" \
+		"C:\camelbox\bin\mysql.exe" "" \
+		"C:\windows\system32\shell32.dll" 164 \
+		"" "" "MySQL Command Line Client"
 	${NSD_SetText} $dS_StatusBox $dialog_output
 	nsDialogs::Show
 
