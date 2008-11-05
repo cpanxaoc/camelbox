@@ -103,9 +103,7 @@ Function ShortcutsDialog
 	CreateDirectory "$SMPROGRAMS\$directory"
 	# then create the shortcut in that directory
 	CreateShortcut "$SMPROGRAMS\$directory\$link" "$target" "$params" \
-		"$iconfile" 1 "" "$magickeys" "$description"
-	#CreateShortcut "$SMPROGRAMS\$directory\$link" $target $params \
-	#	$iconfile $iconidx $startopts $magickeys $description
+		"$iconfile" $iconidx "" "" "$description"
 	#StrCpy $dialog_output "Shortcut for ini_section"
 	StrCpy $dialog_output "$dialog_output$\r$\n$ini_counter: $link -> $target"
 	StrCpy $dialog_output "$dialog_output$\r$\nIcon: $iconfile : $iconidx"
