@@ -10,220 +10,63 @@
     "program group folder": {
         // no '.lnk' on the end of the shortcut name
         "shortcut1 name" : {
+            // this could also be shortened and $INSTALL_PATH used when the
+            // .nsh file is created
             "target": "C:\path\to\target.exe",
             "params": "/a /r /g /s",
-            
-
+            "iconfile": "C:\path\to\iconfile.exe",
+            "iconidx": "0",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "The text that goes in the description field"
+        },
+    },
+}
 */
-
+// $INSTALL_PATH used below means 'C:\camelbox' (for now)
 { 
     "Camelbox": {
-        "program1": {
-            "description": "Perl 5.10.0 Base Package",
-            "sectionin_list": [ 1, 2, 3, 4, 5, 6, 7 ] },
-        // Core Gtk2-Perl Packages
-        "gtk-core-bin": {
-            "description": "Core GTK Binaries",
-            "sectionin_list": [ 1, 2, 3, 4 ] },
-        "imagelibs-bin": {
-            "description": "imagelibs-bin (JPG/PNG/TIFF libraries)",
-            "sectionin_list": [ 1, 2, 3, 4 ] },
-        "gtk-support-bin": {
-            "description": "gtk-support-bin (gettext/libintl/etc.)",
-            "sectionin_list": [ 1, 2, 3, 4 ] },
-        "perl-Gtk2-core": {
-            "description": "Gtk2-Perl Core Modules (Cairo/Glib/Gtk2)",
-            "sectionin_list": [ 1, 2, 3, 4 ] },
-        // Extra Gtk2-Perl Packages
-		"expat-bin": {
-            "description": "Expat XML Parsing Library",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "libglade-bin": {
-            "description": "libglade-bin (Glade/XML libraries)",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "libgnomecanvas-bin": {
-            "description": "libgnomecanvas-bin (Gnome Canvas libs.)",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "libgoocanvas-bin": {
-            "description": "libgoocanvas-bin (the GooCanvas libs.)",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "perl-Gnome2-Canvas": {
-            "description": "Gnome2::Canvas (Perl GnomeCanvas libs.)",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "perl-Goo-Canvas": {
-            "description": "Goo::Canvas (Perl GooCanvas libs.)",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "perl-Gtk2-GladeXML": {
-            "description": "Gtk2::GladeXML (Perl Glade/XML libraries)",
-            "sectionin_list": [ 2, 3, 4 ] },
-        // Gtk2-Perl Applications
-        "perl-App-Asciio": {
-            "description": "Asciio v0.95_01 - ASCII Art Editor",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "perl-App-Sprog": {
-            "description": "Sprog v0.14 - Build programs using 'parts'",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "perl-Gtk2-Ex-Datasheet-DBI": {
-            "description": "Gtk2::Ex::Datasheet::DBI - Model/Treeview Object",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "perl-Gtk2-Ex-DBI": {
-            "description": "Gtk2::Ex::DBI - Bind Glade XML to a datasource",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "perl-Gtk2-Ex-PodViewer": {
-            "description": "Gtk2::Ex::PodViewer - a GTK Perl POD viewer",
-            "sectionin_list": [ 2, 3, 4 ] },
-        // Extra Perl Modules
-		"perl-5.10.0-CPAN_Metadata": {
-            "description": "CPAN Metadata files",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-JSON": {
-            "description": "JSON: Javascript data serialization/storage",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-Log-Log4perl": {
-            "description": "Log::Log4perl: A Perl clone of log4j (but better)",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-LWP": {
-            "description": "LWP/libwww-perl",
-            "sectionin_list": [ 1, 2, 3, 4, 6 ] },
-        "perl-Moose": {
-            "description": "Moose: a Post-Modern Object Framework for Perl",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-PAR": {
-            "description": "PAR: Perl Archive Toolkit",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-PAR-Packer": {
-            "description": "PAR::Packer: The PAR Packer (creator) Toolkit",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-TimeDate": {
-            "description": "Date::Format: Date formatting subroutines",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-Win32-API-ODBC": {
-            "description": "Win32::API and Win32::ODBC Modules",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-XML-Parser": {
-            "description": "XML::Parser - XML document parsing in Perl",
-            "sectionin_list": [ 2, 3, 4, 6 ] },
-        "perl-YAML": {
-            "description": "YAML - Yet Another Markup Language",
-            "sectionin_list": [ 1, 2, 3, 4, 6 ] },
-        // Perl Database Support
-        "perl-DBI": {
-            "description": "DBI - Database Independent Interface",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "perl-DBD-mysql": {
-            "description": "DBD::mysql - DBD driver for MySQL",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "perl-DBD-ODBC": {
-            "description": "DBD::ODBC - ODBC Driver for Perl DBI",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "perl-DBD-Pg": {
-            "description": "DBD::Pg - DBD driver for PostgreSQL",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "perl-DBD-SQLite": {
-            "description": "DBD::SQLite - Pure Perl DBD driver for SQLite",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        // Database Tools
-        "mysql-bin": {
-            "description": "MySQL Client Library (libmysql.dll)",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "mysql-client": {
-            "description": "MySQL Client Binary (mysql.exe)",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
-        "mysql-debug": {
-            "description": "MySQL Debugging Binaries",
-            "sectionin_list": [ 4 ] },
-        "mysql-dev": {
-            "description": "MySQL Devel. (headers and import libs)",
-            "sectionin_list": [ 3, 4 ] },
-        "mysql-docs": {
-            "description": "MySQL Documentation in .CHM format",
-            "sectionin_list": [ 3, 4 ] },
-        "mysql-server": {
-            "description": "MySQL Server Binaries",
-            "sectionin_list": [ 4 ] },
-        "postgresql-bin": {
-            "description": "PostgreSQL Client Library (libpq.dll)",
-            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "postgresql-client": {
-            "description": "PostgreSQL Client Binary (psql.exe)",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
-        "postgresql-dev": {
-            "description": "PostgreSQL Devel. (headers and import libs)",
-            "sectionin_list": [ 3, 4 ] },
-        "postgresql-docs": {
-            "description": "PostgreSQL Documentation in HTML/manpage format",
-            "sectionin_list": [ 3, 4 ] },
-        "postgresql-server": {
-            "description": "PostgreSQL Server Binaries",
-            "sectionin_list": [ 4 ] },
-        //"sqlite-bin": {
-        //    "description": "SQLite Client Library",
-        //    "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "sqlite-utils": {
-            "description": "SQLite Database Utilities",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
-        // Development Packages
-        "dmake": {
-            "description": "dmake Makefile Processor",
-            "sectionin_list": [ 3, 4 ] },
-        "expat-dev": {
-            "description": "Expat XML Parser Development Files",
-            "sectionin_list": [ 3, 4 ] },
-        "gladewin32-dev": {
-            "description": "Glade for Windows Development Files",
-            "sectionin_list": [ 3, 4 ] },
-        "gtk-core-dev": {
-            "description": "Core GTK Development Files",
-            "sectionin_list": [ 3, 4 ] },
-        "gtk-support-dev": {
-            "description": "gtk-support-dev (gettext/libintl/etc.)",
-            "sectionin_list": [ 3, 4 ] },
-        "imagelibs-dev": {
-            "description": "imagelibs-dev (JPG/PNG/TIFF Headers)",
-            "sectionin_list": [ 3, 4 ] },
-        "libglade-dev": {
-            "description": "libglade-dev (Glade Headers)",
-            "sectionin_list": [ 3, 4 ] },
-        "libgnomecanvas-dev": {
-            "description": "libgnomecanvas-dev (GnomeCanvas Headers)",
-            "sectionin_list": [ 3, 4 ] },
-        "libgoocanvas-dev": {
-            "description": "libgoocanvas-dev (GooCanvas Headers)",
-            "sectionin_list": [ 3, 4 ] },
-        "mingw": {
-            "description": "Minimal GNU for Windows (MinGW) Toolkit",
-            "sectionin_list": [ 3, 4 ] },
-        // Extra Tools Packages
-        "gladewin32-bin": {
-            "description": "Glade XML GUI Builder Tool",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "lzma": {
-            "description": "LZMA Compression Utility",
-            "sectionin_list": [ 2, 3, 4 ] },
-        "unxutils": {
-            "description": "UnxUtilities for Windows",
-            "sectionin_list": [ 2, 3, 4 ] },
-		// Bloatware
-		"imagelibs-utils": {
-            "description": "imagelibs Utilities",
-            "sectionin_list": [ 4 ] },
-        "gettext-utils": {
-            "description": "gettext Utilities",
-            "sectionin_list": [ 4 ] },
-        "dmake-extra": {
-            "description": "dmake Makefile Processor (extra files)",
-            "sectionin_list": [ 4 ] },
-        // Documentation and Examples
-        "perl-5.10.0-html_docs": {
-            "description": "Perl 5.10.0 HTML Documentation",
-            "sectionin_list": [ 3, 4 ] },
-        "gtk-core-doc": {
-            "description": "GTK C API HTML/SGML Documentation",
-            "sectionin_list": [ 3, 4 ] },
-        "perl-gtk2-examples": {
-            "description": "Gtk2-Perl Example Scripts",
-            "sectionin_list": [ 3, 4 ],
-            "extra_options": "StrCpy $demosInstalled 'true'" }
-    } // packages
+        "CPAN Shell" : {
+            "target": "$INSTALL_PATH\\bin\\cpan.bat",
+            "params": "",
+            "iconfile": "$INSTALL_PATH\\bin\\wperl.exe",
+            "iconidx": "0",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "The CPAN Shell"
+        }, // "CPAN Shell"
+        "zsh" : {
+            "target": "$INSTALL_PATH\\bin\\sh.exe",
+            "params": "",
+            "iconfile": "$INSTALL_PATH\\bin\\sh.exe",
+            "iconidx": "0",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "The zsh shell compiled for Windows"
+        }, // "zsh"
+    }, // "Camelbox" program group
+    "Camelbox\\Developer Tools": {
+        "Glade-3" : {
+            "target": "$INSTALL_PATH\\bin\\glade-3.exe",
+            "params": "",
+            "iconfile": "$INSTALL_PATH\\bin\\glade-3.exe",
+            "iconidx": "0",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "The Glade XML GUI Generation Toolkit"
+        }, // "Glade-3"
+    }, // "Camelbox\\Developer Tools" program group
+    "Camelbox\\Database Tools": {
+        "MySQL Client" : {
+            "target": "$INSTALL_PATH\\bin\\mysql.exe",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "164",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "MySQL Command Line Client"
+        }, // "MySQL Client"
+    }, // "Camelbox\\Database Tools" program group
 } // JSON data block
+
 // fin vim: filetype=javascript
