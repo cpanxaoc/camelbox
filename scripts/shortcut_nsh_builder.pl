@@ -1,14 +1,13 @@
 #!/usr/bin/env perl
 
-# $Id: nsh_builder.pl 502 2008-10-30 08:10:22Z elspicyjack $
+# $Id: shortcut_nsh_builder.pl 502 2008-10-30 08:10:22Z elspicyjack $
 # $Date: 2008-10-30 01:10:22 -0700 (Thu, 30 Oct 2008) $
 #
 # For support with this software, visit the Camelbox Google Groups Page at:
 # http://groups.google.com/group/camelbox
 
-# A script to generate the camelbox_filelist.nsh NSIS script with the
-# checksums in the right place for SnarfUnpack to use when downloading
-# packages
+# A script to generate the camelbox_shortcuts.nsh NSIS script with the
+# right files in the right places
 
 #==========================================================================
 # Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
@@ -48,16 +47,15 @@
 
 =head1 NAME
 
-B<nsh_builder.pl> - Generate Camelbox NSIS filelists
+B<shortcut_nsh_builder.pl> - Generate Camelbox NSIS filelists
 
 =head1 SYNOPSIS
 
- perl nsh_builder.pl [options]
+ perl shortcut_nsh_builder.pl [options]
 
  --help|-h          Show this help message
  --verbose|-v       Verbose script output
- --startdir|-s      Start searching for archive files in this directory
- --jsonfile|-j      JSON file that describes packages and groups
+ --jsonfile|-j      JSON file that describes shortcuts to create
  --outfile|-o       Write the NSH script output to this file
 
  --nocolorlog       Turn off ANSI colors for logging messages
@@ -67,7 +65,7 @@ B<nsh_builder.pl> - Generate Camelbox NSIS filelists
 
  Example usage:
 
- perl nsh_builder.pl --jsonfile file.json --startdir .
+ perl shortcut_nsh_builder.pl --jsonfile file.json --startdir .
 
 =head1 PACKAGES
 
@@ -103,14 +101,16 @@ sub header {
 #
 # TYPE:     NSIS header/include file
 #
-# AUTHOR:   nsh_builder.pl 
-# (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
+# AUTHOR:   shortcut_nsh_builder.pl 
+# (http://code.google.com/p/camelbox/source/browse/trunk/scripts/shortcut_nsh_builder.pl)
 # DATE:     $date 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
 #==========================================================================
 # Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
+# For support with this software, visit the Camelbox Google Groups Page at:
+# http://groups.google.com/group/camelbox
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -130,62 +130,6 @@ sub header {
 #### SECTIONS ####
 HEREDOC
 } 
-
-sub sec_writeuninstaller {
-    my $self = shift;
-    my $OUT_FH = $self->{output_filehandle};
-
-    print $OUT_FH <<'HEREDOC'
-Section "-WriteUninstaller"
-    SectionIn RO
-    SetOutPath "$INSTDIR"
-    CreateDirectory "$INSTDIR\bin"
-    writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
-    #writeUninstaller "$INSTDIR\bin\camelbox_uninstaller.exe"
-SectionEnd ; WriteUninstaller 
-HEREDOC
-}  # sub sec_writeuninstaller
-
-sub sec_environmentvariables {
-    my $self = shift;
-    my $OUT_FH = $self->{output_filehandle};
-
-    print $OUT_FH <<'HEREDOC'
-
-SectionGroup /e "Environment Variables"
-    Section "Add Camelbox to PATH variable"
-        SectionIn 1 2 3 4 5 6 7 8 9
-        StrCpy $1 "$INSTDIR\bin"
-        Push $1
-        DetailPrint "Adding to %PATH%: $1"
-        Call AddToPath
-    SectionEnd
-SectionGroupEnd ; "Environment Variables"
-HEREDOC
-} # sub sec_environmentvariables
-
-sub sec_uninstall {
-    my $self = shift;
-    my $OUT_FH = $self->{output_filehandle};
-
-    print $OUT_FH <<'HEREDOC'
-Section "Uninstall"
-    SectionIn RO
-    # delete the uninstaller first
-    DetailPrint "Removing installer files"
-    #delete "${INSTALL_PATH}\bin\camelbox_uninstaller.exe"
-    delete "${INSTALL_PATH}\camelbox_uninstaller.exe"
-    # remove the binpath
-    StrCpy $1 "${INSTALL_PATH}\bin"
-    Push $1
-    DetailPrint "Removing from %PATH%: $1"
-    Call un.RemoveFromPath
-    # then delete the other files/directories
-    DetailPrint "Removing ${INSTALL_PATH}"
-    RMDir /r ${INSTALL_PATH}
-SectionEnd ; Uninstall
-HEREDOC
-} # sub sec_uninstall
 
 sub footer {
     my $self = shift;
@@ -1043,7 +987,6 @@ $go_parse->getoptions(
 	q(verbose|v)                    => \$o_verbose,
 	q(debug|d)                    	=> \$o_debug,
     q(help|h)                       => \&ShowHelp,
-    q(startdir|s:s)                 => \$o_startdir,
 	q(jsonfile|j=s)                 => \$o_jsonfile,
     q(outfile|o:s)                  => \$o_outfile,
     q(colorlog!)                    => \$o_colorlog,
@@ -1176,11 +1119,6 @@ foreach my $manifest_key ( $manifest->get_manifest() ) {
     } # if ( $manifest_key =~ /^group/ )
 } # foreach my $manifest_key ( $manifest->get_objects() )
 
-my $packed_ratio 
-	= $writeblocks->get_archived_size() / $writeblocks->get_unpacked_size();
-$logger->warn(qq(Unpacked size: ) . $writeblocks->get_unpacked_size());
-$logger->warn(qq(Archived size: ) . $writeblocks->get_archived_size());
-$logger->warn(qq(Compression Ratio: ) . sprintf(q(%0.2f), $packed_ratio));
 exit 0;
 
 #### end main ####
