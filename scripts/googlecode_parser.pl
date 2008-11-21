@@ -67,78 +67,12 @@ sub new {
 
 =cut
 
-#### Package 'Hump::File' ####
-package Hump::File;
-use strict;
-use warnings;
-use Digest::MD5;
-
-=pod
-
-=head2 Module Hump::File
-
-A file on the filesystem.  Has the following attributes:
-
-=over 5
-
-=item stat
-
-A C<Generic::Something> object, which is a wrapper around the Perl C<stat()>
-function.
-
-=item filename 
-
-The name of the archive file.  The file is checked to see if it exists and is
-readable when an object is created from this class.
-
-=item md5sum
-
-The MD5 checksum for the file.  Not available for directories.
-
-=item crcsum
-
-The CRC32 checksum for the file.  Not available for directories.
-
-=back
-
-=cut
-
-sub new {
-	my $class = shift;
-	my $filename = shift;
-	
-	if ( ! -f $filename ) {
-		die(qq(ERROR: filename $filename does not exist));
-	} # if ( -f $filename )
-
-	# the file exists, bless it into an object
-	my $self = bless({ filename => $filename }, $class);
-	open(FH, $self->{filename}) 
-		|| die qq(Can't open file ) . $self->{filename} . qq(: $!);
-	binmode(FH);
-	$self->{md5sum} = Digest::MD5->new->addfile(*FH)->hexdigest;
-	return $self;
-} # sub new
-
-sub filename {
-	my $self = shift;
-	return $self->{filename};
-} # sub filename
-
-sub md5sum { 
-	my $self = shift;
-	return $self->{md5sum};
-} # sub md5sum
-
-#### end package Hump::File ####
-
 #### begin package main ####
 package main;
 
 use strict;
 use warnings;
 use Getopt::Long;
-use File::Find::Rule;
 use Pod::Usage;
 
 my ($VERBOSE, $o_timestamp, $o_startdir);
@@ -148,25 +82,6 @@ $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
                     ); # $go_parse->getoptions
 
-# verify the start directory exists
-if ( ! defined $o_startdir ) { 
-	warn(qq(ERROR: start directory needed for searching;\n));
-	&HelpDie;
-} # if ( ! defined $o_startdir )
-
-if ( ! -d $o_startdir ) {
-	die(qq(ERROR: start directory $o_startdir does not exist));
-} # if ( ! -d $o_startdir )
-
-my @files = File::Find::Rule->file()->in($o_startdir);
-
-print qq(Found ) . scalar(@files) . qq( files in $o_startdir\n);
-
-foreach my $idx (0..9) {
-	my $humpfile = Hump::File->new( $files[$idx] );
-	print qq(md5sum: ) . $humpfile->md5sum() . q(; file: ) 
-		. $humpfile->filename() . qq(\n);
-} # foreach my $idx (0..9)
 
 exit 0;
 
