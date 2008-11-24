@@ -50,23 +50,6 @@ the author's version number.
 
 =cut
 
-#### Package 'Generic::Something' ####
-package Generic::Something;
-use strict;
-use warnings;
-
-sub new {
-	my $class = shift;
-	my $filename = shift;
-	my $self = bless ({ filename => $filename }, $class);
-
-} # sub new
-=pod
-
-=head2 Module Generic::Something
-
-=cut
-
 #### begin package main ####
 package main;
 
@@ -74,15 +57,47 @@ use strict;
 use warnings;
 use Getopt::Long;
 use Pod::Usage;
+use LWP::UserAgent;
+use HTTP::Request;
 
-my ($VERBOSE, $o_timestamp, $o_startdir);
-my ($o_plaintext, $o_md5list, $o_nshlist, $o_install);
+my ($VERBOSE, $o_stdin);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
+                        q(stdin|s)                      => \$o_stdin,
                     ); # $go_parse->getoptions
 
+my $downloads_html;
+if ( defined $o_stdin ) {
+    while ( <STDIN> ) { $downloads_html .= $downloads_html; }            
+} else {
+    my $r = HTTP::Request->new(GET =>
+        q(http://code.google.com/p/camelbox/downloads/list));
+    my $ua = LWP::UserAgent->new;
+    my $http_response = $ua->request($r);
+} # if ( defined $o_stdin ) 
 
+if ( ! defined ($downloads_html) || length($downloads_html) == 0 ) {
+    die(qq(ERROR: no text fed into STDIN));
+} # if ( length($downloads_html) == 0 )
+
+my ( $match, $matchline, $nextline, $package, $download_count );
+foreach my $line ( split(qq(\n), $downloads_html) ) {
+    if ( $match == 1 ) {
+        $nextline .= $line;
+        $match = 2;
+    } # if ( $match == 1 ) 
+    if ( $line =~ /vt col_4/ ) { 
+        $match = 1; 
+        $matchline = $line;
+    } # if ( $line =~ /vt col_4/ ) 
+    if ( $match == 2 ) {
+       $matchline =~ s/.*name=\(.*\.lzma\)&amp.*$/$1/;
+       $nextline =~ s/.*nowrap">\(.*\)<\/a>.*$/$1/;
+       $match = 0;
+       print qq(Package $matchline has $nextline downloads\n);
+    } # if ( $match == 2 )
+} # foreach my $line ( split(qq(\n), $downloads_html) )
 exit 0;
 
 #### end main ####
