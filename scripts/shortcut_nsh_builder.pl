@@ -354,14 +354,18 @@ sub get_program_group_data {
     my %args = @_;
     my $logger = get_logger();
 
-    my $pg = $args{pg};
+    my $pg = $args{program_group};
+    die qq(program_group argument to get_program_group_data is undefined)
+        unless ( defined $pg );
     $logger->warn(q(Got project group ) . $pg);
     #$pg =~ s/\\/\\\\/g; 
     use Data::Dumper;
     my %jsonobj = %{$self->{jsonobj}};
     my $program_group = $jsonobj{$pg};
-    print Dumper %jsonobj;
-    return $program_group;
+    $logger->warn(q(dumping inside of get_program_group_data));
+    print Dumper $program_group;
+#    return $program_group;
+    return 1;
 } # sub get_all_program_groups
 
 sub dump_objects {
@@ -414,6 +418,14 @@ sub write_group {
     #$logger->warn("Shortcuts in group $group are:");
     #$logger->warn(join(q(|), @shortcuts));
 } # sub output_group
+
+# FIXME
+# - come up with a program group object which would consume the program group
+# part of the JSON blob when fed that blob
+# - come up with a shortcut object, which would consume the shortcuts
+# contained inside of a program group, and then return a reference to each
+# shortcut object that the program group object could store in a list, and
+# sort on as desired
 
 #### begin package main ####
 package main;
@@ -508,7 +520,6 @@ my $writeblocks = Hump::WriteBlocks->new(
         output_filehandle   => $OUT_FH
 ); # my $writeblocks = Hump::WriteBlocks->new
 
-<<<<<<< .mine
 # loop over all of the program groups
 foreach my $pg ( $shortcuts->get_all_program_groups() ) {
    #$writeblocks->write_group(program_group => $program_group);
