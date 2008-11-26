@@ -159,42 +159,46 @@ Write the NSH file header, which contains the URL to the source repository, copy
 
 =cut
 
-#### Package 'Hump::JSON::Node' ####
-package Hump::JSON::Node;
+#### Package 'Hump::Shortcut' ####
+package Hump::Shortcut;
 use strict;
 use warnings;
 use Log::Log4perl qw(get_logger);
 
 =pod
 
-=head2 Hump::JSON::Node
+=head2 Hump::Shortcut
 
-An individual JSON node, which will have one or more key/value pairs as read
-from the JSON file.
+An individual Windows shortcut object, which will have one or more shortcut
+attributes as read from the JSON file.
 
 =cut
+
+my @_shortcut_keys = qw( params iconfile target 
+        magickeys iconidx startopts description );
 
 sub new {
     my $class = shift;
     my %args = @_;
     my $logger = get_logger();
 
-    if ( ! defined($args{jsonvar}) ) {
-        $logger->error(qq(Hump::JSON::Node was created without passing));
+    if ( ! defined($args{shortcut_hash}) ) {
+        $logger->error(qq(Hump::Shortcut was created without passing));
         $logger->logcroak(qq('jsonvar' hash reference\n ));
     } # if ( ! defined($args{jsonvar}) )
 
 	# the file exists, bless it into an object
 	my $self = bless({ 	
-        jsonvar => $args{jsonvar}, 
+        shortcut_hash => $args{shortcut_hash}, 
         node_hash => {},
         }, 
         $class);
 
     # 'cast' the jsonvar argument into a hash and then enumerate over it to
     # gain access to the keys stored inside
-    foreach my $jsonkey ( keys(%{$args{jsonvar}}) ) {
-        $self->set(key => $jsonkey, value => $args{jsonvar}{$jsonkey});
+    my %shash = %{$args{shortcut_hash}};
+    foreach my $skey ( @_shortcut_keys ) ) {
+        $self->set(key => $skey, value => $shash{$skey});
     } # foreach my $jsonkey ( %{$args{jsonvar}} )
     # return the object to the caller
     return $self;
@@ -202,16 +206,16 @@ sub new {
 
 =pod 
 
-=head3 new( jsonvar => {JSON variable reference} )
+=head3 new( shortcut_hash => { hash containing shortcut attributes } )
 
-Creates a L<Hump::JSON::Node> object.  Takes the following arguments:
+Creates a L<Hump::Shortcut> object.  Takes the following arguments:
 
 =over 4
 
-=item jsonvar 
+=item shortcut_hash
 
-A reference to the hash containing the key/value pairs to be stored in the
-L<Hump::JSON::Node> object.
+A reference to the hash containing the key/value pairs that will be used to
+create the Windows shortcut.
 
 =back
 
@@ -227,7 +231,7 @@ sub keys {
 
 =head3 keys()
 
-Returns the keys of a L<Hump::JSON::Node> object.
+Returns the keys of a L<Hump::Shortcut> object.
 
 =cut
 
@@ -240,7 +244,7 @@ sub set {
         unless ( exists $args{key} && exists $args{value} );
 
     # so store it already
-    $logger->debug(qq(Hump::JSON::Node->set: ) 
+    $logger->debug(qq(Hump::Shortcut->set: ) 
         . $args{key} . q(:) . $args{value});
     $self->{node_hash}->{$args{key}} = $args{value};
 } # sub set
@@ -249,7 +253,7 @@ sub set {
 
 =head3 set( key => {key}, value => {value} )
 
-Sets values in an L<Hump::JSON::Node> object.  Takes the following
+Sets values in an L<Hump::Shortcut> object.  Takes the following
 arguments:
 
 =over 4
@@ -286,7 +290,7 @@ sub get {
 
 =head3 get( key => {key} )
 
-Gets values from an L<Hump::JSON::Node> object.  Takes the following
+Gets values from an L<Hump::Shortcut> object.  Takes the following
 arguments:
 
 =over 4
@@ -297,7 +301,7 @@ Key describing value to retrieve from object hash.
 
 =back
 
-If the key does not exist in the L<Hump::JSON::Node> hash, a warning will be
+If the key does not exist in the L<Hump::Shortcut> hash, a warning will be
 given.
 
 =cut
@@ -362,8 +366,16 @@ sub get_program_group_data {
     use Data::Dumper;
     my %jsonobj = %{$self->{jsonobj}};
     my $program_group = $jsonobj{$pg};
-    $logger->warn(q(dumping inside of get_program_group_data));
-    print Dumper $program_group;
+    my @program_group_keys = keys(%{$program_group});
+    #print Dumper $program_group;
+    $logger->warn(q(joined program group keys: ) 
+        . join(q(|), @program_group_keys) );
+    my %pghash = %{$program_group};
+    foreach my $pgkey ( @program_group_keys ) {
+        my $hashref = $pghash{$pgkey};
+        $logger->warn(qq(dumping shortcut $pgkey));
+        print Dumper $hashref;
+    } 
 #    return $program_group;
     return 1;
 } # sub get_all_program_groups
