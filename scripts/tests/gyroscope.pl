@@ -17,6 +17,7 @@ use Glib qw(TRUE FALSE);
 use Gtk2 '-init';
 use Gtk2::Pango;
 
+
 my $window = undef;
 my $da;
 my $label;
@@ -63,7 +64,11 @@ sub stringify_color {
 
 ### main script ###
 
+	warn q(dumping @INC;) . qq(\n);
+	print join(qq(\n), @INC) . qq(\n);
 
+	warn q(dumping ENV{PATH}) . qq(\n);
+	print $ENV{PATH} . qq(\n);
 
 	# create the window
 	$window = Gtk2::Window->new;

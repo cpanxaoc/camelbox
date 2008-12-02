@@ -1,16 +1,18 @@
 # run resulting PAR file with:
 # perl -MPAR gyroscope.par gyroscope.pl
+--par
 --compile 
 --gui 
 --verbose 
 --icon C:/camelbox/bin/wperl.exe 
+--log C:/temp/pp.log
 # Gtk2-Perl C libraries
--l C:/camelbox/site/lib/auto/Cairo/Cairo.dll 
--l C:/camelbox/site/lib/auto/Glib/Glib.dll 
--l C:/camelbox/site/lib/auto/Gtk2/Gtk2.dll 
--l C:/camelbox/lib/libCairoPerl.dll.a 
--l C:/camelbox/lib/libGlibPerl.dll.a 
--l C:/camelbox/lib/libGtk2Perl.dll.a 
+#-l C:/camelbox/site/lib/auto/Cairo/Cairo.dll 
+#-l C:/camelbox/site/lib/auto/Glib/Glib.dll 
+#-l C:/camelbox/site/lib/auto/Gtk2/Gtk2.dll 
+#-l C:/camelbox/lib/libCairoPerl.dll.a 
+#-l C:/camelbox/lib/libGlibPerl.dll.a 
+#-l C:/camelbox/lib/libGtk2Perl.dll.a 
 # GTK+ C libraries
 -l libatk-1.0-0.dll
 -l libcairo-2.dll
@@ -25,12 +27,14 @@
 -l libpangocairo-1.0-0.dll
 -l libpangowin32-1.0-0.dll
 # Extra C libraries
--l libpng13.dll
+-l libpng12-0.dll
 -l zlib1.dll
 -l intl.dll
 # Perl Modules
+-M PAR::Heavy
 -M Win32::Console 
 -M Tie::Hash::NamedCapture 
+-M XSLoader
 -M Gtk2 
 -M Glib 
 -M Cairo 
@@ -38,8 +42,13 @@
 -M Gtk2::CodeGen 
 -M Glib::Object::Subclass 
 # extra files needed by gtk2-perl
+#-a C:/camelbox/site/lib/auto/Cairo;lib/auto/Cairo
+#-a C:/camelbox/site/lib/auto/Glib;lib/auto/Glib
+#-a C:/camelbox/site/lib/auto/Gtk2;lib/auto/Gtk2
+-a C:/camelbox/lib/XSLoader.pm;lib/XSLoader.pm
 -a C:/camelbox/site/lib/Cairo/Install;lib/Cairo/Install
 -a C:/camelbox/site/lib/Glib/Install;lib/Glib/Install
 -a C:/camelbox/site/lib/Gtk2/Install;lib/Gtk2/Install
 # output file
 --output C:/temp/gyroscope.par 
+#--output C:/temp/gyroscope.exe 
