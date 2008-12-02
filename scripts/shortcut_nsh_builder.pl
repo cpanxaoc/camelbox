@@ -9,6 +9,14 @@
 # A script to generate the camelbox_shortcuts.nsh NSIS script with the
 # right files in the right places
 
+# FIXME
+# - come up with a program group object which would consume the program group
+# part of the JSON blob when fed that blob
+# - come up with a shortcut object, which would consume the shortcuts
+# contained inside of a program group, and then return a reference to each
+# shortcut object that the program group object could store in a list, and
+# sort on as desired
+
 #==========================================================================
 # Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
 # 
@@ -184,7 +192,7 @@ sub new {
 
     if ( ! defined($args{shortcut_hash}) ) {
         $logger->error(qq(Hump::Shortcut was created without passing));
-        $logger->logcroak(qq('jsonvar' hash reference\n ));
+        $logger->logcroak(qq('shortcut_hash' hash reference\n ));
     } # if ( ! defined($args{jsonvar}) )
 
 	# the file exists, bless it into an object
@@ -194,10 +202,10 @@ sub new {
         }, 
         $class);
 
-    # 'cast' the jsonvar argument into a hash and then enumerate over it to
-    # gain access to the keys stored inside
+    # 'cast' the shortcut_hash argument into a hash and then enumerate over it
+    # to gain access to the keys stored inside
     my %shash = %{$args{shortcut_hash}};
-    foreach my $skey ( @_shortcut_keys ) ) {
+    foreach my $skey ( @_shortcut_keys ) {
         $self->set(key => $skey, value => $shash{$skey});
     } # foreach my $jsonkey ( %{$args{jsonvar}} )
     # return the object to the caller
@@ -222,10 +230,8 @@ create the Windows shortcut.
 =cut
 
 sub keys {
-    my $self = shift;
-    # return a list of keys
-    return keys(%{$self->{node_hash}});
-} # sub set
+    return @_shortcut_keys;
+} # sub keys
 
 =pod 
 
@@ -371,13 +377,15 @@ sub get_program_group_data {
     $logger->warn(q(joined program group keys: ) 
         . join(q(|), @program_group_keys) );
     my %pghash = %{$program_group};
+    my @return;
     foreach my $pgkey ( @program_group_keys ) {
         my $hashref = $pghash{$pgkey};
         $logger->warn(qq(dumping shortcut $pgkey));
-        print Dumper $hashref;
+        push (@return, $hashref);
+        #print Dumper $hashref;
     } 
 #    return $program_group;
-    return 1;
+    return @return;
 } # sub get_all_program_groups
 
 sub dump_objects {
@@ -401,14 +409,10 @@ sub new {
     my %args = @_;
     my $logger = get_logger();
 
-    $logger->logcroak(qq(Shortcuts object requird as 'packages'))
-	    unless ( defined $args{shortcuts} ); 
-
     $logger->logcroak(qq(Output filehandle parameter missing)) 
         unless ( defined $args{output_filehandle} );
 
 	my $self = bless ({ 
-            shortcuts           => $args{shortcuts},
             output_filehandle   => $args{output_filehandle},
     }, $class); # my $self = bless
     return $self;
@@ -419,25 +423,8 @@ sub write_group {
     my %args = @_;
     my $logger = get_logger();
 
-    my $group = $args{program_group};
     my $OUT_FH = $self->{output_filehandle};
-    $logger->warn("Writing program group $group");
-    #my %program_groups = %{$self->{jsonobj}};
-    #use Data::Dumper;
-    #print Dumper $program_groups{$group};
-    #print Dumper %program_groups;
-    #my @shortcuts = keys(%{$self->{jsonobj}{$group}});
-    #$logger->warn("Shortcuts in group $group are:");
-    #$logger->warn(join(q(|), @shortcuts));
 } # sub output_group
-
-# FIXME
-# - come up with a program group object which would consume the program group
-# part of the JSON blob when fed that blob
-# - come up with a shortcut object, which would consume the shortcuts
-# contained inside of a program group, and then return a reference to each
-# shortcut object that the program group object could store in a list, and
-# sort on as desired
 
 #### begin package main ####
 package main;
@@ -537,10 +524,6 @@ foreach my $pg ( $shortcuts->get_all_program_groups() ) {
    #$writeblocks->write_group(program_group => $program_group);
     my $pg_obj = $shortcuts->get_program_group_data(program_group => $pg);
     $logger->warn(qq(Calling get_program_group_data with $pg));
-    $logger->warn(qq(dumping pg_obj));
-    use Data::Dumper;
-    print Dumper $pg_obj;
-    print qq(\n);
 } 
 exit 0;
 

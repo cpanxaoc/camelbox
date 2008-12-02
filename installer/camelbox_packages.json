@@ -37,7 +37,6 @@ InstType "Vapourware - Nothing"
 // - add a 'filehint' to each section; if filehint is populated, then
 // nsh_builder.pl should look for that file first when building the NSH file;
 // if it doesn't find that file, it can fall back to the newest file found
-// - add a section for URL links and program shortcuts?
 
 { 
 	"baseurls" : [
