@@ -7,9 +7,9 @@
 --icon C:/camelbox/bin/wperl.exe 
 --log C:/temp/pp.log
 # Gtk2-Perl C libraries
-#-l C:/camelbox/site/lib/auto/Cairo/Cairo.dll 
-#-l C:/camelbox/site/lib/auto/Glib/Glib.dll 
-#-l C:/camelbox/site/lib/auto/Gtk2/Gtk2.dll 
+-l C:/camelbox/site/lib/auto/Cairo/Cairo.dll 
+-l C:/camelbox/site/lib/auto/Glib/Glib.dll 
+-l C:/camelbox/site/lib/auto/Gtk2/Gtk2.dll 
 #-l C:/camelbox/lib/libCairoPerl.dll.a 
 #-l C:/camelbox/lib/libGlibPerl.dll.a 
 #-l C:/camelbox/lib/libGtk2Perl.dll.a 
@@ -45,7 +45,7 @@
 #-a C:/camelbox/site/lib/auto/Cairo;lib/auto/Cairo
 #-a C:/camelbox/site/lib/auto/Glib;lib/auto/Glib
 #-a C:/camelbox/site/lib/auto/Gtk2;lib/auto/Gtk2
--a C:/camelbox/lib/XSLoader.pm;lib/XSLoader.pm
+#-a C:/camelbox/lib/XSLoader.pm;lib/XSLoader.pm
 -a C:/camelbox/site/lib/Cairo/Install;lib/Cairo/Install
 -a C:/camelbox/site/lib/Glib/Install;lib/Glib/Install
 -a C:/camelbox/site/lib/Gtk2/Install;lib/Gtk2/Install

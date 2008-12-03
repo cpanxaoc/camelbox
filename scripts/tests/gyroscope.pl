@@ -12,6 +12,21 @@
 # a prebuilt dialog containing a GtkColorSelection.
 
 use strict;
+# debugging the PAR environment
+warn q(dumping @INC;) . qq(\n);
+my $counter;
+foreach my $inckey ( @INC ) {
+	printf("%2u: %s\n", $counter, $inckey);
+	$counter++;
+}
+
+warn q(dumping ENV hash) . qq(\n);
+$counter = 0;
+foreach my $envkey ( keys %ENV ) {
+	printf("%2u: %s -> %s\n", $counter, $envkey, $ENV{$envkey});
+	$counter++;
+} # foreach my $envkey ( keys %ENV )
+
 use Carp;
 use Glib qw(TRUE FALSE);
 use Gtk2 '-init';
@@ -64,11 +79,7 @@ sub stringify_color {
 
 ### main script ###
 
-	warn q(dumping @INC;) . qq(\n);
-	print join(qq(\n), @INC) . qq(\n);
 
-	warn q(dumping ENV{PATH}) . qq(\n);
-	print $ENV{PATH} . qq(\n);
 
 	# create the window
 	$window = Gtk2::Window->new;
