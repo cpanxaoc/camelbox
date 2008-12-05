@@ -312,6 +312,149 @@ given.
 
 =cut
 
+#### Package 'Hump::ShortcutGroup' ####
+package Hump::ShortcutGroup;
+use strict;
+use warnings;
+use Log::Log4perl qw(get_logger);
+
+=pod
+
+=head2 Hump::ShortcutGroup
+
+A group of Windows shortcut objects, typically all placed inside of a folder.
+
+=cut
+
+my @_shortcut_group_keys = qw( name );
+
+sub new {
+    my $class = shift;
+    my %args = @_;
+    my $logger = get_logger();
+
+    if ( ! defined($args{shortcut_hash}) ) {
+        $logger->error(qq(Hump::ShortcutGroup was created without passing));
+        $logger->logcroak(qq('shortcut_hash' hash reference\n ));
+    } # if ( ! defined($args{jsonvar}) )
+
+	# the file exists, bless it into an object
+	my $self = bless({ 	
+        shortcut_hash => $args{shortcut_hash}, 
+        node_hash => {},
+        }, 
+        $class);
+
+    # 'cast' the shortcut_hash argument into a hash and then enumerate over it
+    # to gain access to the keys stored inside
+    my %shash = %{$args{shortcut_hash}};
+    foreach my $skey ( @_shortcut_keys ) {
+        $self->set(key => $skey, value => $shash{$skey});
+    } # foreach my $jsonkey ( %{$args{jsonvar}} )
+    # return the object to the caller
+    return $self;
+} # sub new
+
+=pod 
+
+=head3 new( shortcut_hash => { hash containing shortcut attributes } )
+
+Creates a L<Hump::Shortcut> object.  Takes the following arguments:
+
+=over 4
+
+=item shortcut_hash
+
+A reference to the hash containing the key/value pairs that will be used to
+create the Windows shortcut.
+
+=back
+
+=cut
+
+sub keys {
+    return @_shortcut_keys;
+} # sub keys
+
+=pod 
+
+=head3 keys()
+
+Returns the keys of a L<Hump::Shortcut> object.
+
+=cut
+
+sub set {
+    my $self = shift;
+    my %args = @_;
+    my $logger = get_logger();
+
+    $logger->logcroak(qq(set method called without 'key'/'value' arguments))
+        unless ( exists $args{key} && exists $args{value} );
+
+    # so store it already
+    $logger->debug(qq(Hump::Shortcut->set: ) 
+        . $args{key} . q(:) . $args{value});
+    $self->{node_hash}->{$args{key}} = $args{value};
+} # sub set
+
+=pod 
+
+=head3 set( key => {key}, value => {value} )
+
+Sets values in an L<Hump::Shortcut> object.  Takes the following
+arguments:
+
+=over 4
+
+=item key 
+
+Key to use in object hash.
+
+=item value 
+
+Value to store with key in object hash.
+
+=back
+
+=cut
+
+sub get {
+    my $self = shift;
+    my %args = @_;
+    my $logger = get_logger();
+
+    $logger->logcroak(qq(ERROR: get method called without 'key' argument))
+        unless ( defined $args{key} );
+
+    if ( exists $self->{node_hash}->{$args{key}} ) {
+        return $self->{node_hash}->{$args{key}};
+    } else {
+        $logger->error(qq(Key ) . $args{key} 
+            . qq( does not exist in this object));
+    } # if ( exists $node_hash{$args{key}} )
+} # sub get
+
+=pod 
+
+=head3 get( key => {key} )
+
+Gets values from an L<Hump::Shortcut> object.  Takes the following
+arguments:
+
+=over 4
+
+=item key 
+
+Key describing value to retrieve from object hash.
+
+=back
+
+If the key does not exist in the L<Hump::Shortcut> hash, a warning will be
+given.
+
+=cut
+
 #### Package 'Hump::JSON::Shortcuts' ####
 package Hump::JSON::Shortcuts;
 use strict;
