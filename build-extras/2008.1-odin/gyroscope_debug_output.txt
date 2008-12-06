@@ -1,0 +1,72 @@
+C:\temp>gyroscope.exe
+dumping @INC;
+ 0: C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd739e3eefbec4c8c3210911f
+d1c9989851\inc\lib
+ 1: C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd739e3eefbec4c8c3210911f
+d1c9989851\inc
+ 2: CODE(0x112895c)
+ 3: CODE(0x11283fc)
+dumping ENV hash
+ 0: DYLD_LIBRARY_PATH -> C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd73
+9e3eefbec4c8c3210911fd1c9989851
+ 1: USERPROFILE -> C:\Documents and Settings\demo
+ 2: HOMEDRIVE -> C:
+ 3: PAR_PROGNAME -> C:\temp\gyroscope.exe
+ 4: CLIENTNAME -> Console
+ 5: COMMONPROGRAMFILES -> C:\Program Files\Common Files
+ 6: APPDATA -> C:\Documents and Settings\demo\Application Data
+ 7: PROGRAMFILES -> C:\Program Files
+ 8: OS -> Windows_NT
+ 9: PWD -> C:/temp
+10: PATHEXT -> .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH
+11: PAR_ARGV_0 -> gyroscope.exe
+12: PAR_TEMP -> C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd739e3eefbec
+4c8c3210911fd1c9989851
+13: PROMPT -> $P$G
+14: PERL_DL_DEBUG -> 0
+15: NUMBER_OF_PROCESSORS -> 1
+16: PAR_INITIALIZED -> 2
+17: FP_NO_HOST_CHECK -> NO
+18: HOMEPATH -> \Documents and Settings\demo
+19: PATH -> C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd739e3eefbec4c8c
+3210911fd1c9989851;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\ap
+ps\IBM\SQLLIB\BIN;C:\apps\IBM\SQLLIB\FUNCTION;C:\apps\IBM\SQLLIB\SAMPLES\REPL;C:
+\camelbox\bin;C:\strawberry\c\bin;C:\strawberry\perl\bin;C:\apps\unxutils\bin;C:
+\Program Files\TortoiseSVN\bin;
+20: INCLUDE -> C:\apps\IBM\SQLLIB\INCLUDE;C:\apps\IBM\SQLLIB\LIB;C:\strawberry\c
+\include;C:\strawberry\perl\lib\CORE;C:\strawberry\c\include;C:\strawberry\perl\
+lib\CORE
+21: PAR_SPAWNED -> 1
+22: USERDOMAIN -> XP-GTK-BUILDER
+23: TERM -> dumb
+24: PROCESSOR_ARCHITECTURE -> x86
+25: TEMP -> C:\DOCUME~1\demo\LOCALS~1\Temp
+26: LD_LIBRARY_PATH -> C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd739e
+3eefbec4c8c3210911fd1c9989851
+27: PROCESSOR_REVISION -> 0f0a
+28: SYSTEMDRIVE -> C:
+29: LIBRARY_PATH -> C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd739e3ee
+fbec4c8c3210911fd1c9989851
+30: SYSTEMROOT -> C:\WINDOWS
+31: COMSPEC -> C:\WINDOWS\system32\cmd.exe
+32: LOGONSERVER -> \\XP-GTK-BUILDER
+33: SESSIONNAME -> Console
+34: WINDIR -> C:\WINDOWS
+35: FTP_PASSIVE -> 1
+36: PAR_0 -> C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd739e3eefbec4c8
+c3210911fd1c9989851\39456b79.pl
+37: PROCESSOR_LEVEL -> 6
+38: USERNAME -> demo
+39: LIBPATH -> C:\DOCUME~1\demo\LOCALS~1\Temp\par-demo\cache-fb28fbd739e3eefbec4
+c8c3210911fd1c9989851
+40: PAR_ARGC -> 1
+41: PROCESSOR_IDENTIFIER -> x86 Family 6 Model 15 Stepping 10, GenuineIntel
+42: LIB -> ;C:\apps\IBM\SQLLIB\LIB;C:\strawberry\c\lib;C:\strawberry\perl\bin;C:
+\strawberry\c\lib;C:\strawberry\perl\bin
+43: ALLUSERSPROFILE -> C:\Documents and Settings\All Users
+44: COMPUTERNAME -> XP-GTK-BUILDER
+45: CLASSPATH -> .;C:\apps\IBM\SQLLIB\java\db2java.zip;C:\apps\IBM\SQLLIB\java\d
+b2jcc.jar;C:\apps\IBM\SQLLIB\java\sqlj.zip;C:\apps\IBM\SQLLIB\java\db2jcc_licens
+e_cu.jar;C:\apps\IBM\SQLLIB\bin;C:\apps\IBM\SQLLIB\java\common.jar
+46: DB2INSTANCE -> DB2
+47: TMP -> C:\DOCUME~1\demo\LOCALS~1\Temp

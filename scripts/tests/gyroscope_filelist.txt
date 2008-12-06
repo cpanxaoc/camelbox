@@ -1,15 +1,20 @@
 # run resulting PAR file with:
 # perl -MPAR gyroscope.par gyroscope.pl
---par
---compile 
+# output par package
+#--par
+# compile perl script to better determine runtime dependencies
+#--compile 
+# bundle perl core modules in the resulting output file
+--bundle
 --gui 
---verbose 
---icon C:/camelbox/bin/wperl.exe 
---log C:/temp/pp.log
+--verbose=2 
+--compress=9
+--icon=C:/camelbox/share/camelbox-logo.ico 
+--log=C:/temp/pp.log
 # Gtk2-Perl C libraries
--l C:/camelbox/site/lib/auto/Cairo/Cairo.dll 
--l C:/camelbox/site/lib/auto/Glib/Glib.dll 
--l C:/camelbox/site/lib/auto/Gtk2/Gtk2.dll 
+#-l C:/camelbox/site/lib/auto/Cairo/Cairo.dll 
+#-l C:/camelbox/site/lib/auto/Glib/Glib.dll 
+#-l C:/camelbox/site/lib/auto/Gtk2/Gtk2.dll 
 #-l C:/camelbox/lib/libCairoPerl.dll.a 
 #-l C:/camelbox/lib/libGlibPerl.dll.a 
 #-l C:/camelbox/lib/libGtk2Perl.dll.a 
@@ -35,20 +40,22 @@
 -M Win32::Console 
 -M Tie::Hash::NamedCapture 
 -M XSLoader
--M Gtk2 
--M Glib 
--M Cairo 
--M Glib::CodeGen 
--M Gtk2::CodeGen 
--M Glib::Object::Subclass 
+#-M Gtk2 
+#-M Glib 
+#-M Cairo 
+#-M Glib::CodeGen 
+#-M Gtk2::CodeGen 
+#-M Glib::Object::Subclass 
 # extra files needed by gtk2-perl
-#-a C:/camelbox/site/lib/auto/Cairo;lib/auto/Cairo
-#-a C:/camelbox/site/lib/auto/Glib;lib/auto/Glib
-#-a C:/camelbox/site/lib/auto/Gtk2;lib/auto/Gtk2
-#-a C:/camelbox/lib/XSLoader.pm;lib/XSLoader.pm
--a C:/camelbox/site/lib/Cairo/Install;lib/Cairo/Install
--a C:/camelbox/site/lib/Glib/Install;lib/Glib/Install
--a C:/camelbox/site/lib/Gtk2/Install;lib/Gtk2/Install
+-a 'C:/camelbox/site/lib/auto/Cairo;lib/auto/Cairo'
+-a 'C:/camelbox/site/lib/auto/Glib;lib/auto/Glib'
+-a 'C:/camelbox/site/lib/auto/Gtk2;lib/auto/Gtk2'
+-a 'C:/camelbox/site/lib/Cairo.pm;lib/Cairo.pm'
+-a 'C:/camelbox/site/lib/Glib.pm;lib/Glib.pm'
+-a 'C:/camelbox/site/lib/Gtk2.pm;lib/Gtk2.pm'
+-a 'C:/camelbox/site/lib/Cairo;lib/Cairo'
+-a 'C:/camelbox/site/lib/Glib;lib/Glib'
+-a 'C:/camelbox/site/lib/Gtk2;lib/Gtk2'
 # output file
---output C:/temp/gyroscope.par 
-#--output C:/temp/gyroscope.exe 
+#--output C:/temp/gyroscope.par 
+--output C:/temp/gyroscope.exe 
