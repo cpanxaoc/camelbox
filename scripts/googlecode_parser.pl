@@ -68,13 +68,18 @@ $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                     ); # $go_parse->getoptions
 
 my $downloads_html;
-if ( defined $o_stdin ) {
+if ( $o_stdin ) {
     while ( <STDIN> ) { $downloads_html .= $downloads_html; }            
 } else {
     my $r = HTTP::Request->new(GET =>
         q(http://code.google.com/p/camelbox/downloads/list));
     my $ua = LWP::UserAgent->new;
     my $http_response = $ua->request($r);
+    if ( $http_response->is_success ) {
+        $downloads_html = $http_response->content;
+    } else {
+        die $http_response->status_line;
+    } # if ( $http_response->is_success )
 } # if ( defined $o_stdin ) 
 
 if ( ! defined ($downloads_html) || length($downloads_html) == 0 ) {
