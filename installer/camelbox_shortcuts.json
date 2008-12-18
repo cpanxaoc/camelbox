@@ -43,7 +43,7 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "The zsh shell compiled for Windows"
-        }, // "zsh"
+        } // "zsh"
     }, // "Camelbox" program group
     "Camelbox\\Developer Tools": {
         "Glade-3" : {
@@ -54,7 +54,7 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "The Glade XML GUI Generation Toolkit"
-        }, // "Glade-3"
+        } // "Glade-3"
     }, // "Camelbox\\Developer Tools" program group
     "Camelbox\\Database Tools": {
         "MySQL Client" : {
@@ -65,8 +65,8 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "MySQL Command Line Client"
-        }, // "MySQL Client"
-    }, // "Camelbox\\Database Tools" program group
+        } // "MySQL Client"
+    } // "Camelbox\\Database Tools" program group
 } // JSON data block
 
 // fin vim: filetype=javascript
