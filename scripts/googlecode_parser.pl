@@ -61,47 +61,33 @@ use LWP::UserAgent;
 use HTTP::Request;
 
 my ($VERBOSE, $o_stdin);
+my $o_lynxbin = q(/usr/bin/lynx);
 my $go_parse = Getopt::Long::Parser->new();
 $go_parse->getoptions(  q(verbose|v)                    => \$VERBOSE,
                         q(help|h)                       => \&ShowHelp,
                         q(stdin|s)                      => \$o_stdin,
+                        q(lynx|l=s)                       => \$o_lynxbin,
                     ); # $go_parse->getoptions
 
 my $downloads_html;
 if ( $o_stdin ) {
     while ( <STDIN> ) { $downloads_html .= $downloads_html; }            
 } else {
-    my $r = HTTP::Request->new(GET =>
-        q(http://code.google.com/p/camelbox/downloads/list));
-    my $ua = LWP::UserAgent->new;
-    my $http_response = $ua->request($r);
-    if ( $http_response->is_success ) {
-        $downloads_html = $http_response->content;
-    } else {
-        die $http_response->status_line;
-    } # if ( $http_response->is_success )
+    $downloads_html = 
+        qx|$o_lynxbin --dump http://code.google.com/p/camelbox/downloads/list|;
 } # if ( defined $o_stdin ) 
 
 if ( ! defined ($downloads_html) || length($downloads_html) == 0 ) {
-    die(qq(ERROR: no text fed into STDIN));
+    die(qq(ERROR: no text fed into STDIN/read in from lynx binary));
 } # if ( length($downloads_html) == 0 )
 
 my ( $match, $matchline, $nextline, $package, $download_count );
 foreach my $line ( split(qq(\n), $downloads_html) ) {
-    if ( $match == 1 ) {
-        $nextline .= $line;
-        $match = 2;
-    } # if ( $match == 1 ) 
-    if ( $line =~ /vt col_4/ ) { 
-        $match = 1; 
-        $matchline = $line;
-    } # if ( $line =~ /vt col_4/ ) 
-    if ( $match == 2 ) {
-       $matchline =~ s/.*name=\(.*\.lzma\)&amp.*$/$1/;
-       $nextline =~ s/.*nowrap">\(.*\)<\/a>.*$/$1/;
-       $match = 0;
-       print qq(Package $matchline has $nextline downloads\n);
-    } # if ( $match == 2 )
+    next unless ( $line =~ /^\s+\[/ );
+    # look for DownloadCount and start parsing the file after that
+    # some rows may span more than one physical line
+    $line =~ s/^\s+\[//g;
+    print $line . qq(\n);
 } # foreach my $line ( split(qq(\n), $downloads_html) )
 exit 0;
 
