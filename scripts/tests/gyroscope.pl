@@ -13,19 +13,19 @@
 
 use strict;
 # debugging the PAR environment
-#warn q(dumping @INC;) . qq(\n);
-#my $counter;
-#foreach my $inckey ( @INC ) {
-#	printf("%2u: %s\n", $counter, $inckey);
-#	$counter++;
-#}
+warn q(dumping @INC;) . qq(\n);
+my $counter;
+foreach my $inckey ( @INC ) {
+	printf("%2u: %s\n", $counter, $inckey);
+	$counter++;
+}
 
-#warn q(dumping ENV hash) . qq(\n);
-#$counter = 0;
-#foreach my $envkey ( keys %ENV ) {
-#	printf("%2u: %s -> %s\n", $counter, $envkey, $ENV{$envkey});
-#	$counter++;
-#} # foreach my $envkey ( keys %ENV )
+warn q(dumping ENV hash) . qq(\n);
+$counter = 0;
+foreach my $envkey ( keys %ENV ) {
+	printf("%2u: %s -> %s\n", $counter, $envkey, $ENV{$envkey});
+	$counter++;
+} # foreach my $envkey ( keys %ENV )
 
 use Carp;
 use Glib qw(TRUE FALSE);
