@@ -459,7 +459,7 @@ given.
 package Hump::JSON::Shortcuts;
 use strict;
 use warnings;
-use JSON;
+use JSON::PP;
 use Log::Log4perl qw(get_logger);
 
 sub new {
@@ -479,7 +479,7 @@ sub new {
         || $logger->logcroak(qq(Can't open file ) 
         . $self->{jsonfile} . qq(: $!));
 	binmode(FH);
-    my $parser = JSON->new->ascii->pretty->allow_nonref;
+    my $parser = JSON::PP->new->ascii->pretty->allow_nonref;
     my $json_string;
     my $json_line_count;
     while(<FH>) {
