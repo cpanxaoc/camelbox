@@ -36,8 +36,8 @@
 #==========================================================================
 
 # what goes in to a shortcut list block
-#   "program group folder": { // no '.lnk' on the end of the shortcut name
-#       "shortcut1 name" : {
+#   "program group folder": { 
+#       "shortcut1 name" : { // no '.lnk' on the end of the shortcut name 
 #           // this could also be shortened and $INSTALL_PATH used when the
 #           // .nsh file is created
 #           "target": "C:\path\to\target.exe",
@@ -54,7 +54,7 @@
 
 =head1 NAME
 
-B<shortcut_nsh_builder.pl> - Generate Camelbox NSIS filelists
+B<shortcut_nsh_builder.pl> - Generate Camelbox NSIS Windows shortcut file
 
 =head1 SYNOPSIS
 
@@ -123,7 +123,7 @@ sub header {
     my $OUT_FH = $self->{output_filehandle};
 	my @gmtime = gmtime;
 	my $date = strftime(q(%Y.%j.%H%MZ), @gmtime );
-    #my $date = qx/date +%Y.%j.%H%M/;
+    my $year = strftime(q(%Y), @gmtime);
     #chomp $date;
     print $OUT_FH <<"HEADER"
 #==========================================================================
@@ -137,7 +137,7 @@ sub header {
 # COMMENT:  automatically generated file; edit at your own risk
 
 #==========================================================================
-# Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
+# Copyright (c) $year by Brian Manning <elspicyjack at gmail dot com>
 # For support with this software, visit the Camelbox Google Groups Page at:
 # http://groups.google.com/group/camelbox
 # 
@@ -525,7 +525,7 @@ sub get_program_group_data {
         my $hashref = $pghash{$pgkey};
         $logger->warn(qq(dumping shortcut $pgkey));
         push (@return, $hashref);
-        #print Dumper $hashref;
+        print Dumper $hashref;
     } 
 #    return $program_group;
     return @return;
