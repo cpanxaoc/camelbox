@@ -102,8 +102,6 @@ sub new {
     }, $class);
 } # sub new
 
-=pod
-
 =head3 new( output_filehandle => {filehandle to write data to} )
 
 Creates a L<Hump::BlockHandlers> object.  Takes the following arguments:
@@ -159,8 +157,6 @@ sub header {
 HEADER
 } 
 
-=pod
-
 =head3 header( )
 
 Write the NSH file header, which contains the URL to the source repository, copyright and licence information.
@@ -172,8 +168,6 @@ package Hump::Shortcut;
 use strict;
 use warnings;
 use Log::Log4perl qw(get_logger);
-
-=pod
 
 =head2 Hump::Shortcut
 
@@ -212,8 +206,6 @@ sub new {
     return $self;
 } # sub new
 
-=pod 
-
 =head3 new( shortcut_hash => { hash containing shortcut attributes } )
 
 Creates a L<Hump::Shortcut> object.  Takes the following arguments:
@@ -232,8 +224,6 @@ create the Windows shortcut.
 sub keys {
     return @_shortcut_keys;
 } # sub keys
-
-=pod 
 
 =head3 keys()
 
@@ -254,8 +244,6 @@ sub set {
         . $args{key} . q(:) . $args{value});
     $self->{node_hash}->{$args{key}} = $args{value};
 } # sub set
-
-=pod 
 
 =head3 set( key => {key}, value => {value} )
 
@@ -292,8 +280,6 @@ sub get {
     } # if ( exists $node_hash{$args{key}} )
 } # sub get
 
-=pod 
-
 =head3 get( key => {key} )
 
 Gets values from an L<Hump::Shortcut> object.  Takes the following
@@ -312,13 +298,23 @@ given.
 
 =cut
 
+sub dump {
+    my $self = shift;
+    use Data::Dumper;
+    print Dumper $self->{shortcut_hash};
+} # sub dump 
+
+=head3 dump()
+
+Dumps the L<Hump::Shortcut> object to the screen.
+
+=cut
+
 #### Package 'Hump::ShortcutGroup' ####
 package Hump::ShortcutGroup;
 use strict;
 use warnings;
 use Log::Log4perl qw(get_logger);
-
-=pod
 
 =head2 Hump::ShortcutGroup
 
@@ -348,14 +344,15 @@ sub new {
     # 'cast' the shortcut_hash argument into a hash and then enumerate over it
     # to gain access to the keys stored inside
     my %shash = %{$args{shortcut_hash}};
+    use Data::Dumper;
+    print Dumper %shash;
     foreach my $skey ( @_shortcut_keys ) {
+        $logger->warn(qq(Adding key $skey, value ) . $shash{$skey});
         $self->set(key => $skey, value => $shash{$skey});
     } # foreach my $jsonkey ( %{$args{jsonvar}} )
     # return the object to the caller
     return $self;
 } # sub new
-
-=pod 
 
 =head3 new( shortcut_hash => { hash containing shortcut attributes } )
 
@@ -376,8 +373,6 @@ sub keys {
     return @_shortcut_keys;
 } # sub keys
 
-=pod 
-
 =head3 keys()
 
 Returns the keys of a L<Hump::Shortcut> object.
@@ -397,8 +392,6 @@ sub set {
         . $args{key} . q(:) . $args{value});
     $self->{node_hash}->{$args{key}} = $args{value};
 } # sub set
-
-=pod 
 
 =head3 set( key => {key}, value => {value} )
 
@@ -435,8 +428,6 @@ sub get {
     } # if ( exists $node_hash{$args{key}} )
 } # sub get
 
-=pod 
-
 =head3 get( key => {key} )
 
 Gets values from an L<Hump::Shortcut> object.  Takes the following
@@ -455,8 +446,8 @@ given.
 
 =cut
 
-#### Package 'Hump::JSON::Shortcuts' ####
-package Hump::JSON::Shortcuts;
+#### Package 'Hump::JSON::ShortcutFile' ####
+package Hump::JSON::ShortcutFile;
 use strict;
 use warnings;
 use JSON::PP;
@@ -498,7 +489,14 @@ sub get_all_program_groups {
 
     my %program_groups = %{$self->{jsonobj}};
     $logger->warn(qq(program groups are:));
-    $logger->warn(join(q(|), keys(%program_groups)));
+    $logger->warn(join(q(, ), keys(%program_groups)));
+    my @return_groups;
+    foreach my $pg_key ( keys(%program_groups) ) {
+        my $tmp_group = 
+            Hump::ShortcutGroup->new( 
+                shortcut_hash => $program_groups{$pg_key} );
+        push(@return_groups, $tmp_group);
+    } # foreach my $pg_key ( keys(%program_groups) ) { 
     return keys(%program_groups);
 } # sub get_all_program_groups
 
@@ -515,17 +513,22 @@ sub get_program_group_data {
     use Data::Dumper;
     my %jsonobj = %{$self->{jsonobj}};
     my $program_group = $jsonobj{$pg};
-    my @program_group_keys = keys(%{$program_group});
+    my %pghash = %{$program_group};
+    #my $pg_groups = Hump::ShortcutGroup->new( shortcut_hash => %pghash );
+
+    my @program_group_keys; # = $pg_groups->keys();
     #print Dumper $program_group;
     $logger->warn(q(joined program group keys: ) 
         . join(q(|), @program_group_keys) );
-    my %pghash = %{$program_group};
     my @return;
+    $logger->warn(qq(dumping shortcut keys for program group $pg));
     foreach my $pgkey ( @program_group_keys ) {
-        my $hashref = $pghash{$pgkey};
-        $logger->warn(qq(dumping shortcut $pgkey));
-        push (@return, $hashref);
-        print Dumper $hashref;
+        my $sc_obj = Hump::Shortcut->new( shortcut_hash => $pghash{$pgkey} );
+        #my $hashref = $pghash{$pgkey};
+        #$logger->warn(qq(shortcut: $pgkey));
+        #push (@return, $hashref);
+        #print Dumper $hashref;
+        $sc_obj->dump();
     } 
 #    return $program_group;
     return @return;
@@ -638,7 +641,7 @@ $logger->logcroak(qq(JSON file '$o_jsonfile' does not exist))
     unless ( -f $o_jsonfile );
 $logger->warn(qq(Reading JSON shortcuts file '$o_jsonfile'));
 # read in the JSON shortcuts file
-my $shortcuts = Hump::JSON::Shortcuts->new( jsonfile => $o_jsonfile );
+my $shortcuts = Hump::JSON::ShortcutFile->new( jsonfile => $o_jsonfile );
 
 if ( $o_verbose ) {
     $shortcuts->dump_objects();
@@ -665,8 +668,11 @@ my $writeblocks = Hump::WriteBlocks->new(
 # loop over all of the program groups
 foreach my $pg ( $shortcuts->get_all_program_groups() ) {
    #$writeblocks->write_group(program_group => $program_group);
-    my $pg_obj = $shortcuts->get_program_group_data(program_group => $pg);
-    $logger->warn(qq(Calling get_program_group_data with $pg));
+    my @pg_shortcuts = $pg->keys();
+    $logger->warn(qq(dumping shortcuts in )); # . $pg->);
+    use Data::Dumper;
+    print Dumper @pg_shortcuts;
+
 } 
 exit 0;
 
@@ -696,13 +702,11 @@ sub ShowHelp {
 
 #### end Package main ####
 
-=pod
-
 =head1 AUTHOR
 
 Brian Manning E<lt>elspicyjack at gmail dot comE<gt>
 
 =cut
 
-# vi: set sw=4 ts=4 cin:
+# vi: set sw=4 ts=4 :
 # end of line
