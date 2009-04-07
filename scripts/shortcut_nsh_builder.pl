@@ -338,15 +338,15 @@ sub new {
 	my $self = bless({ 	
         shortcut_hash => $args{shortcut_hash}, 
         node_hash => {},
-        }, 
-        $class);
+    }, $class);
 
     # 'cast' the shortcut_hash argument into a hash and then enumerate over it
     # to gain access to the keys stored inside
     my %shash = %{$args{shortcut_hash}};
     use Data::Dumper;
+    $logger->warn(q(Dumping shortcut group keys));
     print Dumper %shash;
-    foreach my $skey ( @_shortcut_keys ) {
+    foreach my $skey ( $self->shortcut_group_keys() ) {
         $logger->warn(qq(Adding key $skey, value ) . $shash{$skey});
         $self->set(key => $skey, value => $shash{$skey});
     } # foreach my $jsonkey ( %{$args{jsonvar}} )
@@ -369,8 +369,8 @@ create the Windows shortcut.
 
 =cut
 
-sub keys {
-    return @_shortcut_keys;
+sub shortcut_group_keys {
+    return @_shortcut_group_keys;
 } # sub keys
 
 =head3 keys()
