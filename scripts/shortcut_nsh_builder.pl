@@ -9,14 +9,6 @@
 # A script to generate the camelbox_shortcuts.nsh NSIS script with the
 # right files in the right places
 
-# FIXME
-# - come up with a program group object which would consume the program group
-# part of the JSON blob when fed that blob
-# - come up with a shortcut object, which would consume the shortcuts
-# contained inside of a program group, and then return a reference to each
-# shortcut object that the program group object could store in a list, and
-# sort on as desired
-
 #==========================================================================
 # Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
 # 
@@ -301,6 +293,30 @@ given.
 
 =cut
 
+sub write {
+    my $self = shift;
+
+    print q(IfFileExists ") . $self->get( key => q(target) ) . qq(" 0 +2\n);
+    # FIXME add the link target to these next two
+    print q(CreateDirectory ") . $self->get( key => q(target) ) . qq("\n);
+    print q(CreateShortCut )
+        #. $self->get( key => q(link) )
+        . q( ")
+        . $self->get( key => q(target) ) . q(" ")
+        . $self->get( key => q(params) ) . q(" ")
+        . $self->get( key => q(iconfile) ) . q(" )
+        . $self->get( key => q(iconidx) ) . q( )
+        . $self->get( key => q(startopts) ) . q( )
+        . $self->get( key => q(magickeys) ) . q( ")
+        . $self->get( key => q(description) ) . qq("\n);
+} # sub write 
+
+=head3 write()
+
+Writes the shortcut icon NSH command to STDOUT.
+
+=cut
+
 sub dump {
     my $self = shift;
     use Data::Dumper;
@@ -337,9 +353,9 @@ sub new {
 
 	# the file exists, bless it into an object
 	my $self = bless({ 	
-        shortcut_hash => $args{shortcut_hash}, 
-        group_name => $args{group_name},
-        node_hash => {},
+        _shortcut_hash => $args{shortcut_hash}, 
+        _group_name => $args{group_name},
+        _node_hash => {},
     }, $class);
 
     # 'cast' the shortcut_hash argument into a hash and then enumerate over it
@@ -351,7 +367,7 @@ sub new {
             shortcut_name => $skey,
             shortcut_hash => $shash{$skey}
         );
-        $logger->warn(qq(Adding shortcut object for key '$skey'));
+        $logger->info(qq(Adding shortcut object for key '$skey'));
         $self->set(key => $skey, value => $thisshortcut);
     } # foreach my $jsonkey ( %{$args{jsonvar}} )
     # return the object to the caller
@@ -376,7 +392,19 @@ create the Windows shortcut.
 sub get_group_keys {
     my $self = shift;
     # return the keys to the node hash
-    return sort( keys(%{$self->{node_hash}}) );
+    return sort( keys(%{$self->{_node_hash}}) );
+}
+
+=head3 get_group_keys ()
+
+Returns a list of keys that can be used to retreive that program group.
+
+=cut
+
+sub get_group_name {
+    my $self = shift;
+    # return the keys to the node hash
+    return $self->{_group_name};
 }
 
 =head3 get_group_keys ()
@@ -394,9 +422,9 @@ sub set {
         unless ( exists $args{key} && exists $args{value} );
 
     # so store it already
-    $logger->debug(qq(Hump::Shortcut->set: ) 
+    $logger->debug(qq(Hump::ShortcutGroup->set: ) 
         . $args{key} . q(:) . $args{value});
-    $self->{node_hash}->{$args{key}} = $args{value};
+    $self->{_node_hash}->{$args{key}} = $args{value};
 } # sub set
 
 =head3 set( key => {key}, value => {value} )
@@ -426,8 +454,8 @@ sub get {
     $logger->logcroak(qq(ERROR: get method called without 'key' argument))
         unless ( defined $args{key} );
 
-    if ( exists $self->{node_hash}->{$args{key}} ) {
-        return $self->{node_hash}->{$args{key}};
+    if ( exists $self->{_node_hash}->{$args{key}} ) {
+        return $self->{_node_hash}->{$args{key}};
     } else {
         $logger->error(qq(Key ) . $args{key} 
             . qq( does not exist in this object));
@@ -436,19 +464,19 @@ sub get {
 
 =head3 get( key => {key} )
 
-Gets values from an L<Hump::Shortcut> object.  Takes the following
-arguments:
+Gets shortcut objects from an L<Hump::ShortcutGroup> object.  Takes the
+following arguments:
 
 =over 4
 
 =item key 
 
-Key describing value to retrieve from object hash.
+Key describing shortcut to retrieve from ShortcutGroup hash.
 
 =back
 
-If the key does not exist in the L<Hump::Shortcut> hash, a warning will be
-given.
+If the key does not exist in the L<Hump::ShortcutGroup> hash, a warning will
+be given.
 
 =cut
 
@@ -471,10 +499,10 @@ sub new {
         unless ( -f $args{jsonfile} );
 
 	# the file exists, bless it into an object
-	my $self = bless({ 	jsonfile => $args{jsonfile} }, $class);
-	open(FH, $self->{jsonfile}) 
+	my $self = bless({ _jsonfile => $args{jsonfile} }, $class);
+	open(FH, $self->{_jsonfile}) 
         || $logger->logcroak(qq(Can't open file ) 
-        . $self->{jsonfile} . qq(: $!));
+        . $self->{_jsonfile} . qq(: $!));
 	binmode(FH);
     my $parser = JSON::PP->new->ascii->pretty->allow_nonref;
     my $json_string;
@@ -483,7 +511,7 @@ sub new {
         $json_string .= $_;
         $json_line_count++;
     } # while(<FH>)
-    $logger->warn(qq(Read $json_line_count lines));
+    $logger->info(qq(Read $json_line_count lines));
 	$self->{jsonobj} = $parser->decode($json_string);
     # return the decoded data
 	return $self;
@@ -494,11 +522,11 @@ sub create_group_objects {
     my $logger = get_logger();
 
     my %program_groups = %{$self->{jsonobj}};
-    $logger->warn(qq(program groups are:));
-    $logger->warn(join(q(, ), keys(%program_groups)));
+    $logger->info(qq(program groups are:));
+    $logger->info(join(q(, ), keys(%program_groups)));
     my @return_groups;
     foreach my $pg_key ( keys(%program_groups) ) {
-        $logger->warn(qq(This group is named '$pg_key'));
+        $logger->info(qq(This group is named '$pg_key'));
         my $tmp_group = 
             Hump::ShortcutGroup->new( 
                 group_name => $pg_key,
@@ -518,7 +546,7 @@ sub get_program_group_data {
     my $pg = $args{program_group};
     die qq(program_group argument to get_program_group_data is undefined)
         unless ( defined $pg );
-    $logger->warn(q(Got project group ) . $pg);
+    $logger->info(q(Got project group ) . $pg);
     #$pg =~ s/\\/\\\\/g; 
     use Data::Dumper;
     my %jsonobj = %{$self->{jsonobj}};
@@ -528,14 +556,14 @@ sub get_program_group_data {
 
     my @program_group_keys; # = $pg_groups->keys();
     #print Dumper $program_group;
-    $logger->warn(q(joined program group keys: ) 
+    $logger->info(q(joined program group keys: ) 
         . join(q(|), @program_group_keys) );
     my @return;
-    $logger->warn(qq(dumping shortcut keys for program group $pg));
+    $logger->info(qq(dumping shortcut keys for program group $pg));
     foreach my $pgkey ( @program_group_keys ) {
         my $sc_obj = Hump::Shortcut->new( shortcut_hash => $pghash{$pgkey} );
         #my $hashref = $pghash{$pgkey};
-        #$logger->warn(qq(shortcut: $pgkey));
+        #$logger->info(qq(shortcut: $pgkey));
         #push (@return, $hashref);
         #print Dumper $hashref;
         $sc_obj->dump();
@@ -635,7 +663,7 @@ my $logger = get_logger("");
 
 # this is fugly, but it works
 my $program_name = (split(/\//,$0))[-1];
-$logger->warn(qq(==== $program_name ====));
+$logger->info(qq(==== $program_name ====));
 
 # change the log level from INFO if the user requests more gar-bage
 if ( $o_verbose ) { $logger->level($INFO); }
@@ -651,11 +679,11 @@ $logger->logcroak(qq(JSON filelist undefined))
 
 $logger->logcroak(qq(JSON file '$o_jsonfile' does not exist))
     unless ( -f $o_jsonfile );
-$logger->warn(qq(Reading JSON shortcuts file '$o_jsonfile'));
+$logger->info(qq(Reading JSON shortcuts file '$o_jsonfile'));
 # read in the JSON shortcuts file
 my $shortcuts = Hump::JSON::ShortcutFile->new( jsonfile => $o_jsonfile );
 
-if ( $o_verbose ) {
+if ( $o_debug ) {
     $shortcuts->dump_objects();
 } # if ( $o_verbose )
 
@@ -679,20 +707,18 @@ my $writeblocks = Hump::WriteBlocks->new(
 
 my @program_groups = $shortcuts->create_group_objects();
 
-$logger->warn(qq(Parsing of file $o_jsonfile is complete));
+$logger->info(qq(Parsing of file $o_jsonfile is complete));
 
 foreach my $thisgroup ( @program_groups ) {
     my @group_keys = $thisgroup->get_group_keys();
-    $logger->warn(qq(this program group has the following shortcut keys));
-    $logger->warn( join(q(|), @group_keys) );
-}
-# loop over all of the program groups
-#foreach my $pg ( $shortcuts->create_group_objects() ) {
-   #$writeblocks->write_group(program_group => $program_group);
-#    my @pg_shortcuts = $pg->keys();
-#    $logger->warn(qq(dumping shortcuts in )); # . $pg->);
-#    use Data::Dumper;
-#    print Dumper @pg_shortcuts;
+    my $group_name = $thisgroup->get_group_name();
+    $logger->info(qq(Program group '$group_name' has the following shortcuts));
+    #$logger->info( join(q(|), @group_keys) );
+    foreach my $sc_key ( @group_keys ) {
+        my $shortcut = $thisgroup->get( key => $sc_key );
+        $shortcut->write();
+    } # foreach my $sc_key ( @group_keys )
+} # foreach my $thisgroup ( @program_groups )
 
 #} 
 exit 0;

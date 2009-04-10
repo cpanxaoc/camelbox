@@ -65,8 +65,66 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "MySQL Command Line Client"
-        } // "MySQL Client"
-    } // "Camelbox\\Database Tools" program group
+        }, // "MySQL Client"
+        "PostgreSQL Client" : {
+            "target": "$INSTALL_PATH\\bin\\psql.exe",
+            "params": "",
+            "iconfile": "$INSTALL_PATH\\bin\\psql.exe",
+            "iconidx": "0",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "PostgreSQL Command Line Client"
+        } // "PostgreSQL Client"
+    }, // "Camelbox\\Database Tools" program group
+    "Applications": {
+        "Asciio" : {
+            "target": "$INSTALL_PATH\\bin\\asciio.bat",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "75",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "ASCII Art Editor"
+        }, // "Asciio"
+        "podviewer" : {
+            "target": "$INSTALL_PATH\\bin\\podviewer.bat",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "134",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Perl POD Viewer"
+        } // "podviewer"
+    }, // "Applications" program group
+    "Demo Scripts": {
+        "perltetris" : {
+            "target": "$INSTALL_PATH\\bin\\perltetris.bat",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "189",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Goo::Canvas Example: Perl Tetris"
+        }, // "perltetris"
+        "perlmine" : {
+            "target": "$INSTALL_PATH\\bin\\perlmine.bat",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "208",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Goo::Canvas Example: Perl Minesweeper"
+        }, // "perlmine"
+        "widget" : {
+            "target": "$INSTALL_PATH\\bin\\widget.bat",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Widget: Tk Widget Demo Script"
+        } // "perlmine"
+    } // "Demo Scripts" program group
 } // JSON data block
 
 // fin vim: filetype=javascript
