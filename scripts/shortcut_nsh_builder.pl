@@ -176,8 +176,10 @@ attributes as read from the JSON file.
 
 =cut
 
-my @_shortcut_keys = qw( params iconfile target 
-        magickeys iconidx startopts description );
+#my @_shortcut_keys = qw( params iconfile target 
+#        magickeys iconidx startopts description );
+
+my @_shortcut_keys;
 
 sub new {
     my $class = shift;
@@ -199,7 +201,8 @@ sub new {
     # 'cast' the shortcut_hash argument into a hash and then enumerate over it
     # to gain access to the keys stored inside
     my %shash = %{$args{shortcut_hash}};
-    foreach my $skey ( @_shortcut_keys ) {
+    foreach my $skey ( sort(keys(%shash)) ) {
+        push(@_shortcut_keys, $skey);
         $self->set(key => $skey, value => $shash{$skey});
     } # foreach my $jsonkey ( %{$args{jsonvar}} )
     # return the object to the caller
@@ -322,8 +325,6 @@ A group of Windows shortcut objects, typically all placed inside of a folder.
 
 =cut
 
-my @_shortcut_group_keys = qw( name );
-
 sub new {
     my $class = shift;
     my %args = @_;
@@ -337,18 +338,21 @@ sub new {
 	# the file exists, bless it into an object
 	my $self = bless({ 	
         shortcut_hash => $args{shortcut_hash}, 
+        group_name => $args{group_name},
         node_hash => {},
     }, $class);
 
     # 'cast' the shortcut_hash argument into a hash and then enumerate over it
     # to gain access to the keys stored inside
     my %shash = %{$args{shortcut_hash}};
-    use Data::Dumper;
-    $logger->warn(q(Dumping shortcut group keys));
-    print Dumper %shash;
-    foreach my $skey ( $self->shortcut_group_keys() ) {
-        $logger->warn(qq(Adding key $skey, value ) . $shash{$skey});
-        $self->set(key => $skey, value => $shash{$skey});
+    foreach my $skey ( keys(%shash) ) {
+        $logger->debug(qq(Creating shortcut for '$skey'));
+        my $thisshortcut = Hump::Shortcut->new(
+            shortcut_name => $skey,
+            shortcut_hash => $shash{$skey}
+        );
+        $logger->warn(qq(Adding shortcut object for key '$skey'));
+        $self->set(key => $skey, value => $thisshortcut);
     } # foreach my $jsonkey ( %{$args{jsonvar}} )
     # return the object to the caller
     return $self;
@@ -369,13 +373,15 @@ create the Windows shortcut.
 
 =cut
 
-sub shortcut_group_keys {
-    return @_shortcut_group_keys;
-} # sub keys
+sub get_group_keys {
+    my $self = shift;
+    # return the keys to the node hash
+    return sort( keys(%{$self->{node_hash}}) );
+}
 
-=head3 keys()
+=head3 get_group_keys ()
 
-Returns the keys of a L<Hump::Shortcut> object.
+Returns a list of keys that can be used to retreive that program group.
 
 =cut
 
@@ -483,7 +489,7 @@ sub new {
 	return $self;
 } # sub new
 
-sub get_all_program_groups {
+sub create_group_objects {
     my $self = shift;
     my $logger = get_logger();
 
@@ -492,13 +498,17 @@ sub get_all_program_groups {
     $logger->warn(join(q(, ), keys(%program_groups)));
     my @return_groups;
     foreach my $pg_key ( keys(%program_groups) ) {
+        $logger->warn(qq(This group is named '$pg_key'));
         my $tmp_group = 
             Hump::ShortcutGroup->new( 
+                group_name => $pg_key,
                 shortcut_hash => $program_groups{$pg_key} );
         push(@return_groups, $tmp_group);
     } # foreach my $pg_key ( keys(%program_groups) ) { 
-    return keys(%program_groups);
-} # sub get_all_program_groups
+    return @return_groups;
+} # sub create_group_objects
+
+=pod
 
 sub get_program_group_data {
     my $self = shift;
@@ -532,7 +542,9 @@ sub get_program_group_data {
     } 
 #    return $program_group;
     return @return;
-} # sub get_all_program_groups
+} # sub get_program_group_data
+
+=cut
 
 sub dump_objects {
     my $self = shift;
@@ -665,15 +677,24 @@ my $writeblocks = Hump::WriteBlocks->new(
         output_filehandle   => $OUT_FH
 ); # my $writeblocks = Hump::WriteBlocks->new
 
-# loop over all of the program groups
-foreach my $pg ( $shortcuts->get_all_program_groups() ) {
-   #$writeblocks->write_group(program_group => $program_group);
-    my @pg_shortcuts = $pg->keys();
-    $logger->warn(qq(dumping shortcuts in )); # . $pg->);
-    use Data::Dumper;
-    print Dumper @pg_shortcuts;
+my @program_groups = $shortcuts->create_group_objects();
 
-} 
+$logger->warn(qq(Parsing of file $o_jsonfile is complete));
+
+foreach my $thisgroup ( @program_groups ) {
+    my @group_keys = $thisgroup->get_group_keys();
+    $logger->warn(qq(this program group has the following shortcut keys));
+    $logger->warn( join(q(|), @group_keys) );
+}
+# loop over all of the program groups
+#foreach my $pg ( $shortcuts->create_group_objects() ) {
+   #$writeblocks->write_group(program_group => $program_group);
+#    my @pg_shortcuts = $pg->keys();
+#    $logger->warn(qq(dumping shortcuts in )); # . $pg->);
+#    use Data::Dumper;
+#    print Dumper @pg_shortcuts;
+
+#} 
 exit 0;
 
 #### end main ####
