@@ -1,0 +1,123 @@
+Index: include/os.h
+===================================================================
+--- include/os.h	(revision 15633)
++++ include/os.h	(working copy)
+@@ -1,4 +1,4 @@
+-#ifdef _WIN32
++#ifdef _MSC_VER
+ typedef __int64 int64_t;
+ typedef unsigned __int64 uint64_t;
+ typedef unsigned __int32 uint32_t;
+Index: src/shout.c
+===================================================================
+--- src/shout.c	(revision 15633)
++++ src/shout.c	(working copy)
+@@ -38,7 +38,7 @@
+ #include "shout_private.h"
+ #include "util.h"
+ 
+-#ifdef _WIN32
++#ifdef _MSC_VER
+ # ifndef va_copy
+ #  define va_copy(ap1, ap2) memcpy(&ap1, &ap2, sizeof(va_list))
+ # endif
+Index: configure.ac
+===================================================================
+--- configure.ac	(revision 15633)
++++ configure.ac	(working copy)
+@@ -75,7 +75,7 @@
+ 
+ dnl Checks for header files.
+ AC_HEADER_STDC
+-AC_CHECK_HEADERS([strings.h])
++AC_CHECK_HEADERS([strings.h sys/timeb.h])
+ 
+ dnl Checks for typedefs, structures, and compiler characteristics.
+ AC_C_CONST
+@@ -87,6 +87,8 @@
+   [AC_DEFINE([HAVE_NANOSLEEP], [1],
+     [Define if you have the nanosleep function])])
+ 
++AC_CHECK_FUNCS([gettimeofday ftime])
++
+ dnl Module checks
+ XIPH_NET
+ 
+Index: Makefile.am
+===================================================================
+--- Makefile.am	(revision 15633)
++++ Makefile.am	(working copy)
+@@ -1,6 +1,6 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-AUTOMAKE_OPTIONS = 1.6 foreign
++AUTOMAKE_OPTIONS = foreign
+ ACLOCAL_AMFLAGS = -I m4
+ 
+ SUBDIRS = include src examples debian doc win32
+Index: examples/nonblocking.c
+===================================================================
+--- examples/nonblocking.c	(revision 15633)
++++ examples/nonblocking.c	(working copy)
+@@ -8,6 +8,12 @@
+ #include <string.h>
+ #include <unistd.h>
+ 
++#ifdef _WIN32
++#include <windows.h>
++#include <io.h>
++#include <fcntl.h>
++#endif
++
+ #include <shout/shout.h>
+ 
+ int main()
+@@ -16,6 +22,10 @@
+ 	char buff[4096];
+ 	long read, ret, total;
+ 
++#ifdef _WIN32
++    setmode(fileno(stdin), O_BINARY);
++#endif
++
+ 	shout_init();
+ 
+ 	if (!(shout = shout_new())) {
+@@ -68,7 +78,11 @@
+ 
+ 	while (ret == SHOUTERR_BUSY) {
+ 	  printf("Connection pending. Sleeping...\n");
++#ifdef _WIN32
++	  Sleep(1000);
++#else
+ 	  sleep(1);
++#endif
+ 	  ret = shout_get_connected(shout);
+ 	}
+ 	
+Index: examples/example.c
+===================================================================
+--- examples/example.c	(revision 15633)
++++ examples/example.c	(working copy)
+@@ -8,12 +8,21 @@
+ 
+ #include <shout/shout.h>
+ 
++#ifdef _WIN32
++#include <io.h>
++#include <fcntl.h>
++#endif
++
+ int main()
+ {
+ 	shout_t *shout;
+ 	char buff[4096];
+ 	long read, ret, total;
+ 
++#ifdef _WIN32
++    setmode(fileno(stdin), O_BINARY);
++#endif
++
+ 	shout_init();
+ 
+ 	if (!(shout = shout_new())) {
