@@ -8,6 +8,7 @@
 ## SCRIPT VARIABLES
 TIMESTAMP=$(TZ=GMT date +%Y.%j | tr -d '\n')
 ARCHIVE_DIR="../archives"
+PKGLISTS_DIR="share/pkglists"
 
 ## FUNCTIONS
 function find_first_free_filename () {
@@ -31,17 +32,29 @@ function find_first_free_filename () {
 for ARCHIVE_NAME in "$@" 
 do
     if [ -d $ARCHIVE_NAME ]; then
+		if [ ! -d $ARCHIVE_NAME/$PKGLISTS_DIR ]; then
+			echo "ERROR: 'share/pkgfiles' directory does not exist in"
+			echo "ERROR: package directory '$ARCHIVE_NAME';"
+			echo "ERROR: skipping creating this package"
+			continue
+		fi # if [ ! -d pkgfiles ]; then
         echo "Creating archive package '${ARCHIVE_NAME}'"
 	    echo "Checking for existing ${ARCHIVE_NAME}.${TIMESTAMP} files"
         find_first_free_filename $ARCHIVE_DIR $ARCHIVE_NAME "tar.lzma"
         CURRENT_DIR=$PWD
         cd $ARCHIVE_NAME
-        SYSNAME=$(uname -s | tr -d '\n')
-        if [ "x$SYSNAME" == "xDarwin" ]; then
+		echo "# Package list for: $FREE_FILENAME" \
+			| sed '{s|\.\.\/archives\/||;}' > $PKGLISTS_DIR/$ARCHIVE_NAME.txt
+	    SYSNAME=$(uname -s | tr -d '\n')
+        if [ "x$SYSNAME" = "xDarwin" ]; then
             # Mac OS X, lzma from the MacPorts tree
+			find . | sed '{ /^\.$/d; s/\.\\//;}' \
+				>> $PKGLISTS_DIR/$ARCHIVE_NAME.txt
             tar -cvf - * | lzma -z -c > ../$ARCHIVE_DIR/$FREE_FILENAME
         else 
             # Windows, lzma from the lzma SDK
+			xfind . | sed '{ /^\.$/d; s/\.\\//;}' \
+				>> $PKGLISTS_DIR/$ARCHIVE_NAME.txt
             tar -cvf - * | lzma e -si ../$ARCHIVE_DIR/$FREE_FILENAME
         fi # if [ "x$SYSNAME" == "xDarwin" ]
         if [ $? -ne 0 ]; then
