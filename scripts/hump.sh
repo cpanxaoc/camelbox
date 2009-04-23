@@ -20,6 +20,7 @@
 
 # a starting directory, if the user doesn't pass one in
 START_DIR="/camelbox"
+OUTPUT_DIR="/${START_DIR}/share/pkglists"
 TIMESTAMP=$(TZ=GMT date +%Y.%j | tr -d '\n')
 
 function find_first_free_filename () {
@@ -125,25 +126,33 @@ function run_xfind () {
 
 #### begin main script ####
 # call getopts with all of the supported options
-while getopts a:b:cd:ehi:m:o:p:t:wz VARLIST
+while getopts a:b:cd:ehi:m:o:p:s:t:wz VARLIST
 do
 	case $VARLIST in
 		a) 	AFTERLIST=$OPTARG;;
 		b) 	BEFORELIST=$OPTARG;;
 		c)  CPAN="true";;
-        d)  START_DIR=$OPTARG;;
+		d)  OUTPUT_DIR=$OPTARG;;
 		e)  SHOW_EXAMPLES="true";;
 		h)  SHOW_HELP="true";;
 		i)	CPAN_INSTALL=$OPTARG;;
 		m)  MD5_LIST=$OPTARG;;
-        o)  OUTPUT_LIST=$OPTARG;;
+        o)  OUTPUT_FILENAME=$OPTARG;;
 		p)  PACKAGE_FILE=$OPTARG;;
+        s)  START_DIR=$OPTARG;;
 		t)  TIMESTAMP=$OPTARG;;
 		w)  OVERWRITE="true";;
 		z)  ARCHIVE="true";;
 	esac
 done
 shift $(expr $OPTIND - 1)
+
+# create the absolute filename used to write the filelist to
+OUTPUT_LIST="$OUTPUT_DIR/$OUTPUT_FILENAME"
+# then verify the output directory exists
+if [ ! -d $OUTPUT_DIR ]; then
+	mkdir -p $OUTPUT_DIR
+fi
 
 # for debugging
 #echo "$BEFORELIST:$AFTERLIST:$OUTPUT_LIST:$HELP"
@@ -160,6 +169,10 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
     
     check_empty_var "-o (output list)" $OUTPUT_LIST
     overwrite_check $OUTPUT_LIST
+
+	# seed the output list with the output list file itself
+	echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $OUTPUT_LIST
+	echo "share/pkglists/$OUTPUT_FILE" >> $OUTPUT_LIST
 
     # install a module from CPAN?
     if [ "x$CPAN_INSTALL" != "x" ]; then
@@ -210,10 +223,13 @@ if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 	overwrite_check $PACKAGE_FILE
 	find_first_free_filename "/temp" $PACKAGE_FILE "tar"
 	echo "Creating package tarball '${FREE_FILENAME}' from ${OUTPUT_LIST}"
-	# $OUTPUT_FILE comes from find_first_free_filename
+	# $FREE_FILENAME comes from find_first_free_filename
+	cat $OUTPUT_LIST | sed "{s/$OUTPUT_FILE $TIMESTAMP/$FREE_FILENAME;}" \
+		> /temp/$OUTPUT_FILE.$$
+	mv -f /temp/$OUTPUT_FILE.$$ $OUTPUT_LIST
 	CURRENT_PWD=$PWD
 	cd $START_DIR
-	tar -cvf - -T ${CURRENT_PWD}/${OUTPUT_LIST} > $FREE_FILENAME
+	tar -cvf - -T $OUTPUT_LIST > $FREE_FILENAME
 	echo "Compressing package tarball '${FREE_FILENAME}'"
 	lzma e "${FREE_FILENAME}" "${FREE_FILENAME}.lzma"
 	if [ $? -eq 0 ]; then

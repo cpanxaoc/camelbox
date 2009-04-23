@@ -48,7 +48,7 @@ do
 	    SYSNAME=$(uname -s | tr -d '\n')
         if [ "x$SYSNAME" = "xDarwin" ]; then
             # Mac OS X, lzma from the MacPorts tree
-			find . | sed '{ /^\.$/d; s/\.\\//;}' \
+			find . | sed '{/^\.$/d; s/\.\\//; s/\\/\//g;}' \
 				>> $PKGLISTS_DIR/$ARCHIVE_NAME.txt
             tar -cvf - * | lzma -z -c > ../$ARCHIVE_DIR/$FREE_FILENAME
         else 
