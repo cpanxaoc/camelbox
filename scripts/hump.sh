@@ -1,4 +1,4 @@
-#!/bin/true
+#!/bin/sh
 
 # script to run a before/after diff on the camelbox folder, and generate a
 # list of files that have been added to the after snapshot
@@ -20,7 +20,7 @@
 
 # a starting directory, if the user doesn't pass one in
 START_DIR="/camelbox"
-OUTPUT_DIR="/${START_DIR}/share/pkglists"
+OUTPUT_DIR="${START_DIR}/share/pkglists"
 TIMESTAMP=$(TZ=GMT date +%Y.%j | tr -d '\n')
 
 function find_first_free_filename () {
@@ -61,7 +61,14 @@ function overwrite_check () {
 function show_examples () {
 	echo "Examples:"
 	echo "# create a list of files that can be used with GNU tar"
+	echo '# filelist.txt is created in either C:\\camelbox\\share\\pkglists'
+	echo "# or the directory specified with '-d'"
+	echo 
+	echo '# creates "C:\\camelbox\\share\\pkglists\\filelist.txt"'
 	echo "sh hump.sh -o filelist.txt"
+	echo
+	echo '# creates "C:\\temp\\filelist.txt"'
+	echo "sh hump.sh -d /temp -o filelist.txt"
 	echo
 	echo "# create a filelist and 'after' file from 'before' file"
 	echo "sh hump.sh -b before.txt -a after.txt -o filelist.txt"
@@ -85,7 +92,7 @@ function show_usage () {
 	echo
     echo "To get a simple list of files that can be used with GNU tar:"
 	echo "  -o output list - Generate a simple list of files"
-	echo "(Output file has *NIX forward slashes for path separation)"
+	echo "Output file has *NIX forward slashes for path separation"
     echo
     echo "To get a list of files that are installed for an application:"
 	echo "  -i install this Perl module from CPAN (optional)"
@@ -117,11 +124,16 @@ function check_empty_var () {
 } # function check_empty_var ()
 
 function run_xfind () {
+	local XFIND_OUT=$1
     # sed removes the 'camelbox/' prefix from all files
     # and the 'camelbox/' directory itself
+	# seed the output list with the output list file itself
+	echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $XFIND_OUT
+	echo "share/pkglists/$OUTPUT_FILE" >> $XFIND_OUT
+
     xfind $START_DIR -type f \
-   		| sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//;}' \
-	    | tee $1
+   		| sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//; s/\\/\//g;}' \
+	    | tee -a $XFIND_OUT
 } # function run_xfind
 
 #### begin main script ####
@@ -137,7 +149,7 @@ do
 		h)  SHOW_HELP="true";;
 		i)	CPAN_INSTALL=$OPTARG;;
 		m)  MD5_LIST=$OPTARG;;
-        o)  OUTPUT_FILENAME=$OPTARG;;
+        o)  OUTPUT_FILE=$OPTARG;;
 		p)  PACKAGE_FILE=$OPTARG;;
         s)  START_DIR=$OPTARG;;
 		t)  TIMESTAMP=$OPTARG;;
@@ -148,10 +160,15 @@ done
 shift $(expr $OPTIND - 1)
 
 # create the absolute filename used to write the filelist to
-OUTPUT_LIST="$OUTPUT_DIR/$OUTPUT_FILENAME"
+OUTPUT_LIST="$OUTPUT_DIR/$OUTPUT_FILE"
+
 # then verify the output directory exists
 if [ ! -d $OUTPUT_DIR ]; then
 	mkdir -p $OUTPUT_DIR
+	if [ $? -ne 0 ]; then 
+		echo "ERROR: Failed to create output directory $OUTPUT_DIR"
+		exit 1
+	fi # if [ $? -ne 0 
 fi
 
 # for debugging
@@ -163,16 +180,13 @@ if [ "x$SHOW_EXAMPLES" = "xtrue" ]; then show_examples; fi
 
 ## BEFORELIST and AFTERLIST; run a diff on the two lists
 if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
-    # do the find
+    # verify beforelist exists
     check_empty_var "-b (before list)" $BEFORELIST
     exists_check $BEFORELIST
     
+	# verify OUTPUT_LIST is not about to be overwritten
     check_empty_var "-o (output list)" $OUTPUT_LIST
     overwrite_check $OUTPUT_LIST
-
-	# seed the output list with the output list file itself
-	echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $OUTPUT_LIST
-	echo "share/pkglists/$OUTPUT_FILE" >> $OUTPUT_LIST
 
     # install a module from CPAN?
     if [ "x$CPAN_INSTALL" != "x" ]; then
@@ -189,17 +203,23 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
 
     # TODO - the below grep -v "\.cpan" may be redundant, the previous grep in
     # the pipe may already snag that match; verify!
+
     # don't strip the .cpan directories
     # the file list needs to have forward slashes to keep tar happy
     if [ "x$CPAN" = "xtrue" ]; then
     	echo "Including .cpan directory in package filelist output"
     	diff -u $BEFORELIST $AFTERLIST | grep "^+[.a-zA-Z]" \
-    		| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
+			| grep -vE "^#|share\/pkglists" \
+    		| sed '{s/^+//; s/\\/\//g;}' \
+			| tee -a $OUTPUT_LIST
     else
     	# get rid of the .cpan directories
     	echo "Stripping .cpan directory from package filelist output"
-    	diff -u $BEFORELIST $AFTERLIST | grep "^+[a-zA-Z]" | grep -v "\.cpan" \
-    		| sed '{s/^+//; s/\\/\//g;}' | tee $OUTPUT_LIST
+    	diff -u $BEFORELIST $AFTERLIST | grep "^+[a-zA-Z]" \
+			| grep -vE "^#|share\/pkglists" \
+	   		| grep -v "\.cpan" \
+    		| sed '{s/^+//; s/\\/\//g;}' \
+			| tee -a $OUTPUT_LIST
     fi # if [ "x$NOCPAN" = "xtrue" ]
 
 ## OUTPUT_LIST only; just generate a filelist
