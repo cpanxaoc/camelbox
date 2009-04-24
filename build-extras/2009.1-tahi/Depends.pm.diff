@@ -1,0 +1,17 @@
+304,305c304,305
+< 		MSWin32 => sub { $_[0] . '.lib' },
+< 		cygwin  => sub { $_[0] . '.dll'},
+---
+> 		MSWin32 => sub { ($_[0] . '.lib', $_[0] . '.dll.a') },
+> 		cygwin  => sub { ($_[0] . '.dll') },
+313c313
+< 		my $lib = $mapper->($stem);
+---
+> 		for my $lib ($mapper->($stem)) {
+319c319,320
+< 			if ((not $matching_file) && /$pattern/) {;
+---
+> 			if ((not $matching_file) && /$pattern/) 
+> 			{;
+327a329
+> 		    }
