@@ -1,6 +1,6 @@
---- Kid.pm.orig	Fri Apr 24 10:18:46 2009
-+++ Kid.pm	Fri Apr 24 10:27:14 2009
-@@ -305,26 +305,22 @@
+--- Kid.pm.orig	Fri Apr 24 11:38:29 2009
++++ Kid.pm	Fri Apr 24 10:43:28 2009
+@@ -305,54 +305,40 @@
  	    next;
  	}
  
@@ -9,39 +9,59 @@
 -	    $_ = "lib$_";
 -	}
 -	$_ .= $libext if !/\Q$libext\E$/i;
--
--	my $secondpass = 0;
--    LOOKAGAIN:
 +	# try $_$libext, lib$_$libext, $_.dll$libext, lib$_.dll$libext
 +    s/^-l//;
 +    my $found_lib = 0;
-+    for my $libname ($_.$libext, 'lib'.$_.$libext, $_.'.dll'.$libext, 'lib'.$_.'.dll'.$libext) {
++    for my $libname ($_.$libext, 'lib'.$_.$libext, 
++		$_.'.dll'.$libext, 'lib'.$_.'.dll'.$libext) {
++
++		# look for the file itself
++		if (-f $libname) {
++ 	    	warn "'$thislib' found as '$libname'\n" if $verbose;
++		    $found++;
++			$found_lib++;
++ 	    	push(@extralibs, $libname);
++	 	    last;
++		} # if (-f $libname)
++
++		foreach $thispth (@searchpath, @libpath){
++		    unless (-f ($fullname="$thispth\\$libname")) {
++				warn "'$thislib' not found as '$fullname'\n" if $verbose;
++				next;
++		    }
++	    	warn "'$thislib' found as '$fullname'\n" if $verbose;
++		    $found++;
++		    $found_lib++;
++	    	push(@extralibs, $fullname);
++		    push @libs, $fullname unless $libs_seen{$fullname}++;
++		    last;
++		} # foreach $thispth (@searchpath, @libpath)
  
+-	my $secondpass = 0;
+-    LOOKAGAIN:
+-
 -        # look for the file itself
 -	if (-f) {
 -	    warn "'$thislib' found as '$_'\n" if $verbose;
-+	# look for the file itself
-+	if (-f $libname) {
-+ 	    warn "'$thislib' found as '$libname'\n" if $verbose;
- 	    $found++;
+-	    $found++;
 -	    push(@extralibs, $_);
 -	    next;
-+		$found_lib++;
-+ 	    push(@extralibs, $libname);
-+ 	    last;
- 	}
- 
+-	}
+-
 -	my $found_lib = 0;
- 	foreach $thispth (@searchpath, @libpath){
+-	foreach $thispth (@searchpath, @libpath){
 -	    unless (-f ($fullname="$thispth\\$_")) {
-+	    unless (-f ($fullname="$thispth\\$libname")) {
- 		warn "'$thislib' not found as '$fullname'\n" if $verbose;
- 		next;
- 	    }
-@@ -336,18 +332,7 @@
- 	    last;
- 	}
- 
+-		warn "'$thislib' not found as '$fullname'\n" if $verbose;
+-		next;
+-	    }
+-	    warn "'$thislib' found as '$fullname'\n" if $verbose;
+-	    $found++;
+-	    $found_lib++;
+-	    push(@extralibs, $fullname);
+-	    push @libs, $fullname unless $libs_seen{$fullname}++;
+-	    last;
+-	}
+-
 -	# do another pass with (or without) leading 'lib' if they used -l
 -	if (!$found_lib and $thislib =~ /^-l/ and !$secondpass++) {
 -	    if ($GC) {
@@ -54,7 +74,16 @@
 -	}
 -
 -	# give up
-+	# express frustration
- 	warn "Note (probably harmless): "
+-	warn "Note (probably harmless): "
++		# express frustration
++		warn "Note (probably harmless): "
  		     ."No library found for $thislib\n"
- 	    unless $found_lib>0;
+-	    unless $found_lib>0;
+-
+-    }
++	    	unless $found_lib>0;
++    } # for my $libname
++	} # foreach (Text::ParseWords::quotewords
+ 
+     return ('','','','', ($give_libs ? \@libs : ())) unless $found;
+ 

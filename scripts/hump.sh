@@ -128,8 +128,7 @@ function run_xfind () {
     # sed removes the 'camelbox/' prefix from all files
     # and the 'camelbox/' directory itself
 	# seed the output list with the output list file itself
-	echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $XFIND_OUT
-	echo "share/pkglists/$OUTPUT_FILE" >> $XFIND_OUT
+
 
     xfind $START_DIR -type f \
    		| sed -e '{/^\/camelbox$/d; s/\/camelbox[\\]*//; s/\\/\//g;}' \
@@ -161,6 +160,8 @@ shift $(expr $OPTIND - 1)
 
 # create the absolute filename used to write the filelist to
 OUTPUT_LIST="$OUTPUT_DIR/$OUTPUT_FILE"
+echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $OUTPUT_LIST
+echo "share/pkglists/$OUTPUT_FILE" >> $OUTPUT_LIST
 
 # then verify the output directory exists
 if [ ! -d $OUTPUT_DIR ]; then

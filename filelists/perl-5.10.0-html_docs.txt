@@ -1,3 +1,5 @@
+# Package list for: perl-5.10.0-html_docs.txt 2009.114
+share/pkglists/perl-5.10.0-html_docs.txt
 html/ext/attrs/attrs.html
 html/ext/B/B/Concise.html
 html/ext/B/B/Debug.html

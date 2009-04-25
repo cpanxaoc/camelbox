@@ -1,3 +1,5 @@
+# Package list for: perl-5.10.0-core.txt 2009.114
+share/pkglists/perl-5.10.0-core.txt
 bin/a2p.exe
 bin/c2ph.bat
 bin/config_data.bat
@@ -386,7 +388,6 @@ lib/CORE/perlapi.h
 lib/CORE/perlhost.h
 lib/CORE/perlio.h
 lib/CORE/perliol.h
-lib/CORE/perllibst.h
 lib/CORE/perlsdio.h
 lib/CORE/perlsfio.h
 lib/CORE/perlvars.h
@@ -421,6 +422,7 @@ lib/CORE/XSUB.h
 lib/CORE.pod
 lib/CPAN/API/HOWTO.pm
 lib/CPAN/Config.pm
+lib/CPAN/Config.pm~
 lib/CPAN/Debug.pm
 lib/CPAN/DeferedCode.pm
 lib/CPAN/FirstTime.pm

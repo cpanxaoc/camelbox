@@ -1,5 +1,6 @@
+# Package list for: perl-5.10.0-cpan_metadata.txt 2009.114
+share/pkglists/perl-5.10.0-cpan_metadata.txt
 .cpan/Metadata
 .cpan/sources/authors/01mailrc.txt.gz
-.cpan/sources/MIRRORED.BY
 .cpan/sources/modules/02packages.details.txt.gz
 .cpan/sources/modules/03modlist.data.gz
