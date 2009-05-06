@@ -563,6 +563,7 @@ lib/ExtUtils/Embed.pm
 lib/ExtUtils/Install.pm
 lib/ExtUtils/Installed.pm
 lib/ExtUtils/Liblist/Kid.pm
+lib/ExtUtils/Liblist/Kid.pm.orig
 lib/ExtUtils/Liblist.pm
 lib/ExtUtils/MakeMaker/bytes.pm
 lib/ExtUtils/MakeMaker/Config.pm

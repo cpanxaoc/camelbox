@@ -1,3 +1,5 @@
+# Package list for: mingw.2009.113.1.tar.lzma
+bin
 bin/addr2line.exe
 bin/ar.exe
 bin/as.exe
@@ -891,6 +893,8 @@ mingw32/lib/ldscripts/i386pe.xr
 mingw32/lib/ldscripts/i386pe.xu
 mingw32/MinGW-5.1.4.exe
 mingw32/uninst.exe
+share
+share/doc
 share/doc/mingw-runtime
 share/doc/mingw-runtime/CONTRIBUTORS
 share/doc/mingw-runtime/COPYING
@@ -898,6 +902,9 @@ share/doc/mingw-runtime/COPYING.LIB
 share/doc/mingw-runtime/DISCLAIMER
 share/doc/mingw-runtime/MinGW.url
 share/doc/mingw-runtime/README
+share/pkglists
+share/pkglists/mingw.txt
+usr
 usr/info
 usr/info/as.info
 usr/info/bfd.info

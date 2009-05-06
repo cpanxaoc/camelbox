@@ -1,0 +1,17 @@
+# Package list for: dmake.2009.113.1.tar.lzma
+bin
+bin/dmake.exe
+bin/startup
+bin/startup/config.mk
+bin/startup/config.mk.in
+bin/startup/Makefile.am
+bin/startup/Makefile.in
+bin/startup/startup.mk
+bin/startup/summary
+bin/startup/template.mk
+bin/startup/win95
+bin/startup/win95/macros.mk
+bin/startup/win95/recipes.mk
+share
+share/pkglists
+share/pkglists/dmake.txt
