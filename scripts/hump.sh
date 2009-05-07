@@ -160,8 +160,6 @@ shift $(expr $OPTIND - 1)
 
 # create the absolute filename used to write the filelist to
 OUTPUT_LIST="$OUTPUT_DIR/$OUTPUT_FILE"
-echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $OUTPUT_LIST
-echo "share/pkglists/$OUTPUT_FILE" >> $OUTPUT_LIST
 
 # then verify the output directory exists
 if [ ! -d $OUTPUT_DIR ]; then
@@ -227,6 +225,9 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
 elif [ "x$OUTPUT_LIST" != "x" ]; then
     check_empty_var "-o (output list)" $OUTPUT_LIST
     overwrite_check $OUTPUT_LIST
+	# write the package metadata, and an entry for the filelist
+	echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $OUTPUT_LIST
+	echo "share/pkglists/$OUTPUT_FILE" >> $OUTPUT_LIST
     run_xfind $OUTPUT_LIST
 ## MD5_LIST only; just generate a filelist with MD5 checksums
 elif [ "x$MD5_LIST" != "x" ]; then
