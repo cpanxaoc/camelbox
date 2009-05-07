@@ -107,7 +107,6 @@ function show_usage () {
     echo "Miscellaneous Options"
     echo '  -d start in this directory instead of "C:\\camelbox"'
 	echo "  -p name of a tarball to create using the output filelist"
-	echo "  -z create the archive file based on filelist.txt"
 	echo "  -c show the .cpan directory in filelist output"
     echo	
 	echo "NOTE: all files should use full paths to avoid problems"
@@ -153,7 +152,6 @@ do
         s)  START_DIR=$OPTARG;;
 		t)  TIMESTAMP=$OPTARG;;
 		w)  OVERWRITE="true";;
-		z)  ARCHIVE="true";;
 	esac
 done
 shift $(expr $OPTIND - 1)
@@ -186,8 +184,11 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
 	# verify OUTPUT_LIST is not about to be overwritten
     check_empty_var "-o (output list)" $OUTPUT_LIST
     overwrite_check $OUTPUT_LIST
-
-    # install a module from CPAN?
+	# write the package metadata, and an entry for the filelist
+	echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $OUTPUT_LIST
+	echo "share/pkglists/$OUTPUT_FILE" >> $OUTPUT_LIST
+    
+	# install a module from CPAN?
     if [ "x$CPAN_INSTALL" != "x" ]; then
     	perl -MCPAN -e "install $CPAN_INSTALL"
     	if [ $? -ne 0 ]; then 
@@ -225,9 +226,6 @@ if [ "x$BEFORELIST" != "x" -a "x$AFTERLIST" != "x" ]; then
 elif [ "x$OUTPUT_LIST" != "x" ]; then
     check_empty_var "-o (output list)" $OUTPUT_LIST
     overwrite_check $OUTPUT_LIST
-	# write the package metadata, and an entry for the filelist
-	echo "# Package list for: $OUTPUT_FILE $TIMESTAMP" > $OUTPUT_LIST
-	echo "share/pkglists/$OUTPUT_FILE" >> $OUTPUT_LIST
     run_xfind $OUTPUT_LIST
 ## MD5_LIST only; just generate a filelist with MD5 checksums
 elif [ "x$MD5_LIST" != "x" ]; then
@@ -244,20 +242,15 @@ if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 	# feed the output list to tar, then compress it
 	overwrite_check $PACKAGE_FILE
 	find_first_free_filename "/temp" $PACKAGE_FILE "tar"
-	echo "Creating package tarball '${FREE_FILENAME}' from ${OUTPUT_LIST}"
+	echo "Creating package lzma tarball '${FREE_FILENAME}' from ${OUTPUT_LIST}"
 	# $FREE_FILENAME comes from find_first_free_filename
-	cat $OUTPUT_LIST | sed "{s/$OUTPUT_FILE $TIMESTAMP/$FREE_FILENAME;}" \
+	# replace the generic package metadata with the specific package filename
+	cat $OUTPUT_LIST | sed '{s/$OUTPUT_FILE $TIMESTAMP/$FREE_FILENAME/;}' \
 		> /temp/$OUTPUT_FILE.$$
 	mv -f /temp/$OUTPUT_FILE.$$ $OUTPUT_LIST
 	CURRENT_PWD=$PWD
 	cd $START_DIR
-	tar -cvf - -T $OUTPUT_LIST > $FREE_FILENAME
-	echo "Compressing package tarball '${FREE_FILENAME}'"
-	lzma e "${FREE_FILENAME}" "${FREE_FILENAME}.lzma"
-	if [ $? -eq 0 ]; then
-		echo "Compression exited without errors, deleting ${FREE_FILENAME}"
-		rm $FREE_FILENAME
-	fi
+	grep -v "#" $OUTPUT_LIST | tar -cv -T - | lzma e -si $FREE_FILENAME.lzma
 	cd $CURRENT_PWD
 fi # if [ "x$OUTPUT_LIST" != "x" -a "x$PACKAGE_FILE" != "x" ]; then
 
