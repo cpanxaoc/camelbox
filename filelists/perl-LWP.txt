@@ -1,7 +1,5 @@
-bin/GET
-bin/GET.bat
-bin/HEAD
-bin/HEAD.bat
+# Package list for: perl-LWP.txt 2009.127
+share/pkglists/perl-LWP.txt
 bin/lwp-download
 bin/lwp-download.bat
 bin/lwp-mirror
@@ -10,8 +8,6 @@ bin/lwp-request
 bin/lwp-request.bat
 bin/lwp-rget
 bin/lwp-rget.bat
-bin/POST
-bin/POST.bat
 site/lib/auto/HTML/Parser/.packlist
 site/lib/auto/HTML/Parser/Parser.bs
 site/lib/auto/HTML/Parser/Parser.dll
@@ -29,6 +25,7 @@ site/lib/HTML/Parser.pm
 site/lib/HTML/PullParser.pm
 site/lib/HTML/Tagset.pm
 site/lib/HTML/TokeParser.pm
+site/lib/HTTP/Config.pm
 site/lib/HTTP/Cookies/Microsoft.pm
 site/lib/HTTP/Cookies/Netscape.pm
 site/lib/HTTP/Cookies.pm

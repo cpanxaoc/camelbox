@@ -1,8 +1,9 @@
-bin/ysh
-bin/ysh.bat
+# Package list for: perl-YAML.txt 2009.127
+share/pkglists/perl-YAML.txt
 lib/perllocal.pod
 site/lib/auto/YAML/.packlist
 site/lib/Test/YAML.pm
+site/lib/YAML/Any.pm
 site/lib/YAML/Base.pm
 site/lib/YAML/Dumper/Base.pm
 site/lib/YAML/Dumper.pm
