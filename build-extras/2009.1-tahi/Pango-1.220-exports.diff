@@ -1,0 +1,9 @@
+--- Pango-1.220\pango.exports.old	2008-11-16 21:57:56 +0200
++++ Pango-1.220\pango.exports	2009-03-23 11:48:52 +0200
+@@ -1,2 +1,6 @@
+ newSVPangoRectangle
+ SvPangoRectangle
++gtk2perl_pango_attribute_get_type
++gtk2perl_pango_attribute_register_custom_type
++gtk2perl_pango_attr_iterator_get_type
++gtk2perl_pango_script_iter_get_type

@@ -32,16 +32,18 @@ zlib				1.2.3
 
 Perl Modules
 ------------
-Cairo 				1.060
-Glib 				1.183
-Gtk2 				1.183
+Cairo 				1.061
 Class::MOP 			0.63
-Moose 				0.54
 DBI 				1.607
 DBD::SQLite 		1.14
 DBD::ODBC 			1.16
 DBD::mysql 			4.007
+Glib 				1.221
+Gtk2 				1.220
+libwww-perl			5.826
 Log::Log4perl 		1.17
+Moose 				0.54
+Pango				1.220
 TimeDate (Date::Parse) 1.16
 XML::Parser 		2.36
 

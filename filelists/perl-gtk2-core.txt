@@ -1,6 +1,11 @@
+# Package list for: perl-Gtk2-core.txt 2009.132
+share/pkglists/perl-Gtk2-core.txt
+html/site/lib/Test/Number/Delta.html
 lib/libCairoPerl.a
 lib/libGlibPerl.a
 lib/libGtk2Perl.a
+lib/libPangoPerl.a
+man/man3/Test.Number.Delta.3
 site/lib/auto/Cairo/.packlist
 site/lib/auto/Cairo/Cairo.bs
 site/lib/auto/Cairo/Cairo.dll
@@ -12,6 +17,10 @@ site/lib/auto/Glib/Glib.dll
 site/lib/auto/Gtk2/.packlist
 site/lib/auto/Gtk2/Gtk2.bs
 site/lib/auto/Gtk2/Gtk2.dll
+site/lib/auto/Pango/.packlist
+site/lib/auto/Pango/Pango.bs
+site/lib/auto/Pango/Pango.dll
+site/lib/auto/Test/Number/Delta/.packlist
 site/lib/Cairo/Install/cairo-perl-auto.h
 site/lib/Cairo/Install/cairo-perl-auto.typemap
 site/lib/Cairo/Install/cairo-perl.h
@@ -46,9 +55,17 @@ site/lib/Gtk2/Install/gtk2perl-autogen.h
 site/lib/Gtk2/Install/gtk2perl-versions.h
 site/lib/Gtk2/Install/gtk2perl.h
 site/lib/Gtk2/Install/gtk2perl.typemap
-site/lib/Gtk2/Install/pango.typemap
 site/lib/Gtk2/Pango.pm
 site/lib/Gtk2/SimpleList.pm
 site/lib/Gtk2/SimpleMenu.pm
 site/lib/Gtk2/TestHelper.pm
 site/lib/Gtk2.pm
+site/lib/Pango/Install/doctypes
+site/lib/Pango/Install/Files.pm
+site/lib/Pango/Install/pango-perl-autogen.h
+site/lib/Pango/Install/pango-perl-versions.h
+site/lib/Pango/Install/pango-perl.h
+site/lib/Pango/Install/pango-perl.typemap
+site/lib/Pango/Install/pango.typemap
+site/lib/Pango.pm
+site/lib/Test/Number/Delta.pm

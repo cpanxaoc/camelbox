@@ -1,0 +1,17 @@
+--- Gtk2-1.220\Gtk2.exports.old	2008-10-22 21:49:04 +0200
++++ Gtk2-1.220\Gtk2.exports	2009-03-23 11:38:40 +0200
+@@ -31,7 +31,6 @@
+ newSVGdkPixbufFormat
+ newSVGtkTargetEntry
+ newSVGtkTargetList
+-newSVPangoRectangle
+ SvGdkAtom
+ SvGdkGCValues
+ SvGdkGeometry
+@@ -39,6 +38,5 @@
+ SvGdkPixbufFormat
+ SvGtkTargetEntry
+ SvGtkTargetList
+-SvPangoRectangle
+ );
+ 1;
