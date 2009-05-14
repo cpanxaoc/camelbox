@@ -1,3 +1,5 @@
+# Package list for: perl-Gnome2-Canvas.txt 2009.132
+share/pkglists/perl-Gnome2-Canvas.txt
 site/lib/auto/Gnome2/Canvas/.packlist
 site/lib/auto/Gnome2/Canvas/Canvas.bs
 site/lib/auto/Gnome2/Canvas/Canvas.dll

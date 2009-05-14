@@ -1,3 +1,5 @@
+# Package list for: perl-Gtk2-GladeXML.txt 2009.132
+share/pkglists/perl-Gtk2-GladeXML.txt
 site/lib/auto/Gtk2/GladeXML/.packlist
 site/lib/auto/Gtk2/GladeXML/GladeXML.bs
 site/lib/auto/Gtk2/GladeXML/GladeXML.dll
