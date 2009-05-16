@@ -1,3 +1,5 @@
+# Package list for: perl-DBI.txt 2009.134
+share/pkglists/perl-DBI.txt
 bin/dbilogstrip
 bin/dbilogstrip.bat
 bin/dbiprof

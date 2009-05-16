@@ -1,3 +1,5 @@
+# Package list for: perl-App-Asciio.txt 2009.135
+share/pkglists/perl-App-Asciio.txt
 bin/asciio
 bin/asciio.bat
 bin/cover
@@ -27,6 +29,7 @@ html/site/lib/Array/Compare.html
 html/site/lib/Devel/StackTrace.html
 html/site/lib/Directory/Scratch/Structured.html
 html/site/lib/Eval/Context.html
+html/site/lib/Exception/Class/Base.html
 html/site/lib/Exception/Class.html
 html/site/lib/File/Find/Rule/Extending.html
 html/site/lib/File/Find/Rule/Procedural.html
@@ -35,11 +38,14 @@ html/site/lib/Module/Util.html
 html/site/lib/Path/Class/Dir.html
 html/site/lib/Path/Class/File.html
 html/site/lib/Path/Class.html
+html/site/lib/Perl/Critic/Annotation.html
+html/site/lib/Perl/Critic/Command.html
 html/site/lib/Perl/Critic/Config.html
 html/site/lib/Perl/Critic/DEVELOPER.html
 html/site/lib/Perl/Critic/Document.html
 html/site/lib/Perl/Critic/Exception/AggregateConfiguration.html
 html/site/lib/Perl/Critic/Exception/Configuration/Generic.html
+html/site/lib/Perl/Critic/Exception/Configuration/NonExistentPolicy.html
 html/site/lib/Perl/Critic/Exception/Configuration/Option/Global/ExtraParameter.html
 html/site/lib/Perl/Critic/Exception/Configuration/Option/Global/ParameterValue.html
 html/site/lib/Perl/Critic/Exception/Configuration/Option/Global.html
@@ -112,6 +118,8 @@ html/site/lib/Perl/Critic/Policy/InputOutput/RequireCheckedOpen.html
 html/site/lib/Perl/Critic/Policy/InputOutput/RequireCheckedSyscalls.html
 html/site/lib/Perl/Critic/Policy/Miscellanea/ProhibitFormats.html
 html/site/lib/Perl/Critic/Policy/Miscellanea/ProhibitTies.html
+html/site/lib/Perl/Critic/Policy/Miscellanea/ProhibitUnrestrictedNoCritic.html
+html/site/lib/Perl/Critic/Policy/Miscellanea/ProhibitUselessNoCritic.html
 html/site/lib/Perl/Critic/Policy/Miscellanea/RequireRcsKeywords.html
 html/site/lib/Perl/Critic/Policy/Modules/ProhibitAutomaticExportation.html
 html/site/lib/Perl/Critic/Policy/Modules/ProhibitEvilModules.html
@@ -123,9 +131,8 @@ html/site/lib/Perl/Critic/Policy/Modules/RequireExplicitPackage.html
 html/site/lib/Perl/Critic/Policy/Modules/RequireFilenameMatchesPackage.html
 html/site/lib/Perl/Critic/Policy/Modules/RequireNoMatchVarsWithUseEnglish.html
 html/site/lib/Perl/Critic/Policy/Modules/RequireVersionVar.html
+html/site/lib/Perl/Critic/Policy/NamingConventions/Capitalization.html
 html/site/lib/Perl/Critic/Policy/NamingConventions/ProhibitAmbiguousNames.html
-html/site/lib/Perl/Critic/Policy/NamingConventions/ProhibitMixedCaseSubs.html
-html/site/lib/Perl/Critic/Policy/NamingConventions/ProhibitMixedCaseVars.html
 html/site/lib/Perl/Critic/Policy/References/ProhibitDoubleSigils.html
 html/site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitCaptureWithoutTest.html
 html/site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitComplexRegexes.html
@@ -136,6 +143,7 @@ html/site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitSingleCharAlternatio
 html/site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitUnusedCapture.html
 html/site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitUnusualDelimiters.html
 html/site/lib/Perl/Critic/Policy/RegularExpressions/RequireBracesForMultiline.html
+html/site/lib/Perl/Critic/Policy/RegularExpressions/RequireDotMatchAnything.html
 html/site/lib/Perl/Critic/Policy/RegularExpressions/RequireExtendedFormatting.html
 html/site/lib/Perl/Critic/Policy/RegularExpressions/RequireLineBoundaryMatching.html
 html/site/lib/Perl/Critic/Policy/Subroutines/ProhibitAmpersandSigils.html
@@ -144,6 +152,7 @@ html/site/lib/Perl/Critic/Policy/Subroutines/ProhibitExcessComplexity.html
 html/site/lib/Perl/Critic/Policy/Subroutines/ProhibitExplicitReturnUndef.html
 html/site/lib/Perl/Critic/Policy/Subroutines/ProhibitManyArgs.html
 html/site/lib/Perl/Critic/Policy/Subroutines/ProhibitNestedSubs.html
+html/site/lib/Perl/Critic/Policy/Subroutines/ProhibitReturnSort.html
 html/site/lib/Perl/Critic/Policy/Subroutines/ProhibitSubroutinePrototypes.html
 html/site/lib/Perl/Critic/Policy/Subroutines/ProtectPrivateSubs.html
 html/site/lib/Perl/Critic/Policy/Subroutines/RequireArgUnpacking.html
@@ -167,6 +176,7 @@ html/site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitMismatchedOperator
 html/site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitMixedBooleanOperators.html
 html/site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitNoisyQuotes.html
 html/site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitQuotesAsQuotelikeOperatorDelimiters.html
+html/site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitSpecialLiteralHeredocTerminator.html
 html/site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitVersionStrings.html
 html/site/lib/Perl/Critic/Policy/ValuesAndExpressions/RequireInterpolationOfMetachars.html
 html/site/lib/Perl/Critic/Policy/ValuesAndExpressions/RequireNumberSeparators.html
@@ -178,6 +188,7 @@ html/site/lib/Perl/Critic/Policy/Variables/ProhibitMatchVars.html
 html/site/lib/Perl/Critic/Policy/Variables/ProhibitPackageVars.html
 html/site/lib/Perl/Critic/Policy/Variables/ProhibitPerl4PackageNames.html
 html/site/lib/Perl/Critic/Policy/Variables/ProhibitPunctuationVars.html
+html/site/lib/Perl/Critic/Policy/Variables/ProhibitReusedNames.html
 html/site/lib/Perl/Critic/Policy/Variables/ProhibitUnusedVariables.html
 html/site/lib/Perl/Critic/Policy/Variables/ProtectPrivateVars.html
 html/site/lib/Perl/Critic/Policy/Variables/RequireInitializationForLocalVars.html
@@ -205,6 +216,7 @@ html/site/lib/Perl/Critic/UserProfile.html
 html/site/lib/Perl/Critic/Utils/Constants.html
 html/site/lib/Perl/Critic/Utils/DataConversion.html
 html/site/lib/Perl/Critic/Utils/McCabe.html
+html/site/lib/Perl/Critic/Utils/Perl.html
 html/site/lib/Perl/Critic/Utils/POD.html
 html/site/lib/Perl/Critic/Utils/PPI.html
 html/site/lib/Perl/Critic/Utils/PPIRegexp.html
@@ -220,11 +232,6 @@ html/site/lib/Test/Block.html
 html/site/lib/Test/Distribution.html
 html/site/lib/Test/Perl/Critic.html
 html/site/lib/Text/Glob.html
-lib/auto/Test/Tester/.packlist
-lib/Test/Tester/Capture.pm
-lib/Test/Tester/CaptureRunner.pm
-lib/Test/Tester/Delegate.pm
-lib/Test/Tester.pm
 man/man1/findrule.1
 man/man1/perlcritic.1
 man/man1/pm_which.1
@@ -237,6 +244,7 @@ man/man3/Devel.StackTrace.3
 man/man3/Directory.Scratch.Structured.3
 man/man3/Eval.Context.3
 man/man3/Exception.Class.3
+man/man3/Exception.Class.Base.3
 man/man3/File.Find.Rule.3
 man/man3/File.Find.Rule.Extending.3
 man/man3/File.Find.Rule.Procedural.3
@@ -245,6 +253,8 @@ man/man3/Path.Class.3
 man/man3/Path.Class.Dir.3
 man/man3/Path.Class.File.3
 man/man3/Perl.Critic.3
+man/man3/Perl.Critic.Annotation.3
+man/man3/Perl.Critic.Command.3
 man/man3/Perl.Critic.Config.3
 man/man3/Perl.Critic.DEVELOPER.3
 man/man3/Perl.Critic.Document.3
@@ -252,6 +262,7 @@ man/man3/Perl.Critic.Exception.3
 man/man3/Perl.Critic.Exception.AggregateConfiguration.3
 man/man3/Perl.Critic.Exception.Configuration.3
 man/man3/Perl.Critic.Exception.Configuration.Generic.3
+man/man3/Perl.Critic.Exception.Configuration.NonExistentPolicy.3
 man/man3/Perl.Critic.Exception.Configuration.Option.3
 man/man3/Perl.Critic.Exception.Configuration.Option.Global.3
 man/man3/Perl.Critic.Exception.Configuration.Option.Global.ExtraParameter.3
@@ -323,6 +334,8 @@ man/man3/Perl.Critic.Policy.InputOutput.RequireCheckedOpen.3
 man/man3/Perl.Critic.Policy.InputOutput.RequireCheckedSyscalls.3
 man/man3/Perl.Critic.Policy.Miscellanea.ProhibitFormats.3
 man/man3/Perl.Critic.Policy.Miscellanea.ProhibitTies.3
+man/man3/Perl.Critic.Policy.Miscellanea.ProhibitUnrestrictedNoCritic.3
+man/man3/Perl.Critic.Policy.Miscellanea.ProhibitUselessNoCritic.3
 man/man3/Perl.Critic.Policy.Miscellanea.RequireRcsKeywords.3
 man/man3/Perl.Critic.Policy.Modules.ProhibitAutomaticExportation.3
 man/man3/Perl.Critic.Policy.Modules.ProhibitEvilModules.3
@@ -334,9 +347,8 @@ man/man3/Perl.Critic.Policy.Modules.RequireExplicitPackage.3
 man/man3/Perl.Critic.Policy.Modules.RequireFilenameMatchesPackage.3
 man/man3/Perl.Critic.Policy.Modules.RequireNoMatchVarsWithUseEnglish.3
 man/man3/Perl.Critic.Policy.Modules.RequireVersionVar.3
+man/man3/Perl.Critic.Policy.NamingConventions.Capitalization.3
 man/man3/Perl.Critic.Policy.NamingConventions.ProhibitAmbiguousNames.3
-man/man3/Perl.Critic.Policy.NamingConventions.ProhibitMixedCaseSubs.3
-man/man3/Perl.Critic.Policy.NamingConventions.ProhibitMixedCaseVars.3
 man/man3/Perl.Critic.Policy.References.ProhibitDoubleSigils.3
 man/man3/Perl.Critic.Policy.RegularExpressions.ProhibitCaptureWithoutTest.3
 man/man3/Perl.Critic.Policy.RegularExpressions.ProhibitComplexRegexes.3
@@ -347,6 +359,7 @@ man/man3/Perl.Critic.Policy.RegularExpressions.ProhibitSingleCharAlternation.3
 man/man3/Perl.Critic.Policy.RegularExpressions.ProhibitUnusedCapture.3
 man/man3/Perl.Critic.Policy.RegularExpressions.ProhibitUnusualDelimiters.3
 man/man3/Perl.Critic.Policy.RegularExpressions.RequireBracesForMultiline.3
+man/man3/Perl.Critic.Policy.RegularExpressions.RequireDotMatchAnything.3
 man/man3/Perl.Critic.Policy.RegularExpressions.RequireExtendedFormatting.3
 man/man3/Perl.Critic.Policy.RegularExpressions.RequireLineBoundaryMatching.3
 man/man3/Perl.Critic.Policy.Subroutines.ProhibitAmpersandSigils.3
@@ -355,6 +368,7 @@ man/man3/Perl.Critic.Policy.Subroutines.ProhibitExcessComplexity.3
 man/man3/Perl.Critic.Policy.Subroutines.ProhibitExplicitReturnUndef.3
 man/man3/Perl.Critic.Policy.Subroutines.ProhibitManyArgs.3
 man/man3/Perl.Critic.Policy.Subroutines.ProhibitNestedSubs.3
+man/man3/Perl.Critic.Policy.Subroutines.ProhibitReturnSort.3
 man/man3/Perl.Critic.Policy.Subroutines.ProhibitSubroutinePrototypes.3
 man/man3/Perl.Critic.Policy.Subroutines.ProtectPrivateSubs.3
 man/man3/Perl.Critic.Policy.Subroutines.RequireArgUnpacking.3
@@ -378,6 +392,7 @@ man/man3/Perl.Critic.Policy.ValuesAndExpressions.ProhibitMismatchedOperators.3
 man/man3/Perl.Critic.Policy.ValuesAndExpressions.ProhibitMixedBooleanOperators.3
 man/man3/Perl.Critic.Policy.ValuesAndExpressions.ProhibitNoisyQuotes.3
 man/man3/Perl.Critic.Policy.ValuesAndExpressions.ProhibitQuotesAsQuotelikeOperatorDelimiters.3
+man/man3/Perl.Critic.Policy.ValuesAndExpressions.ProhibitSpecialLiteralHeredocTerminator.3
 man/man3/Perl.Critic.Policy.ValuesAndExpressions.ProhibitVersionStrings.3
 man/man3/Perl.Critic.Policy.ValuesAndExpressions.RequireInterpolationOfMetachars.3
 man/man3/Perl.Critic.Policy.ValuesAndExpressions.RequireNumberSeparators.3
@@ -389,6 +404,7 @@ man/man3/Perl.Critic.Policy.Variables.ProhibitMatchVars.3
 man/man3/Perl.Critic.Policy.Variables.ProhibitPackageVars.3
 man/man3/Perl.Critic.Policy.Variables.ProhibitPerl4PackageNames.3
 man/man3/Perl.Critic.Policy.Variables.ProhibitPunctuationVars.3
+man/man3/Perl.Critic.Policy.Variables.ProhibitReusedNames.3
 man/man3/Perl.Critic.Policy.Variables.ProhibitUnusedVariables.3
 man/man3/Perl.Critic.Policy.Variables.ProtectPrivateVars.3
 man/man3/Perl.Critic.Policy.Variables.RequireInitializationForLocalVars.3
@@ -416,6 +432,7 @@ man/man3/Perl.Critic.Utils.3
 man/man3/Perl.Critic.Utils.Constants.3
 man/man3/Perl.Critic.Utils.DataConversion.3
 man/man3/Perl.Critic.Utils.McCabe.3
+man/man3/Perl.Critic.Utils.Perl.3
 man/man3/Perl.Critic.Utils.POD.3
 man/man3/Perl.Critic.Utils.PPI.3
 man/man3/Perl.Critic.Utils.PPIRegexp.3
@@ -442,23 +459,31 @@ site/lib/App/Asciio/Dialogs.pm
 site/lib/App/Asciio/Elements.pm
 site/lib/App/Asciio/Io.pm
 site/lib/App/Asciio/Menues.pm
+site/lib/App/Asciio/Options.pm
 site/lib/App/Asciio/setup/actions/align.pl
 site/lib/App/Asciio/setup/actions/clipboard.pl
+site/lib/App/Asciio/setup/actions/colors.pl
+site/lib/App/Asciio/setup/actions/context_menu_box.pl
 site/lib/App/Asciio/setup/actions/context_menu_multi_wirl.pl
+site/lib/App/Asciio/setup/actions/context_menu_rulers.pl
 site/lib/App/Asciio/setup/actions/debug.pl
 site/lib/App/Asciio/setup/actions/elements_manipulation.pl
 site/lib/App/Asciio/setup/actions/file.pl
 site/lib/App/Asciio/setup/actions/mouse.pl
 site/lib/App/Asciio/setup/actions/new_elements.pl
+site/lib/App/Asciio/setup/actions/presentation.pl
 site/lib/App/Asciio/setup/actions/unsorted.pl
 site/lib/App/Asciio/setup/asciio_object/basic.pl
 site/lib/App/Asciio/setup/hooks/canonize_connections.pl
 site/lib/App/Asciio/setup/import_export/ascii.pl
 site/lib/App/Asciio/setup/import_export/asciioe.pl
 site/lib/App/Asciio/setup/import_export/perl.pl
+site/lib/App/Asciio/setup/import_export/png.pl
 site/lib/App/Asciio/setup/setup.ini
-site/lib/App/Asciio/setup/stencils/types.asciio
-site/lib/App/Asciio/setup/stencils/user_types.asciio
+site/lib/App/Asciio/setup/stencils/asciio
+site/lib/App/Asciio/setup/stencils/computer
+site/lib/App/Asciio/setup/stencils/divers
+site/lib/App/Asciio/setup/stencils/people
 site/lib/App/Asciio/Setup.pm
 site/lib/App/Asciio/stripes/editable_arrow2.pm
 site/lib/App/Asciio/stripes/editable_box2.pm
@@ -475,6 +500,7 @@ site/lib/auto/Algorithm/Diff/.packlist
 site/lib/auto/App/Asciio/.packlist
 site/lib/auto/Array/Compare/.packlist
 site/lib/auto/B/Keywords/.packlist
+site/lib/auto/Check/ISA/.packlist
 site/lib/auto/Class/Data/Inheritable/.packlist
 site/lib/auto/Class/Inspector/.packlist
 site/lib/auto/Clone/.packlist
@@ -488,7 +514,6 @@ site/lib/auto/Compress/Bzip2/Bzip2.dll
 site/lib/auto/Config/Tiny/.packlist
 site/lib/auto/Data/Compare/.packlist
 site/lib/auto/Data/TreeDumper/.packlist
-site/lib/auto/Data/TreeDumper/autosplit.ix
 site/lib/auto/Data/TreeDumper/Renderer/GTK/.packlist
 site/lib/auto/Data/TreeDumper/Renderer/GTK/autosplit.ix
 site/lib/auto/Devel/Cover/.packlist
@@ -508,9 +533,6 @@ site/lib/auto/File/Remove/.packlist
 site/lib/auto/File/Slurp/.packlist
 site/lib/auto/Hook/LexWrap/.packlist
 site/lib/auto/IO/String/.packlist
-site/lib/auto/List/MoreUtils/.packlist
-site/lib/auto/List/MoreUtils/MoreUtils.bs
-site/lib/auto/List/MoreUtils/MoreUtils.dll
 site/lib/auto/Module/Util/.packlist
 site/lib/auto/Number/Compare/.packlist
 site/lib/auto/Package/Generator/.packlist
@@ -523,20 +545,19 @@ site/lib/auto/PPI/.packlist
 site/lib/auto/Readonly/.packlist
 site/lib/auto/Sort/Naturally/.packlist
 site/lib/auto/String/Format/.packlist
-site/lib/auto/Task/Weaken/.packlist
 site/lib/auto/Test/Block/.packlist
 site/lib/auto/Test/ClassAPI/.packlist
 site/lib/auto/Test/Dependencies/.packlist
 site/lib/auto/Test/Distribution/.packlist
 site/lib/auto/Test/NoWarnings/.packlist
 site/lib/auto/Test/Object/.packlist
-site/lib/auto/Test/Output/.packlist
 site/lib/auto/Test/Perl/Critic/.packlist
 site/lib/auto/Test/Pod/.packlist
 site/lib/auto/Test/Pod/Coverage/.packlist
 site/lib/auto/Test/Spelling/.packlist
 site/lib/auto/Test/Strict/.packlist
 site/lib/auto/Test/SubCalls/.packlist
+site/lib/auto/Test/use/ok/.packlist
 site/lib/auto/Test/Warn/.packlist
 site/lib/auto/Text/Glob/.packlist
 site/lib/auto/Tree/DAG_Node/.packlist
@@ -545,7 +566,9 @@ site/lib/auto/Win32/Console/Console.bs
 site/lib/auto/Win32/Console/Console.dll
 site/lib/B/Keywords.pm
 site/lib/benchmark.pl
+site/lib/Check/ISA.pm
 site/lib/Class/Data/Inheritable.pm
+site/lib/Class/Inspector/Functions.pm
 site/lib/Class/Inspector.pm
 site/lib/Clone.pm
 site/lib/Compress/Bzip2.pm
@@ -601,6 +624,7 @@ site/lib/Devel/Symdump.pm
 site/lib/Directory/Scratch/Structured.pm
 site/lib/Directory/Scratch.pm
 site/lib/Eval/Context.pm
+site/lib/Exception/Class/Base.pm
 site/lib/Exception/Class.pm
 site/lib/File/Find/Rule/Extending.pod
 site/lib/File/Find/Rule/Procedural.pod
@@ -609,20 +633,23 @@ site/lib/File/Remove.pm
 site/lib/File/Slurp.pm
 site/lib/Hook/LexWrap.pm
 site/lib/IO/String.pm
-site/lib/List/MoreUtils.pm
 site/lib/Module/Util.pm
 site/lib/Number/Compare.pm
+site/lib/ok.pm
 site/lib/Package/Generator.pm
 site/lib/Package/Reaper.pm
 site/lib/Path/Class/Dir.pm
 site/lib/Path/Class/Entity.pm
 site/lib/Path/Class/File.pm
 site/lib/Path/Class.pm
+site/lib/Perl/Critic/Annotation.pm
+site/lib/Perl/Critic/Command.pm
 site/lib/Perl/Critic/Config.pm
 site/lib/Perl/Critic/DEVELOPER.pod
 site/lib/Perl/Critic/Document.pm
 site/lib/Perl/Critic/Exception/AggregateConfiguration.pm
 site/lib/Perl/Critic/Exception/Configuration/Generic.pm
+site/lib/Perl/Critic/Exception/Configuration/NonExistentPolicy.pm
 site/lib/Perl/Critic/Exception/Configuration/Option/Global/ExtraParameter.pm
 site/lib/Perl/Critic/Exception/Configuration/Option/Global/ParameterValue.pm
 site/lib/Perl/Critic/Exception/Configuration/Option/Global.pm
@@ -695,6 +722,8 @@ site/lib/Perl/Critic/Policy/InputOutput/RequireCheckedOpen.pm
 site/lib/Perl/Critic/Policy/InputOutput/RequireCheckedSyscalls.pm
 site/lib/Perl/Critic/Policy/Miscellanea/ProhibitFormats.pm
 site/lib/Perl/Critic/Policy/Miscellanea/ProhibitTies.pm
+site/lib/Perl/Critic/Policy/Miscellanea/ProhibitUnrestrictedNoCritic.pm
+site/lib/Perl/Critic/Policy/Miscellanea/ProhibitUselessNoCritic.pm
 site/lib/Perl/Critic/Policy/Miscellanea/RequireRcsKeywords.pm
 site/lib/Perl/Critic/Policy/Modules/ProhibitAutomaticExportation.pm
 site/lib/Perl/Critic/Policy/Modules/ProhibitEvilModules.pm
@@ -706,9 +735,8 @@ site/lib/Perl/Critic/Policy/Modules/RequireExplicitPackage.pm
 site/lib/Perl/Critic/Policy/Modules/RequireFilenameMatchesPackage.pm
 site/lib/Perl/Critic/Policy/Modules/RequireNoMatchVarsWithUseEnglish.pm
 site/lib/Perl/Critic/Policy/Modules/RequireVersionVar.pm
+site/lib/Perl/Critic/Policy/NamingConventions/Capitalization.pm
 site/lib/Perl/Critic/Policy/NamingConventions/ProhibitAmbiguousNames.pm
-site/lib/Perl/Critic/Policy/NamingConventions/ProhibitMixedCaseSubs.pm
-site/lib/Perl/Critic/Policy/NamingConventions/ProhibitMixedCaseVars.pm
 site/lib/Perl/Critic/Policy/References/ProhibitDoubleSigils.pm
 site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitCaptureWithoutTest.pm
 site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitComplexRegexes.pm
@@ -719,6 +747,7 @@ site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitSingleCharAlternation.pm
 site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitUnusedCapture.pm
 site/lib/Perl/Critic/Policy/RegularExpressions/ProhibitUnusualDelimiters.pm
 site/lib/Perl/Critic/Policy/RegularExpressions/RequireBracesForMultiline.pm
+site/lib/Perl/Critic/Policy/RegularExpressions/RequireDotMatchAnything.pm
 site/lib/Perl/Critic/Policy/RegularExpressions/RequireExtendedFormatting.pm
 site/lib/Perl/Critic/Policy/RegularExpressions/RequireLineBoundaryMatching.pm
 site/lib/Perl/Critic/Policy/Subroutines/ProhibitAmpersandSigils.pm
@@ -727,6 +756,7 @@ site/lib/Perl/Critic/Policy/Subroutines/ProhibitExcessComplexity.pm
 site/lib/Perl/Critic/Policy/Subroutines/ProhibitExplicitReturnUndef.pm
 site/lib/Perl/Critic/Policy/Subroutines/ProhibitManyArgs.pm
 site/lib/Perl/Critic/Policy/Subroutines/ProhibitNestedSubs.pm
+site/lib/Perl/Critic/Policy/Subroutines/ProhibitReturnSort.pm
 site/lib/Perl/Critic/Policy/Subroutines/ProhibitSubroutinePrototypes.pm
 site/lib/Perl/Critic/Policy/Subroutines/ProtectPrivateSubs.pm
 site/lib/Perl/Critic/Policy/Subroutines/RequireArgUnpacking.pm
@@ -750,6 +780,7 @@ site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitMismatchedOperators.pm
 site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitMixedBooleanOperators.pm
 site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitNoisyQuotes.pm
 site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitQuotesAsQuotelikeOperatorDelimiters.pm
+site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitSpecialLiteralHeredocTerminator.pm
 site/lib/Perl/Critic/Policy/ValuesAndExpressions/ProhibitVersionStrings.pm
 site/lib/Perl/Critic/Policy/ValuesAndExpressions/RequireInterpolationOfMetachars.pm
 site/lib/Perl/Critic/Policy/ValuesAndExpressions/RequireNumberSeparators.pm
@@ -761,6 +792,7 @@ site/lib/Perl/Critic/Policy/Variables/ProhibitMatchVars.pm
 site/lib/Perl/Critic/Policy/Variables/ProhibitPackageVars.pm
 site/lib/Perl/Critic/Policy/Variables/ProhibitPerl4PackageNames.pm
 site/lib/Perl/Critic/Policy/Variables/ProhibitPunctuationVars.pm
+site/lib/Perl/Critic/Policy/Variables/ProhibitReusedNames.pm
 site/lib/Perl/Critic/Policy/Variables/ProhibitUnusedVariables.pm
 site/lib/Perl/Critic/Policy/Variables/ProtectPrivateVars.pm
 site/lib/Perl/Critic/Policy/Variables/RequireInitializationForLocalVars.pm
@@ -788,6 +820,7 @@ site/lib/Perl/Critic/UserProfile.pm
 site/lib/Perl/Critic/Utils/Constants.pm
 site/lib/Perl/Critic/Utils/DataConversion.pm
 site/lib/Perl/Critic/Utils/McCabe.pm
+site/lib/Perl/Critic/Utils/Perl.pm
 site/lib/Perl/Critic/Utils/POD.pm
 site/lib/Perl/Critic/Utils/PPI.pm
 site/lib/Perl/Critic/Utils/PPIRegexp.pm
@@ -891,7 +924,6 @@ site/lib/PPI.pm
 site/lib/Readonly.pm
 site/lib/Sort/Naturally.pm
 site/lib/String/Format.pm
-site/lib/Task/Weaken.pm
 site/lib/Test/Block.pm
 site/lib/Test/ClassAPI.pm
 site/lib/Test/Dependencies/Heavy.pm
@@ -902,14 +934,13 @@ site/lib/Test/NoWarnings/Warning.pm
 site/lib/Test/NoWarnings.pm
 site/lib/Test/Object/Test.pm
 site/lib/Test/Object.pm
-site/lib/Test/Output/Tie.pm
-site/lib/Test/Output.pm
 site/lib/Test/Perl/Critic.pm
 site/lib/Test/Pod/Coverage.pm
 site/lib/Test/Pod.pm
 site/lib/Test/Spelling.pm
 site/lib/Test/Strict.pm
 site/lib/Test/SubCalls.pm
+site/lib/Test/use/ok.pm
 site/lib/Test/Warn.pm
 site/lib/Text/Glob.pm
 site/lib/Tree/DAG_Node.pm

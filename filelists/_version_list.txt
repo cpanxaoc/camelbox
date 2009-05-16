@@ -1,7 +1,9 @@
-Tools
------
+Apps/Tools
+----------
 gettext-tools		0.17
 gladewin32 			3.4.3-win32
+SQLite 				1.3.14
+App::Asciio			1.02_71
 
 C Libraries
 -----------
@@ -33,20 +35,21 @@ zlib				1.2.3
 Perl Modules
 ------------
 Cairo 				1.061
-Class::MOP 			0.63
 DBI 				1.607
-DBD::SQLite 		1.14
-DBD::ODBC 			1.16
-DBD::mysql 			4.007
+DBD::SQLite 		1.25
+DBD::ODBC 			1.21
+DBD::mysql 			4.011
 Glib 				1.221
 Gnome2::Canvas		1.002
 Gtk2 				1.220
 Gtk2::GladeXML		1.007
 libwww-perl			5.826
-Log::Log4perl 		1.17
-Moose 				0.77 (Class::MOP 0.83, Test::Simple 0.83)
+JSON 				2.14
+Log::Log4perl 		1.23
+Moose 				0.78 (Class::MOP 0.84, Test::Simple 0.83)
 Pango				1.220
-TimeDate (Date::Parse) 1.16
+PAR					0.992
+TimeDate 			1.16 (aka Date::Parse)
 XML::Parser 		2.36
 
 Archive Statistics

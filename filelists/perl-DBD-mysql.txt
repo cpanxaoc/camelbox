@@ -1,3 +1,5 @@
+# Package list for: perl-DBD-mysql.txt 2009.134
+share/pkglists/perl-DBD-mysql.txt
 site/lib/auto/DBD/mysql/.packlist
 site/lib/auto/DBD/mysql/mysql.bs
 site/lib/auto/DBD/mysql/mysql.dll

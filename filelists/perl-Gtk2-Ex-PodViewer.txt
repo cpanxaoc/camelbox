@@ -1,11 +1,10 @@
+# Package list for: perl-Gtk2-Ex-PodViewer.txt 2009.135
+share/pkglists/perl-Gtk2-Ex-PodViewer.txt
 bin/podviewer
 bin/podviewer.bat
 site/lib/auto/Gtk2/Ex/PodViewer/.packlist
 site/lib/auto/Gtk2/Ex/Simple/List/.packlist
 site/lib/auto/IO/Stringy/.packlist
-site/lib/auto/Locale/gettext/.packlist
-site/lib/auto/Locale/gettext/gettext.bs
-site/lib/auto/Locale/gettext/gettext.dll
 site/lib/Gtk2/Ex/PodViewer/Parser.pm
 site/lib/Gtk2/Ex/PodViewer.pm
 site/lib/Gtk2/Ex/Simple/List.pm
@@ -19,4 +18,3 @@ site/lib/IO/ScalarArray.pm
 site/lib/IO/Stringy.pm
 site/lib/IO/Wrap.pm
 site/lib/IO/WrapTie.pm
-site/lib/Locale/gettext.pm

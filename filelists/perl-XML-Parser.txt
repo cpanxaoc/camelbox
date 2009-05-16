@@ -1,3 +1,5 @@
+# Package list for: perl-XML-Parser.txt 2009.135
+share/pkglists/perl-XML-Parser.txt
 site/lib/auto/XML/Parser/.packlist
 site/lib/auto/XML/Parser/Expat/Expat.bs
 site/lib/auto/XML/Parser/Expat/Expat.dll

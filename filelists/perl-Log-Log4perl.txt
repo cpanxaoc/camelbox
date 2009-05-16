@@ -1,3 +1,5 @@
+# Package list for: perl-Log-Log4perl.txt 2009.134
+share/pkglists/perl-Log-Log4perl.txt
 site/lib/auto/Log/Log4perl/.packlist
 site/lib/Log/Log4perl/Appender/Buffer.pm
 site/lib/Log/Log4perl/Appender/DBI.pm

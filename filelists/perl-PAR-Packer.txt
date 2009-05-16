@@ -1,3 +1,5 @@
+# Package list for: perl-PAR-Packer.txt 2009.134
+share/pkglists/perl-PAR-Packer.txt
 bin/exe_update.bat
 bin/exe_update.pl
 bin/par.bat

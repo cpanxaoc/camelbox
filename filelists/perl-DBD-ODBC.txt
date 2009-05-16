@@ -1,3 +1,5 @@
+# Package list for: perl-DBD-ODBC.txt 2009.134
+share/pkglists/perl-DBD-ODBC.txt
 site/lib/auto/DBD/ODBC/.packlist
 site/lib/auto/DBD/ODBC/ODBC.bs
 site/lib/auto/DBD/ODBC/ODBC.dll

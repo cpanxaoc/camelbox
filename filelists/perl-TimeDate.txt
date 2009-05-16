@@ -1,3 +1,5 @@
+# Package list for: perl-TimeDate.txt 2009.134
+share/pkglists/perl-TimeDate.txt
 site/lib/auto/TimeDate/.packlist
 site/lib/Date/Format.pm
 site/lib/Date/Language/Afar.pm

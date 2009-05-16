@@ -1,4 +1,19 @@
+# Package list for: perl-DBD-SQLite.txt 2009.134
+share/pkglists/perl-DBD-SQLite.txt
+lib/auto/Cwd/Cwd.bs
+lib/auto/Cwd/Cwd.dll.AAA
+man/man3/Cwd.3
+man/man3/File.Spec.3
+man/man3/File.Spec.Cygwin.3
+man/man3/File.Spec.Epoc.3
+man/man3/File.Spec.Functions.3
+man/man3/File.Spec.Mac.3
+man/man3/File.Spec.OS2.3
+man/man3/File.Spec.Unix.3
+man/man3/File.Spec.VMS.3
+man/man3/File.Spec.Win32.3
 site/lib/auto/DBD/SQLite/.packlist
 site/lib/auto/DBD/SQLite/SQLite.bs
 site/lib/auto/DBD/SQLite/SQLite.dll
+site/lib/DBD/SQLite/Cookbook.pod
 site/lib/DBD/SQLite.pm

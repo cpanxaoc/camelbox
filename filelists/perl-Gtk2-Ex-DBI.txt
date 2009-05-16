@@ -1,2 +1,4 @@
+# Package list for: perl-Gtk2-Ex-DBI.txt 2009.135
+share/pkglists/perl-Gtk2-Ex-DBI.txt
 site/lib/auto/Gtk2/Ex/DBI/.packlist
 site/lib/Gtk2/Ex/DBI.pm

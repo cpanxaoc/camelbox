@@ -1,3 +1,5 @@
+# Package list for: perl-JSON.txt 2009.134
+share/pkglists/perl-JSON.txt
 site/lib/auto/JSON/.packlist
 site/lib/JSON/PP/Boolean.pm
 site/lib/JSON/PP.pm

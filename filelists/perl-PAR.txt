@@ -1,5 +1,11 @@
+# Package list for: perl-PAR.txt 2009.134
+share/pkglists/perl-PAR.txt
 bin/crc32
 bin/crc32.bat
+bin/instmodsh
+lib/auto/AutoLoader/.packlist
+lib/auto/ExtUtils/MakeMaker/.packlist
+lib/ExtUtils/MM_Darwin.pm
 site/lib/Archive/Zip/Archive.pm
 site/lib/Archive/Zip/BufferedFileHandle.pm
 site/lib/Archive/Zip/DirectoryMember.pm
@@ -20,5 +26,7 @@ site/lib/PAR/Dist.pm
 site/lib/PAR/Environment.pod
 site/lib/PAR/FAQ.pod
 site/lib/PAR/Heavy.pm
+site/lib/PAR/SetupProgname.pm
+site/lib/PAR/SetupTemp.pm
 site/lib/PAR/Tutorial.pod
 site/lib/PAR.pm
