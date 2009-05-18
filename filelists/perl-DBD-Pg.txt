@@ -1,3 +1,5 @@
+# Package list for: perl-DBD-Pg.txt 2009.138
+share/pkglists/perl-DBD-Pg.txt
 site/lib/auto/DBD/Pg/.packlist
 site/lib/auto/DBD/Pg/Pg.bs
 site/lib/auto/DBD/Pg/Pg.dll

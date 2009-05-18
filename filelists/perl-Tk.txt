@@ -1,3 +1,5 @@
+# Package list for: perl-Tk.txt 2009.138
+share/pkglists/perl-Tk.txt
 bin/gedi
 bin/gedi.bat
 bin/ptked

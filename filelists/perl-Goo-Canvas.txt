@@ -1,3 +1,5 @@
+# Package list for: perl-Goo-Canvas.txt 2009.138
+share/pkglists/perl-Goo-Canvas.txt
 bin/perlmine.bat
 bin/perlmine.pl
 bin/perltetris.bat

@@ -1,3 +1,5 @@
+# Package list for: perl-App-Sprog.txt 2009.138
+share/pkglists/perl-App-Sprog.txt
 bin/sprog
 bin/sprog.bat
 site/lib/auto/Sprog/.packlist
