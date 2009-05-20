@@ -10,7 +10,7 @@ use Test::More tests => 17;
 # load up the DBI module
 BEGIN { use_ok( q(DBI) ) };
 my $db_host = q(127.0.0.1);
-my $db_port = 15432;
+my $db_port = 5432;
 my $db_name = q(camelbox);
 my $db_user = q(camelbox);
 my $db_pass;
@@ -72,7 +72,7 @@ ok($sth->execute, q(Executed DROP TABLE));
 $dbh->{PrintError} = 0;
 $sth = $dbh->prepare( q(SELECT string, number )
     . q(FROM camelbox_test WHERE number = 20) );     
-ok(! $sth->execute, q(Executed SELECT with an empty table));
+ok(! $sth->execute, q(Executed SELECT with a DROPped table));
 
 # CLEAN UP
 ok($sth->finish, q(Closed the statement handle with $sth->finish ) );

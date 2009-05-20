@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# a stub file for writing tests
+# basic test file for Perl (and Camelbox)
 
 use strict;
 use warnings;
