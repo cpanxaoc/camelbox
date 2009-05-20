@@ -133,7 +133,7 @@ Function StartPage
 	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 -40u 140u 50u ""
 	Pop $dialog_SP_ReleaseImgBox
 
-	StrCpy $0 ${INSTALLER_BASE}\Icons\2008.1-odin.140x50.bmp
+	StrCpy $0 ${INSTALLER_BASE}\Icons\2009.1-rua.140x61.bmp
 	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
 	Pop $dialog_SP_ReleaseNameImg
 	
@@ -366,7 +366,7 @@ Function SnarfUnpack
 			IDRETRY Snarf
         abort
 	DeleteError:
-		DetailPrint "Could not delete $archive file; aborting..."
+		DetailPrint "Could not delete $archivefile; aborting..."
 		abort
 FunctionEnd # SnarfUnpack
 

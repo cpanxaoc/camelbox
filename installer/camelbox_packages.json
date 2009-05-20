@@ -69,7 +69,7 @@ InstType "Vapourware - Nothing"
         "group_extra-perl-mods": {
             "description": "Extra Perl Modules",
             "expanded_flag": 0,
-            "sections_list": [  "perl-5.10.0-CPAN_Metadata", "perl-XML-Parser",
+            "sections_list": [  "perl-5.10.0-cpan_metadata", "perl-XML-Parser",
 								"perl-YAML", "perl-LWP", "perl-Moose",
                                 "perl-PAR", "perl-PAR-Packer",
 							    "perl-Log-Log4perl", "perl-TimeDate",
@@ -86,15 +86,11 @@ InstType "Vapourware - Nothing"
         "group_database-tools": {
             "description": "Database Tools Packages",
             "expanded_flag": 0,
-            "sections_list": [  "mysql-bin", "mysql-client", "mysql-debug",
+            "sections_list": [  "mysql-bin", "mysql-debug",
 		   						"mysql-dev", "mysql-docs", "mysql-server",
-            					"postgresql-bin", "postgresql-client", 
+            					"postgresql-bin",
 		   						"postgresql-dev", "postgresql-docs", 
-								"postgresql-server", "sqlite-utils"	]
-								// sqlite-bin should not technically be
-								// needed, as DBD::SQLite provides it's own
-								// version of the SQLite source
-							    //"sqlite-bin", "sqlite-utils"	]
+								"postgresql-server", "sqlite-bin" ]
         }, // group_database-tools 
         "group_extra-tools": {
             "description": "Extra Tools Packages",
@@ -120,7 +116,7 @@ InstType "Vapourware - Nothing"
             "description": "Documentation and Examples",
             "expanded_flag": 0,
             "sections_list": [  "perl-5.10.0-html_docs", "gtk-core-doc",
-                                "perl-gtk2-examples" ]
+                                "perl-gtk2-goo-canvas-examples" ]
         } // group_docs-examples
     }, // groups
     "packages": {
@@ -179,7 +175,7 @@ InstType "Vapourware - Nothing"
             "description": "Gtk2::Ex::PodViewer - a GTK Perl POD viewer",
             "sectionin_list": [ 2, 3, 4 ] },
         // Extra Perl Modules
-		"perl-5.10.0-CPAN_Metadata": {
+		"perl-5.10.0-cpan_metadata": {
             "description": "CPAN Metadata files",
             "sectionin_list": [ 2, 3, 4, 6 ] },
         "perl-JSON": {
@@ -204,7 +200,7 @@ InstType "Vapourware - Nothing"
             "description": "Date::Format: Date formatting subroutines",
             "sectionin_list": [ 2, 3, 4, 6 ] },
         "perl-Tk": {
-            "description": "Perl bindings for the Tk widget toolkit",
+            "description": "Tk: Perl bindings for the Tk widget toolkit",
             "sectionin_list": [ 3, 4 ] },
         "perl-Win32-API-ODBC": {
             "description": "Win32::API and Win32::ODBC Modules",
@@ -233,11 +229,8 @@ InstType "Vapourware - Nothing"
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         // Database Tools
         "mysql-bin": {
-            "description": "MySQL Client Library (libmysql.dll)",
+            "description": "MySQL Client Binary and Library (mysql.exe, libmysql.dll)",
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "mysql-client": {
-            "description": "MySQL Client Binary (mysql.exe)",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
         "mysql-debug": {
             "description": "MySQL Debugging Binaries",
             "sectionin_list": [ 4 ] },
@@ -251,11 +244,8 @@ InstType "Vapourware - Nothing"
             "description": "MySQL Server Binaries",
             "sectionin_list": [ 4 ] },
         "postgresql-bin": {
-            "description": "PostgreSQL Client Library (libpq.dll)",
+            "description": "PostgreSQL Client Binary/Library (psql.exe, libpq.dll)",
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "postgresql-client": {
-            "description": "PostgreSQL Client Binary (psql.exe)",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
         "postgresql-dev": {
             "description": "PostgreSQL Devel. (headers and import libs)",
             "sectionin_list": [ 3, 4 ] },
@@ -265,12 +255,9 @@ InstType "Vapourware - Nothing"
         "postgresql-server": {
             "description": "PostgreSQL Server Binaries",
             "sectionin_list": [ 4 ] },
-        //"sqlite-bin": {
-        //    "description": "SQLite Client Library",
-        //    "sectionin_list": [ 1, 2, 3, 4, 7 ] },
-        "sqlite-utils": {
-            "description": "SQLite Database Utilities",
-            "sectionin_list": [ 2, 3, 4, 7 ] },
+        "sqlite-bin": {
+            "description": "SQLite Client Binary (sqlite3.exe)",
+            "sectionin_list": [ 1, 2, 3, 4, 7 ] },
         // Development Packages
         "dmake": {
             "description": "dmake Makefile Processor",
@@ -329,8 +316,8 @@ InstType "Vapourware - Nothing"
         "gtk-core-doc": {
             "description": "GTK C API HTML/SGML Documentation",
             "sectionin_list": [ 3, 4 ] },
-        "perl-gtk2-examples": {
-            "description": "Gtk2-Perl Example Scripts",
+        "perl-gtk2-goo-canvas-examples": {
+            "description": "Gtk2-Perl and GooCanvas Example Scripts",
             "sectionin_list": [ 3, 4 ],
             "extra_options": "StrCpy $demosInstalled 'true'" }
     } // packages
