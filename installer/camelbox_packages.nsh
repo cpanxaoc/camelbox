@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2009.139.2143Z 
+# DATE:     2009.140.0231Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -33,7 +33,8 @@ Section "-WriteUninstaller"
     SetOutPath "$INSTDIR"
     CreateDirectory "$INSTDIR\bin"
     writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
-    #writeUninstaller "$INSTDIR\bin\camelbox_uninstaller.exe"
+	CreateDirectory "$INSTDIR\share\pkglists"
+	File "/oname=$INSTDIR\share\pkglists\_version_list.txt" ${VERSIONS_FILE}
 SectionEnd ; WriteUninstaller 
 
 Section "Perl 5.10.0 Base Package" perl-5.10.0-core_id
@@ -290,7 +291,7 @@ SectionGroup "Extra Perl Modules"
         push $0
         Call SnarfUnpack
     SectionEnd ; perl-Win32-API-ODBC
-    Section "Perl bindings for the Tk widget toolkit" perl-Tk_id
+    Section "Tk: Perl bindings for the Tk widget toolkit" perl-Tk_id
         SectionIn 3 4
         AddSize 6167
         push "perl-Tk.2009.138.1.tar.lzma"
@@ -625,9 +626,9 @@ SectionGroup "Documentation and Examples"
     SectionEnd ; gtk-core-doc
     Section "Gtk2-Perl and GooCanvas Example Scripts" perl-gtk2-goo-canvas-examples_id
         SectionIn 3 4
-        AddSize 847
-        push "perl-gtk2-goo-canvas-examples.2009.139.1.tar.lzma"
-        push "42a194cac70ef3855546a7ae1d59887f"
+        AddSize 848
+        push "perl-gtk2-goo-canvas-examples.2009.140.2.tar.lzma"
+        push "e313b3daca5f50622933e20d06c1d6c1"
         SectionGetText ${perl-gtk2-goo-canvas-examples_id} $0
         push $0
         Call SnarfUnpack

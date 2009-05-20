@@ -141,7 +141,8 @@ Section "-WriteUninstaller"
     SetOutPath "$INSTDIR"
     CreateDirectory "$INSTDIR\bin"
     writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
-    #writeUninstaller "$INSTDIR\bin\camelbox_uninstaller.exe"
+	CreateDirectory "$INSTDIR\share\pkglists"
+	File "/oname=$INSTDIR\share\pkglists\_version_list.txt" ${VERSIONS_FILE}
 SectionEnd ; WriteUninstaller 
 HEREDOC
 }  # sub sec_writeuninstaller

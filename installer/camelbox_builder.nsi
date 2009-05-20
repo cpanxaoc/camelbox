@@ -72,6 +72,8 @@
 !define MAIN_ICON "${INSTALLER_BASE}\Icons\camelbox-logo.ico"
 !define BASE_URL "http://camelbox.googlecode.com/files"
 !define INSTALL_PATH "C:\camelbox"
+# HACK!
+!define VERSIONS_FILE "${INSTALLER_BASE}\..\filelists\_version_list.txt"
 OutFile "C:\temp\camelbox_${RELEASE_VERSION}.exe"	# 4.8.1.31
 InstallDir "${INSTALL_PATH}"
 
