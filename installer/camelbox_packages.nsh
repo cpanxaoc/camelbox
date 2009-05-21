@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2009.140.0231Z 
+# DATE:     2009.141.0107Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -300,6 +300,15 @@ SectionGroup "Extra Perl Modules"
         push $0
         Call SnarfUnpack
     SectionEnd ; perl-Tk
+    Section "Bundle::libwin32; Windows-specific Perl modules" perl-Bundle-libwin32_id
+        SectionIn 1 2 3 4 6
+        AddSize 1793
+        push "perl-Bundle-libwin32.2009.141.1.tar.lzma"
+        push "a54446790dd869ef659ec1cf2894b3f3"
+        SectionGetText ${perl-Bundle-libwin32_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; perl-Bundle-libwin32
 SectionGroupEnd ; Extra Perl Modules
 
 SectionGroup "Perl Database Support"

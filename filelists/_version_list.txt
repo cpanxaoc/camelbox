@@ -1,3 +1,6 @@
+Camelbox Application/Module Versions List
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
 Apps/Tools
 ----------
 App::Asciio			1.02_71
@@ -58,6 +61,6 @@ XML::Parser 		2.36
 
 Archive Statistics
 ------------------
-WARN -> Unpacked size: 451636643
-WARN -> Archived size: 74150971
+WARN -> Unpacked size: 453430539
+WARN -> Archived size: 74575414
 WARN -> Compression Ratio: 0.16

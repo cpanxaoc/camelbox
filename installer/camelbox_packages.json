@@ -74,7 +74,7 @@ InstType "Vapourware - Nothing"
                                 "perl-PAR", "perl-PAR-Packer",
 							    "perl-Log-Log4perl", "perl-TimeDate",
 								"perl-JSON", "perl-Win32-API-ODBC",
-							   	"perl-Tk" ]
+							   	"perl-Tk", "perl-Bundle-libwin32" ]
         }, // group_extra-perl-mods 
         "group_perl-databases": {
             "description": "Perl Database Support",
@@ -178,6 +178,9 @@ InstType "Vapourware - Nothing"
 		"perl-5.10.0-cpan_metadata": {
             "description": "CPAN Metadata files",
             "sectionin_list": [ 2, 3, 4, 6 ] },
+        "perl-Bundle-libwin32": {
+            "description": "Bundle::libwin32; Windows-specific Perl modules",
+            "sectionin_list": [ 1, 2, 3, 4, 6 ] },
         "perl-JSON": {
             "description": "JSON: Javascript data serialization/storage",
             "sectionin_list": [ 2, 3, 4, 6 ] },

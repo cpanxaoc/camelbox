@@ -133,7 +133,7 @@ Function StartPage
 	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 -40u 140u 50u ""
 	Pop $dialog_SP_ReleaseImgBox
 
-	StrCpy $0 ${INSTALLER_BASE}\Icons\2009.1-rua.140x61.bmp
+	StrCpy $0 ${INSTALLER_BASE}\Icons\2009.1-tahi.140x64.bmp
 	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
 	Pop $dialog_SP_ReleaseNameImg
 	

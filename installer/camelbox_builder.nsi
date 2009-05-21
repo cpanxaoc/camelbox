@@ -63,7 +63,7 @@
 # Section 5.4.1 of the NSIS manual describes !define
 # The strftime strings for this next !define are here:
 # http://msdn2.microsoft.com/en-us/library/fe06s4ak.aspx
-!define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ-rua"
+!define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ-tahi"
 
 # define some macros for use later on
 !define CAPTION_TEXT "Camelbox ${RELEASE_VERSION}"
