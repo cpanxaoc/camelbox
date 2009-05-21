@@ -61,6 +61,8 @@ XML::Parser 		2.36
 
 Archive Statistics
 ------------------
+Picked up 64 package objects
+Picked up 10 group objects
 WARN -> Unpacked size: 453430539
 WARN -> Archived size: 74575414
 WARN -> Compression Ratio: 0.16
