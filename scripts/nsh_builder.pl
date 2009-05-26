@@ -594,7 +594,7 @@ Prints the manifest list to STDERR.
 package Hump::JSON::Distribution;
 use strict;
 use warnings;
-use JSON;
+use JSON::PP;
 use Log::Log4perl qw(get_logger);
 
 sub new {
@@ -614,7 +614,7 @@ sub new {
         || $logger->logcroak(qq(Can't open file ) 
         . $self->{jsonfile} . qq(: $!));
 	binmode(FH);
-    my $parser = JSON->new->ascii->pretty->allow_nonref;
+    my $parser = JSON::PP->new->ascii->pretty->allow_nonref;
     my $json_string;
     while(<FH>) {
         $json_string .= $_;
@@ -780,7 +780,7 @@ sub calculate_unpacked_size {
     	$tarlzma_cmd = q(lzma -so d ) . $self->filename() 
             . q( 2>nul: | tar -tv 2>nul:);
     } else {
-    	$tarlzma_cmd = q(lzma -c -d ) . $self->filename() 
+    	$tarlzma_cmd = q(lzma d -so ) . $self->filename() 
             . q( 2>/dev/null | tar -tv 2>/dev/null);
     } # if ( $^O eq q(MSWin32) )
 	my $archive_list = qx/$tarlzma_cmd/;

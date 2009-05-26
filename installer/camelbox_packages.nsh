@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2009.141.0107Z 
+# DATE:     2009.145.0227Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -144,7 +144,7 @@ SectionGroup "Extra Gtk2-Perl Packages"
 SectionGroupEnd ; Extra Gtk2-Perl Packages
 
 SectionGroup /e "Gtk2-Perl Applications"
-    Section "Asciio v0.95_01 - ASCII Art Editor" perl-App-Asciio_id
+    Section "Asciio - ASCII Art Editor" perl-App-Asciio_id
         SectionIn 2 3 4
         AddSize 6726
         push "perl-App-Asciio.2009.135.1.tar.lzma"
@@ -153,7 +153,7 @@ SectionGroup /e "Gtk2-Perl Applications"
         push $0
         Call SnarfUnpack
     SectionEnd ; perl-App-Asciio
-    Section "Sprog v0.14 - Build programs using 'parts'" perl-App-Sprog_id
+    Section "Sprog - Build programs using 'parts'" perl-App-Sprog_id
         SectionIn 2 3 4
         AddSize 470
         push "perl-App-Sprog.2009.138.1.tar.lzma"
@@ -534,6 +534,15 @@ SectionGroup "Database Tools Packages"
         push $0
         Call SnarfUnpack
     SectionEnd ; sqlite-bin
+    Section "SQLite Devel. (headers and import libs)" sqlite-dev_id
+        SectionIn 3 4
+        AddSize 2074
+        push "sqlite-dev.2009.134.1.tar.lzma"
+        push "e008bcb7df964d5f5f98616126a34d18"
+        SectionGetText ${sqlite-dev_id} $0
+        push $0
+        Call SnarfUnpack
+    SectionEnd ; sqlite-dev
 SectionGroupEnd ; Database Tools Packages
 
 SectionGroup "Extra Tools Packages"

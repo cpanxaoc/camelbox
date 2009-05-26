@@ -90,7 +90,8 @@ InstType "Vapourware - Nothing"
 		   						"mysql-dev", "mysql-docs", "mysql-server",
             					"postgresql-bin",
 		   						"postgresql-dev", "postgresql-docs", 
-								"postgresql-server", "sqlite-bin" ]
+								"postgresql-server", 
+                                "sqlite-bin", "sqlite-dev" ]
         }, // group_database-tools 
         "group_extra-tools": {
             "description": "Extra Tools Packages",
@@ -160,10 +161,10 @@ InstType "Vapourware - Nothing"
             "sectionin_list": [ 2, 3, 4 ] },
         // Gtk2-Perl Applications
         "perl-App-Asciio": {
-            "description": "Asciio v0.95_01 - ASCII Art Editor",
+            "description": "Asciio - ASCII Art Editor",
             "sectionin_list": [ 2, 3, 4 ] },
         "perl-App-Sprog": {
-            "description": "Sprog v0.14 - Build programs using 'parts'",
+            "description": "Sprog - Build programs using 'parts'",
             "sectionin_list": [ 2, 3, 4 ] },
         "perl-Gtk2-Ex-Datasheet-DBI": {
             "description": "Gtk2::Ex::Datasheet::DBI - Model/Treeview Object",
@@ -261,6 +262,9 @@ InstType "Vapourware - Nothing"
         "sqlite-bin": {
             "description": "SQLite Client Binary (sqlite3.exe)",
             "sectionin_list": [ 1, 2, 3, 4, 7 ] },
+        "sqlite-dev": {
+            "description": "SQLite Devel. (headers and import libs)",
+            "sectionin_list": [ 3, 4 ] },
         // Development Packages
         "dmake": {
             "description": "dmake Makefile Processor",
