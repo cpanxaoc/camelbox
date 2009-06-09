@@ -118,7 +118,7 @@ Page Components
 # let the user choose the install directory
 #Page Directory
 Page InstFiles
-#Page custom ShortcutsAndReadme
+Page custom ShortcutsAndReadme
 UninstPage uninstConfirm
 UninstPage InstFiles
 
