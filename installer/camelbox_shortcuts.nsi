@@ -83,6 +83,7 @@ SetDatablockOptimize ON				# 4.8.2.6
 AutoCloseWindow FALSE				# 4.8.1.3
 CRCCheck ON 						# 4.8.1.12
 InstallColors /WINDOWS				# 4.8.1.20
+#RequestExecutionLevel user			# 4.8.1.32
 ShowInstDetails SHOW				# 4.8.1.34
 SilentInstall NORMAL				# 4.8.1.36
 
@@ -109,7 +110,7 @@ InstallDir "${INSTALL_PATH}"
 
 #### PAGES ####
 #Page Directory
-#Page custom ShortcutsAndReadme
+Page custom CreateCamelboxURLs
 Page custom ShortcutsDialog
 #UninstPage uninstConfirm
 #UninstPage RemoveShortcutsAndReadme

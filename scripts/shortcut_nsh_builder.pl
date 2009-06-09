@@ -154,6 +154,26 @@ var d_Shortcuts
 var dS_StatusBox
 var dialog_output
 
+# Always create Camelbox URLs
+Function CreateCamelboxURLs
+	# create a directory for holding URLs
+	# The camelbox_shortcuts.json file will have the path to the URL files
+	# below, so that shortcuts to the URLs will be created automatically
+	CreateDirectory "$INSTDIR\share\urls"
+	WriteINIStr "$INSTDIR\share\urls\Camelbox_Home_Page.URL" \
+		"InternetShortcut" "URL" "http://code.google.com/p/camelbox/"
+	WriteINIStr "$INSTDIR\share\urls\Camelbox_FAQ.URL" \
+		"InternetShortcut" "URL" "http://code.google.com/p/camelbox/wiki/FAQ"
+	WriteINIStr "$INSTDIR\share\urls\Using_Camelbox.URL" \
+		"InternetShortcut" "URL" \
+		"http://code.google.com/p/camelbox/wiki/UsingCamelbox"
+	WriteINIStr "$INSTDIR\share\urls\Camelbox_Versions.URL" \
+		"InternetShortcut" "URL" \
+		"http://code.google.com/p/camelbox/source/browse/trunk/filelists/_version_list.txt"
+	WriteINIStr "$INSTDIR\share\urls\CPAN_Search.URL" \
+		"InternetShortcut" "URL" "http://search.cpan.org"
+FunctionEnd
+
 # custom page for displaying the status of shortcut creation
 Function ShortcutsDialog
 	# http://forums.winamp.com/showthread.php?threadid=297163
@@ -221,19 +241,6 @@ FunctionEnd
 # C:\Windows\system32\pifmgr.dll
 # C:\Windows\system32\wmploc.dll
 # C:\Windows\system32\moricons.dll
-
-Function ShortCutFeedback
-# use SendMessage with a text box to give the user feedback about creating
-# shortcuts and where they're being created
-# does nothing
-Nop
-FunctionEnd
-
-Function CheckShortcutFileExists
-# - check that the file that the shortcut will point to exists; if not, exit
-# - check that the directory exists; if not, create it
-# - check that the shortcut file exists; if not, create it
-FunctionEnd
 
 # vim: filetype=nsis paste
 
@@ -394,7 +401,7 @@ sub write {
     my $self = shift;
 	my %args = @_;
 
-	print qq(\t# ) . $self->get( key => q(description) ) . qq("\n);
+	print qq(\t# ) . $self->get( key => q(description) ) . qq(\n);
     print qq(\tIfFileExists ") . $self->get( key => q(target) ) . qq(" 0 +3\n);
     # FIXME add the link target to these next two
     #print qq(\tCreateDirectory ") . $self->get( key => q(target) ) . qq("\n);

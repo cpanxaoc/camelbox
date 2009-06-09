@@ -78,8 +78,8 @@
     }, // "Camelbox\\Database Tools" program group
     "Camelbox\\Applications": {
         "Asciio" : {
-            "target": "$INSTDIR\\bin\\asciio.bat",
-            "params": "",
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\asciio",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "75",
             "startopts": "SW_SHOWNORMAL",
@@ -87,10 +87,10 @@
             "description": "ASCII Art Editor"
         }, // "Asciio"
         "podviewer" : {
-            "target": "$INSTDIR\\bin\\podviewer.bat C:\\camelbox\\lib\\pods\\perl.pod",
-            "params": "",
-            "iconfile": "$SYSDIR\\shell32.dll",
-            "iconidx": "134",
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\podviewer",
+            "iconfile": "$SYSDIR\\wmploc.dll",
+            "iconidx": "23",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Perl POD Viewer"
@@ -98,8 +98,8 @@
     }, // "Applications" program group
     "Camelbox\\Demo Scripts": {
         "perltetris" : {
-            "target": "$INSTDIR\\bin\\perltetris.bat",
-            "params": "",
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\perltetris.pl",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "189",
             "startopts": "SW_SHOWNORMAL",
@@ -107,8 +107,8 @@
             "description": "Goo::Canvas Example: Perl Tetris"
         }, // "perltetris"
         "perlmine" : {
-            "target": "$INSTDIR\\bin\\perlmine.bat",
-            "params": "",
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\perlmine.pl",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "208",
             "startopts": "SW_SHOWNORMAL",
@@ -116,15 +116,100 @@
             "description": "Goo::Canvas Example: Perl Minesweeper"
         }, // "perlmine"
         "widget" : {
-            "target": "$INSTDIR\\bin\\widget.bat",
-            "params": "",
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\widget",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "93",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Widget: Tk Widget Demo Script"
         } // "perlmine"
-    } // "Demo Scripts" program group
+    }, // "Demo Scripts" program group
+	"Camelbox\\Documentation" : {
+        "POD: perl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\podviewer $INSTDIR\\lib\\pods\\perl.pod",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "224",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Podviewer: perl.pod - Practical Extraction and Reporting Language"
+        }, // "POD: perl"
+        "POD: perlintro" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\podviewer $INSTDIR\\lib\\pods\\perlintro.pod",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "224",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Podviewer: perlintro.pod - Introduction to Perl"
+        }, // "POD: perlintro"
+        "POD: perlsyn" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\podviewer $INSTDIR\\lib\\pods\\perlsyn.pod",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "224",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Podviewer: perlsyn.pod - Perl Syntax"
+        }, // "POD: perlsyn"
+        "POD: perlfunc" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\podviewer $INSTDIR\\lib\\pods\\perlfunc.pod",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "224",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Podviewer: perlsyn.pod - Perl Functions"
+        } // "POD: perlfunc"
+	}, // Camelbox\\Documentation
+	"Camelbox\\Internet Links" : {
+        "Camelbox Homepage" : {
+            "target": "$INSTDIR\\share\\urls\\Camelbox_Home_Page.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Camelbox Home Page on the Internet"
+        }, // "Camelbox Homepage"
+        "Camelbox FAQ" : {
+            "target": "$INSTDIR\\share\\urls\\Camelbox_FAQ.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Camelbox FAQ on the Internet"
+        }, // "Camelbox FAQ"
+        "Using Camelbox" : {
+            "target": "$INSTDIR\\share\\urls\\Using_Camelbox.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Using Camelbox page on the Internet"
+        }, // "Using Camelbox"
+        "Camelbox File Versions" : {
+            "target": "$INSTDIR\\share\\urls\\Camelbox_Versions.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Camelbox Versions file in SVN"
+        }, // "Camelbox File Versions"
+        "CPAN Search" : {
+            "target": "$INSTDIR\\share\\urls\\CPAN_Search.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Search the CPAN Website"
+        } // "Camelbox File Versions"
+	} // Camelbox\\Internet Links
 } // JSON data block
 
 // fin vim: filetype=javascript
