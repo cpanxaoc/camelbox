@@ -10,7 +10,7 @@
     "program group folder": {
         // no '.lnk' on the end of the shortcut name
         "shortcut1 name" : {
-            // this could also be shortened and $INSTALL_PATH used when the
+            // this could also be shortened and $INSTDIR used when the
             // .nsh file is created
             "target": "C:\path\to\target.exe",
             "params": "/a /r /g /s",
@@ -23,22 +23,22 @@
     },
 }
 */
-// $INSTALL_PATH used below means 'C:\camelbox' (for now)
+// $INSTDIR used below means 'C:\camelbox' (for now)
 { 
     "Camelbox": {
         "CPAN Shell" : {
-            "target": "$INSTALL_PATH\\bin\\cpan.bat",
+            "target": "$INSTDIR\\bin\\cpan.bat",
             "params": "",
-            "iconfile": "$INSTALL_PATH\\bin\\wperl.exe",
+            "iconfile": "$INSTDIR\\bin\\wperl.exe",
             "iconidx": "0",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "The CPAN Shell"
         }, // "CPAN Shell"
         "zsh" : {
-            "target": "$INSTALL_PATH\\bin\\sh.exe",
+            "target": "$INSTDIR\\bin\\sh.exe",
             "params": "",
-            "iconfile": "$INSTALL_PATH\\bin\\sh.exe",
+            "iconfile": "$INSTDIR\\bin\\sh.exe",
             "iconidx": "0",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
@@ -47,9 +47,9 @@
     }, // "Camelbox" program group
     "Camelbox\\Developer Tools": {
         "Glade-3" : {
-            "target": "$INSTALL_PATH\\bin\\glade-3.exe",
+            "target": "$INSTDIR\\bin\\glade-3.exe",
             "params": "",
-            "iconfile": "$INSTALL_PATH\\bin\\glade-3.exe",
+            "iconfile": "$INSTDIR\\bin\\glade-3.exe",
             "iconidx": "0",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
@@ -58,7 +58,7 @@
     }, // "Camelbox\\Developer Tools" program group
     "Camelbox\\Database Tools": {
         "MySQL Client" : {
-            "target": "$INSTALL_PATH\\bin\\mysql.exe",
+            "target": "$INSTDIR\\bin\\mysql.exe",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "164",
@@ -67,18 +67,18 @@
             "description": "MySQL Command Line Client"
         }, // "MySQL Client"
         "PostgreSQL Client" : {
-            "target": "$INSTALL_PATH\\bin\\psql.exe",
+            "target": "$INSTDIR\\bin\\psql.exe",
             "params": "",
-            "iconfile": "$INSTALL_PATH\\bin\\psql.exe",
+            "iconfile": "$INSTDIR\\bin\\psql.exe",
             "iconidx": "0",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "PostgreSQL Command Line Client"
         } // "PostgreSQL Client"
     }, // "Camelbox\\Database Tools" program group
-    "Applications": {
+    "Camelbox\\Applications": {
         "Asciio" : {
-            "target": "$INSTALL_PATH\\bin\\asciio.bat",
+            "target": "$INSTDIR\\bin\\asciio.bat",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "75",
@@ -87,7 +87,7 @@
             "description": "ASCII Art Editor"
         }, // "Asciio"
         "podviewer" : {
-            "target": "$INSTALL_PATH\\bin\\podviewer.bat",
+            "target": "$INSTDIR\\bin\\podviewer.bat C:\\camelbox\\lib\\pods\\perl.pod",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "134",
@@ -96,9 +96,9 @@
             "description": "Perl POD Viewer"
         } // "podviewer"
     }, // "Applications" program group
-    "Demo Scripts": {
+    "Camelbox\\Demo Scripts": {
         "perltetris" : {
-            "target": "$INSTALL_PATH\\bin\\perltetris.bat",
+            "target": "$INSTDIR\\bin\\perltetris.bat",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "189",
@@ -107,7 +107,7 @@
             "description": "Goo::Canvas Example: Perl Tetris"
         }, // "perltetris"
         "perlmine" : {
-            "target": "$INSTALL_PATH\\bin\\perlmine.bat",
+            "target": "$INSTDIR\\bin\\perlmine.bat",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "208",
@@ -116,7 +116,7 @@
             "description": "Goo::Canvas Example: Perl Minesweeper"
         }, // "perlmine"
         "widget" : {
-            "target": "$INSTALL_PATH\\bin\\widget.bat",
+            "target": "$INSTDIR\\bin\\widget.bat",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "93",

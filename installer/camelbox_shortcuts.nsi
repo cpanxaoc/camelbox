@@ -63,7 +63,7 @@
 # Section 5.4.1 of the NSIS manual describes !define
 # The strftime strings for this next !define are here:
 # http://msdn2.microsoft.com/en-us/library/fe06s4ak.aspx
-!define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ-odin"
+!define /utcdate RELEASE_VERSION  "%Y.%j.%H%MZ-tahi"
 
 # define some macros for use later on
 !define CAPTION_TEXT "Camelbox Shortcut Creator ${RELEASE_VERSION}"
@@ -72,7 +72,6 @@
 !define MAIN_ICON "${INSTALLER_BASE}\Icons\camelbox-logo.ico"
 !define BASE_URL "http://camelbox.googlecode.com/files"
 !define INSTALL_PATH "C:\camelbox"
-!define SHORTCUT_INI "${INSTALLER_BASE}\shortcuts.ini"
 OutFile "C:\temp\camelbox_shortcuts-${RELEASE_VERSION}.exe"	# 4.8.1.31
 
 #### NSIS OPTIONS ####
@@ -105,7 +104,7 @@ InstallDir "${INSTALL_PATH}"
 
 #### EXTERNAL FUNCTION SCRIPTS ####
 !include "nsDialogs.nsh"
-!include "camelbox_functions.nsh"	# functions used by all scripts
+#!include "camelbox_functions.nsh"	# functions used by all scripts
 !include "camelbox_shortcuts.nsh"
 
 #### PAGES ####

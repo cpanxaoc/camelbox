@@ -1,17 +1,18 @@
 #==========================================================================
 #
-# TYPE:		NSIS header/include File
+# TYPE:     NSIS header/include file
 #
-# NAME: 	camelbox_functions.nsh
+# AUTHOR:   shortcut_nsh_builder.pl 
+# (http://code.google.com/p/camelbox/source/browse/trunk/scripts/shortcut_nsh_builder.pl)
+# DATE:     2009.160.0206Z 
 #
-# AUTHOR: 	$LastChangedBy: elspicyjack $
-# DATE: 	$LastChangedDate: 2008-10-27 01:55:59 -0700 (Mon, 27 Oct 2008) $
-#
-# COMMENT:	$Id: camelbox_functions.nsh 500 2008-10-27 08:55:59Z elspicyjack $
-#
+# COMMENT:  automatically generated file; edit at your own risk
+
 #==========================================================================
-# Copyright (c)2008 by Brian Manning <elspicyjack at gmail dot com>
-# 
+# Copyright (c) 2009 by Brian Manning <elspicyjack at gmail dot com>
+# For support with this software, visit the Camelbox Google Groups Page at:
+# http://groups.google.com/group/camelbox
+
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 1, or (at your option)
@@ -31,19 +32,6 @@
 var d_Shortcuts
 var dS_StatusBox
 var dialog_output
-var ini_counter
-
-# 1:link.lnk 2:target.exe 3:parameters 4:icon_file 5:icon_index_number
-# 6:start_options 7:keyboard_shortcut 8:description
-var directory
-var link
-var target
-var params
-var iconfile
-var iconidx
-var startopts
-var magickeys
-var description
 
 # custom page for displaying the status of shortcut creation
 Function ShortcutsDialog
@@ -68,69 +56,68 @@ Function ShortcutsDialog
 	# change the dialog background to white
 	SetCtlColors $dS_StatusBox "" 0xffffff
 
-	# $SMPROGRAMS is usually the Programs menu under the Start button
-	# 1:link.lnk 2:target.exe 3:parameters 4:icon_file 5:icon_index_number
-	# 6:start_options 7:keyboard_shortcut 8:description
-	
-	# open the INI file
-	# loop over it's contents; start at 1, section0 is the template in the ini
-	# file
-	
-
 	StrCpy $dialog_output "The following shortcuts were created:"
-	StrCpy $ini_counter "1"
 
-	# loop through the ini file and create shortcuts based on the list of files
-	# contained in that file
-	ReadINI:
-	ClearErrors
-	#StrCpy $ini_section "link-${ini_counter}"
-	ReadINIStr $directory ${SHORTCUT_INI} $ini_counter directory
+	# The CPAN Shell"
+	IfFileExists "$INSTDIR\bin\cpan.bat" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox"
+	CreateShortCut "$SMPROGRAMS\Camelbox\CPAN Shell.lnk" "$INSTDIR\bin\cpan.bat" "" "$INSTDIR\bin\wperl.exe" 0 SW_SHOWNORMAL "" "The CPAN Shell"
+	StrCpy $dialog_output "$dialog_output$\r$\nThe CPAN Shell"
 
-	ReadINIStr $link ${SHORTCUT_INI} $ini_counter link
-	ReadINIStr $target ${SHORTCUT_INI} $ini_counter target
-	ReadINIStr $params ${SHORTCUT_INI} $ini_counter params
-	ReadINIStr $iconfile ${SHORTCUT_INI} $ini_counter iconfile
-	ReadINIStr $iconidx ${SHORTCUT_INI} $ini_counter iconidx
-	ReadINIStr $startopts ${SHORTCUT_INI} $ini_counter startopts
-	ReadINIStr $magickeys ${SHORTCUT_INI} $ini_counter magickeys
-	ReadINIStr $description ${SHORTCUT_INI} $ini_counter description
-	IfErrors ShowDialog 0
-	# check if the target file exists
-	IfFileExists "$target" 0 ReadINI
-	# yep, create the directory for the shortcut
-	IfFileExists "$SMPROGRAMS\$directory\*.*" +2
-	CreateDirectory "$SMPROGRAMS\$directory"
-	# then create the shortcut in that directory
-	#CreateShortcut "$SMPROGRAMS\$directory\$link" "$target" "$params" \
-	#	"$iconfile" 1 "" "$magickeys" "$description"
+	# The zsh shell compiled for Windows"
+	IfFileExists "$INSTDIR\bin\sh.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox"
+	CreateShortCut "$SMPROGRAMS\Camelbox\zsh.lnk" "$INSTDIR\bin\sh.exe" "" "$INSTDIR\bin\sh.exe" 0 SW_SHOWNORMAL "" "The zsh shell compiled for Windows"
+	StrCpy $dialog_output "$dialog_output$\r$\nThe zsh shell compiled for Windows"
 
+	# ASCII Art Editor"
+	IfFileExists "$INSTDIR\bin\asciio.bat" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Applications"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Applications\Asciio.lnk" "$INSTDIR\bin\asciio.bat" "" "$SYSDIR\shell32.dll" 75 SW_SHOWNORMAL "" "ASCII Art Editor"
+	StrCpy $dialog_output "$dialog_output$\r$\nASCII Art Editor"
 
-	#CreateShortcut "$SMPROGRAMS\$directory\$link" $target $params \
-	#	$iconfile $iconidx $startopts $magickeys $description
-	#StrCpy $dialog_output "Shortcut for ini_section"
-	StrCpy $dialog_output "$dialog_output$\r$\n$ini_counter: $link -> $target"
-	StrCpy $dialog_output "$dialog_output$\r$\nIcon: $iconfile : $iconidx"
-	# increment the counter
-	IntOp $ini_counter $ini_counter + 1
-	Goto ReadINI
-	StrCpy $dialog_output "$dialog_output$\r$\nini counter is $ini_counter"
-	
-	# this always comes last
-	ShowDialog:
-	CreateShortcut "$SMPROGRAMS\Camelbox\CPAN Shell.lnk" \
-		"C:\camelbox\bin\cpan.bat" "" "C:\camelbox\bin\perl.exe" 0 \
-		"" "" "The Perl CPAN Shell"
-	CreateShortcut "$SMPROGRAMS\Camelbox\zsh.lnk" \
-		"C:\camelbox\bin\sh.exe" "" "C:\camelbox\bin\sh.exe" 0 \
-		"" "" "The zsh shell compiled for Windows"
-	CreateShortcut "$SMPROGRAMS\Camelbox\Glade-3.lnk" \
-		"C:\camelbox\bin\glade-3.exe" "" "C:\camelbox\bin\glade-3.exe" 0 \
-		"" "" "The Glade XML GUI Generation Toolkit"
-	CreateShortcut "$SMPROGRAMS\Camelbox\MySQL Client.lnk" \
-		"C:\camelbox\bin\mysql.exe" "" \
-		"C:\windows\system32\shell32.dll" 164 \
-		"" "" "MySQL Command Line Client"
+	# Perl POD Viewer"
+	IfFileExists "$INSTDIR\bin\podviewer.bat C:\camelbox\lib\pods\perl.pod" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Applications"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Applications\podviewer.lnk" "$INSTDIR\bin\podviewer.bat C:\camelbox\lib\pods\perl.pod" "" "$SYSDIR\shell32.dll" 134 SW_SHOWNORMAL "" "Perl POD Viewer"
+	StrCpy $dialog_output "$dialog_output$\r$\nPerl POD Viewer"
+
+	# MySQL Command Line Client"
+	IfFileExists "$INSTDIR\bin\mysql.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Database Tools"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Database Tools\MySQL Client.lnk" "$INSTDIR\bin\mysql.exe" "" "$SYSDIR\shell32.dll" 164 SW_SHOWNORMAL "" "MySQL Command Line Client"
+	StrCpy $dialog_output "$dialog_output$\r$\nMySQL Command Line Client"
+
+	# PostgreSQL Command Line Client"
+	IfFileExists "$INSTDIR\bin\psql.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Database Tools"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Database Tools\PostgreSQL Client.lnk" "$INSTDIR\bin\psql.exe" "" "$INSTDIR\bin\psql.exe" 0 SW_SHOWNORMAL "" "PostgreSQL Command Line Client"
+	StrCpy $dialog_output "$dialog_output$\r$\nPostgreSQL Command Line Client"
+
+	# Goo::Canvas Example: Perl Minesweeper"
+	IfFileExists "$INSTDIR\bin\perlmine.bat" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Demo Scripts"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Demo Scripts\perlmine.lnk" "$INSTDIR\bin\perlmine.bat" "" "$SYSDIR\shell32.dll" 208 SW_SHOWNORMAL "" "Goo::Canvas Example: Perl Minesweeper"
+	StrCpy $dialog_output "$dialog_output$\r$\nGoo::Canvas Example: Perl Minesweeper"
+
+	# Goo::Canvas Example: Perl Tetris"
+	IfFileExists "$INSTDIR\bin\perltetris.bat" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Demo Scripts"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Demo Scripts\perltetris.lnk" "$INSTDIR\bin\perltetris.bat" "" "$SYSDIR\shell32.dll" 189 SW_SHOWNORMAL "" "Goo::Canvas Example: Perl Tetris"
+	StrCpy $dialog_output "$dialog_output$\r$\nGoo::Canvas Example: Perl Tetris"
+
+	# Widget: Tk Widget Demo Script"
+	IfFileExists "$INSTDIR\bin\widget.bat" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Demo Scripts"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Demo Scripts\widget.lnk" "$INSTDIR\bin\widget.bat" "" "$SYSDIR\shell32.dll" 93 SW_SHOWNORMAL "" "Widget: Tk Widget Demo Script"
+	StrCpy $dialog_output "$dialog_output$\r$\nWidget: Tk Widget Demo Script"
+
+	# The Glade XML GUI Generation Toolkit"
+	IfFileExists "$INSTDIR\bin\glade-3.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Developer Tools"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Developer Tools\Glade-3.lnk" "$INSTDIR\bin\glade-3.exe" "" "$INSTDIR\bin\glade-3.exe" 0 SW_SHOWNORMAL "" "The Glade XML GUI Generation Toolkit"
+	StrCpy $dialog_output "$dialog_output$\r$\nThe Glade XML GUI Generation Toolkit"
+
 	${NSD_SetText} $dS_StatusBox $dialog_output
 	nsDialogs::Show
 
@@ -138,7 +125,14 @@ Function ShortcutsDialog
 
 	FailBail:
 		push $0
-		Call ErrorExit
+		Call ShortcutErrorExit
+FunctionEnd
+
+Function ShortcutErrorExit
+	# pop the error message off of the stack
+	pop $0
+	DetailPrint "Installer encountered the following fatal error:"
+	abort "$0; Aborting..."
 FunctionEnd
 
 # files with icons in them
@@ -167,6 +161,5 @@ Function CheckShortcutFileExists
 # - check that the shortcut file exists; if not, create it
 FunctionEnd
 
-
-
 # vim: filetype=nsis paste
+
