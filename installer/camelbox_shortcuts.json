@@ -160,8 +160,35 @@
             "iconidx": "224",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
-            "description": "Podviewer: perlsyn.pod - Perl Functions"
-        } // "POD: perlfunc"
+            "description": "Podviewer: perlfunc.pod - Perl Functions"
+        }, // "POD: perlfunc"
+        "POD: perlrun" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\podviewer $INSTDIR\\lib\\pods\\perlrun.pod",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "224",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Podviewer: perlrun.pod - Executing the Perl interpreter"
+        }, // "POD: perlrun"
+        "POD: perldata" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\podviewer $INSTDIR\\lib\\pods\\perldata.pod",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "224",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Podviewer: perldata.pod - Perl data types"
+        }, // "POD: perldata"
+        "POD: perlvar" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\bin\\podviewer $INSTDIR\\lib\\pods\\perlvar.pod",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "224",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Podviewer: perlvar.pod - Perl predefined variables"
+        } // "POD: perlvar"
 	}, // Camelbox\\Documentation
 	"Camelbox\\Internet Links" : {
         "Camelbox Homepage" : {

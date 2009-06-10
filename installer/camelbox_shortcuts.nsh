@@ -4,7 +4,7 @@
 #
 # AUTHOR:   shortcut_nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/shortcut_nsh_builder.pl)
-# DATE:     2009.160.0842Z 
+# DATE:     2009.161.0009Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -55,6 +55,12 @@ FunctionEnd
 
 # custom page for displaying the status of shortcut creation
 Function ShortcutsDialog
+	# do we need to create icons?
+	StrCmp $createBinaryIcons "true" NiceExit 0	
+
+	# create the URLs
+	call CreateCamelboxURLs
+
 	# http://forums.winamp.com/showthread.php?threadid=297163
 	# every time you use a nsDialogs macro, you need to pop the return value
 	# off of the stack; sometimes you can save and reuse this value (it's a
@@ -144,11 +150,17 @@ Function ShortcutsDialog
 	CreateShortCut "$SMPROGRAMS\Camelbox\Documentation\POD: perl.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\podviewer $INSTDIR\lib\pods\perl.pod" "$SYSDIR\shell32.dll" 224 SW_SHOWNORMAL "" "Podviewer: perl.pod - Practical Extraction and Reporting Language"
 	StrCpy $dialog_output "$dialog_output$\r$\nPodviewer: perl.pod - Practical Extraction and Reporting Language"
 
-	# Podviewer: perlsyn.pod - Perl Functions
+	# Podviewer: perldata.pod - Perl data types
 	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
 	CreateDirectory "$SMPROGRAMS\Camelbox\Documentation"
-	CreateShortCut "$SMPROGRAMS\Camelbox\Documentation\POD: perlfunc.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\podviewer $INSTDIR\lib\pods\perlfunc.pod" "$SYSDIR\shell32.dll" 224 SW_SHOWNORMAL "" "Podviewer: perlsyn.pod - Perl Functions"
-	StrCpy $dialog_output "$dialog_output$\r$\nPodviewer: perlsyn.pod - Perl Functions"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Documentation\POD: perldata.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\podviewer $INSTDIR\lib\pods\perldata.pod" "$SYSDIR\shell32.dll" 224 SW_SHOWNORMAL "" "Podviewer: perldata.pod - Perl data types"
+	StrCpy $dialog_output "$dialog_output$\r$\nPodviewer: perldata.pod - Perl data types"
+
+	# Podviewer: perlfunc.pod - Perl Functions
+	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Documentation"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Documentation\POD: perlfunc.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\podviewer $INSTDIR\lib\pods\perlfunc.pod" "$SYSDIR\shell32.dll" 224 SW_SHOWNORMAL "" "Podviewer: perlfunc.pod - Perl Functions"
+	StrCpy $dialog_output "$dialog_output$\r$\nPodviewer: perlfunc.pod - Perl Functions"
 
 	# Podviewer: perlintro.pod - Introduction to Perl
 	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
@@ -156,11 +168,23 @@ Function ShortcutsDialog
 	CreateShortCut "$SMPROGRAMS\Camelbox\Documentation\POD: perlintro.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\podviewer $INSTDIR\lib\pods\perlintro.pod" "$SYSDIR\shell32.dll" 224 SW_SHOWNORMAL "" "Podviewer: perlintro.pod - Introduction to Perl"
 	StrCpy $dialog_output "$dialog_output$\r$\nPodviewer: perlintro.pod - Introduction to Perl"
 
+	# Podviewer: perlrun.pod - Executing the Perl interpreter
+	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Documentation"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Documentation\POD: perlrun.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\podviewer $INSTDIR\lib\pods\perlrun.pod" "$SYSDIR\shell32.dll" 224 SW_SHOWNORMAL "" "Podviewer: perlrun.pod - Executing the Perl interpreter"
+	StrCpy $dialog_output "$dialog_output$\r$\nPodviewer: perlrun.pod - Executing the Perl interpreter"
+
 	# Podviewer: perlsyn.pod - Perl Syntax
 	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
 	CreateDirectory "$SMPROGRAMS\Camelbox\Documentation"
 	CreateShortCut "$SMPROGRAMS\Camelbox\Documentation\POD: perlsyn.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\podviewer $INSTDIR\lib\pods\perlsyn.pod" "$SYSDIR\shell32.dll" 224 SW_SHOWNORMAL "" "Podviewer: perlsyn.pod - Perl Syntax"
 	StrCpy $dialog_output "$dialog_output$\r$\nPodviewer: perlsyn.pod - Perl Syntax"
+
+	# Podviewer: perlvar.pod - Perl predefined variables
+	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Documentation"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Documentation\POD: perlvar.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\podviewer $INSTDIR\lib\pods\perlvar.pod" "$SYSDIR\shell32.dll" 224 SW_SHOWNORMAL "" "Podviewer: perlvar.pod - Perl predefined variables"
+	StrCpy $dialog_output "$dialog_output$\r$\nPodviewer: perlvar.pod - Perl predefined variables"
 
 	# Search the CPAN Website
 	IfFileExists "$INSTDIR\share\urls\CPAN_Search.URL" 0 +3
@@ -200,6 +224,8 @@ Function ShortcutsDialog
 	FailBail:
 		push $0
 		Call ShortcutErrorExit
+	NiceExit:
+		Return
 FunctionEnd
 
 Function ShortcutErrorExit

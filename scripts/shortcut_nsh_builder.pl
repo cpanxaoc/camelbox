@@ -176,6 +176,12 @@ FunctionEnd
 
 # custom page for displaying the status of shortcut creation
 Function ShortcutsDialog
+	# do we need to create icons?
+	StrCmp $createBinaryIcons "true" NiceExit 0	
+
+	# create the URLs
+	call CreateCamelboxURLs
+
 	# http://forums.winamp.com/showthread.php?threadid=297163
 	# every time you use a nsDialogs macro, you need to pop the return value
 	# off of the stack; sometimes you can save and reuse this value (it's a
@@ -220,6 +226,8 @@ sub footer {
 	FailBail:
 		push $0
 		Call ShortcutErrorExit
+	NiceExit:
+		Return
 FunctionEnd
 
 Function ShortcutErrorExit

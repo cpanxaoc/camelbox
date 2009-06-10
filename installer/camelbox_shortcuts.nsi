@@ -107,14 +107,13 @@ InstallDir "${INSTALL_PATH}"
 !include "nsDialogs.nsh"
 #!include "camelbox_functions.nsh"	# functions used by all scripts
 !include "camelbox_shortcuts.nsh"
+# the flag for creating icons
+!define createBinaryIcons "true"
 
 #### PAGES ####
-#Page Directory
-Page custom CreateCamelboxURLs
 Page custom ShortcutsDialog
-#UninstPage uninstConfirm
-#UninstPage RemoveShortcutsAndReadme
-Section # dummy section to keep NSIS happy
+Section "-CreateCamelboxURLs"
+	Call CreateCamelboxURLs
 SectionEnd
 
 # vim: filetype=nsis paste
