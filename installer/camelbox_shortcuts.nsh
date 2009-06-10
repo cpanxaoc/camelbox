@@ -4,7 +4,7 @@
 #
 # AUTHOR:   shortcut_nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/shortcut_nsh_builder.pl)
-# DATE:     2009.161.0009Z 
+# DATE:     2009.161.0650Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -55,8 +55,12 @@ FunctionEnd
 
 # custom page for displaying the status of shortcut creation
 Function ShortcutsDialog
+
+	# does the camelbox home directory exist?
+	IfFileExists $INSTDIR\*.* 0 NiceExit
+	
 	# do we need to create icons?
-	StrCmp $createBinaryIcons "true" NiceExit 0	
+	StrCmp $createCamelboxIcons "true" NiceExit 0	
 
 	# create the URLs
 	call CreateCamelboxURLs

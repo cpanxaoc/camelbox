@@ -35,17 +35,36 @@ var archivemd5sum
 # what the name of the section is, for use with the downloader/unpacker
 var sectionname
 
+# Variables used with creating icons
+# create Windows program group
+#var createProgramGroup
+
+# flag for other functions
+var createCamelboxIcons
+# create binary icons
+# dialog control
+var dialogCreateBinaryIcons
+# state of the dialog control
+var createBinaryIcons_state
+# create demo icons
+#var createDemoIcons 
+#var createDemoIcons_state
+# create icons to docs on the web
+#var createDocsIcons
+#var createDocsIcons_state
+
 # open the Using Camelbox page after the install?
 var dialogOpenUsingCamelbox
+var openUsingCamelbox_state
 
 #### FUNCTIONS ####
 
 # initialization of any dialogs
 Function .onInit
 	StrCpy $dialogOpenUsingCamelbox "false"
-	StrCpy $dialogCreateBinaryIcons_state ${BST_UNCHECKED}
-	StrCpy $createDemoIcons_state ${BST_UNCHECKED}
-	StrCpy $createDocsIcons ${BST_UNCHECKED} 
+	StrCpy $createBinaryIcons_state ${BST_UNCHECKED}
+	#StrCpy $createDemoIcons_state ${BST_UNCHECKED}
+	#StrCpy $createDocsIcons ${BST_UNCHECKED} 
 
 	# added from http://nsis.sourceforge.net/Allow_only_one_installer_instance
   	BringToFront
@@ -213,41 +232,34 @@ Function CheckProgramGroupState
 	${NSD_GetState} $0 $1
 	StrCmp $1 ${BST_CHECKED} EnableIconCheckboxes DisableIconCheckboxes
 	EnableIconCheckboxes:
-		EnableWindow $dialogCreateBinaryIcons 1
-		${NSD_SetState} $dialogCreateBinaryIcons $dialogCreateBinaryIcons_state
-		EnableWindow $createDemoIcons 1
-		${NSD_SetState} $createDemoIcons $createDemoIcons_state
-		EnableWindow $createDocsIcons 1
-		${NSD_SetState} $createDocsIcons $createDocsIcons_state
-		Goto CheckProgramGroupStateExit
+		${NSD_SetState} $dialogCreateBinaryIcons $createBinaryIcons_state
+		EnableWindow $dialogCreateDemoIcons 1
+		#${NSD_SetState} $createDemoIcons $createDemoIcons_state
+		#EnableWindow $createDocsIcons 1
+		#${NSD_SetState} $createDocsIcons $createDocsIcons_state
+		#Goto CheckProgramGroupStateExit
 	DisableIconCheckboxes:
 		# binary icons checkbox
-		${NSD_GetState} $dialogCreateBinaryIcons $0
-		StrCpy $dialogCreateBinaryIcons_state $0
-		${NSD_SetState} $dialogCreateBinaryIcons ${BST_UNCHECKED}
-		EnableWindow $dialogCreateBinaryIcons 0
+		${NSD_GetState} $createBinaryIcons $0
+		StrCpy $createBinaryIcons_state $0
+		${NSD_SetState} $createBinaryIcons ${BST_UNCHECKED}
+		EnableWindow $createBinaryIcons 0
 		# demo icons checkbox
-		${NSD_GetState} $createDemoIcons $0
-		StrCpy $createDemoIcons_state $0
-		${NSD_SetState} $createDemoIcons ${BST_UNCHECKED}
-		EnableWindow $createDemoIcons 0
+		#${NSD_GetState} $createDemoIcons $0
+		#StrCpy $createDemoIcons_state $0
+		#${NSD_SetState} $createDemoIcons ${BST_UNCHECKED}
+		#EnableWindow $createDemoIcons 0
 		# docs icons checkbox
-		${NSD_GetState} $createDocsIcons $0
-		StrCpy $createDocsIcons_state $0
-		${NSD_SetState} $createDocsIcons ${BST_UNCHECKED}
-		EnableWindow $createDocsIcons 0
+		#${NSD_GetState} $createDocsIcons $0
+		#StrCpy $createDocsIcons_state $0
+		#${NSD_SetState} $createDocsIcons ${BST_UNCHECKED}
+		#EnableWindow $createDocsIcons 0
 	CheckProgramGroupStateExit:
 FunctionEnd
 
 # Variables used with creating icons
 # create Windows program group
 var dialogCreateProgramGroup
-# create binary icons
-var dialogCreateBinaryIcons
-var createBinaryIcons
-
-
-var openUsingCamelbox
 
 # parse the docs/shortcuts installer page and respond appropriately
 Function ShortcutsAndReadme
@@ -266,12 +278,12 @@ Function ShortcutsAndReadme
 	${NSD_CreateCheckBox} 10u 15u 100% 13u \
 		"Create icons to Camelbox binaries?"
 	pop $dialogCreateBinaryIcons
-	EnableWindow $dialogCreateBinaryIcons 0
+	EnableWindow $dialogCreateBinaryIcons 1
 
 	${NSD_CreateCheckBox} 0 30u 100% 13u \
 	"Open the 'Using Camelbox' page in a web browser after install is complete?"
 	pop $dialogOpenUsingCamelbox
-	EnableWindow $dialogOpenUsingCamelbox 0
+	EnableWindow $dialogOpenUsingCamelbox 1
 
 	#${NSD_CreateCheckBox} 10u 30u 100% 13u \
 	#	"Create icons to demos and examples?"
@@ -297,16 +309,16 @@ FunctionEnd # ShortcutsAndReadme
 # scrape the user's answer out of the text box
 Function ShortcutsAndReadmeLeave
 	# get the state of the icons control
-	${NSD_GetState} $dialogCreateBinaryIcons $dialogCreateBinaryIcons
+	${NSD_GetState} $dialogCreateBinaryIcons $createBinaryIcons_state
 	# compare it against the 'checked' macro
-	StrCmp 	$dialogCreateBinaryIcons ${BST_CHECKED} 0 +2
+	StrCmp 	$createBinaryIcons_state ${BST_CHECKED} 0 CheckOpenUsing
 		# yep, it was checked, change it
-		StrCpy $createBinaryIcons "true"
-	call 
+		StrCpy $createCamelboxIcons "true"
+	CheckOpenUsing:
 	# get the state of the open using camelbox webpage control
-	${NSD_GetState} $dialogOpenUsingCamelbox $dialogOpenUsingCamelbox
+	${NSD_GetState} $dialogOpenUsingCamelbox $openUsingCamelbox_state
 	# compare it against the 'checked' macro
-	StrCmp 	$dialogOpenUsingCamelbox ${BST_CHECKED} 0 +2
+	StrCmp 	$openUsingCamelbox_state ${BST_CHECKED} 0 +2
 		# yep, it was checked, fork a browser window open
 		Exec "$PROGRAMFILES\Internet Explorer\iexplore.exe C:\camelbox\share\urls\Using_Camelbox.URL"
 FunctionEnd # ShortcutsAndReadmeLeave
