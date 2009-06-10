@@ -153,7 +153,7 @@ sub sec_environmentvariables {
 
     print $OUT_FH <<'HEREDOC'
 
-SectionGroup /e "Environment Variables"
+SectionGroup /e "Camelbox Environment"
     Section "Add Camelbox to PATH variable"
         SectionIn 1 2 3 4 5 6 7 8 9
         StrCpy $1 "$INSTDIR\bin"

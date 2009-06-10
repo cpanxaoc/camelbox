@@ -176,8 +176,12 @@ FunctionEnd
 
 # custom page for displaying the status of shortcut creation
 Function ShortcutsDialog
+
+	# does the camelbox home directory exist?
+	IfFileExists $INSTDIR\*.* 0 NiceExit
+	
 	# do we need to create icons?
-	StrCmp $createBinaryIcons "true" NiceExit 0	
+	StrCmp $createCamelboxIcons "true" NiceExit 0	
 
 	# create the URLs
 	call CreateCamelboxURLs
