@@ -161,7 +161,22 @@ SectionGroup /e "Camelbox Environment"
         DetailPrint "Adding to %PATH%: $1"
         Call AddToPath
     SectionEnd
-SectionGroupEnd ; "Environment Variables"
+	Section "Create Camelbox URL Files"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Camelbox URL Files"
+		Call CreateCamelboxURLs
+	SectionEnd
+	Section "Create Perl URL Files"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Perl URL Files"
+		Call CreatePerlURLs
+	SectionEnd
+	Section "Create Start Menu Shortcuts"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Start Menu Shortcuts"
+		Call CreateCamelboxShortcuts
+	SectionEnd
+SectionGroupEnd ; "Camelbox Environment"
 HEREDOC
 } # sub sec_environmentvariables
 
@@ -182,8 +197,12 @@ Section "Uninstall"
     DetailPrint "Removing from %PATH%: $1"
     Call un.RemoveFromPath
     # then delete the other files/directories
+    DetailPrint "Removing Camelbox Start Menu"
+	IfFileExists "${SMPROGRAMS}\Camelbox\*.*" 0 +2
+		RMDir /r ${SMPROGRAMS}\Camelbox
     DetailPrint "Removing ${INSTALL_PATH}"
-    RMDir /r ${INSTALL_PATH}
+	IfFileExists "${INSTALL_PATH}\*.*" 0 +2
+    	RMDir /r ${INSTALL_PATH}
 SectionEnd ; Uninstall
 HEREDOC
 } # sub sec_uninstall
@@ -193,6 +212,15 @@ sub footer {
     my $OUT_FH = $self->{output_filehandle};
 
     print $OUT_FH <<'HEREDOC'
+Section "-Open Browser"
+	StrCmp 	$openUsingCamelbox_state ${BST_CHECKED} 0 ExitOpen
+		# yep, it was checked, fork a browser window open
+		IfFileExists "C:\camelbox\share\urls\Using_Camelbox.URL" 0 ExitOpen 
+			Exec "$PROGRAMFILES\Internet Explorer\iexplore.exe C:\camelbox\share\urls\Using_Camelbox.URL"
+	ExitOpen:
+		Return
+SectionEnd
+
 # blank subsection
 #   Section "some-package (extra notes, etc.)"
 #       AddSize  # kilobytes

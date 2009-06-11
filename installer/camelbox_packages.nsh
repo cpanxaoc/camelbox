@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2009.145.0227Z 
+# DATE:     2009.162.0231Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -653,7 +653,7 @@ SectionGroup "Documentation and Examples"
     SectionEnd ; perl-gtk2-goo-canvas-examples
 SectionGroupEnd ; Documentation and Examples
 
-SectionGroup /e "Environment Variables"
+SectionGroup /e "Camelbox Environment"
     Section "Add Camelbox to PATH variable"
         SectionIn 1 2 3 4 5 6 7 8 9
         StrCpy $1 "$INSTDIR\bin"
@@ -661,7 +661,22 @@ SectionGroup /e "Environment Variables"
         DetailPrint "Adding to %PATH%: $1"
         Call AddToPath
     SectionEnd
-SectionGroupEnd ; "Environment Variables"
+	Section "Create Camelbox URL Files"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Camelbox URL Files"
+		Call CreateCamelboxURLs
+	SectionEnd
+	Section "Create Perl URL Files"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Perl URL Files"
+		Call CreatePerlURLs
+	SectionEnd
+	Section "Create Start Menu Shortcuts"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Start Menu Shortcuts"
+		Call CreateCamelboxShortcuts
+	SectionEnd
+SectionGroupEnd ; "Camelbox Environment"
 
 Section "Uninstall"
     SectionIn RO
@@ -675,9 +690,22 @@ Section "Uninstall"
     DetailPrint "Removing from %PATH%: $1"
     Call un.RemoveFromPath
     # then delete the other files/directories
+    DetailPrint "Removing Camelbox Start Menu"
+	IfFileExists "${SMPROGRAMS}\Camelbox\*.*" 0 +2
+		RMDir /r ${SMPROGRAMS}\Camelbox
     DetailPrint "Removing ${INSTALL_PATH}"
-    RMDir /r ${INSTALL_PATH}
+	IfFileExists "${INSTALL_PATH}\*.*" 0 +2
+    	RMDir /r ${INSTALL_PATH}
 SectionEnd ; Uninstall
+
+Section "-Open Browser"
+	StrCmp 	$openUsingCamelbox_state ${BST_CHECKED} 0 ExitOpen
+		# yep, it was checked, fork a browser window open
+		IfFileExists "C:\camelbox\share\urls\Using_Camelbox.URL" 0 ExitOpen 
+			Exec "$PROGRAMFILES\Internet Explorer\iexplore.exe C:\camelbox\share\urls\Using_Camelbox.URL"
+	ExitOpen:
+		Return
+SectionEnd
 
 # blank subsection
 #   Section "some-package (extra notes, etc.)"

@@ -149,65 +149,14 @@ HEADER
 # Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #==========================================================================
 
-# for the StartPage
-var d_Shortcuts
-var dS_StatusBox
-var dialog_output
-
-# Always create Camelbox URLs
-Function CreateCamelboxURLs
-	# create a directory for holding URLs
-	# The camelbox_shortcuts.json file will have the path to the URL files
-	# below, so that shortcuts to the URLs will be created automatically
-	CreateDirectory "$INSTDIR\share\urls"
-	WriteINIStr "$INSTDIR\share\urls\Camelbox_Home_Page.URL" \
-		"InternetShortcut" "URL" "http://code.google.com/p/camelbox/"
-	WriteINIStr "$INSTDIR\share\urls\Camelbox_FAQ.URL" \
-		"InternetShortcut" "URL" "http://code.google.com/p/camelbox/wiki/FAQ"
-	WriteINIStr "$INSTDIR\share\urls\Using_Camelbox.URL" \
-		"InternetShortcut" "URL" \
-		"http://code.google.com/p/camelbox/wiki/UsingCamelbox"
-	WriteINIStr "$INSTDIR\share\urls\Camelbox_Versions.URL" \
-		"InternetShortcut" "URL" \
-		"http://code.google.com/p/camelbox/source/browse/trunk/filelists/_version_list.txt"
-	WriteINIStr "$INSTDIR\share\urls\CPAN_Search.URL" \
-		"InternetShortcut" "URL" "http://search.cpan.org"
-FunctionEnd
 
 # custom page for displaying the status of shortcut creation
-Function ShortcutsDialog
+Function CreateCamelboxShortcuts
 
 	# does the camelbox home directory exist?
 	IfFileExists $INSTDIR\*.* 0 NiceExit
 	
-	# do we need to create icons?
-	StrCmp $createCamelboxIcons "true" NiceExit 0	
-
-	# create the URLs
-	call CreateCamelboxURLs
-
-	# http://forums.winamp.com/showthread.php?threadid=297163
-	# every time you use a nsDialogs macro, you need to pop the return value
-	# off of the stack; sometimes you can save and reuse this value (it's a
-	# reference to a dialog window for example)
-	nsDialogs::Create /NOUNLOAD 1018
-	Pop $d_Shortcuts
-
-	# coordinates for dialogs
-	# 1 - some number; see docs
-	# 2 - horizontal offset
-	# 3 - vertical offset
-	# 4 - box width
-	# 5 - box height
-
-	nsDialogs::CreateControl /NOUNLOAD ${__NSD_Text_CLASS} ${DEFAULT_STYLES}|${WS_TABSTOP}|${ES_AUTOHSCROLL}|${ES_MULTILINE}|${WS_VSCROLL} ${__NSD_Text_EXSTYLE} 0 13u 100% -13u ""
-	#${NSD_CreateText} 0 13u 100% -13u ""
-	pop $dS_StatusBox
-
-	# change the dialog background to white
-	SetCtlColors $dS_StatusBox "" 0xffffff
-
-	StrCpy $dialog_output "The following shortcuts were created:"
+	DetailPrint "The following shortcuts were created:"
 
 MOREHEADER
 } 
@@ -222,17 +171,13 @@ sub footer {
     my $self = shift;
     my $OUT_FH = $self->{output_filehandle};
     print $OUT_FH <<'FOOTER';
-	${NSD_SetText} $dS_StatusBox $dialog_output
-	nsDialogs::Show
-
-#	Call CreateShortcuts
-
+	# this skips over the failbail
+	NiceExit:
+		Return
 	FailBail:
 		push $0
 		Call ShortcutErrorExit
-	NiceExit:
-		Return
-FunctionEnd
+FunctionEnd # CreateCamelboxShortcuts
 
 Function ShortcutErrorExit
 	# pop the error message off of the stack
@@ -414,11 +359,15 @@ sub write {
 	my %args = @_;
 
 	print qq(\t# ) . $self->get( key => q(description) ) . qq(\n);
+	# check to see if the target file exists
     print qq(\tIfFileExists ") . $self->get( key => q(target) ) . qq(" 0 +3\n);
-    # FIXME add the link target to these next two
-    #print qq(\tCreateDirectory ") . $self->get( key => q(target) ) . qq("\n);
+	# if so, create the start menu folder
     print qq(\tCreateDirectory ) . q("$SMPROGRAMS\\) 
 		. $args{program_group} . qq("\n);
+	# write something out in the installer window
+	print qq(\t) . q(DetailPrint ") . $self->get( key => q(description) ) 
+		. qq("\n);	
+	# then create a shortcut in that folder
     print qq(\tCreateShortCut )
         #. $self->get( key => q(link) )
 		. q("$SMPROGRAMS\\) . $args{program_group} 
@@ -431,8 +380,6 @@ sub write {
         . $self->get( key => q(startopts) ) . q( ")
         . $self->get( key => q(magickeys) ) . q(" ")
         . $self->get( key => q(description) ) . qq("\n);
-	print qq(\t) . q(StrCpy $dialog_output "$dialog_output$\r$\n) 
-		. $self->get( key => q(description) ) . qq("\n);
 	print qq(\n);
 } # sub write 
 

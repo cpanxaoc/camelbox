@@ -43,7 +43,16 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "The zsh shell compiled for Windows"
-        } // "zsh"
+        }, // "zsh"
+        "Camelbox Uninstaller" : {
+            "target": "$INSTDIR\\camelbox_uninstaller.exe",
+            "params": "",
+            "iconfile": "$INSTDIR\\camelbox_uninstaller.exe",
+            "iconidx": "0",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Uninstall Camelbox"
+        } // "Camelbox Uninstaller"
     }, // "Camelbox" program group
     "Camelbox\\Developer Tools": {
         "Glade-3" : {
@@ -190,7 +199,7 @@
             "description": "Podviewer: perlvar.pod - Perl predefined variables"
         } // "POD: perlvar"
 	}, // Camelbox\\Documentation
-	"Camelbox\\Internet Links" : {
+	"Camelbox\\Websites\\Camelbox" : {
         "Camelbox Homepage" : {
             "target": "$INSTDIR\\share\\urls\\Camelbox_Home_Page.URL",
             "params": "",
@@ -226,17 +235,37 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Camelbox Versions file in SVN"
-        }, // "Camelbox File Versions"
-        "CPAN Search" : {
-            "target": "$INSTDIR\\share\\urls\\CPAN_Search.URL",
+        } // "Camelbox File Versions"
+	}, // Camelbox\\Websites\\Camelbox
+	"Camelbox\\Websites\\Perl" : {
+        "Perldoc Documentation" : {
+            "target": "$INSTDIR\\share\\urls\\Perldoc.URL",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "13",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
-            "description": "Search the CPAN Website"
-        } // "Camelbox File Versions"
-	} // Camelbox\\Internet Links
+            "description": "Perl 5.10.0 online documentation"
+        }, // "Perldoc Documentation"
+        "Perl Monks" : {
+            "target": "$INSTDIR\\share\\urls\\PerlMonks.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Perl Monks, a place for users of Perl"
+        }, // "Perl Monks"
+        "CPAN Search" : {
+            "target": "$INSTDIR\\share\\urls\\CPANSearch.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Search the CPAN Archive"
+        } // "CPAN Search"
+	} // Camelbox\\Web Pages \\Perl
 } // JSON data block
 
 // fin vim: filetype=javascript

@@ -109,6 +109,8 @@ LicenseData "${LICENSE_FILE}" 		# 4.8.1.26
 !include "nsDialogs.nsh"
 !include "camelbox_functions.nsh"	# functions used by all scripts
 !include "camelbox_packages.nsh"  	# the list of package archives
+!include "camelbox_shortcuts.nsh"	# shortcuts in the Start Menu
+!include "camelbox_urls.nsh"		# functions that create URL files
 
 #### PAGES ####
 Page custom StartPage
@@ -118,15 +120,10 @@ Page Components
 # let the user choose the install directory
 #Page Directory
 Page InstFiles
-Page custom ShortcutsAndReadme
 UninstPage uninstConfirm
 UninstPage InstFiles
 
 #### INSTALL TYPES ####
-# full install
-# full install + DB support
-# developer install
-# bloatware install
 InstType "The Starter - Perl, GTK, DB libs"
 InstType "The Step Up - The Starter with extra tools/libs"
 InstType "The Developer - The Step Up with dev tools"

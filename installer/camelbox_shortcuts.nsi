@@ -107,13 +107,38 @@ InstallDir "${INSTALL_PATH}"
 !include "nsDialogs.nsh"
 #!include "camelbox_functions.nsh"	# functions used by all scripts
 !include "camelbox_shortcuts.nsh"
-# the flag for creating icons
-!define createBinaryIcons "true"
+!include "camelbox_urls.nsh"		# functions that create URL files
 
 #### PAGES ####
-Page custom ShortcutsDialog
-Section "-CreateCamelboxURLs"
-	Call CreateCamelboxURLs
-SectionEnd
+#Page custom ShortcutsDialog
+Page Components
+Page InstFiles
+
+SectionGroup /e "Camelbox Environment"
+	Section "Create Camelbox URL Files"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Camelbox URL Files"
+		Call CreateCamelboxURLs
+	SectionEnd
+	Section "Create Perl URL Files"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Perl URL Files"
+		Call CreatePerlURLs
+	SectionEnd
+	Section "Create Start Menu Shortcuts"
+        SectionIn 1 2 3 4 5 6 7 8
+		DetailPrint "Creating Start Menu Shortcuts"
+		Call CreateCamelboxShortcuts
+	SectionEnd
+SectionGroupEnd ; "Camelbox Environment"
+
+InstType "The Starter - Perl, GTK, DB libs"
+InstType "The Step Up - The Starter with extra tools/libs"
+InstType "The Developer - The Step Up with dev tools"
+InstType "The Bloatware - The Whole Enchilada"
+InstType "The Basics - Perl Only"
+InstType "The Basics - Perl with All Non-GTK Modules"
+InstType "The Basics - Perl with Database Support only"
+InstType "The Vapourware - Nothing"
 
 # vim: filetype=nsis paste
