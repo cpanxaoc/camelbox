@@ -2,11 +2,8 @@
 #
 # TYPE:     NSIS header/include file
 #
-# AUTHOR:   shortcut_nsh_builder.pl 
-# (http://code.google.com/p/camelbox/source/browse/trunk/scripts/shortcut_nsh_builder.pl)
+# AUTHOR:   Brian Manning <elspicyjack at gmail dot com>
 # DATE:     2009.162.0134Z 
-#
-# COMMENT:  automatically generated file; edit at your own risk
 
 #==========================================================================
 # Copyright (c) 2009 by Brian Manning <elspicyjack at gmail dot com>
@@ -49,6 +46,19 @@ Function CreateCamelboxURLs
 FunctionEnd # CreateCamelboxURLs
 
 Function CreatePerlURLs
+	IfFileExists "$INSTDIR\share\urls\*.*" SkipURLDir 0
+	# create the URL directory if it hasn't already been created
+	CreateDirectory "$INSTDIR\share\urls"
+	SkipURLDir:
+	WriteINIStr "$INSTDIR\share\urls\CPANSearch.URL" \
+		"InternetShortcut" "URL" "http://search.cpan.org"
+	WriteINIStr "$INSTDIR\share\urls\Perldoc.URL" \
+		"InternetShortcut" "URL" "http://perldoc.perl.org"
+	WriteINIStr "$INSTDIR\share\urls\PerlMonks.URL" \
+		"InternetShortcut" "URL" "http://www.perlmonks.org"
+FunctionEnd # CreatePerlURLs
+
+Function CreateGtk2PerlURLs
 	IfFileExists "$INSTDIR\share\urls\*.*" SkipURLDir 0
 	# create the URL directory if it hasn't already been created
 	CreateDirectory "$INSTDIR\share\urls"
