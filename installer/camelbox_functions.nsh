@@ -200,7 +200,7 @@ Function ChooseHTTPServer
 	# get the state of the control
 	${NSD_GetState} $ctlKeepArchives $keepArchives_state
 	# compare it against the 'checked' macro
-	StrCmp $keepDownloadedArchives "true" 0 EnableKeepArchives
+	StrCmp $keepArchives_state "true" 0 EnableKeepArchives
 		# yep, it was checked, change it
 		${NSD_SetState} $ctlKeepArchives ${BST_CHECKED}
 	EnableKeepArchives:
@@ -275,7 +275,7 @@ Function SnarfUnpack
     	#StrCmp $0 "OK" 0 FailBail
     	StrCmp $R0 "success" 0 FailBail
     	# don't delete archive files if the user asked to keep them
-    	StrCmp $keepDownloadedArchives "true" +3 0
+    	StrCmp $keepArchives_state "true" +3 0
     	delete "$INSTDIR\$archivefile"
 		IfErrors DeleteError 0
     	# if we've been successful, exit now

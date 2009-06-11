@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2009.162.0231Z 
+# DATE:     2009.162.0849Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -691,11 +691,12 @@ Section "Uninstall"
     Call un.RemoveFromPath
     # then delete the other files/directories
     DetailPrint "Removing Camelbox Start Menu"
-	IfFileExists "${SMPROGRAMS}\Camelbox\*.*" 0 +2
-		RMDir /r ${SMPROGRAMS}\Camelbox
+	IfFileExists "$SMPROGRAMS\Camelbox\*.*" 0 ExitNice
+		RMDir /r $SMPROGRAMS\Camelbox
     DetailPrint "Removing ${INSTALL_PATH}"
-	IfFileExists "${INSTALL_PATH}\*.*" 0 +2
+	IfFileExists "${INSTALL_PATH}\*.*" 0 ExitNice 
     	RMDir /r ${INSTALL_PATH}
+	ExitNice:
 SectionEnd ; Uninstall
 
 Section "-Open Browser"

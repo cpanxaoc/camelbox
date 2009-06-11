@@ -198,11 +198,12 @@ Section "Uninstall"
     Call un.RemoveFromPath
     # then delete the other files/directories
     DetailPrint "Removing Camelbox Start Menu"
-	IfFileExists "${SMPROGRAMS}\Camelbox\*.*" 0 +2
-		RMDir /r ${SMPROGRAMS}\Camelbox
+	IfFileExists "$SMPROGRAMS\Camelbox\*.*" 0 ExitNice
+		RMDir /r $SMPROGRAMS\Camelbox
     DetailPrint "Removing ${INSTALL_PATH}"
-	IfFileExists "${INSTALL_PATH}\*.*" 0 +2
+	IfFileExists "${INSTALL_PATH}\*.*" 0 ExitNice 
     	RMDir /r ${INSTALL_PATH}
+	ExitNice:
 SectionEnd ; Uninstall
 HEREDOC
 } # sub sec_uninstall
