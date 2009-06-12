@@ -277,9 +277,16 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Gtk2-Perl Home Page"
-        }, // "Perldoc Documentation"
-        "Perl Monks" : {
-        }, //
+        }, // "Gtk2-Perl Homepage"
+        "Gtk2-Perl POD Documentation" : {
+            "target": "$INSTDIR\\share\\urls\\Gtk2-Perl.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2-Perl Home Page"
+        }, // "Gtk2-Perl Homepage"
         // FIXME 
         // add:
         // - Gtk2-Perl POD Documentation
