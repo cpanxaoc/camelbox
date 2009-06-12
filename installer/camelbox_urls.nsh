@@ -50,12 +50,12 @@ Function CreatePerlURLs
 	# create the URL directory if it hasn't already been created
 	CreateDirectory "$INSTDIR\share\urls"
 	SkipURLDir:
-	WriteINIStr "$INSTDIR\share\urls\CPANSearch.URL" \
-		"InternetShortcut" "URL" "http://search.cpan.org"
 	WriteINIStr "$INSTDIR\share\urls\Perldoc.URL" \
 		"InternetShortcut" "URL" "http://perldoc.perl.org"
 	WriteINIStr "$INSTDIR\share\urls\PerlMonks.URL" \
 		"InternetShortcut" "URL" "http://www.perlmonks.org"
+	WriteINIStr "$INSTDIR\share\urls\CPANSearch.URL" \
+		"InternetShortcut" "URL" "http://search.cpan.org"
 FunctionEnd # CreatePerlURLs
 
 Function CreateGtk2PerlURLs
@@ -63,12 +63,32 @@ Function CreateGtk2PerlURLs
 	# create the URL directory if it hasn't already been created
 	CreateDirectory "$INSTDIR\share\urls"
 	SkipURLDir:
-	WriteINIStr "$INSTDIR\share\urls\CPANSearch.URL" \
-		"InternetShortcut" "URL" "http://search.cpan.org"
-	WriteINIStr "$INSTDIR\share\urls\Perldoc.URL" \
-		"InternetShortcut" "URL" "http://perldoc.perl.org"
-	WriteINIStr "$INSTDIR\share\urls\PerlMonks.URL" \
-		"InternetShortcut" "URL" "http://www.perlmonks.org"
-FunctionEnd # CreatePerlURLs
+	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl.URL" \
+		"InternetShortcut" "URL" "http://gtk2-perl.sourceforge.net/"
+	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl-POD.URL" \
+		"InternetShortcut" "URL" \
+        "http://http://gtk2-perl.sourceforge.net/doc/pod/"
+	WriteINIStr "$INSTDIR\share\urls\GTK-API.URL" \
+		"InternetShortcut" "URL" "http://library.gnome.org/devel/gtk/stable/"
+	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl-Archives.URL" \
+		"InternetShortcut" "URL" \
+        "http://mail.gnome.org/mailman/listinfo/gtk-perl-list"
+	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl-Links.URL" \
+		"InternetShortcut" "URL" \
+        "http://gtk2-perl.sourceforge.net/links/"
+FunctionEnd # CreateGtk2PerlURLs
+
+Function CreateGtk2PerlTutorialURLs
+	IfFileExists "$INSTDIR\share\urls\*.*" SkipURLDir 0
+	# create the URL directory if it hasn't already been created
+	CreateDirectory "$INSTDIR\share\urls"
+	SkipURLDir:
+	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl-Tutorial.URL" \
+		"InternetShortcut" "URL" \
+        "http://gtk2-perl.sourceforge.net/doc/gtk2-perl-tut/"
+	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl-StudyGuide.URL" \
+		"InternetShortcut" "URL" \
+        "http://forgeftp.novell.com//gtk2-perl-study/documentation/html/index.html"
+FunctionEnd # CreateGtk2PerlTutorialURLs
 
 # vim: filetype=nsis paste
