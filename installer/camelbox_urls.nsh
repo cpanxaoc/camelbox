@@ -33,14 +33,14 @@ Function CreateCamelboxURLs
 	# create the URL directory if it hasn't already been created
 	CreateDirectory "$INSTDIR\share\urls"
 	SkipURLDir:
-	WriteINIStr "$INSTDIR\share\urls\Camelbox_Home_Page.URL" \
+	WriteINIStr "$INSTDIR\share\urls\Camelbox_Homepage.URL" \
 		"InternetShortcut" "URL" "http://code.google.com/p/camelbox/"
 	WriteINIStr "$INSTDIR\share\urls\Camelbox_FAQ.URL" \
 		"InternetShortcut" "URL" "http://code.google.com/p/camelbox/wiki/FAQ"
 	WriteINIStr "$INSTDIR\share\urls\Using_Camelbox.URL" \
 		"InternetShortcut" "URL" \
 		"http://code.google.com/p/camelbox/wiki/UsingCamelbox"
-	WriteINIStr "$INSTDIR\share\urls\Camelbox_Versions.URL" \
+	WriteINIStr "$INSTDIR\share\urls\CamelboxVersionList.URL" \
 		"InternetShortcut" "URL" \
 		"http://code.google.com/p/camelbox/source/browse/trunk/filelists/_version_list.txt"
 FunctionEnd # CreateCamelboxURLs
@@ -56,6 +56,8 @@ Function CreatePerlURLs
 		"InternetShortcut" "URL" "http://www.perlmonks.org"
 	WriteINIStr "$INSTDIR\share\urls\CPANSearch.URL" \
 		"InternetShortcut" "URL" "http://search.cpan.org"
+	WriteINIStr "$INSTDIR\share\urls\useperl.URL" \
+		"InternetShortcut" "URL" "http://use.perl.org"
 FunctionEnd # CreatePerlURLs
 
 Function CreateGtk2PerlURLs
@@ -88,7 +90,30 @@ Function CreateGtk2PerlTutorialURLs
         "http://gtk2-perl.sourceforge.net/doc/gtk2-perl-tut/"
 	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl-StudyGuide.URL" \
 		"InternetShortcut" "URL" \
-        "http://forgeftp.novell.com//gtk2-perl-study/documentation/html/index.html"
+        "http://forgeftp.novell.com/gtk2-perl-study/documentation/html/index.html"
+	WriteINIStr "$INSTDIR\share\urls\GTK2-Tutorial.URL" \
+		"InternetShortcut" "URL" "http://www.gtk.org/tutorial/"
+	WriteINIStr "$INSTDIR\share\urls\PangoConnection.URL" \
+		"InternetShortcut" "URL" "http://www-128.ibm.com/developerworks/library/l-u-pango1/"
+	WriteINIStr "$INSTDIR\share\urls\DrawingGtk2-Perl.URL" \
+		"InternetShortcut" "URL" "http://perlmonks.org/?node_id=583578"
 FunctionEnd # CreateGtk2PerlTutorialURLs
+
+Function CreateGlade2TutorialURLs
+	IfFileExists "$INSTDIR\share\urls\*.*" SkipURLDir 0
+	# create the URL directory if it hasn't already been created
+	CreateDirectory "$INSTDIR\share\urls"
+	SkipURLDir:
+	WriteINIStr "$INSTDIR\share\urls\DevelGlade2.URL" \
+		"InternetShortcut" "URL" "http://www.kplug.org/glade_tutorial/glade2_tutorial/glade2_introduction.html"
+	WriteINIStr "$INSTDIR\share\urls\Glade2-Basic.URL" \
+		"InternetShortcut" "URL" "http://www.kplug.org/glade_tutorial/glade2_tutorial/gladewidgets.html"
+	WriteINIStr "$INSTDIR\share\urls\Glade2-Additional.URL" \
+		"InternetShortcut" "URL" "http://www.kplug.org/glade_tutorial/glade2_tutorial/gladewidgets2.html"
+	WriteINIStr "$INSTDIR\share\urls\Glade2-Gnome.URL" \
+		"InternetShortcut" "URL" "http://www.kplug.org/glade_tutorial/glade2_tutorial/gladewidgets3.html"
+	WriteINIStr "$INSTDIR\share\urls\Glade2-Deprecated.URL" \
+		"InternetShortcut" "URL" "http://www.kplug.org/glade_tutorial/glade2_tutorial/gladewidgets4.html"
+FunctionEnd # CreateGlade2TutorialURLs
 
 # vim: filetype=nsis paste

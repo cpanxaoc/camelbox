@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2009.162.0849Z 
+# DATE:     2009.164.0155Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -671,7 +671,22 @@ SectionGroup /e "Camelbox Environment"
 		DetailPrint "Creating Perl URL Files"
 		Call CreatePerlURLs
 	SectionEnd
-	Section "Create Start Menu Shortcuts"
+	Section "Create Gtk2-Perl URL Files"
+        SectionIn 1 2 3 4
+		DetailPrint "Creating Gtk2-Perl URL Files"
+		Call CreateGtk2PerlTutorialURLs
+	SectionEnd
+	Section "Create Gtk2-Perl Tutorial URL Files"
+        SectionIn 3 4
+		DetailPrint "Creating Gtk2-Perl Tutorial URL Files"
+		Call CreateGtk2PerlURLs
+	SectionEnd
+	Section "Create Glade2 Tutorial URL Files"
+        SectionIn 3 4
+		DetailPrint "Creating Glade2 Tutorial URL Files"
+		Call CreateGlade2TutorialURLs
+	SectionEnd
+	Section "Create Camelbox Start Menu Shortcuts"
         SectionIn 1 2 3 4 5 6 7 8
 		DetailPrint "Creating Start Menu Shortcuts"
 		Call CreateCamelboxShortcuts

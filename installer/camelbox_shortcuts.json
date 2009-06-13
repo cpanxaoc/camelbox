@@ -203,13 +203,13 @@
 	}, // Camelbox\\Documentation
 	"Camelbox\\Websites\\Camelbox" : {
         "Camelbox Homepage" : {
-            "target": "$INSTDIR\\share\\urls\\Camelbox_Home_Page.URL",
+            "target": "$INSTDIR\\share\\urls\\Camelbox_Homepage.URL",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "13",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
-            "description": "Camelbox Home Page on the Internet"
+            "description": "Camelbox Homepage on the Internet"
         }, // "Camelbox Homepage"
         "Camelbox FAQ" : {
             "target": "$INSTDIR\\share\\urls\\Camelbox_FAQ.URL",
@@ -229,14 +229,14 @@
             "magickeys": "",
             "description": "Using Camelbox page on the Internet"
         }, // "Using Camelbox"
-        "Camelbox File Versions" : {
-            "target": "$INSTDIR\\share\\urls\\Camelbox_Versions.URL",
+        "Camelbox Version List" : {
+            "target": "$INSTDIR\\share\\urls\\CamelboxVersionList.URL",
             "params": "",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "13",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
-            "description": "Camelbox Versions file in SVN"
+            "description": "Camelbox Software Versions; _version_list.txt file in SVN"
         } // "Camelbox File Versions"
 	}, // Camelbox\\Websites\\Camelbox
 	"Camelbox\\Websites\\Perl" : {
@@ -266,7 +266,16 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Search the CPAN Archive"
-        } // "CPAN Search"
+        }, // "CPAN Search"
+        "use.perl.org" : {
+            "target": "$INSTDIR\\share\\urls\\useperl.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "use.perl.org - Perl News and Community Info"
+        } // "use.perl.org"
 	}, // Camelbox\\Web Pages\\Perl
 	"Camelbox\\Websites\\Gtk2-Perl" : {
         "Gtk2-Perl Homepage" : {
@@ -312,7 +321,7 @@
             "iconidx": "13",
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
-            "description": "Gtk2-Perl Links"
+            "description": "Gtk2-Perl Links page on Sourceforge"
         } // "Gtk2-Perl Links"
     }, // "Camelbox\\Websites\\Gtk2-Perl"
     "Camelbox\\Websites\\Gtk2-Perl Tutorials" : {
@@ -326,7 +335,7 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Gtk2-Perl Tutorial"
-        }, // "GTK C API Documentation"
+        }, // "Gtk2-Perl Tutorial"
         "Gtk2-Perl Study Guide" : {
             "target": "$INSTDIR\\share\\urls\\Gtk2-Perl-StudyGuide.URL",
             "params": "",
@@ -335,8 +344,82 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Gtk2-Perl Study Guide"
-        }, // "GTK C API Documentation"
-    } // "Camelbox\\Websites\\Gtk2-Perl Tutorials" 
+        }, // "Gtk2-Perl Study Guide"
+        "GTK+ Tutorial" : {
+            "target": "$INSTDIR\\share\\urls\\GTK-Tutorial.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "GTK+ C Language Tutorial"
+        }, // "GTK+ Tutorial"
+        "The Pango Connection" : {
+            "target": "$INSTDIR\\share\\urls\\PangoConnection.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "The Pango Connection - How to use Pango"
+        }, // "The Pango Connection"
+        "Drawing with Gtk2-Perl" : {
+            "target": "$INSTDIR\\share\\urls\\DrawingGtk2-Perl.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Drawing shapes with Gtk2-Perl (perlmonks.org)"
+        } // "Drawing with Gtk2-Perl"
+    }, // "Camelbox\\Websites\\Gtk2-Perl Tutorials" 
+    "Camelbox\\Websites\\Glade2 Editor" : {
+        "Development with Glade2" : {
+            "target": "$INSTDIR\\share\\urls\\DevelGlade2.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Graphical Interface Development with Glade2"
+        }, // "Development with Glade2"
+        "Basic Widgets" : {
+            "target": "$INSTDIR\\share\\urls\\Glade2-Basic.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "The basic widgets in more detail"
+        }, // "Basic Widgets"
+        "Additional Widgets" : {
+            "target": "$INSTDIR\\share\\urls\\Glade2-Additional.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Additional Gtk+ widgets"
+        }, // "Additional Widgets"
+        "Gnome Widgets" : {
+            "target": "$INSTDIR\\share\\urls\\Glade2-Gnome.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gnome widgets"
+        }, // "Gnome Widgets"
+        "Deprecated Widgets" : {
+            "target": "$INSTDIR\\share\\urls\\Glade2-Deprecated.URL",
+            "params": "",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Deprecated widgets"
+        } // "Deprecated Widgets"
+	} // "Camelbox\\Websites\\Glade Editor"
 } // JSON data block
 
 // fin vim: filetype=javascript
