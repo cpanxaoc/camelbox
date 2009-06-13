@@ -134,7 +134,160 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Widget: Tk Widget Demo Script"
-        } // "perlmine"
+        }, // "perlmine"
+        "gyroscope" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\gyroscope.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gyroscope color picker"
+        }, // "gyroscope"
+        "canvas.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gnome2-Canvas\\canvas.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gnome2::Canvas Demo"
+        }, // "canvas.pl"
+        "demo.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Goo-Canvas\\demo.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Goo::Canvas Canvas Demo"
+        }, // "demo.pl"
+        "table.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Goo-Canvas\\table.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Goo::Canvas Table Demo"
+        }, // "table.pl"
+        "unit-demo.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Goo-Canvas\\unit-demo.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Goo::Canvas Units Demo"
+        }, // "unit-demo.pl"
+        "assistant.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2\\assistant.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2 Assistants Demo"
+        }, // "assistant.pl"
+        "buttonbox.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2\\buttonbox.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2 Buttonbox Demo"
+        }, // "buttonbox.pl"
+        "scribble.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2\\scribble.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2 Scribble Demo"
+        }, // "scribble.pl"
+        "simplelist.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2\\simplelist.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2 Simple List Demo"
+        }, // "simplelist.pl"
+        "table_packing.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2\\table_packing.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2 Table Packing Demo"
+        }, // "table_packing.pl"
+        "Gtk2-Perl main.pl" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2-Demo\\main.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2-Perl main.pl Demo Starter"
+        }, // "Gtk2-Perl main.pl"
+        "Gtk2-Ex-Dialogs" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2-Ex-Dialogs\\demo.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2::Ex::Dialogs Demo"
+        }, // "Gtk2-Ex-Dialogs"
+        "Gtk2-Ex-Simple-List" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2-Ex-Simple-List\\simple_list.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2::Ex::Simple::List Demo"
+        }, // "Gtk2-Ex-Simple-List"
+        "Gtk2-GladeXML Clipboard" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2-GladeXML\\clipboard.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2::GladeXML Clipboard Demo"
+        }, // "Gtk2-GladeXML Clipboard"
+        "Gtk2-GladeXML Hello World" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2-GladeXML\\hello-world.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2::GladeXML Hello World Demo"
+        }, // "Gtk2-GladeXML Hello World"
+        "Gtk2-GladeXML Progress" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2-GladeXML\\progress.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2::GladeXML Progress Demo"
+        }, // "Gtk2-GladeXML Progress"
+        "Gtk2-GladeXML Scribble" : {
+            "target": "$INSTDIR\\bin\\wperl.exe",
+            "params": "$INSTDIR\\examples\\Gtk2-GladeXML\\scribble.pl",
+            "iconfile": "$SYSDIR\\shell32.dll",
+            "iconidx": "93",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "Gtk2::GladeXML Scribble Demo"
+        }, // "Gtk2-GladeXML Scribble"
     }, // "Demo Scripts" program group
 	"Camelbox\\Local Docs" : {
         "POD: perl" : {
