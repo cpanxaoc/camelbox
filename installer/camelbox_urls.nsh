@@ -69,7 +69,7 @@ Function CreateGtk2PerlURLs
 		"InternetShortcut" "URL" "http://gtk2-perl.sourceforge.net/"
 	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl-POD.URL" \
 		"InternetShortcut" "URL" \
-        "http://http://gtk2-perl.sourceforge.net/doc/pod/"
+        "http://gtk2-perl.sourceforge.net/doc/pod/"
 	WriteINIStr "$INSTDIR\share\urls\GTK-API.URL" \
 		"InternetShortcut" "URL" "http://library.gnome.org/devel/gtk/stable/"
 	WriteINIStr "$INSTDIR\share\urls\Gtk2-Perl-Archives.URL" \

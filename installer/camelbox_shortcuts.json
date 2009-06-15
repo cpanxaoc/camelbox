@@ -146,7 +146,7 @@
         }, // "gyroscope"
         "canvas.pl" : {
             "target": "$INSTDIR\\bin\\wperl.exe",
-            "params": "$INSTDIR\\examples\\Gnome2-Canvas\\canvas.pl",
+            "params": "-I$INSTDIR\\examples\\Gnome2-Canvas $INSTDIR\\examples\\Gnome2-Canvas\\canvas.pl",
             "iconfile": "$SYSDIR\\shell32.dll",
             "iconidx": "93",
             "startopts": "SW_SHOWNORMAL",
