@@ -4,7 +4,7 @@
 #
 # AUTHOR:   shortcut_nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/shortcut_nsh_builder.pl)
-# DATE:     2009.164.0801Z 
+# DATE:     2009.166.2046Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -137,7 +137,7 @@ Function CreateCamelboxShortcuts
 	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
 	CreateDirectory "$SMPROGRAMS\Camelbox\Demo Scripts"
 	DetailPrint "Gnome2::Canvas Demo"
-	CreateShortCut "$SMPROGRAMS\Camelbox\Demo Scripts\canvas.pl.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\examples\Gnome2-Canvas\canvas.pl" "$SYSDIR\shell32.dll" 93 SW_SHOWNORMAL "" "Gnome2::Canvas Demo"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Demo Scripts\canvas.pl.lnk" "$INSTDIR\bin\wperl.exe" "-I$INSTDIR\examples\Gnome2-Canvas $INSTDIR\examples\Gnome2-Canvas\canvas.pl" "$SYSDIR\shell32.dll" 93 SW_SHOWNORMAL "" "Gnome2::Canvas Demo"
 
 	# Goo::Canvas Canvas Demo
 	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3

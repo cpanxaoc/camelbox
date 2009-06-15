@@ -358,17 +358,18 @@ sub write {
     my $self = shift;
 	my %args = @_;
 
-	print qq(\t# ) . $self->get( key => q(description) ) . qq(\n);
+	my $OUT_FH = $args{output_filehandle};
+	print $OUT_FH qq(\t# ) . $self->get( key => q(description) ) . qq(\n);
 	# check to see if the target file exists
-    print qq(\tIfFileExists ") . $self->get( key => q(target) ) . qq(" 0 +3\n);
+    print $OUT_FH qq(\tIfFileExists ") . $self->get( key => q(target) ) . qq(" 0 +3\n);
 	# if so, create the start menu folder
-    print qq(\tCreateDirectory ) . q("$SMPROGRAMS\\) 
+    print $OUT_FH qq(\tCreateDirectory ) . q("$SMPROGRAMS\\) 
 		. $args{program_group} . qq("\n);
 	# write something out in the installer window
-	print qq(\t) . q(DetailPrint ") . $self->get( key => q(description) ) 
-		. qq("\n);	
+	print $OUT_FH qq(\t) . q(DetailPrint ") 
+		. $self->get( key => q(description) ) . qq("\n);	
 	# then create a shortcut in that folder
-    print qq(\tCreateShortCut )
+    print $OUT_FH qq(\tCreateShortCut )
         #. $self->get( key => q(link) )
 		. q("$SMPROGRAMS\\) . $args{program_group} 
 		. q(\\) . $self->{shortcut_name} . qq(.lnk")
@@ -380,7 +381,7 @@ sub write {
         . $self->get( key => q(startopts) ) . q( ")
         . $self->get( key => q(magickeys) ) . q(" ")
         . $self->get( key => q(description) ) . qq("\n);
-	print qq(\n);
+	print $OUT_FH qq(\n);
 } # sub write 
 
 =head3 write()
@@ -757,7 +758,10 @@ foreach my $thisgroup ( @program_groups ) {
     #$logger->info( join(q(|), @group_keys) );
     foreach my $sc_key ( @group_keys ) {
         my $shortcut = $thisgroup->get( key => $sc_key );
-        $shortcut->write(program_group => $group_name);
+        $shortcut->write(
+			program_group 		=> $group_name,
+			output_filehandle   => $OUT_FH,
+		);
     } # foreach my $sc_key ( @group_keys )
 } # foreach my $thisgroup ( @program_groups )
 

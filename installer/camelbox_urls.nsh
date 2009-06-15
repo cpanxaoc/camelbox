@@ -92,7 +92,7 @@ Function CreateGtk2PerlTutorialURLs
 		"InternetShortcut" "URL" \
         "http://forgeftp.novell.com/gtk2-perl-study/documentation/html/index.html"
 	WriteINIStr "$INSTDIR\share\urls\GTK2-Tutorial.URL" \
-		"InternetShortcut" "URL" "http://www.gtk.org/tutorial/"
+		"InternetShortcut" "URL" "http://library.gnome.org/devel/gtk-tutorial/stable/"
 	WriteINIStr "$INSTDIR\share\urls\PangoConnection.URL" \
 		"InternetShortcut" "URL" "http://www-128.ibm.com/developerworks/library/l-u-pango1/"
 	WriteINIStr "$INSTDIR\share\urls\DrawingGtk2-Perl.URL" \

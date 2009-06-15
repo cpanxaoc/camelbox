@@ -106,8 +106,6 @@
         } // "podviewer"
     }, // "Applications" program group
     "Camelbox\\Demo Scripts": {
-        // FIXME go through all of the demos and run them, make sure they
-        // work, then add them here
         "perltetris" : {
             "target": "$INSTDIR\\bin\\wperl.exe",
             "params": "$INSTDIR\\bin\\perltetris.pl",
@@ -478,8 +476,6 @@
         } // "Gtk2-Perl Links"
     }, // "Camelbox\\Websites\\Gtk2-Perl"
     "Camelbox\\Websites\\Gtk2-Perl Tutorials" : {
-        // FIXME add tutorials, glade widget pages from
-        // http://wiki.antlinux.com/pmwiki.php?n=HowTos.GuiToolKitLinks
         "Gtk2-Perl Tutorial" : {
             "target": "$INSTDIR\\share\\urls\\Gtk2-Perl-Tutorial.URL",
             "params": "",
