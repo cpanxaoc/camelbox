@@ -229,11 +229,11 @@ Function StartPage
 	SendMessage $ctlSPReleaseImageBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
 		$ctlSPReleaseNameImg
 
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 107u 2u -95u 18u "Welcome to Camelbox!"
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 107u 0u -95u 17u "Welcome to Camelbox!"
 	Pop $ctlSPHeadline
 
 	SendMessage $ctlSPHeadline ${WM_SETFONT} $headlineFont 0
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 105u 20u -100u -5u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n* Core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules including DBI/DBD::[SQLite|mysql|Pg|ODBC] and friends$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 105u 17u -100u -5u "A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n* Core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* DBI/DBD::[SQLite|mysql|Pg|ODBC] and friends$\r$\n* Extra binaries, utilities, development libraries/headers for compiling modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n* Shortcuts to apps, demos and help websites$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nPlease click on the Next button to continue..."
 	Pop $ctlSPText
 
 	SetCtlColors $ctlStartPage "" 0xffffff

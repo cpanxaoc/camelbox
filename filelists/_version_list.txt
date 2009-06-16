@@ -3,66 +3,66 @@ Camelbox Application/Module Versions List
 
 Apps/Tools
 ----------
-App::Asciio			1.02_71
-App::Sprog			0.14
-gettext-tools		0.17
-gladewin32 			3.4.3-win32
-MySQL				5.1.32-win32
-PostgreSQL			8.3.7
-SQLite 				1.3.16
-Perl				5.10.0 with patch for Kid.pm
+App::Asciio         1.02_71
+App::Sprog          0.14
+gettext-tools       0.17
+gladewin32          3.4.3-win32
+MySQL               5.1.32-win32
+PostgreSQL          8.3.7
+SQLite              1.3.16
+Perl                5.10.0 with patch for Kid.pm
 
 C Libraries
 -----------
-atk					1.22
-cairo				1.8.6-1_win32
-dmake				4.11-20080107
-expat				2.0.1-1_win32
-fontconfig			2.6.0-2_win32
-freetype			2.3.8-1_win32
-gettext-runtime		0.17-1
-glib				2.20.0-1_win32
-goocanvas			0.13-win32
-gtk+				2.16.0-2_win32 (w/libgail)
-jpeg				6b-4
-libart_lgpl			2.3.20
-libglade			2.6.3-1_win32
-libgnomecanvas		2.20.1
-libiconv			1.9.1-woe32
-libpng				1.2.34-1_win32
-libxml2				2.6.27
-pango				1.24.0-1_win32
-pkg-config 			0.23-2
-PNG tools			1.2.8
-tiff				3.8.2-1
-zlib				1.2.3
+atk                 1.22
+cairo               1.8.6-1_win32
+dmake               4.11-20080107
+expat               2.0.1-1_win32
+fontconfig          2.6.0-2_win32
+freetype            2.3.8-1_win32
+gettext-runtime     0.17-1
+glib                2.20.0-1_win32
+goocanvas           0.13-win32
+gtk+                2.16.0-2_win32 (w/libgail)
+jpeg                6b-4
+libart_lgpl         2.3.20
+libglade            2.6.3-1_win32
+libgnomecanvas      2.20.1
+libiconv            1.9.1-woe32
+libpng              1.2.34-1_win32
+libxml2             2.6.27
+pango               1.24.0-1_win32
+pkg-config          0.23-2
+PNG tools           1.2.8
+tiff                3.8.2-1
+zlib                1.2.3
 
 Perl Modules
 ------------
-Cairo 				1.061
-DBI 				1.607
-DBD::mysql 			4.011
-DBD::ODBC 			1.21
-DBD::Pg				2.13.1
-DBD::SQLite 		1.25
-Glib 				1.221
-Gnome2::Canvas		1.002
-Gtk2 				1.220
-Gtk2::GladeXML		1.007
-libwww-perl			5.826
-JSON 				2.14
-Log::Log4perl 		1.23
-Moose 				0.79 (Class::MOP 0.84, Test::Simple 0.83)
-Pango				1.220
-PAR					0.992
-TimeDate 			1.16 (aka Date::Parse)
-Tk					804.028
-XML::Parser 		2.36
+Cairo               1.061
+DBI                 1.607
+DBD::mysql          4.011
+DBD::ODBC           1.21
+DBD::Pg             2.13.1
+DBD::SQLite         1.25
+Glib                1.221
+Gnome2::Canvas      1.002
+Gtk2                1.220
+Gtk2::GladeXML      1.007
+libwww-perl         5.826
+JSON                2.14
+Log::Log4perl       1.23
+Moose               0.79 (Class::MOP 0.84, Test::Simple 0.83)
+Pango               1.220
+PAR                 0.992
+TimeDate            1.16 (aka Date::Parse)
+Tk                  804.028
+XML::Parser         2.36
 
 Archive Statistics
 ------------------
-Picked up 64 package objects
+Picked up 65 package objects
 Picked up 10 group objects
-WARN -> Unpacked size: 453430539
-WARN -> Archived size: 74575414
-WARN -> Compression Ratio: 0.16
+Unpacked size: 455505092
+Archived size: 75072784
+Compression Ratio: 0.16

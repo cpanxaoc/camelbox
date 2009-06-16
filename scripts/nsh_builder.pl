@@ -250,6 +250,11 @@ Section "-Open Browser"
 	ExitOpen:
 		Pop $0
 		Pop $R0
+		DetailPrint "Installation Complete."
+		DetailPrint "Enjoy your new Camelbox install!!!"
+		DetailPrint "For support with this software, please send"
+		DetailPrint "a message to the Camelbox mailing list;"
+		DetailPrint "<camelbox@googlegroups.com>"
 		Return
 SectionEnd
 

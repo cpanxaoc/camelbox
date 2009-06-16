@@ -4,7 +4,7 @@
 #
 # AUTHOR:   shortcut_nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/shortcut_nsh_builder.pl)
-# DATE:     2009.166.2046Z 
+# DATE:     2009.167.2131Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -61,6 +61,12 @@ Function CreateCamelboxShortcuts
 	DetailPrint "ASCII Art Editor"
 	CreateShortCut "$SMPROGRAMS\Camelbox\Applications\Asciio.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\asciio" "$SYSDIR\shell32.dll" 75 SW_SHOWNORMAL "" "ASCII Art Editor"
 
+	# The Glade XML GUI Generation Toolkit
+	IfFileExists "$INSTDIR\bin\glade-3.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Applications"
+	DetailPrint "The Glade XML GUI Generation Toolkit"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Applications\Glade-3.lnk" "$INSTDIR\bin\glade-3.exe" "" "$INSTDIR\bin\glade-3.exe" 0 SW_SHOWNORMAL "" "The Glade XML GUI Generation Toolkit"
+
 	# Perl POD Viewer
 	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
 	CreateDirectory "$SMPROGRAMS\Camelbox\Applications"
@@ -78,6 +84,12 @@ Function CreateCamelboxShortcuts
 	CreateDirectory "$SMPROGRAMS\Camelbox\Database Tools"
 	DetailPrint "PostgreSQL Command Line Client"
 	CreateShortCut "$SMPROGRAMS\Camelbox\Database Tools\PostgreSQL Client.lnk" "$INSTDIR\bin\psql.exe" "" "$INSTDIR\bin\psql.exe" 0 SW_SHOWNORMAL "" "PostgreSQL Command Line Client"
+
+	# SQLite3 Command Line Client
+	IfFileExists "$INSTDIR\bin\sqlite3.exe" 0 +3
+	CreateDirectory "$SMPROGRAMS\Camelbox\Database Tools"
+	DetailPrint "SQLite3 Command Line Client"
+	CreateShortCut "$SMPROGRAMS\Camelbox\Database Tools\SQLite3 Client.lnk" "$INSTDIR\bin\sqlite3.exe" "" "$SYSDIR\pifmgr.dll" 13 SW_SHOWNORMAL "" "SQLite3 Command Line Client"
 
 	# Gtk2::Ex::Dialogs Demo
 	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3
@@ -198,12 +210,6 @@ Function CreateCamelboxShortcuts
 	CreateDirectory "$SMPROGRAMS\Camelbox\Demo Scripts"
 	DetailPrint "Widget: Tk Widget Demo Script"
 	CreateShortCut "$SMPROGRAMS\Camelbox\Demo Scripts\widget.lnk" "$INSTDIR\bin\wperl.exe" "$INSTDIR\bin\widget" "$SYSDIR\shell32.dll" 93 SW_SHOWNORMAL "" "Widget: Tk Widget Demo Script"
-
-	# The Glade XML GUI Generation Toolkit
-	IfFileExists "$INSTDIR\bin\glade-3.exe" 0 +3
-	CreateDirectory "$SMPROGRAMS\Camelbox\Developer Tools"
-	DetailPrint "The Glade XML GUI Generation Toolkit"
-	CreateShortCut "$SMPROGRAMS\Camelbox\Developer Tools\Glade-3.lnk" "$INSTDIR\bin\glade-3.exe" "" "$INSTDIR\bin\glade-3.exe" 0 SW_SHOWNORMAL "" "The Glade XML GUI Generation Toolkit"
 
 	# Podviewer: perl.pod - Practical Extraction and Reporting Language
 	IfFileExists "$INSTDIR\bin\wperl.exe" 0 +3

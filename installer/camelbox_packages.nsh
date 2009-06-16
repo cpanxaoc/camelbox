@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2009.167.0804Z 
+# DATE:     2009.167.2155Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -736,6 +736,11 @@ Section "-Open Browser"
 	ExitOpen:
 		Pop $0
 		Pop $R0
+		DetailPrint "Installation Complete."
+		DetailPrint "Enjoy your new Camelbox install!!!"
+		DetailPrint "For support with this software, please send"
+		DetailPrint "a message to the Camelbox mailing list;"
+		DetailPrint "<camelbox@googlegroups.com>"
 		Return
 SectionEnd
 

@@ -54,17 +54,6 @@
             "description": "Uninstall Camelbox"
         } // "Camelbox Uninstaller"
     }, // "Camelbox" program group
-    "Camelbox\\Developer Tools": {
-        "Glade-3" : {
-            "target": "$INSTDIR\\bin\\glade-3.exe",
-            "params": "",
-            "iconfile": "$INSTDIR\\bin\\glade-3.exe",
-            "iconidx": "0",
-            "startopts": "SW_SHOWNORMAL",
-            "magickeys": "",
-            "description": "The Glade XML GUI Generation Toolkit"
-        } // "Glade-3"
-    }, // "Camelbox\\Developer Tools" program group
     "Camelbox\\Database Tools": {
         "MySQL Client" : {
             "target": "$INSTDIR\\bin\\mysql.exe",
@@ -83,6 +72,15 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "PostgreSQL Command Line Client"
+        }, // "PostgreSQL Client"
+        "SQLite3 Client" : {
+            "target": "$INSTDIR\\bin\\sqlite3.exe",
+            "params": "",
+            "iconfile": "$SYSDIR\\pifmgr.dll",
+            "iconidx": "13",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "SQLite3 Command Line Client"
         } // "PostgreSQL Client"
     }, // "Camelbox\\Database Tools" program group
     "Camelbox\\Applications": {
@@ -103,7 +101,16 @@
             "startopts": "SW_SHOWNORMAL",
             "magickeys": "",
             "description": "Perl POD Viewer"
-        } // "podviewer"
+        }, // "podviewer"
+        "Glade-3" : {
+            "target": "$INSTDIR\\bin\\glade-3.exe",
+            "params": "",
+            "iconfile": "$INSTDIR\\bin\\glade-3.exe",
+            "iconidx": "0",
+            "startopts": "SW_SHOWNORMAL",
+            "magickeys": "",
+            "description": "The Glade XML GUI Generation Toolkit"
+        } // "Glade-3"
     }, // "Applications" program group
     "Camelbox\\Demo Scripts": {
         "perltetris" : {
