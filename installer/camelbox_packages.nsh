@@ -4,7 +4,7 @@
 #
 # AUTHOR:   nsh_builder.pl 
 # (http://code.google.com/p/camelbox/source/browse/trunk/scripts/nsh_builder.pl)
-# DATE:     2009.164.0155Z 
+# DATE:     2009.167.0804Z 
 #
 # COMMENT:  automatically generated file; edit at your own risk
 
@@ -34,7 +34,6 @@ Section "-WriteUninstaller"
     CreateDirectory "$INSTDIR\bin"
     writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
 	CreateDirectory "$INSTDIR\share\pkglists"
-	DetailPrint "openUsingCamelbox is $openUsingCamelbox_state"
 	File "/oname=$INSTDIR\share\pkglists\_version_list.txt" ${VERSIONS_FILE}
 SectionEnd ; WriteUninstaller 
 
@@ -692,7 +691,6 @@ SectionGroup /e "Camelbox Environment"
 		DetailPrint "Creating Start Menu Shortcuts"
 		Call CreateCamelboxShortcuts
 	SectionEnd
-
 SectionGroupEnd ; "Camelbox Environment"
 
 Section "Uninstall"
@@ -718,16 +716,28 @@ SectionEnd ; Uninstall
 
 Section "-Open Browser"
 	SectionIn RO
-		DetailPrint "Checking whether or not to open 'Using Camelbox'"
-		DetailPrint "openUsingCamelbox is $openUsingCamelbox_state"
-		#StrCmp 	$openUsingCamelboxPage "true" 0 ExitOpen
-		# yep, it was checked, fork a browser window open
-		DetailPrint "Opening 'Using Camebox' page in a web browser..."
-		ReadRegStr $R0 HKCR "http\shell\open\command" ""
-		Exec "$R0 ${USING_CAMELBOX}"
-		ExitOpen:
-			Return
-	SectionEnd
+	Push $R0
+	Push $0
+	StrCmp 	$openReleaseNotes "true" 0 ExitOpen
+	# yep, it was checked, fork a browser window open
+	DetailPrint "Opening 'Releases2009' page in a web browser..."
+	ReadRegStr $R0 HKCR "http\shell\open\command" ""
+	# check to see if it's IE
+	StrCmp $R0 '"C:\Program Files\Internet Explorer\IEXPLORE.EXE" -nohome' DontTrimTail TrimTail
+	# Trim the tail of the firefox registry entry
+	TrimTail:
+		StrCpy $0 $R0 -4 # removes the last 4 characters "%1"
+		Goto ExecBrowser # jump to the browser launch
+	# But don't trim the tail on IE
+	DontTrimTail:
+		StrCpy $0 $R0
+	ExecBrowser:		
+		Exec '$0 ${RELEASE_NOTES}'
+	ExitOpen:
+		Pop $0
+		Pop $R0
+		Return
+SectionEnd
 
 # blank subsection
 #   Section "some-package (extra notes, etc.)"

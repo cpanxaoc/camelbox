@@ -229,11 +229,27 @@ sub footer {
 
     print $OUT_FH <<'HEREDOC'
 Section "-Open Browser"
-	StrCmp 	$openUsingCamelbox_state ${BST_CHECKED} 0 ExitOpen
-		# yep, it was checked, fork a browser window open
-		IfFileExists "C:\camelbox\share\urls\Using_Camelbox.URL" 0 ExitOpen 
-			Exec "$PROGRAMFILES\Internet Explorer\iexplore.exe C:\camelbox\share\urls\Using_Camelbox.URL"
+	SectionIn RO
+	Push $R0
+	Push $0
+	StrCmp 	$openReleaseNotes "true" 0 ExitOpen
+	# yep, it was checked, fork a browser window open
+	DetailPrint "Opening 'Releases2009' page in a web browser..."
+	ReadRegStr $R0 HKCR "http\shell\open\command" ""
+	# check to see if it's IE
+	StrCmp $R0 '"C:\Program Files\Internet Explorer\IEXPLORE.EXE" -nohome' DontTrimTail TrimTail
+	# Trim the tail of the firefox registry entry
+	TrimTail:
+		StrCpy $0 $R0 -4 # removes the last 4 characters "%1"
+		Goto ExecBrowser # jump to the browser launch
+	# But don't trim the tail on IE
+	DontTrimTail:
+		StrCpy $0 $R0
+	ExecBrowser:		
+		Exec '$0 ${RELEASE_NOTES}'
 	ExitOpen:
+		Pop $0
+		Pop $R0
 		Return
 SectionEnd
 

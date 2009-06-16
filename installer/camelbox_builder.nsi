@@ -73,6 +73,7 @@
 !define BASE_URL "http://camelbox.googlecode.com/files"
 !define INSTALL_PATH "C:\camelbox"
 !define USING_CAMELBOX "http://code.google.com/p/camelbox/wiki/UsingCamelbox"
+!define RELEASE_NOTES "http://code.google.com/p/camelbox/wiki/Releases2009"
 
 # HACK!
 !define VERSIONS_FILE "${INSTALLER_BASE}\..\filelists\_version_list.txt"

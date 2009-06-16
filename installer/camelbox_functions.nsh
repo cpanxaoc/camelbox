@@ -35,32 +35,33 @@ var archivemd5sum
 # what the name of the section is, for use with the downloader/unpacker
 var sectionname
 
-# Variables used with creating icons
-# create Windows program group
-#var createProgramGroup
-
 # the download URL
 var DL_URL
+# dialog label and name
+var ctlURL
 
 # open the Using Camelbox page after the install?
-var ctlOpenUsingCamelbox
+var ctlOpenReleaseNotes
 # state of the checkbox for memory purposes
-var openUsingCamelbox_state
+var openReleaseNotes_state
 # state of the flag
-var openUsingCamelboxPage
+var openReleaseNotes
+
+# dialog control for keeping downloaded archives
+var ctlKeepArchives
 # state of the checkbox for keeping downloaded archives
 var keepArchives_state
 # state of the flag
 var keepDownloadedArchives
-# the font used for the headline on the start page
-var headlineFont
 
+# the font used for the headline on the start page, set in .onInit below
+var headlineFont
 
 #### FUNCTIONS ####
 
 # initialization of any dialogs
 Function .onInit
-	StrCpy $openUsingCamelboxPage "false"
+	StrCpy $openReleaseNotes "false"
 	StrCpy $DL_URL ${BASE_URL}
 	StrCpy $keepDownloadedArchives "false"
 
@@ -94,85 +95,6 @@ Function ErrorExit
 	DetailPrint "Installer encountered the following fatal error:"
 	abort "$0; Aborting..."
 FunctionEnd
-
-# for the StartPage
-var dialog_StartPage
-var dialog_SP_LogoImgBox
-var dialog_SP_LogoImg
-var dialog_SP_ReleaseImgBox
-var dialog_SP_ReleaseNameImg
-var dialog_SP_Headline
-var dialog_SP_Text
-#var Headline_Font
-
-# custom page for displaying the welcome banner and logo
-Function StartPage
-	# every time you use a nsDialogs macro, you need to pop the return value
-	# off of the stack; sometimes you can save and reuse this value (it's a
-	# reference to a dialog window for example)
-	nsDialogs::Create /NOUNLOAD 1018
-	Pop $dialog_StartPage
-	StrCmp $0 "error" FailBail 0
-
-	# coordinates for dialogs
-	# 1 - some number; see docs
-	# 2 - horizontal offset
-	# 3 - vertical offset
-	# 4 - box width
-	# 5 - box height
-
-	# FIXME these calls to nsDialogs below may be able to use the macros;
-	# shorter commands!
-	# logo image
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 0 140u 140u ""
-	Pop $dialog_SP_LogoImgBox
-
-	StrCpy $0 ${INSTALLER_BASE}\Icons\camelbox-logo.bmp
-	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
-	Pop $dialog_SP_LogoImg
-	
-	SendMessage $dialog_SP_LogoImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
-		$dialog_SP_LogoImg
-
-	# release name image
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 -40u 140u 50u ""
-	Pop $dialog_SP_ReleaseImgBox
-
-	StrCpy $0 ${INSTALLER_BASE}\Icons\2009.1-tahi.140x64.bmp
-	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
-	Pop $dialog_SP_ReleaseNameImg
-	
-	SendMessage $dialog_SP_ReleaseImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
-		$dialog_SP_ReleaseNameImg
-
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 107u 2u -95u 18u "Welcome to Camelbox!"
-	Pop $dialog_SP_Headline
-
-	SendMessage $dialog_SP_Headline ${WM_SETFONT} $headlineFont 0
-	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 105u 20u -100u -5u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n* Core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules including DBI/DBD::[SQLite|mysql|Pg|ODBC] and friends$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
-	Pop $dialog_SP_Text
-
-	SetCtlColors $dialog_StartPage "" 0xffffff
-	SetCtlColors $dialog_SP_Headline "" 0xffffff
-	SetCtlColors $dialog_SP_Text "" 0xffffff
-
-	# this always comes last
-	nsDialogs::Show
-
-	System::Call gdi32::DeleteObject(i$dialog_SP_LogoImg)
-
-	FailBail:
-		push $0
-		Call ErrorExit
-FunctionEnd
-
-# for the two ChooseHTTPServer functions
-# dialog label and name
-var ctlURL
-
-# keep the archive files after downloading?
-var ctlKeepArchives
-
 
 # custom page for entering in a download URL
 Function ChooseHTTPServer 
@@ -212,13 +134,13 @@ Function ChooseHTTPServer
 	EnableWindow $ctlKeepArchives 1
 
 	${NSD_CreateCheckBox} 0 75u 100% 13u \
-	"Open the 'Using Camelbox' page in a web browser after install is complete?"
-	pop $ctlOpenUsingCamelbox
-	StrCmp $openUsingCamelboxPage "true" 0 EnableOpenUsing
+	"Open the Release Notes page in a web browser after install is complete?"
+	pop $ctlOpenReleaseNotes
+	StrCmp $openReleaseNotes "true" 0 EnableOpenUsing
 		# yep, it was checked, change it
-		${NSD_SetState} $ctlOpenUsingCamelbox ${BST_CHECKED}
+		${NSD_SetState} $ctlOpenReleaseNotes ${BST_CHECKED}
 	EnableOpenUsing:
-	EnableWindow $ctlOpenUsingCamelbox 1
+	EnableWindow $ctlOpenReleaseNotes 1
 
 	# this always comes last
 	nsDialogs::Show
@@ -235,25 +157,98 @@ Function ChooseHTTPServerLeave
 	
 	# get the state of the control
 	${NSD_GetState} $ctlKeepArchives $keepArchives_state
-	# compare it against the 'checked' macro
+	# compare the retrieved control state against the 'checked' macro
 	StrCmp 	$keepArchives_state ${BST_CHECKED} 0 +2
 		# yep, it was checked, change it
 		StrCpy $keepDownloadedArchives "true"
 		Goto CheckOpenUsing
 		# nope, clear it out
 		StrCpy $keepDownloadedArchives "false"
-	# get the state of the open using camelbox webpage control
+
 	CheckOpenUsing:
-	${NSD_GetState} $ctlOpenUsingCamelbox $openUsingCamelbox_state
-	StrCmp $ctlOpenUsingCamelbox ${BST_CHECKED} 0 +2
+	# get the state of the open using camelbox webpage control
+	${NSD_GetState} $ctlOpenReleaseNotes $openReleaseNotes_state
+	# compare the retrieved control state against the 'checked' macro
+	StrCmp $openReleaseNotes_state ${BST_CHECKED} 0 SetOpenUsingFalse
 		# yep, it was checked, change it
-		StrCpy $openUsingCamelboxPage "true"
+		StrCpy $openReleaseNotes "true"
 		Goto ExitNice
+	SetOpenUsingFalse:
 		# nope, clear it out
-		StrCpy $openUsingCamelboxPage "false"
+		StrCpy $openReleaseNotes "false"
 	ExitNice:
 		Return
 FunctionEnd # ChooseHTTPServerLeave
+
+# controls for the StartPage
+var ctlStartPage
+var ctlSPLogoImgBox
+var ctlSPLogoImg
+var ctlSPReleaseImageBox
+var ctlSPReleaseNameImg
+var ctlSPHeadline
+var ctlSPText
+
+# custom page for displaying the welcome banner and logo
+Function StartPage
+	# every time you use a nsDialogs macro, you need to pop the return value
+	# off of the stack; sometimes you can save and reuse this value (it's a
+	# reference to a dialog window for example)
+	nsDialogs::Create /NOUNLOAD 1018
+	Pop $ctlStartPage
+	StrCmp $0 "error" FailBail 0
+
+	# coordinates for dialogs
+	# 1 - some number; see docs
+	# 2 - horizontal offset
+	# 3 - vertical offset
+	# 4 - box width
+	# 5 - box height
+
+	# FIXME these calls to nsDialogs below may be able to use the macros;
+	# shorter commands!
+	# logo image
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 0 140u 140u ""
+	Pop $ctlSPLogoImgBox
+
+	StrCpy $0 ${INSTALLER_BASE}\Icons\camelbox-logo.bmp
+	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
+	Pop $ctlSPLogoImg
+	
+	SendMessage $ctlSPLogoImgBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
+		$ctlSPLogoImg
+
+	# release name image
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS}|${SS_BITMAP} 0 5 -40u 140u 50u ""
+	Pop $ctlSPReleaseImageBox
+
+	StrCpy $0 ${INSTALLER_BASE}\Icons\2009.1-tahi.140x64.bmp
+	System::Call 'user32::LoadImage(i 0, t r0, i ${IMAGE_BITMAP}, i 0, i 0, i ${LR_LOADFROMFILE}) i.s'
+	Pop $ctlSPReleaseNameImg
+	
+	SendMessage $ctlSPReleaseImageBox ${STM_SETIMAGE} ${IMAGE_BITMAP} \
+		$ctlSPReleaseNameImg
+
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 107u 2u -95u 18u "Welcome to Camelbox!"
+	Pop $ctlSPHeadline
+
+	SendMessage $ctlSPHeadline ${WM_SETFONT} $headlineFont 0
+	nsDialogs::CreateControl /NOUNLOAD STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 105u 20u -100u -5u "Camelbox: A complete build of Perl for 32-bit Windows that includes:$\r$\n$\r$\n* Core Gtk2-Perl modules (Gtk2, Glib, Cairo)$\r$\n* A working CPAN module$\r$\n* Bonus (!) Perl modules including DBI/DBD::[SQLite|mysql|Pg|ODBC] and friends$\r$\n* Extra binaries, utilities, development libraries/headers for compiling even more Perl modules from CPAN$\r$\n* Lots of Perl/GTK documenation in HTML format$\r$\n$\r$\nall neatly packaged and ready to install!$\r$\n$\r$\nMany thanks to Milo for the original NSI installer script!$\r$\n$\r$\nHit the Next button to continue."
+	Pop $ctlSPText
+
+	SetCtlColors $ctlStartPage "" 0xffffff
+	SetCtlColors $ctlSPHeadline "" 0xffffff
+	SetCtlColors $ctlSPText "" 0xffffff
+
+	# this always comes last
+	nsDialogs::Show
+
+	System::Call gdi32::DeleteObject(i$ctlSPLogoImg)
+
+	FailBail:
+		push $0
+		Call ErrorExit
+FunctionEnd
 
 # 'download and unpack' function thingy
 Function SnarfUnpack
