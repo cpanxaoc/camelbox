@@ -34,6 +34,7 @@ Section "-WriteUninstaller"
     CreateDirectory "$INSTDIR\bin"
     writeUninstaller "$INSTDIR\camelbox_uninstaller.exe"
 	CreateDirectory "$INSTDIR\share\pkglists"
+	DetailPrint "openUsingCamelbox is $openUsingCamelbox_state"
 	File "/oname=$INSTDIR\share\pkglists\_version_list.txt" ${VERSIONS_FILE}
 SectionEnd ; WriteUninstaller 
 
@@ -691,6 +692,7 @@ SectionGroup /e "Camelbox Environment"
 		DetailPrint "Creating Start Menu Shortcuts"
 		Call CreateCamelboxShortcuts
 	SectionEnd
+
 SectionGroupEnd ; "Camelbox Environment"
 
 Section "Uninstall"
@@ -715,13 +717,17 @@ Section "Uninstall"
 SectionEnd ; Uninstall
 
 Section "-Open Browser"
-	StrCmp 	$openUsingCamelbox_state ${BST_CHECKED} 0 ExitOpen
+	SectionIn RO
+		DetailPrint "Checking whether or not to open 'Using Camelbox'"
+		DetailPrint "openUsingCamelbox is $openUsingCamelbox_state"
+		#StrCmp 	$openUsingCamelboxPage "true" 0 ExitOpen
 		# yep, it was checked, fork a browser window open
-		IfFileExists "C:\camelbox\share\urls\Using_Camelbox.URL" 0 ExitOpen 
-			Exec "$PROGRAMFILES\Internet Explorer\iexplore.exe C:\camelbox\share\urls\Using_Camelbox.URL"
-	ExitOpen:
-		Return
-SectionEnd
+		DetailPrint "Opening 'Using Camebox' page in a web browser..."
+		ReadRegStr $R0 HKCR "http\shell\open\command" ""
+		Exec "$R0 ${USING_CAMELBOX}"
+		ExitOpen:
+			Return
+	SectionEnd
 
 # blank subsection
 #   Section "some-package (extra notes, etc.)"

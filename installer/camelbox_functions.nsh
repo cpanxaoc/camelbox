@@ -44,9 +44,14 @@ var DL_URL
 
 # open the Using Camelbox page after the install?
 var ctlOpenUsingCamelbox
+# state of the checkbox for memory purposes
 var openUsingCamelbox_state
-# are we keeping downloaded archives?
+# state of the flag
+var openUsingCamelboxPage
+# state of the checkbox for keeping downloaded archives
 var keepArchives_state
+# state of the flag
+var keepDownloadedArchives
 # the font used for the headline on the start page
 var headlineFont
 
@@ -55,9 +60,9 @@ var headlineFont
 
 # initialization of any dialogs
 Function .onInit
-	StrCpy $openUsingCamelbox_state "false"
+	StrCpy $openUsingCamelboxPage "false"
 	StrCpy $DL_URL ${BASE_URL}
-	StrCpy $keepArchives_state "false"
+	StrCpy $keepDownloadedArchives "false"
 
 	# prevent multiple installers from being open
 	# from http://nsis.sourceforge.net/Allow_only_one_installer_instance
@@ -200,7 +205,7 @@ Function ChooseHTTPServer
 	# get the state of the control
 	${NSD_GetState} $ctlKeepArchives $keepArchives_state
 	# compare it against the 'checked' macro
-	StrCmp $keepArchives_state "true" 0 EnableKeepArchives
+	StrCmp $keepDownloadedArchives "true" 0 EnableKeepArchives
 		# yep, it was checked, change it
 		${NSD_SetState} $ctlKeepArchives ${BST_CHECKED}
 	EnableKeepArchives:
@@ -209,7 +214,7 @@ Function ChooseHTTPServer
 	${NSD_CreateCheckBox} 0 75u 100% 13u \
 	"Open the 'Using Camelbox' page in a web browser after install is complete?"
 	pop $ctlOpenUsingCamelbox
-	StrCmp $openUsingCamelbox_state "true" 0 EnableOpenUsing
+	StrCmp $openUsingCamelboxPage "true" 0 EnableOpenUsing
 		# yep, it was checked, change it
 		${NSD_SetState} $ctlOpenUsingCamelbox ${BST_CHECKED}
 	EnableOpenUsing:
@@ -233,14 +238,21 @@ Function ChooseHTTPServerLeave
 	# compare it against the 'checked' macro
 	StrCmp 	$keepArchives_state ${BST_CHECKED} 0 +2
 		# yep, it was checked, change it
-		StrCpy $keepArchives_state "true"
-		Return
+		StrCpy $keepDownloadedArchives "true"
+		Goto CheckOpenUsing
 		# nope, clear it out
-		StrCpy $keepArchives_state "false"
+		StrCpy $keepDownloadedArchives "false"
 	# get the state of the open using camelbox webpage control
+	CheckOpenUsing:
 	${NSD_GetState} $ctlOpenUsingCamelbox $openUsingCamelbox_state
-	# compare it against the 'checked' macro
-	Return
+	StrCmp $ctlOpenUsingCamelbox ${BST_CHECKED} 0 +2
+		# yep, it was checked, change it
+		StrCpy $openUsingCamelboxPage "true"
+		Goto ExitNice
+		# nope, clear it out
+		StrCpy $openUsingCamelboxPage "false"
+	ExitNice:
+		Return
 FunctionEnd # ChooseHTTPServerLeave
 
 # 'download and unpack' function thingy
@@ -261,21 +273,21 @@ Function SnarfUnpack
     	Pop $0 
     	# check for an OK download; continues on success, bails on error
     	StrCmp $0 "success" 0 FailBail
-    Checksum:
+    # CHECKSUM
     	DetailPrint "Verifying $archivefile"
     	md5dll::GetMD5File "$INSTDIR\$archivefile"
     	Pop $0
         # compare the two MD5 checksums
     	StrCmp $0 $archivemd5sum 0 SnarfRetry
     	DetailPrint "MD5 sum matches!"
-    Extract:
+    # EXTRACT
     	DetailPrint "Extracting $archivefile"
     	untgz::extract -zlzma "$INSTDIR\$archivefile"
     	DetailPrint "Unzip status: $R0"
     	#StrCmp $0 "OK" 0 FailBail
     	StrCmp $R0 "success" 0 FailBail
     	# don't delete archive files if the user asked to keep them
-    	StrCmp $keepArchives_state "true" +3 0
+    	StrCmp $keepDownloadedArchives "true" +3 0
     	delete "$INSTDIR\$archivefile"
 		IfErrors DeleteError 0
     	# if we've been successful, exit now
@@ -291,13 +303,13 @@ Function SnarfUnpack
     	DetailPrint "MD5 sum does not match!"
 		DetailPrint "Expected: $archivemd5sum"
 		DetailPrint "Received: $0"
-        messageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION|MB_TOPMOST \
+        MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION|MB_TOPMOST \
             "Checksum of $archivefile failed...$\nRetry download?" \
 			IDRETRY Snarf
-        abort
+        Abort
 	DeleteError:
 		DetailPrint "Could not delete $archivefile; aborting..."
-		abort
+		Abort
 FunctionEnd # SnarfUnpack
 
 Function DebugPause

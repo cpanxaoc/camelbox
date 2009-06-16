@@ -174,9 +174,9 @@ sub footer {
 	# this skips over the failbail
 	NiceExit:
 		Return
-	FailBail:
-		push $0
-		Call ShortcutErrorExit
+	#FailBail:
+	#	push $0
+	#	Call ShortcutErrorExit
 FunctionEnd # CreateCamelboxShortcuts
 
 Function ShortcutErrorExit
