@@ -1,0 +1,9 @@
+# Package list for: perl-Shout.txt 2010.053
+share/pkglists/perl-Shout.txt
+site/lib/auto/Shout/.packlist
+site/lib/auto/Shout/autosplit.ix
+site/lib/auto/Shout/Shout.bs
+site/lib/auto/Shout/Shout.dll
+site/lib/example.pl
+site/lib/example2.pl
+site/lib/Shout.pm
