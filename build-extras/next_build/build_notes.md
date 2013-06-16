@@ -22,4 +22,15 @@
     Sharing violation
     dmake:  Error code 132, while making 'test-prep'
 
+## Building Perl ##
+
+    gunzip -c ../../../source/perl-5.18.0.tar.gz | tar -xvf -
+    diff -u ~/src/camelbox.git/build-extras/next_build/perl-5.18.0/win32/makefile.mk makefile.mk | less
+    cp ~/src/camelbox.git/build-extras/next_build/perl-5.18.0/win32/makefile.mk .
+    export PATH=$PATH:/c/Windows/System32/
+    # Verify MinGW and System32 is in the $PATH
+    set | grep "^PATH"
+    time dmake
+    time dmake test
+
 vim: filetype=markdown shiftwidth=2 tabstop=2
