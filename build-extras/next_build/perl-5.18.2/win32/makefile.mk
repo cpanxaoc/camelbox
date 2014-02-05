@@ -21,8 +21,8 @@
 # Set these to wherever you want "dmake install" to put your
 # newly built perl.
 #
-INST_DRV	*= c:
-INST_TOP	*= $(WORKSPACE)\output
+INST_DRV	*= C:
+INST_TOP	*= $(INST_DRV)\Apps\Jenkins\jobs\Perl\output
 
 #
 # Uncomment if you want to build a 32-bit Perl using a 32-bit compiler
@@ -57,7 +57,7 @@ INST_TOP	*= $(WORKSPACE)\output
 # before anything else.  This script can then be set up, for example,
 # to add additional entries to @INC.
 #
-#USE_SITECUST	*= define
+USE_SITECUST	*= define
 
 #
 # uncomment to enable multiple interpreters.  This is need for fork()
