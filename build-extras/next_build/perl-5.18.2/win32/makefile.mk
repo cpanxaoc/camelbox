@@ -22,7 +22,7 @@
 # newly built perl.
 #
 INST_DRV	*= C:
-INST_TOP	*= $(INST_DRV)\Apps\Jenkins\jobs\Perl\output
+INST_TOP	*= $(INST_DRV)\Apps\Jenkins\jobs\Perl\workspace\output
 
 #
 # Uncomment if you want to build a 32-bit Perl using a 32-bit compiler
