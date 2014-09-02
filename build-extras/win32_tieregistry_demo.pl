@@ -3,7 +3,9 @@
 # $Id: perlscript.pl,v 1.7 2008-01-24 07:06:47 brian Exp $
 # Copyright (c)2014 by Brian Manning
 #
-# perl script that does something
+# perl script that reads registry entries on Windows hosts
+# NOTE: the registry entries must exist, or the script will die
+# use Registry Editor to verify the keys exist before panicing
 
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -43,12 +45,36 @@ use warnings;
 sub SomeFunction {
 } # sub SomeFunction
 
+use Data::Dumper;
+use Win32API::Registry qw( :Func :ALL );
 use Win32::TieRegistry ( Delimiter => q(/), ArrayValues => 1);
 my $reg = $Registry->Delimiter(q(/));
-my $tsKey =
-    $Registry->{q(LMachine/SYSTEM/CurrentControlSet/Control/TerminalServer)};
-my $terminal_server_enabled = $tsKey->{q(/fDenyTSConnections)};
-print qq(Terminal server is enabled: $terminal_server_enabled\n);
+my $diskKey =
+    $Registry->{q(LMachine/SYSTEM/MountedDevices/)}
+    or die "Can't read MountedDevices: $^E\n";
+#my $tsKey =
+#    $Registry->{q(LMachine/SYSTEM/CurrentControlSet/Control/TerminalServer/)};
+#my $terminal_server_enabled = $tsKey->{q(/fDenyTSConnections)};
+#if ( defined $terminal_server_enabled ) {
+#    print qq(Terminal server is enabled: $terminal_server_enabled\n);
+#} else {
+#    print qq(Terminal server key does not exist\n);
+#}
+
+my ($key, $type, $data);
+RegOpenKeyEx( HKEY_LOCAL_MACHINE, "SYSTEM\\CurrentControlSet\\Control", 0, KEY_READ, $key )
+  or  die "Can't open HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control: ",
+          regLastError(),"\n";
+RegQueryValueEx( $key, "CurrentUser", [], $type, $data, [] )
+  or  die "Can't read HKEY_L*MACHINE\\SYSTEM\\CurrentControlSet\\Control\\CurrentUser",
+          regLastError(),"\n";
+
+my @disk_keys = keys(%$diskKey);
+print Dumper $key;
+print Dumper $type;
+print Dumper $data;
+#print Dumper $tsKey;
+print Dumper @disk_keys;
 
 =pod
 
